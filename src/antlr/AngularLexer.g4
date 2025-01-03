@@ -1,0 +1,196 @@
+lexer grammar AngularLexer;
+
+// Skipping Unnecessary Characters
+SPACES: [ \t\r\n]+ -> skip;                     // Whitespace
+LINE_COMMENT: '//' ~[\r\n]* -> skip;            // Single-line comments
+BLOCK_COMMENT: '/*' .*? '*/' -> skip;           // Multi-line comments
+
+
+// Angular-Specific Keywords
+MODULE: '@NgModule';
+COMPONENT: '@Component';
+DIRECTIVE: '@Directive';
+PIPE: '@Pipe';
+INJECTABLE: '@Injectable';
+
+
+// Metadata-Specific Keywords
+SELECTOR: 'selector';
+TEMPLATE_URL: 'templateUrl';
+TEMPLATE: 'template';
+STYLE_URLS: 'styleUrls';
+STYLES: 'styles';
+IMPORTS: 'imports';
+EXPORTS: 'exports';
+INPUTS: 'inputs';
+OUTPUTS: 'outputs';
+DECLARATIONS: 'declarations';
+PROVIDERS: 'providers';
+BOOTSTRAP: 'bootstrap';
+STANDALONE: 'standalone';
+
+
+// ImportStatement-Specific Keywords
+IMPORT: 'import';
+FROM: 'from';
+AS : 'as';
+
+
+// Bootstrap-Related Keywords
+PLATFORM_BROWSER_DYNAMIC: 'platformBrowserDynamic';
+BOOTSTRAP_MODULE: 'bootstrapModule';
+BOOTSTRAP_APPLICATION: 'bootstrapApplication';
+
+
+// General JavaScript/TypeScript Keywords
+LET: 'let';
+CONST: 'const';
+
+IF: 'if';
+ELSE: 'else';
+
+RETURN: 'return';
+THROW: 'throw';
+
+CONSOLE: 'console';
+LOG: 'log';
+CATCH: 'catch';
+
+
+// Class-Related Keywords
+EXPORT: 'export';
+
+INTERFACE: 'interface';
+CLASS: 'class';
+ENUM: 'enum';
+
+EXTENDS: 'extends';
+IMPLEMENTS: 'implements';
+
+CONSTRUCTOR: 'constructor';
+THIS: 'this';
+NEW: 'new';
+
+FUNCTION: 'function';
+
+
+// Access Modifiers
+PRIVATE: 'private';
+PUBLIC: 'public';
+PROTECTED: 'protected';
+
+
+// Comparison Operators
+GT: '>';
+GTE: '>=';
+LT: '<';
+LTE: '<=';
+ASSIGN: '=';
+NOT: '!';
+EQ: '==';
+NEQ: '!=';
+STRICT_EQ: '===';
+STRICT_NEQ: '!==';
+
+
+// Arithmatic Operators
+PLUS: '+';
+MINUS: '-';
+MULT: '*';
+DIV: '/';
+MOD: '%';
+
+
+// Logical Operators
+AND: '&&';
+OR: '||';
+BIT_AND: '&';
+BIT_XOR: '^';
+BIT_OR: '|';
+
+
+// Assignment Operators
+PLUS_ASSIGN: '+=';
+MINUS_ASSIGN: '-=';
+MULTIPLY_ASSIGN: '*=';
+DIVIDE_ASSIGN: '/=';
+MODULUS_ASSIGN: '%=';
+POWER_ASSIGN: '**=';
+RIGHT_SHIFT_ARITHMETIC_ASSIGN: '>>=';
+LEFT_SHIFT_ARITHMETIC_ASSIGN: '<<=';
+RIGHT_SHIFT_LOGICAL_ASSIGN: '>>>=';
+BIT_AND_ASSIGN: '&=';
+BIT_XOR_ASSIGN: '^=';
+BIT_OR_ASSIGN: '|=';
+ARROW: '=>';
+NULLCOALESCE: '??';
+
+
+// Increment and Decrement
+PLUS_PLUS: '++';
+MINUS_MINUS: '--';
+
+
+// Punctuations
+SEMI: ';';
+COLON: ':';
+COMMA: ',';
+DOT: '.';
+QUES: '?';
+AT: '@';
+HASH_TAG: '#';
+QUOTE: '"' | '\'';
+
+
+// Brackets
+LPAREN: '(';
+RPAREN: ')';
+LBRACE: '{';
+RBRACE: '}';
+LBRACK: '[';
+RBRACK: ']';
+
+
+// Literals
+STRING: QUOTE (~["\\] | '\\' .)* QUOTE;             // Integer or decimal numbers
+NUMBER: [0-9]+ ('.' [0-9]+)?;                       // Integer or decimal numbers
+BOOL: 'true' | 'false';                             // Boolean literals
+NULL: 'null';                                       // Null value
+
+
+// Identifiers
+IDENTIFIER: [a-zA-Z][-_a-zA-Z0-9]*; // General identifiers
+
+
+// Beginning of the HTML template
+BEGINNING_HTML: '`' -> pushMode(HTML);
+
+mode HTML;
+// Tokens for standard HTML
+OPEN_TAG        : '<' ;
+CLOSE_TAG       : '>' ;
+SLASH           : '/' ;
+EQUALS          : '=' ;
+STRING_HTML     : '"' .*? '"' | '\'' .*? '\'' ;
+
+// Tokens for Angular-specific syntax
+INTERPOLATION_START : '{{' ;
+INTERPOLATION_END   : '}}' ;
+BINDING         : '[' ATTRIBUTE ']' ;
+EVENT           : '(' ATTRIBUTE ')' ;
+TWOBIND         : '[(' ATTRIBUTE ')]' ;
+NGFOR           : '*ngFor' ;
+NGIF            : '*ngIf' ;
+DDIRECTIVE      : '*' ATTRIBUTE ;
+P               : '|' ;
+REFERENCE_VAR   : '#' ATTRIBUTE ;
+
+// Token for attributes and tag names
+ATTRIBUTE       : [a-zA-Z_:][-a-zA-Z0-9_:.!?]* ;
+
+// Whitespace and comments
+WHITESPACE      : [ \t\r\n]+ -> skip ;
+COMMENT         : '<!--' .*? '-->' -> skip ;
+
+// End of the HTML template
+END_HTML        : '`' -> popMode;

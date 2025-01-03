@@ -1,0 +1,64 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { bootstrapApplication } from '@angular/platform-browser';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
+    <div style="text-align: center; margin-top: 50px;">
+      <h2>Dynamic Counter</h2>
+
+      <!-- Display Counter -->
+      <h1 [style.color]="counter === 0 ? 'red' : 'black'">
+        Counter: {{ counter }}
+      </h1>
+
+      <!-- Conditional Rendering for Reset Message -->
+      <p *ngIf="isReset" style="color: grey;">
+        Counter is reset!
+      </p>
+
+      <!-- Buttons to Control Counter -->
+      <button (click)="increment()" 
+              style="padding: 10px; margin-right: 10px; background-color: #28a745; color: white; border: none; cursor: pointer;">
+        Increment
+      </button>
+
+      <button (click)="decrement()" 
+              style="padding: 10px; margin-right: 10px; background-color: #dc3545; color: white; border: none; cursor: pointer;">
+        Decrement
+      </button>
+
+      <button (click)="reset()" 
+              style="padding: 10px; background-color: #6c757d; color: white; border: none; cursor: pointer;">
+        Reset
+      </button>
+    </div>
+  `
+})
+export class AppComponent {
+  counter: number = 0;
+  isReset: boolean = false;
+
+  // Increment the counter
+  increment() {
+    this.counter++;
+    this.isReset = false; // Hide reset message
+  }
+
+  // Decrement the counter
+  decrement() {
+    this.counter--;
+    this.isReset = false; // Hide reset message
+  }
+
+  // Reset the counter
+  reset() {
+    this.counter = 0;
+    this.isReset = true; // Show reset message
+  }
+}
+
+bootstrapApplication(AppComponent).catch(err => console.error(err));

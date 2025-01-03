@@ -1,0 +1,200 @@
+import { Component, OnInit, Injectable } from '@angular/core';
+import { CommonModule, DatePipe } from '@angular/common';
+import { bootstrapApplication } from '@angular/platform-browser';
+
+export interface Post {
+  title: string;
+  content: string;
+  createdAt: Date;
+  userName: string;
+  userAvatarUrl: string;
+}
+@Injectable({
+  providedIn: 'root',
+})
+export class PostService {
+  private posts: Post[] = [
+    {
+      title: 'Post 1',
+      content: 'Content for post 1',
+      createdAt: new Date('2024-01-01'),
+      userName: 'John Doe',
+      userAvatarUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
+    },
+    {
+      title: 'Post 2',
+      content: 'Content for post 2',
+      createdAt: new Date('2024-01-02'),
+      userName: 'Jane Smith',
+      userAvatarUrl: 'https://randomuser.me/api/portraits/women/1.jpg',
+    },
+    {
+      title: 'Post 3',
+      content: 'Content for post 3',
+      createdAt: new Date('2024-01-03'),
+      userName: 'Alice Johnson',
+      userAvatarUrl: 'https://randomuser.me/api/portraits/women/2.jpg',
+    },
+    {
+      title: 'Post 4',
+      content: 'Content for post 4',
+      createdAt: new Date('2024-01-04'),
+      userName: 'Bob Brown',
+      userAvatarUrl: 'https://randomuser.me/api/portraits/men/2.jpg',
+    },
+    {
+      title: 'Post 5',
+      content: 'Content for post 5',
+      createdAt: new Date('2024-01-05'),
+      userName: 'Charlie White',
+      userAvatarUrl: 'https://randomuser.me/api/portraits/men/3.jpg',
+    },
+  ];
+
+  // Method to fetch posts (you can change this to fetch from an API)
+  getPosts(): Post[] {
+    return this.posts;
+  }
+}
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, DatePipe],
+  template: `
+    <div class="post-container">
+      <h2 class="title">Posts</h2>
+      <div class="posts">
+        <div *ngFor="let post of posts" class="post">
+          <div class="post-header">
+            <img [src]="post.userAvatarUrl" alt="User Avatar" class="user-avatar" />
+            <div class="user-details">
+              <h4 class="user-name">{{ post.userName }}</h4>
+              <small class="time-ago">{{ post.createdAt | date: 'short' }}</small>
+            </div>
+          </div>
+          <p class="content">{{ post.content }}</p>
+        </div>
+      </div>
+    </div>
+  `,
+  styles: [
+    `
+      /* Container for the posts */
+      .post-container {
+        max-width: 600px;
+        margin: 0 auto;
+        font-family: Arial, sans-serif;
+      }
+
+      .title {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      /* Style for each individual post */
+      .post {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin-bottom: 20px; /* Adds space between posts */
+        padding: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Post header styling */
+      .post-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .user-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
+
+      .user-details {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .user-name {
+        font-size: 1.1rem;
+        margin: 0;
+      }
+
+      .time-ago {
+        font-size: 0.8rem;
+        color: #777;
+      }
+
+      /* Post content */
+      .content {
+        margin: 10px 0;
+        font-size: 1rem;
+        line-height: 1.4;
+      }
+
+      /* Optional media (images) */
+      .post-media {
+        width: 100%;
+        max-height: 400px;
+        object-fit: cover;
+        border-radius: 8px;
+        margin-top: 10px;
+      }
+
+      /* Action buttons (Like, Comment, Share) */
+      .post-actions {
+        display: flex;
+        justify-content: space-around;
+        margin-top: 15px;
+      }
+
+      .action-btn {
+        background-color: #e7f3ff;
+        border: 1px solid #d0e3f1;
+        border-radius: 5px;
+        padding: 8px 15px;
+        cursor: pointer;
+        color: #1877f2;
+        font-size: 0.9rem;
+      }
+
+      .action-btn:hover {
+        background-color: #d0e3f1;
+      }
+
+      /* Load More Button */
+      .load-more-btn {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #1877f2;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        font-size: 1rem;
+        cursor: pointer;
+      }
+
+      .load-more-btn:hover {
+        background-color: #145dbf;
+      }
+    `,
+  ],
+})
+export class PostListComponent implements OnInit {
+  posts: Post[] = [];
+
+  constructor(private postService: PostService) {}
+
+  ngOnInit() {
+    this.posts = this.postService.getPosts();
+  }
+}
+
+bootstrapApplication(PostListComponent).catch((err) => console.error(err));

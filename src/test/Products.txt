@@ -1,0 +1,92 @@
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common'; // Import CommonModule for ngIf and ngFor
+import { bootstrapApplication } from '@angular/platform-browser';
+
+// Product Model
+interface Product {
+  id: number;
+  name: string;
+  image: string;
+  description: string;
+}
+
+// Root Component
+@Component({
+  selector: 'app-root',
+  standalone: true, // Mark as standalone
+  template: `
+    <div class="container">
+      <!-- Product List -->
+      <div class="products-list">
+        <div
+          *ngFor="let product of products"
+          class="product-item"
+          (click)="selectProduct(product)">
+          <h3>{{ product.name }}</h3>
+          <img [src]="product.image" alt="{{ product.name }}" />
+        </div>
+      </div>
+
+      <!-- Product Details -->
+      <div class="product-details" *ngIf="selectedProduct">
+        <h2>{{ selectedProduct?.name }}</h2>
+        <img [src]="selectedProduct?.image" alt="{{ selectedProduct?.name }}" />
+        <p>{{ selectedProduct?.description }}</p>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .container {
+      display: flex;
+      gap: 20px;
+    }
+
+    .products-list {
+      flex: 1;
+      border-right: 1px solid #ddd;
+      padding-right: 20px;
+    }
+
+    .product-item {
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+
+    .product-item img {
+      max-width: 20%;
+      height: auto;
+    }
+
+    .product-details {
+      flex: 2;
+      padding-left: 20px;
+    }
+
+    .product-details img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+  `],
+  imports: [CommonModule] // Include CommonModule to enable ngIf and ngFor
+})
+export class AppComponent {
+  // Mock Product Data
+  products: Product[] = [
+    { id: 1, name: 'Product 1', image: '/Acm1.jpg', description: 'Description of Product 1' },
+    { id: 2, name: 'Product 2', image: '/Acm1.jpg', description: 'Description of Product 2' },
+    { id: 3, name: 'Product 3', image: '/Acm1.jpg', description: 'Description of Product 3' },
+  ];
+
+  // Selected Product
+  selectedProduct: Product | null = null;
+
+  // Select Product Handler
+  selectProduct(product: Product) {
+    this.selectedProduct = product;
+  }
+}
+
+// Bootstrap the standalone component
+bootstrapApplication(AppComponent)
+  .catch(err => console.error(err));

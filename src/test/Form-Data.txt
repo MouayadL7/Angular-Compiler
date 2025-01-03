@@ -1,0 +1,77 @@
+import { Component } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { bootstrapApplication } from '@angular/platform-browser';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
+  template: `
+    <div style="margin: 20px;">
+      <h2>Simple Form Submission</h2>
+      <!-- Form for Input -->
+      <form (ngSubmit)="onSubmit()" #userForm="ngForm" style="max-width: 400px; margin: auto;">
+        <!-- Name Field -->
+        <div style="margin-bottom: 15px;">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            [(ngModel)]="formData.name"
+            #name="ngModel"
+            style="width: 100%; padding: 8px; margin-top: 5px;"
+          />
+          <div *ngIf="name.invalid && name.touched" style="color: red; font-size: 12px;">
+            Name is required.
+          </div>
+        </div>
+
+        <!-- Email Field -->
+        <div style="margin-bottom: 15px;">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            [(ngModel)]="formData.email"
+            #email="ngModel"
+            style="width: 100%; padding: 8px; margin-top: 5px;"
+          />
+          <div *ngIf="email.invalid && email.touched" style="color: red; font-size: 12px;">
+            Valid email is required.
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <button
+          type="submit"
+          [disabled]="userForm.invalid"
+          style="padding: 8px 20px; background-color: #007BFF; color: white; border: none; cursor: pointer;"
+        >
+          Submit
+        </button>
+      </form>
+
+      <!-- Display Submitted Data -->
+      <div *ngIf="submitted" style="margin-top: 20px; border-top: 1px solid #ddd; padding-top: 20px;">
+        <h3>Submitted Data:</h3>
+        <p><strong>Name:</strong> {{ formData.name }}</p>
+        <p><strong>Email:</strong> {{ formData.email }}</p>
+      </div>
+    </div>
+  `
+})
+export class AppComponent {
+  formData = { name: '', email: '' }; // Default form data
+  submitted = false; // State to control form submission
+
+  onSubmit() {
+    this.submitted = true; // Set submitted to true on form submit
+  }
+}
+
+bootstrapApplication(AppComponent).catch(err => console.error(err));
