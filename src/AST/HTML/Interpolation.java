@@ -27,13 +27,16 @@ public class Interpolation {
 
         if (!attributes.isEmpty()) {
             Space.currentValue++;
-            stringBuilder.append("\t".repeat(Space.currentValue)).append("attributes: [\n");
-            Space.currentValue++;
-            for (String attribute : attributes) {
-                stringBuilder.append("Attribute = ").append(attribute).append(",\n");
+            stringBuilder.append("\t".repeat(Space.currentValue)).append("attributes: [ ");
+
+            for (int i = 0; i < attributes.size(); i++) {
+                stringBuilder.append(attributes.get(i));
+                if (i + 1 < attributes.size()) {
+                    stringBuilder.append(" | ");
+                }
             }
-            Space.currentValue--;
-            stringBuilder.append("\t".repeat(Space.currentValue)).append("]\n");
+
+            stringBuilder.append(" ]\n");
             Space.currentValue--;
         }
 

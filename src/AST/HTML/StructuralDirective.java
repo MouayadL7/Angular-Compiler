@@ -15,14 +15,6 @@ public class StructuralDirective {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("StructuralDirective: {\n");
-
-        Space.currentValue++;
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("name = ").append(name).append("\n");
-        Space.currentValue--;
-
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
-        return stringBuilder.toString();
+        return name;
     }
 }

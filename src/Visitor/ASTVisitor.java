@@ -1,8 +1,10 @@
 package Visitor;
 
-import AST.HTML.Content;
+import AST.HTML.*;
+import AST.HTML.attributeHTML.*;
+import AST.HTML.content.Content;
+import AST.HTML.content.PlainTextContent;
 import AST.HTML.element.Element;
-import AST.HTML.HTMLTemplate;
 import AST.HTML.element.StandardTagElement;
 import AST.array.Array;
 import AST.array.ArrayAccess;
@@ -1726,86 +1728,174 @@ public class ASTVisitor extends AngularParserBaseVisitor {
 
     @Override
     public Object visitSelfClosingTagElement(AngularParser.SelfClosingTagElementContext ctx) {
-        return super.visitSelfClosingTagElement(ctx);
+        return visitSelfClosingTag(ctx.selfClosingTag());
     }
 
     @Override
     public Object visitInterpolationElement(AngularParser.InterpolationElementContext ctx) {
-        return super.visitInterpolationElement(ctx);
+        return visitInterpolation(ctx.interpolation());
     }
 
     @Override
-    public Object visitOpenTag(AngularParser.OpenTagContext ctx) {
-        return super.visitOpenTag(ctx);
+    public OpenTag visitOpenTag(AngularParser.OpenTagContext ctx) {
+        OpenTag openTag = new OpenTag();
+
+        openTag.setTagName(visitTagName(ctx.tagName()));
+
+        List<AttributeHTML> attributeHTMLList = new ArrayList<>();
+        for (AngularParser.AttributeHTMLContext attributeHTMLContext : ctx.attributeHTML()) {
+            attributeHTMLList.add((AttributeHTML) visit(attributeHTMLContext));
+        }
+        openTag.setAttributeHtmlList(attributeHTMLList);
+
+        return openTag;
     }
 
     @Override
-    public Object visitCloseTag(AngularParser.CloseTagContext ctx) {
-        return super.visitCloseTag(ctx);
+    public CloseTag visitCloseTag(AngularParser.CloseTagContext ctx) {
+        CloseTag closeTag = new CloseTag();
+
+        closeTag.setTagName(visitTagName(ctx.tagName()));
+
+        return closeTag;
     }
 
     @Override
     public Object visitSelfClosingTag(AngularParser.SelfClosingTagContext ctx) {
-        return super.visitSelfClosingTag(ctx);
+        SelfClosingTag selfClosingTag = new SelfClosingTag();
+
+        selfClosingTag.setTagName(visitTagName(ctx.tagName()));
+
+        List<AttributeHTML> attributeHTMLList = new ArrayList<>();
+        for (AngularParser.AttributeHTMLContext attributeHTMLContext : ctx.attributeHTML()) {
+            attributeHTMLList.add((AttributeHTML) visit(attributeHTMLContext));
+        }
+        selfClosingTag.setAttributeHtmlList(attributeHTMLList);
+
+        return selfClosingTag;
     }
 
     @Override
     public Object visitNestedElementContent(AngularParser.NestedElementContentContext ctx) {
-        return super.visitNestedElementContent(ctx);
+        return visit(ctx.element());
     }
 
     @Override
     public Object visitPlainTextContent(AngularParser.PlainTextContentContext ctx) {
-        return super.visitPlainTextContent(ctx);
+        PlainTextContent plainTextContent = new PlainTextContent();
+
+        plainTextContent.setText(ctx.ATTRIBUTE().getText());
+
+        return plainTextContent;
     }
 
     @Override
     public Object visitStandardAttribute(AngularParser.StandardAttributeContext ctx) {
-        return super.visitStandardAttribute(ctx);
+        StandardAttribute standardAttribute = new StandardAttribute();
+
+        standardAttribute.setAttribute(ctx.ATTRIBUTE().getText());
+        standardAttribute.setValue(ctx.STRING_HTML().getText());
+
+        return standardAttribute;
     }
 
     @Override
     public Object visitPropertyBinding(AngularParser.PropertyBindingContext ctx) {
-        return super.visitPropertyBinding(ctx);
+        PropertyBinding propertyBinding = new PropertyBinding();
+
+        propertyBinding.setBinding(ctx.BINDING().getText());
+        propertyBinding.setValue(ctx.STRING_HTML().getText());
+
+        return propertyBinding;
     }
 
     @Override
     public Object visitEventBinding(AngularParser.EventBindingContext ctx) {
-        return super.visitEventBinding(ctx);
+        EventBinding eventBinding = new EventBinding();
+
+        eventBinding.setEvent(ctx.EVENT().getText());
+        eventBinding.setValue(ctx.STRING_HTML().getText());
+
+        return eventBinding;
     }
 
     @Override
     public Object visitTwoWayBinding(AngularParser.TwoWayBindingContext ctx) {
-        return super.visitTwoWayBinding(ctx);
+        TwoWayBinding twoWayBinding = new TwoWayBinding();
+
+        twoWayBinding.setTwoBind(ctx.TWOBIND().getText());
+        twoWayBinding.setValue(ctx.STRING_HTML().getText());
+
+        return twoWayBinding;
     }
 
     @Override
     public Object visitStructuralDirectiveAttr(AngularParser.StructuralDirectiveAttrContext ctx) {
-        return super.visitStructuralDirectiveAttr(ctx);
+        StructuralDirectiveAttr structuralDirectiveAttr = new StructuralDirectiveAttr();
+
+        structuralDirectiveAttr.setStructuralDirective(visitStructuralDirective(ctx.structuralDirective()));
+        structuralDirectiveAttr.setValue(ctx.STRING_HTML().getText());
+
+        return structuralDirectiveAttr;
     }
 
     @Override
     public Object visitTemplateReferenceVariable(AngularParser.TemplateReferenceVariableContext ctx) {
-        return super.visitTemplateReferenceVariable(ctx);
+        TemplateReferenceVariable templateReferenceVariable = new TemplateReferenceVariable();
+
+        templateReferenceVariable.setReferenceVar(ctx.REFERENCE_VAR().getText());
+        templateReferenceVariable.setValue(ctx.STRING_HTML().getText());
+
+        return templateReferenceVariable;
     }
 
     @Override
     public Object visitAttributeOnly(AngularParser.AttributeOnlyContext ctx) {
-        return super.visitAttributeOnly(ctx);
+        AttributeOnly attributeOnly = new AttributeOnly();
+
+        attributeOnly.setWord(ctx.ATTRIBUTE().getText());
+
+        return attributeOnly;
     }
 
     @Override
     public Object visitInterpolation(AngularParser.InterpolationContext ctx) {
-        return super.visitInterpolation(ctx);
+        Interpolation interpolation = new Interpolation();
+
+        List<String> attributes = ctx.ATTRIBUTE()
+                .subList(0, ctx.ATTRIBUTE().size()) // Get the relevant sublist
+                .stream()
+                .map(TerminalNode::getText)          // Convert TerminalNode to String
+                .toList();
+
+        interpolation.setAttributes(attributes);
+
+        return interpolation;
     }
 
     @Override
-    public Object visitTagName(AngularParser.TagNameContext ctx) {
-        return super.visitTagName(ctx);
+    public TagName visitTagName(AngularParser.TagNameContext ctx) {
+        TagName tagName = new TagName();
+
+        tagName.setAttribute(ctx.ATTRIBUTE().getText());
+
+        return tagName;
     }
 
     @Override
-    public Object visitStructuralDirective(AngularParser.StructuralDirectiveContext ctx) {
-        return super.visitStructuralDirective(ctx);
+    public StructuralDirective visitStructuralDirective(AngularParser.StructuralDirectiveContext ctx) {
+        StructuralDirective structuralDirective = new StructuralDirective();
+
+        if (ctx.NGFOR() != null) {
+            structuralDirective.setName(ctx.NGFOR().getText());
+        }
+        else if (ctx.NGIF() != null) {
+            structuralDirective.setName(ctx.NGIF().getText());
+        }
+        else {
+            structuralDirective.setName(ctx.DDIRECTIVE().getText());
+        }
+
+        return structuralDirective;
     }
 }

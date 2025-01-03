@@ -1,7 +1,7 @@
 package AST.HTML.element;
 
 import AST.HTML.CloseTag;
-import AST.HTML.Content;
+import AST.HTML.content.Content;
 import AST.HTML.OpenTag;
 import AST.Space;
 
