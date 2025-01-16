@@ -1,6 +1,6 @@
 package AST.expression;
 
-import AST.Space;
+import AST.helpers.Space;
 
 public class PostIncrementExpression extends Expression{
     private Expression expression;
@@ -15,15 +15,14 @@ public class PostIncrementExpression extends Expression{
 
     @Override
     public String toString() {
-
         StringBuilder stringBuilder = new StringBuilder();
-
         stringBuilder.append("\t".repeat(Space.currentValue)).append("PostIncrementExpression: {\n");
+
         Space.currentValue++;
         stringBuilder.append("\t".repeat(Space.currentValue)).append("Left = ").append(expression).append(", Operator = ++").append(",\n");
         Space.currentValue--;
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
 
+        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
     }
 }

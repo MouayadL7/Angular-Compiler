@@ -1,23 +1,24 @@
 package AST.HTML;
 
-import AST.Space;
+import AST.HTML.element.Element;
+import AST.helpers.Space;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Interpolation {
-    private List<String> attributes;
+public class Interpolation extends Element {
+    private List<InterplationElement> interplationElementList;
 
     public Interpolation() {
-        this.attributes = new ArrayList<>();
+        this.interplationElementList = new ArrayList<>();
     }
 
-    public List<String> getAttributes() {
-        return attributes;
+    public List<InterplationElement> getInterplationElementList() {
+        return interplationElementList;
     }
 
-    public void setAttributes(List<String> attributes) {
-        this.attributes = attributes;
+    public void setInterplationElementList(List<InterplationElement> interplationElementList) {
+        this.interplationElementList = interplationElementList;
     }
 
     @Override
@@ -25,13 +26,13 @@ public class Interpolation {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\t".repeat(Space.currentValue)).append("Interpolation: {\n");
 
-        if (!attributes.isEmpty()) {
+        if (!interplationElementList.isEmpty()) {
             Space.currentValue++;
-            stringBuilder.append("\t".repeat(Space.currentValue)).append("attributes: [ ");
+            stringBuilder.append("\t".repeat(Space.currentValue)).append("interplationElementList: [ ");
 
-            for (int i = 0; i < attributes.size(); i++) {
-                stringBuilder.append(attributes.get(i));
-                if (i + 1 < attributes.size()) {
+            for (int i = 0; i < interplationElementList.size(); i++) {
+                stringBuilder.append(interplationElementList.get(i));
+                if (i + 1 < interplationElementList.size()) {
                     stringBuilder.append(" | ");
                 }
             }

@@ -1,8 +1,8 @@
 package AST.HTML.attributeHTML;
 
-import AST.Space;
+import AST.helpers.Space;
 
-public class StandardAttribute {
+public class StandardAttribute extends AttributeHTML{
     private String attribute;
     private String value;
 

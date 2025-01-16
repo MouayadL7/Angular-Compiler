@@ -1,9 +1,10 @@
 package AST.array;
 
-import AST.Space;
+import AST.helpers.Space;
 import AST.expression.Expression;
+import AST.helpers.Value;
 
-public class ArrayAccess {
+public class ArrayAccess extends Value {
     private String name;
     private Expression expression;
 

@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String source = "src/Products.txt";
+        String source = "src/test/Dynamic-Counter.txt";
         CharStream input = fromFileName(source);
 
         AngularLexer lexer = new AngularLexer(input);
@@ -27,6 +27,6 @@ public class Main {
         Program program = (astVisitor.visitProgram(tree));
 
         System.out.println(program);
-        System.out.println(astVisitor.symbolTable);
+    //    System.out.println(astVisitor.symbolTable);
     }
 }

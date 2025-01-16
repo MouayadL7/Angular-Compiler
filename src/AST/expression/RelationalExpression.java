@@ -1,6 +1,6 @@
 package AST.expression;
 
-import AST.Space;
+import AST.helpers.Space;
 
 public class RelationalExpression extends Expression{
     private Expression leftExpression;
@@ -33,15 +33,14 @@ public class RelationalExpression extends Expression{
 
     @Override
     public String toString() {
-
         StringBuilder stringBuilder = new StringBuilder();
-
         stringBuilder.append("\t".repeat(Space.currentValue)).append("RelationalExpression: {\n");
+
         Space.currentValue++;
         stringBuilder.append("\t".repeat(Space.currentValue)).append("Left = ").append(leftExpression.toString()).append(", Operator = ").append(operator).append(" , Right = ").append(rightExpression.toString()).append(",\n");
         Space.currentValue--;
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
 
+        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
     }
 }

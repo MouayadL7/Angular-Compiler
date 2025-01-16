@@ -1,10 +1,11 @@
 package AST.object;
 
-import AST.Space;
+import AST.helpers.Space;
 import AST.helpers.GenericType;
+import AST.helpers.Value;
 import AST.parameterList.ParameterList;
 
-public class ObjectInstantiation {
+public class ObjectInstantiation extends Value {
     private String name;
     private GenericType genericType;
     private ParameterList parameterList;

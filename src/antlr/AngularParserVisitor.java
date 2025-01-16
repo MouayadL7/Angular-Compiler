@@ -527,6 +527,13 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitConditionalSt(AngularParser.ConditionalStContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code IterationSt}
+	 * labeled alternative in {@link AngularParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitIterationSt(AngularParser.IterationStContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code BootstrapCallSt}
 	 * labeled alternative in {@link AngularParser#statement}.
 	 * @param ctx the parse tree
@@ -614,39 +621,52 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitBootstrapCall(AngularParser.BootstrapCallContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code StandardForLoop}
+	 * labeled alternative in {@link AngularParser#iterationStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStandardForLoop(AngularParser.StandardForLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ForOfLoop}
+	 * labeled alternative in {@link AngularParser#iterationStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForOfLoop(AngularParser.ForOfLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ForInLoop}
+	 * labeled alternative in {@link AngularParser#iterationStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitForInLoop(AngularParser.ForInLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code WhileLoop}
+	 * labeled alternative in {@link AngularParser#iterationStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitWhileLoop(AngularParser.WhileLoopContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code DoWhileLoop}
+	 * labeled alternative in {@link AngularParser#iterationStatement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDoWhileLoop(AngularParser.DoWhileLoopContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AngularParser#parameterList}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitParameterList(AngularParser.ParameterListContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ParameterDeclarationPar}
-	 * labeled alternative in {@link AngularParser#parameter}.
+	 * Visit a parse tree produced by {@link AngularParser#parameter}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitParameterDeclarationPar(AngularParser.ParameterDeclarationParContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ValueParameter}
-	 * labeled alternative in {@link AngularParser#parameter}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitValueParameter(AngularParser.ValueParameterContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ArrowFunctionParameter}
-	 * labeled alternative in {@link AngularParser#parameter}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitArrowFunctionParameter(AngularParser.ArrowFunctionParameterContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExpressionParameter}
-	 * labeled alternative in {@link AngularParser#parameter}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpressionParameter(AngularParser.ExpressionParameterContext ctx);
+	T visitParameter(AngularParser.ParameterContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#parameterDeclaration}.
 	 * @param ctx the parse tree
@@ -746,26 +766,11 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayAccess(AngularParser.ArrayAccessContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code ValueInitialization}
-	 * labeled alternative in {@link AngularParser#initialization}.
+	 * Visit a parse tree produced by {@link AngularParser#initialization}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitValueInitialization(AngularParser.ValueInitializationContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ExpressionInitialization}
-	 * labeled alternative in {@link AngularParser#initialization}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpressionInitialization(AngularParser.ExpressionInitializationContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code FunctionDeclarationInitialization}
-	 * labeled alternative in {@link AngularParser#initialization}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFunctionDeclarationInitialization(AngularParser.FunctionDeclarationInitializationContext ctx);
+	T visitInitialization(AngularParser.InitializationContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code LiteralPrimary}
 	 * labeled alternative in {@link AngularParser#primary}.
@@ -774,12 +779,12 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLiteralPrimary(AngularParser.LiteralPrimaryContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code IDENTIFIERPrimary}
+	 * Visit a parse tree produced by the {@code IdentifierPrimary}
 	 * labeled alternative in {@link AngularParser#primary}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitIDENTIFIERPrimary(AngularParser.IDENTIFIERPrimaryContext ctx);
+	T visitIdentifierPrimary(AngularParser.IdentifierPrimaryContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#literal}.
 	 * @param ctx the parse tree
@@ -843,13 +848,6 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitPreIncrementExpression(AngularParser.PreIncrementExpressionContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code PrimaryExpression}
-	 * labeled alternative in {@link AngularParser#expression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPrimaryExpression(AngularParser.PrimaryExpressionContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code LogicalOrExpression}
 	 * labeled alternative in {@link AngularParser#expression}.
 	 * @param ctx the parse tree
@@ -878,12 +876,33 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionCallExpression(AngularParser.FunctionCallExpressionContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code FunctionExpression}
+	 * labeled alternative in {@link AngularParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunctionExpression(AngularParser.FunctionExpressionContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code PostDecreaseExpression}
 	 * labeled alternative in {@link AngularParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitPostDecreaseExpression(AngularParser.PostDecreaseExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ValueExpression}
+	 * labeled alternative in {@link AngularParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValueExpression(AngularParser.ValueExpressionContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ParameterExpression}
+	 * labeled alternative in {@link AngularParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParameterExpression(AngularParser.ParameterExpressionContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code EqualityExpression}
 	 * labeled alternative in {@link AngularParser#expression}.
@@ -1052,6 +1071,12 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitInterpolation(AngularParser.InterpolationContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AngularParser#interplationElement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInterplationElement(AngularParser.InterplationElementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#tagName}.
 	 * @param ctx the parse tree

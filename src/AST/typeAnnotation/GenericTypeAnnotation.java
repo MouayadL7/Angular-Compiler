@@ -1,9 +1,9 @@
 package AST.typeAnnotation;
 
-import AST.Space;
+import AST.helpers.Space;
 import AST.helpers.GenericType;
 
-public class GenericTypeAnnotation {
+public class GenericTypeAnnotation extends TypeAnnotation {
     private String name;
     private GenericType genericType;
 

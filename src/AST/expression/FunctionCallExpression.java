@@ -1,7 +1,7 @@
 package AST.expression;
 
-import AST.Space;
-import AST.program.statement.FunctionCall;
+import AST.helpers.Space;
+import AST.statement.FunctionCall;
 
 public class FunctionCallExpression extends Expression{
     private FunctionCall functionCall;

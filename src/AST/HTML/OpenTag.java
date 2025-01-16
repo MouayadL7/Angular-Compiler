@@ -1,7 +1,7 @@
 package AST.HTML;
 
 import AST.HTML.attributeHTML.AttributeHTML;
-import AST.Space;
+import AST.helpers.Space;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,13 @@
 package AST.HTML;
 
 import AST.HTML.attributeHTML.AttributeHTML;
-import AST.Space;
+import AST.HTML.element.Element;
+import AST.helpers.Space;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelfClosingTag {
+public class SelfClosingTag extends Element {
     private TagName tagName;
     private List<AttributeHTML> attributeHtmlList;
 

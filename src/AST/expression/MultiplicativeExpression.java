@@ -1,6 +1,6 @@
 package AST.expression;
 
-import AST.Space;
+import AST.helpers.Space;
 
 public class MultiplicativeExpression extends  Expression{
     private Expression left;
@@ -34,15 +34,14 @@ public class MultiplicativeExpression extends  Expression{
 
     @Override
     public String toString() {
-
         StringBuilder stringBuilder = new StringBuilder();
-
         stringBuilder.append("\t".repeat(Space.currentValue)).append("MultiplicativeExpression: {\n");
+
         Space.currentValue++;
         stringBuilder.append("\t".repeat(Space.currentValue)).append("Left = ").append(left.toString()).append(", Operator = ").append(operator).append(" , Right = ").append(right.toString()).append(",\n");
         Space.currentValue--;
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
 
+        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
     }
 }

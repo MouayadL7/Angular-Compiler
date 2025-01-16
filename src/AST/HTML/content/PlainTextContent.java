@@ -1,8 +1,8 @@
 package AST.HTML.content;
 
-import AST.Space;
+import AST.helpers.Space;
 
-public class PlainTextContent {
+public class PlainTextContent extends Content{
     private String text;
 
     public String getText() {

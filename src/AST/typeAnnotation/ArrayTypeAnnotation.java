@@ -1,11 +1,11 @@
 package AST.typeAnnotation;
 
-import AST.Space;
+import AST.helpers.Space;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArrayTypeAnnotation {
+public class ArrayTypeAnnotation extends TypeAnnotation{
     private List<String> typeAnnotations;
 
     public ArrayTypeAnnotation() {

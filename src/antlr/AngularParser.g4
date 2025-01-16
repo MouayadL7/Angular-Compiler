@@ -72,7 +72,7 @@ variableDeclaration
     : varHelper IDENTIFIER
       (COLON typeAnnotation)?                                  // Optional type annotation for the variable.
       (ASSIGN initialization)?                                // Optional initialization for the variable.
-      SEMI                                                    // Semicolon to terminate the declaration.
+      SEMI?                                                    // Optional Semicolon to terminate the declaration.
     ;
 
 /* Var Helper */
@@ -161,7 +161,7 @@ metadataComponentProperty
     | TEMPLATE COLON htmlTemplate       # TemplateProperty                  // Inline HTML template.
     | STYLE_URLS COLON array            # StyleUrlsProperty                 // Path to external CSS stylesheets.
     | STYLES COLON array                # StylesProperty                    // Inline CSS styles.
-    | STANDALONE COLON STRING             # StandaloneProperty                // Flag indicating if the component is standalone.
+    | STANDALONE COLON BOOL             # StandaloneProperty                // Flag indicating if the component is standalone.
     | INPUTS COLON array                # InputsProperty                    // List of input properties for the component.
     | OUTPUTS COLON array               # OutputsProperty                   // List of output events for the component.
     | IMPORTS COLON array               # ImportsComponentProperty          // List of modules or components to import.
@@ -189,7 +189,7 @@ directiveMetadata
 /* Directive Metadata Property */
 directiveMetadataProperty
     : SELECTOR COLON STRING         # SelectorDirectiveProperty     // Defines the directive's selector property.
-    | IDENTIFIER COLON value        # IdentifierProperty            // Generic identifier-value pair for directive metadata.
+    | IDENTIFIER COLON expression        # IdentifierProperty            // Generic identifier-value pair for directive metadata.
 
     ;
 
@@ -213,7 +213,7 @@ pipeMetadata
 
 /* Pipe Metadata Property */
 pipeMetadataProperty
-    : IDENTIFIER COLON value                              // Generic identifier-value pair for pipe metadata.
+    : IDENTIFIER COLON expression                              // Generic identifier-value pair for pipe metadata.
     ;
 
 /* Injectable Declaration */
@@ -231,7 +231,7 @@ injectableMetadata
 
 /* Injectable Metadata Property */
 injectableMetadataProperty
-    : IDENTIFIER COLON value                              // Generic identifier-value pair for injectable metadata.
+    : IDENTIFIER COLON expression                              // Generic identifier-value pair for injectable metadata.
     ;
 
 
@@ -268,7 +268,7 @@ methodDeclaration
     : decorator*                                             // Optional decorators for the method.
       IDENTIFIER LPAREN parameterList? RPAREN                // Method name and optional parameter list.
       (COLON typeAnnotation)?                                // Optional return type annotation.
-      LBRACE block RBRACE                                    // Method body enclosed in braces.
+      block                                    // Method body enclosed in braces.
     ;
 
 /* Constructor Declaration */
@@ -314,7 +314,7 @@ enumBody
 /* Enum Property */
 enumProperty
     : IDENTIFIER                                             // Enum property name.
-      (ASSIGN value)?                                        // Optional value assignment.
+      (ASSIGN expression)?                                        // Optional value assignment.
     ;
 
 
@@ -325,29 +325,30 @@ statement
     | returnStatement           # ReturnSt                    // A return statement from a function (e.g., `return value;`).
     | throwStatement            # ThrowSt                     // A throw statement to raise an exception (e.g., `throw new Error("message");`).
     | conditionalStatement      # ConditionalSt               // A conditional statement (e.g., `if`, `else if`, `else`).
+    | iterationStatement        # IterationSt                 // A iteration statement (e.g. 'for loop', 'while loop', 'do while loop').
     | bootstrapCall             # BootstrapCallSt             // A bootstrap function call with optional error handling (e.g., `fetch().catch(error => { ... })`).
     | functionCall              # FunctionCallSt              // A function call (e.g., `myFunction(arg1, arg2)`).
-    | expression                # ExpressionSt                // A generic expression statement.
+    | expression SEMI?          # ExpressionSt                // A generic expression statement.
     ;
 
 /* Assignment */
 assignment
-    : memberAccess ASSIGN initialization                      // Assign a value or initialization to a member (e.g., `obj.prop = value;`).
+    : memberAccess ASSIGN initialization SEMI                      // Assign a value or initialization to a member (e.g., `obj.prop = value;`).
     ;
 
 /* Print Statement */
 printStatement
-    : CONSOLE DOT LOG LPAREN parameterList? RPAREN SEMI       // Log a message to the console (e.g., `console.log("Hello, World!");`).
+    : CONSOLE DOT (LOG | ERROR) LPAREN parameterList? RPAREN SEMI?       // Log a message to the console (e.g., `console.log("Hello, World!");`).
     ;
 
 /* Return Statement */
 returnStatement
-    : RETURN (expression | value)                             // Return a value or expression from a function (e.g., `return x + y;`).
+    : RETURN expression SEMI                       // Return a value or expression from a function (e.g., `return x + y;`).
     ;
 
 /* Throw Statement */
 throwStatement
-    : THROW (expression | value)                              // Throw an exception or value (e.g., `throw new Error("Error message");`).
+    : THROW expression SEMI                             // Throw an exception or value (e.g., `throw new Error("Error message");`).
     ;
 
 /* Conditional Statement */
@@ -377,14 +378,24 @@ statementBody
 
 /* Function Call */
 functionCall
-    : IDENTIFIER genericType? LPAREN parameterList? RPAREN    // A function call with optional generics and parameters (e.g., `myFunction<T>(arg1, arg2)`).
+    : IDENTIFIER genericType? LPAREN parameterList? RPAREN SEMI    // A function call with optional generics and parameters (e.g., `myFunction<T>(arg1, arg2)`).
     ;
 
 /* Bootstrap Call */
 bootstrapCall
     : bootstrapSpecifier LPAREN parameterList? RPAREN
-      (DOT CATCH LPAREN arrowFunction RPAREN)?                // A bootstrap call with optional error handling (e.g., `promise.catch(err => {})`).
+      (DOT CATCH LPAREN arrowFunction RPAREN)? SEMI               // A bootstrap call with optional error handling (e.g., `promise.catch(err => {})`).
     ;
+
+/* Iteration Statement */
+iterationStatement
+    : FOR LPAREN variableDeclaration? SEMI expression? SEMI expression? RPAREN statementBody        # StandardForLoop
+    | FOR LPAREN varHelper IDENTIFIER OF IDENTIFIER RPAREN statementBody                            # ForOfLoop
+    | FOR LPAREN varHelper IDENTIFIER IN IDENTIFIER RPAREN statementBody                            # ForInLoop
+    | WHILE LPAREN expression RPAREN statementBody                                                  # WhileLoop
+    | DO statementBody WHILE LPAREN expression RPAREN SEMI                                          # DoWhileLoop
+    ;
+
 
 /* ====================== Parameter Rules ====================== */
 parameterList
@@ -392,10 +403,7 @@ parameterList
     ;
 
 parameter
-    : parameterDeclaration      # ParameterDeclarationPar // A parameter declared with optional type and initialization.
-    | value                     # ValueParameter                // A parameter with a literal or complex value.
-    | arrowFunction             # ArrowFunctionParameter        // A parameter that is an arrow function.
-    | expression                # ExpressionParameter           // A parameter that is an expression.
+    : expression                // A parameter that is an expression.
     ;
 
 parameterDeclaration
@@ -405,7 +413,7 @@ parameterDeclaration
 
 /* ====================== Array and Value Rules ====================== */
 array
-    : LBRACK (value (COMMA value)*)? COMMA? RBRACK            // An array declaration with optional values (e.g., `[1, 2, 3]`).
+    : LBRACK (expression (COMMA expression)*)? COMMA? RBRACK            // An array declaration with optional values (e.g., `[1, 2, 3]`).
     ;
 
 value
@@ -419,11 +427,11 @@ value
 
 /* ====================== Object Rules ====================== */
 object
-    : LBRACE attributes? RBRACE                               // An object declaration with optional attributes (e.g., `{ key: value }`).
+    : LBRACE interplationElementList? RBRACE                               // An object declaration with optional interplationElementList (e.g., `{ key: value }`).
     ;
 
-attributes
-    : attribute (COMMA attribute)* COMMA?                     // A list of attributes separated by commas.
+interplationElementList
+    : attribute (COMMA attribute)* COMMA?                     // A list of interplationElementList separated by commas.
     ;
 
 attribute
@@ -449,15 +457,13 @@ arrayAccess
 
 /* ================= Initialization Rules ================= */
 initialization
-    : value                  # ValueInitialization                      // Initialize using a direct value (e.g., `let x = 10` or `const str = "hello"`).
-    | expression             # ExpressionInitialization                 // Initialize using an expression (e.g., `let result = a + b` or `const isValid = check() && true`).
-    | functionDeclaration    # FunctionDeclarationInitialization        // Initialize with an inline function declaration (e.g., `const func = function() {}`).
+    : expression                                            // Initialize with an expression.
     ;
 
 /* ================= Primary Value Rules ================= */
 primary
     : literal       # LiteralPrimary                          // A literal value (e.g., `42`, `"hello"`, `true`).
-    | IDENTIFIER    # IDENTIFIERPrimary                      // An identifier representing a variable or function name.
+    | IDENTIFIER    # IdentifierPrimary                      // An identifier representing a variable or function name.
     ;
 
 literal
@@ -465,17 +471,20 @@ literal
     | STRING                                                    // A string literal (e.g., `"hello"`, `'world'`).
     | BOOL                                                      // A boolean value (`true` or `false`).
     | NULL                                                      // A null value.
+    | TEMPLATE_LITERAL
+    | STYLE_TEMPLATE
     ;
 
 /* ================= Expression Rules ================= */
 expression
     : functionCall                                                              # FunctionCallExpression        // A function call expression (e.g., `myFunction(arg1, arg2)`).
+    | functionDeclaration                                                       # FunctionExpression            // A function expression (e.g. (name) => {...}).
     | expression PLUS_PLUS                                                      # PostIncrementExpression       // A post-increment operation (e.g., `i++`).
     | expression MINUS_MINUS                                                    # PostDecreaseExpression        // A post-decrement operation (e.g., `i--`).
     | PLUS_PLUS expression                                                      # PreIncrementExpression        // A pre-increment operation (e.g., `++i`).
     | MINUS_MINUS expression                                                    # PreDecreaseExpression         // A pre-decrement operation (e.g., `--i`).
     | NOT expression                                                            # NotExpression                 // A logical NOT operation (e.g., `!isValid`).
-    | expression DOT expression                                                 # MemberAccessExpression        // A member access operation (e.g., `object.property`).
+    | DOT expression                                                            # MemberAccessExpression        // A member access operation (e.g., `object.property`).
     | expression (MULT | DIV | MOD) expression                                  # MultiplicativeExpression      // Multiplicative operations (e.g., `a * b`, `a / b`, `a % b`).
     | expression (PLUS | MINUS) expression                                      # AdditiveExpression            // Additive operations (e.g., `a + b`, `a - b`).
     | expression (LT | GT | LTE | GTE) expression                               # RelationalExpression          // Relational comparisons (e.g., `a < b`, `a >= b`).
@@ -484,8 +493,8 @@ expression
     | expression OR expression                                                  # LogicalOrExpression           // Logical OR operation (e.g., `a || b`).
     | expression QUES expression COLON expression                               # TernaryExpression             // Ternary conditional operation (e.g., `a ? b : c`).
     | LPAREN expression RPAREN                                                  # ParenthesizedExpression       // An expression enclosed in parentheses (e.g., `(a + b)`).
-    | primary                                                                   # PrimaryExpression             // A primary value (e.g., literal, identifier).
-    | arrayAccess                                                               # MemberAccessExpression        // Array element access (e.g., `array[index]`).
+    | value                                                                     # ValueExpression               // Value expression (e.g. primary, arrayAccess).
+    | parameterDeclaration                                                      # ParameterExpression           // Parameter declaration expression (e.g. name: string, id: int = 1).
     ;
 
 /* ================= Type Annotation Rules ================= */
@@ -532,7 +541,7 @@ element
 
 /* Open and close tag rules */
 openTag
-    : OPEN_TAG tagName attributeHTML* CLOSE_TAG
+    : OPEN_TAG? tagName attributeHTML* CLOSE_TAG
     ;
 
 closeTag
@@ -545,8 +554,8 @@ selfClosingTag
 
 /* Content inside tags */
 content
-    : element           # NestedElementContent
-    | ATTRIBUTE         # PlainTextContent
+    : element               # NestedElementContent
+    | ATTRIBUTE COL?        # PlainTextContent
     ;
 
 /* Attribute rules for various cases */
@@ -557,12 +566,16 @@ attributeHTML
     | TWOBIND EQUALS STRING_HTML                    # TwoWayBinding                 // e.g., [(ngModel)]="value"
     | structuralDirective EQUALS STRING_HTML        # StructuralDirectiveAttr       // e.g., *ngIf="condition"
     | REFERENCE_VAR (EQUALS STRING_HTML)?           # TemplateReferenceVariable     // Optionally includes a value assignment, (e.g., #elementRef="customRef")
-    | ATTRIBUTE                                     # AttributeOnly                 // Matches attributes without values, e.g., disabled or checked
+    | ATTRIBUTE                                     # AttributeOnly                 // Matches interplationElementList without values, e.g., disabled or checked
     ;
 
 /* Interpolation rule for Angular syntax */
 interpolation
-    : INTERPOLATION_START (ATTRIBUTE (P ATTRIBUTE)*)? INTERPOLATION_END
+    : INTERPOLATION_START ((interplationElement) (P interplationElement)*)? INTERPOLATION_END
+    ;
+
+interplationElement
+    : ATTRIBUTE (COL (ATTRIBUTE | STRING_HTML))?
     ;
 
 /* Tag names */

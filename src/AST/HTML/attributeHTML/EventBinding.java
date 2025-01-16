@@ -1,8 +1,8 @@
 package AST.HTML.attributeHTML;
 
-import AST.Space;
+import AST.helpers.Space;
 
-public class EventBinding {
+public class EventBinding extends AttributeHTML{
     private String event;
     private String value;
 

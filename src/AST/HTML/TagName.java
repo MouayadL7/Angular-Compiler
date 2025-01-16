@@ -1,6 +1,6 @@
 package AST.HTML;
 
-import AST.Space;
+import AST.helpers.Space;
 
 public class TagName {
     private String attribute;

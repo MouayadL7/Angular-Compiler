@@ -1,8 +1,10 @@
 package AST.object;
 
-import AST.Space;
+import AST.helpers.Initialization;
+import AST.helpers.Space;
+import AST.helpers.Value;
 
-public class Object {
+public class Object extends Value {
     Attributes attributes;
 
     public Attributes getAttributes() {

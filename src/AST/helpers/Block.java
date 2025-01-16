@@ -1,8 +1,7 @@
 package AST.helpers;
 
-import AST.Space;
-import AST.program.declaration.variableDeclaration.VariableDeclaration;
-import AST.program.statement.Statement;
+import AST.declaration.variableDeclaration.VariableDeclaration;
+import AST.statement.Statement;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,38 +1,28 @@
 package AST.expression;
 
-import AST.Space;
-import AST.helpers.MemberAccess;
+import AST.helpers.Space;
 
 public class MemberAccessExpression extends Expression {
-    private Expression leftExpression;
-    private Expression rightExpression;
+    private Expression expression;
 
-    public Expression getLeftExpression() {
-        return leftExpression;
+    public Expression getExpression() {
+        return expression;
     }
 
-    public void setLeftExpression(Expression leftExpression) {
-        this.leftExpression = leftExpression;
-    }
-
-    public Expression getRightExpression() {
-        return rightExpression;
-    }
-
-    public void setRightExpression(Expression rightExpression) {
-        this.rightExpression = rightExpression;
+    public void setExpression(Expression expression) {
+        this.expression = expression;
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\t".repeat(Space.currentValue)).append("MemberAccessExpression: {\n");
 
-        stringBuilder.append("MemberDotExpression: {\n");
         Space.currentValue++;
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("Left = ").append(leftExpression.toString()).append(", Operator = ").append('.').append(" , Right = ").append(rightExpression.toString()).append(",\n");
+        stringBuilder.append(expression).append("\n");
         Space.currentValue--;
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
 
+        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
     }
 }

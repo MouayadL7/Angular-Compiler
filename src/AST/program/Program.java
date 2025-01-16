@@ -1,9 +1,9 @@
 package AST.program;
 
-import AST.Space;
-import AST.program.declaration.Declaration;
-import AST.program.statement.importStatement.ImportStatement;
-import AST.program.statement.Statement;
+import AST.helpers.Space;
+import AST.declaration.Declaration;
+import AST.statement.importStatement.ImportStatement;
+import AST.statement.Statement;
 
 import java.util.ArrayList;
 import java.util.List;

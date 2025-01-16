@@ -1,8 +1,8 @@
 package AST.HTML.attributeHTML;
 
-import AST.Space;
+import AST.helpers.Space;
 
-public class AttributeOnly {
+public class AttributeOnly extends AttributeHTML{
     private String word;
 
     public String getWord() {

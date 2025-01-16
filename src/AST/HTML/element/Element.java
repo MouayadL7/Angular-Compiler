@@ -1,5 +1,7 @@
 package AST.HTML.element;
 
-public abstract class Element {
+import AST.HTML.content.Content;
+
+public abstract class Element extends Content {
     //
 }

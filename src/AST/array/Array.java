@@ -1,24 +1,25 @@
 package AST.array;
 
-import AST.Space;
+import AST.expression.Expression;
+import AST.helpers.Space;
 import AST.helpers.Value;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Array {
-    List<Value> valueList;
+public class Array extends Value {
+    List<Expression> expressionList;
 
     public Array() {
-        this.valueList = new ArrayList<>();
+        this.expressionList = new ArrayList<>();
     }
 
-    public List<Value> getValueList() {
-        return valueList;
+    public List<Expression> getExpressionList() {
+        return expressionList;
     }
 
-    public void setValueList(List<Value> valueList) {
-        this.valueList = valueList;
+    public void setExpressionList(List<Expression> expressionList) {
+        this.expressionList = expressionList;
     }
 
     @Override
@@ -26,11 +27,11 @@ public class Array {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\t".repeat(Space.currentValue)).append("Array: {\n");
 
-        if (!valueList.isEmpty()) {
-            stringBuilder.append("\t".repeat(Space.currentValue)).append("values: [\n");
+        if (!expressionList.isEmpty()) {
+            stringBuilder.append("\t".repeat(Space.currentValue)).append("expressionList: [\n");
             Space.currentValue++;
-            for (Value property : valueList) {
-                stringBuilder.append(property).append(",\n");
+            for (Expression expression : expressionList) {
+                stringBuilder.append(expression).append(",\n");
             }
             Space.currentValue--;
             stringBuilder.append("\t".repeat(Space.currentValue)).append("]\n");

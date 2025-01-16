@@ -3,12 +3,12 @@ package AST.HTML.element;
 import AST.HTML.CloseTag;
 import AST.HTML.content.Content;
 import AST.HTML.OpenTag;
-import AST.Space;
+import AST.helpers.Space;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class StandardTagElement {
+public class StandardTagElement extends Element{
     private OpenTag openTag;
     private CloseTag closeTag;
     List<Content> contentList;

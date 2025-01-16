@@ -1,6 +1,6 @@
 package AST.expression;
 
-import AST.Space;
+import AST.helpers.Space;
 
 public class LogicalAndExpression extends Expression{
     private Expression leftExpression;
@@ -25,13 +25,13 @@ public class LogicalAndExpression extends Expression{
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-
         stringBuilder.append("\t".repeat(Space.currentValue)).append("LogicalAndExpression: {\n");
+
         Space.currentValue++;
         stringBuilder.append("\t".repeat(Space.currentValue)).append("Left = ").append(leftExpression.toString()).append(", Operator = &&").append(" , Right = ").append(rightExpression.toString()).append(",\n");
         Space.currentValue--;
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
 
+        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
     }
 }

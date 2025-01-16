@@ -1,9 +1,8 @@
 package AST.helpers;
 
-import AST.Space;
 import AST.expression.Expression;
 
-public class MemberAccess {
+public class MemberAccess extends Value{
     private String prefix;
     private Expression expression;
 

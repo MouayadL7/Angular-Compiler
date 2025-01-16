@@ -17,46 +17,52 @@ import AST.parameterList.Parameter;
 import AST.parameterList.ParameterDeclaration;
 import AST.parameterList.ParameterList;
 import AST.program.Program;
-import AST.program.declaration.Declaration;
-import AST.program.declaration.classDeclaration.ClassBody;
-import AST.program.declaration.classDeclaration.ClassDeclaration;
-import AST.program.declaration.classDeclaration.MethodDeclaration;
-import AST.program.declaration.classDeclaration.PropertyDeclaration;
-import AST.program.declaration.classDeclaration.constructorDeclaration.ConstructorBody;
-import AST.program.declaration.classDeclaration.constructorDeclaration.ConstructorDeclaration;
-import AST.program.declaration.componentDeclaration.ComponentDeclaration;
-import AST.program.declaration.componentDeclaration.ComponentMetadata;
-import AST.program.declaration.componentDeclaration.componentMetadataProperty.*;
-import AST.program.declaration.directiveDeclaration.DirectiveDeclaration;
-import AST.program.declaration.directiveDeclaration.DirectiveMetadata;
-import AST.program.declaration.directiveDeclaration.directiveMetadataProperty.DirectiveMetadataProperty;
-import AST.program.declaration.directiveDeclaration.directiveMetadataProperty.IdentifierProperty;
-import AST.program.declaration.directiveDeclaration.directiveMetadataProperty.SelectorDirectiveProperty;
-import AST.program.declaration.enumDeclaration.EnumBody;
-import AST.program.declaration.enumDeclaration.EnumDeclaration;
-import AST.program.declaration.enumDeclaration.EnumProperty;
-import AST.program.declaration.functionDeclaration.AnonymousFunction;
-import AST.program.declaration.functionDeclaration.ArrowFunction;
-import AST.program.declaration.functionDeclaration.FunctionDeclaration;
-import AST.program.declaration.functionDeclaration.NormalFunction;
-import AST.program.declaration.injectableDeclaration.InjectableDeclaration;
-import AST.program.declaration.injectableDeclaration.InjectableMetadata;
-import AST.program.declaration.injectableDeclaration.InjectableMetadataProperty;
-import AST.program.declaration.interfaceDeclaration.InterfaceBody;
-import AST.program.declaration.interfaceDeclaration.InterfaceDeclaration;
-import AST.program.declaration.interfaceDeclaration.InterfaceProperty;
-import AST.program.declaration.ngModuleDeclaration.ModuleMetadata;
-import AST.program.declaration.ngModuleDeclaration.moduleMetadataProperty.*;
-import AST.program.declaration.ngModuleDeclaration.NgModuleDeclaration;
-import AST.program.declaration.pipeDeclaration.PipeDeclaration;
-import AST.program.declaration.pipeDeclaration.PipeMetadata;
-import AST.program.declaration.pipeDeclaration.PipeMetadataProperty;
-import AST.program.declaration.variableDeclaration.VarHelper;
-import AST.program.declaration.variableDeclaration.VariableDeclaration;
-import AST.program.statement.*;
-import AST.program.statement.conditionalStatement.*;
-import AST.program.statement.importStatement.*;
-import AST.program.statement.importStatement.importSpecifier.IdentifierImportSpecifier;
+import AST.declaration.Declaration;
+import AST.declaration.classDeclaration.ClassBody;
+import AST.declaration.classDeclaration.ClassDeclaration;
+import AST.declaration.classDeclaration.MethodDeclaration;
+import AST.declaration.classDeclaration.PropertyDeclaration;
+import AST.declaration.classDeclaration.constructorDeclaration.ConstructorBody;
+import AST.declaration.classDeclaration.constructorDeclaration.ConstructorDeclaration;
+import AST.declaration.componentDeclaration.ComponentDeclaration;
+import AST.declaration.componentDeclaration.ComponentMetadata;
+import AST.declaration.componentDeclaration.componentMetadataProperty.*;
+import AST.declaration.directiveDeclaration.DirectiveDeclaration;
+import AST.declaration.directiveDeclaration.DirectiveMetadata;
+import AST.declaration.directiveDeclaration.directiveMetadataProperty.DirectiveMetadataProperty;
+import AST.declaration.directiveDeclaration.directiveMetadataProperty.IdentifierProperty;
+import AST.declaration.directiveDeclaration.directiveMetadataProperty.SelectorDirectiveProperty;
+import AST.declaration.enumDeclaration.EnumBody;
+import AST.declaration.enumDeclaration.EnumDeclaration;
+import AST.declaration.enumDeclaration.EnumProperty;
+import AST.declaration.functionDeclaration.AnonymousFunction;
+import AST.declaration.functionDeclaration.ArrowFunction;
+import AST.declaration.functionDeclaration.FunctionDeclaration;
+import AST.declaration.functionDeclaration.NormalFunction;
+import AST.declaration.injectableDeclaration.InjectableDeclaration;
+import AST.declaration.injectableDeclaration.InjectableMetadata;
+import AST.declaration.injectableDeclaration.InjectableMetadataProperty;
+import AST.declaration.interfaceDeclaration.InterfaceBody;
+import AST.declaration.interfaceDeclaration.InterfaceDeclaration;
+import AST.declaration.interfaceDeclaration.InterfaceProperty;
+import AST.declaration.ngModuleDeclaration.ModuleMetadata;
+import AST.declaration.ngModuleDeclaration.moduleMetadataProperty.*;
+import AST.declaration.ngModuleDeclaration.NgModuleDeclaration;
+import AST.declaration.pipeDeclaration.PipeDeclaration;
+import AST.declaration.pipeDeclaration.PipeMetadata;
+import AST.declaration.pipeDeclaration.PipeMetadataProperty;
+import AST.helpers.VarHelper;
+import AST.declaration.variableDeclaration.VariableDeclaration;
+import AST.statement.*;
+import AST.statement.conditionalStatement.*;
+import AST.statement.importStatement.*;
+import AST.statement.importStatement.importDeclaration.ImportDeclaration;
+import AST.statement.importStatement.importDeclaration.ImportDefaultSpecifier;
+import AST.statement.importStatement.importDeclaration.ImportNamedSpecifier;
+import AST.statement.importStatement.importDeclaration.ImportNamespaceSpecifier;
+import AST.statement.importStatement.importSpecifier.IdentifierImportSpecifier;
+import AST.statement.importStatement.importSpecifier.ImportSpecifier;
+import AST.statement.iterationStatement.*;
 import AST.typeAnnotation.*;
 import SymbolTable.SymbolTable;
 import antlr.AngularParser;
@@ -109,22 +115,22 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ImportDeclaration visitDefaultSpecifierDeclaration(AngularParser.DefaultSpecifierDeclarationContext ctx) {
+    public Object visitDefaultSpecifierDeclaration(AngularParser.DefaultSpecifierDeclarationContext ctx) {
         return visitImportDefaultSpecifier(ctx.importDefaultSpecifier());
     }
 
     @Override
-    public ImportDeclaration visitNamespaceSpecifierDeclaration(AngularParser.NamespaceSpecifierDeclarationContext ctx) {
+    public Object visitNamespaceSpecifierDeclaration(AngularParser.NamespaceSpecifierDeclarationContext ctx) {
         return visitImportNamespaceSpecifier(ctx.importNamespaceSpecifier());
     }
 
     @Override
-    public ImportDeclaration visitNamedSpecifierDeclaration(AngularParser.NamedSpecifierDeclarationContext ctx) {
+    public Object visitNamedSpecifierDeclaration(AngularParser.NamedSpecifierDeclarationContext ctx) {
         return visitImportNamedSpecifier(ctx.importNamedSpecifier());
     }
 
     @Override
-    public ImportDefaultSpecifier visitImportDefaultSpecifier(AngularParser.ImportDefaultSpecifierContext ctx) {
+    public Object visitImportDefaultSpecifier(AngularParser.ImportDefaultSpecifierContext ctx) {
         ImportDefaultSpecifier importDefaultSpecifier = new ImportDefaultSpecifier();
 
         if (ctx.IDENTIFIER() != null) {
@@ -135,7 +141,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ImportNamespaceSpecifier visitImportNamespaceSpecifier(AngularParser.ImportNamespaceSpecifierContext ctx) {
+    public Object visitImportNamespaceSpecifier(AngularParser.ImportNamespaceSpecifierContext ctx) {
         ImportNamespaceSpecifier importNamespaceSpecifier = new ImportNamespaceSpecifier();
 
         if (ctx.IDENTIFIER() != null) {
@@ -146,7 +152,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ImportNamedSpecifier visitImportNamedSpecifier(AngularParser.ImportNamedSpecifierContext ctx) {
+    public Object visitImportNamedSpecifier(AngularParser.ImportNamedSpecifierContext ctx) {
         ImportNamedSpecifier importNamedSpecifier = new ImportNamedSpecifier();
 
         List<ImportSpecifier> importSpecifierList = new ArrayList<>();
@@ -159,7 +165,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ImportSpecifier visitIdentifierImportSpecifier(AngularParser.IdentifierImportSpecifierContext ctx) {
+    public Object visitIdentifierImportSpecifier(AngularParser.IdentifierImportSpecifierContext ctx) {
         IdentifierImportSpecifier identifierImportSpecifier = new IdentifierImportSpecifier();
 
         if (ctx.IDENTIFIER() != null) {
@@ -175,7 +181,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public Object visitBootstrapSpecifier(AngularParser.BootstrapSpecifierContext ctx) {
+    public BootstrapSpecifier visitBootstrapSpecifier(AngularParser.BootstrapSpecifierContext ctx) {
         BootstrapSpecifier bootstrapSpecifier = new BootstrapSpecifier();
 
         if (ctx.PLATFORM_BROWSER_DYNAMIC() != null) {
@@ -194,52 +200,52 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     /* ====================== Declarations ====================== */
 
     @Override
-    public Declaration visitNgModuleDecl(AngularParser.NgModuleDeclContext ctx) {
+    public Object visitNgModuleDecl(AngularParser.NgModuleDeclContext ctx) {
         return visitNgModuleDeclaration(ctx.ngModuleDeclaration());
     }
 
     @Override
-    public Declaration visitComponentDecl(AngularParser.ComponentDeclContext ctx) {
+    public Object visitComponentDecl(AngularParser.ComponentDeclContext ctx) {
         return visitComponentDeclaration(ctx.componentDeclaration());
     }
 
     @Override
-    public Declaration visitPipeDecl(AngularParser.PipeDeclContext ctx) {
+    public Object visitPipeDecl(AngularParser.PipeDeclContext ctx) {
         return visitPipeDeclaration(ctx.pipeDeclaration());
     }
 
     @Override
-    public Declaration visitInjectableDecl(AngularParser.InjectableDeclContext ctx) {
+    public Object visitInjectableDecl(AngularParser.InjectableDeclContext ctx) {
         return visitInjectableDeclaration(ctx.injectableDeclaration());
     }
 
     @Override
-    public Declaration visitDirectiveDecl(AngularParser.DirectiveDeclContext ctx) {
+    public Object visitDirectiveDecl(AngularParser.DirectiveDeclContext ctx) {
         return visitDirectiveDeclaration(ctx.directiveDeclaration());
     }
 
     @Override
-    public Declaration visitInterfaceDecl(AngularParser.InterfaceDeclContext ctx) {
+    public Object visitInterfaceDecl(AngularParser.InterfaceDeclContext ctx) {
         return visitInterfaceDeclaration(ctx.interfaceDeclaration());
     }
 
     @Override
-    public Declaration visitClassDecl(AngularParser.ClassDeclContext ctx) {
+    public Object visitClassDecl(AngularParser.ClassDeclContext ctx) {
         return visitClassDeclaration(ctx.classDeclaration());
     }
 
     @Override
-    public Declaration visitEnumDecl(AngularParser.EnumDeclContext ctx) {
+    public Object visitEnumDecl(AngularParser.EnumDeclContext ctx) {
         return visitEnumDeclaration(ctx.enumDeclaration());
     }
 
     @Override
-    public Declaration visitVariableDecl(AngularParser.VariableDeclContext ctx) {
+    public Object visitVariableDecl(AngularParser.VariableDeclContext ctx) {
         return visitVariableDeclaration(ctx.variableDeclaration());
     }
 
     @Override
-    public Declaration visitFunctionDecl(AngularParser.FunctionDeclContext ctx) {
+    public Object visitFunctionDecl(AngularParser.FunctionDeclContext ctx) {
         return (FunctionDeclaration) visit(ctx.functionDeclaration());
     }
 
@@ -255,7 +261,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         }
 
         if (ctx.initialization() != null) {
-            variableDeclaration.setInitialization((Initialization) visit(ctx.initialization()));
+            variableDeclaration.setInitialization(visitInitialization(ctx.initialization()));
         }
 
         return variableDeclaration;
@@ -276,22 +282,22 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public FunctionDeclaration visitNormalFunctionDeclaration(AngularParser.NormalFunctionDeclarationContext ctx) {
+    public Object visitNormalFunctionDeclaration(AngularParser.NormalFunctionDeclarationContext ctx) {
         return visitNormalFunction(ctx.normalFunction());
     }
 
     @Override
-    public FunctionDeclaration visitAnonymousFunctionDeclaration(AngularParser.AnonymousFunctionDeclarationContext ctx) {
+    public Object visitAnonymousFunctionDeclaration(AngularParser.AnonymousFunctionDeclarationContext ctx) {
         return visitAnonymousFunction(ctx.anonymousFunction());
     }
 
     @Override
-    public FunctionDeclaration visitArrowFunctionDeclaration(AngularParser.ArrowFunctionDeclarationContext ctx) {
+    public Object visitArrowFunctionDeclaration(AngularParser.ArrowFunctionDeclarationContext ctx) {
         return visitArrowFunction(ctx.arrowFunction());
     }
 
     @Override
-    public NormalFunction visitNormalFunction(AngularParser.NormalFunctionContext ctx) {
+    public Object visitNormalFunction(AngularParser.NormalFunctionContext ctx) {
         NormalFunction normalFunction = new NormalFunction();
 
         normalFunction.setName(ctx.IDENTIFIER().getText());
@@ -309,7 +315,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public AnonymousFunction visitAnonymousFunction(AngularParser.AnonymousFunctionContext ctx) {
+    public Object visitAnonymousFunction(AngularParser.AnonymousFunctionContext ctx) {
         AnonymousFunction anonymousFunction = new AnonymousFunction();
 
         anonymousFunction.setBlock(visitBlock(ctx.block()));
@@ -372,7 +378,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public NgModuleDeclaration visitNgModuleDeclaration(AngularParser.NgModuleDeclarationContext ctx) {
+    public Object visitNgModuleDeclaration(AngularParser.NgModuleDeclarationContext ctx) {
         NgModuleDeclaration ngModuleDeclaration = new NgModuleDeclaration();
 
         ngModuleDeclaration.setClassDeclaration(visitClassDeclaration(ctx.classDeclaration()));
@@ -390,7 +396,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
 
         List<ModuleMetadataProperty> moduleMetadataPropertyList = new ArrayList<>();
         for (AngularParser.MetadataModulePropertyContext metadataModulePropertyContext: ctx.metadataModuleProperty()) {
-            moduleMetadataPropertyList.add(visitMetadataModuleProperty(metadataModulePropertyContext));
+            moduleMetadataPropertyList.add((ModuleMetadataProperty) visit(metadataModulePropertyContext));
         }
         moduleMetadata.setMetadataModulePropertyList(moduleMetadataPropertyList);
 
@@ -398,7 +404,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ModuleMetadataProperty visitBootstrapProperty(AngularParser.BootstrapPropertyContext ctx) {
+    public Object visitBootstrapProperty(AngularParser.BootstrapPropertyContext ctx) {
         BootstrapProperty bootstrapProperty = new BootstrapProperty();
 
         bootstrapProperty.setArray(visitArray(ctx.array()));
@@ -407,7 +413,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ModuleMetadataProperty visitDeclarationsModuleProperty(AngularParser.DeclarationsModulePropertyContext ctx) {
+    public Object visitDeclarationsModuleProperty(AngularParser.DeclarationsModulePropertyContext ctx) {
         DeclarationsModuleProperty declarationsModuleProperty = new DeclarationsModuleProperty();
 
         declarationsModuleProperty.setArray(visitArray(ctx.array()));
@@ -416,7 +422,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ModuleMetadataProperty visitImportsModuleProperty(AngularParser.ImportsModulePropertyContext ctx) {
+    public Object visitImportsModuleProperty(AngularParser.ImportsModulePropertyContext ctx) {
         ImportsModuleProperty importsModuleProperty = new ImportsModuleProperty();
 
         importsModuleProperty.setArray(visitArray(ctx.array()));
@@ -425,7 +431,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ModuleMetadataProperty visitExportsModuleProperty(AngularParser.ExportsModulePropertyContext ctx) {
+    public Object visitExportsModuleProperty(AngularParser.ExportsModulePropertyContext ctx) {
         ExportsModuleProperty exportsModuleProperty = new ExportsModuleProperty();
 
         exportsModuleProperty.setArray(visitArray(ctx.array()));
@@ -434,7 +440,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ModuleMetadataProperty visitProvidersModuleProperty(AngularParser.ProvidersModulePropertyContext ctx) {
+    public Object visitProvidersModuleProperty(AngularParser.ProvidersModulePropertyContext ctx) {
         ProvidersModuleProperty providersModuleProperty = new ProvidersModuleProperty();
 
         providersModuleProperty.setArray(visitArray(ctx.array()));
@@ -443,7 +449,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ComponentDeclaration visitComponentDeclaration(AngularParser.ComponentDeclarationContext ctx) {
+    public Object visitComponentDeclaration(AngularParser.ComponentDeclarationContext ctx) {
         ComponentDeclaration componentDeclaration = new ComponentDeclaration();
 
         componentDeclaration.setClassDeclaration(visitClassDeclaration(ctx.classDeclaration()));
@@ -469,7 +475,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ComponentMetadataProperty visitSelectorComponentProperty(AngularParser.SelectorComponentPropertyContext ctx) {
+    public Object visitSelectorComponentProperty(AngularParser.SelectorComponentPropertyContext ctx) {
         SelectorComponentProperty selectorComponentProperty = new SelectorComponentProperty();
 
         selectorComponentProperty.setString(ctx.STRING().getText());
@@ -478,7 +484,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ComponentMetadataProperty visitTemplateUrlProperty(AngularParser.TemplateUrlPropertyContext ctx) {
+    public Object visitTemplateUrlProperty(AngularParser.TemplateUrlPropertyContext ctx) {
         TemplateUrlProperty templateUrlProperty = new TemplateUrlProperty();
 
         templateUrlProperty.setString(ctx.STRING().getText());
@@ -487,7 +493,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ComponentMetadataProperty visitTemplateProperty(AngularParser.TemplatePropertyContext ctx) {
+    public Object visitTemplateProperty(AngularParser.TemplatePropertyContext ctx) {
         TemplateProperty templateProperty = new TemplateProperty();
 
         templateProperty.setHtmlTemplate(visitHtmlTemplate(ctx.htmlTemplate()));
@@ -496,7 +502,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ComponentMetadataProperty visitStyleUrlsProperty(AngularParser.StyleUrlsPropertyContext ctx) {
+    public Object visitStyleUrlsProperty(AngularParser.StyleUrlsPropertyContext ctx) {
         StyleUrlsProperty styleUrlsProperty = new StyleUrlsProperty();
 
         styleUrlsProperty.setArray(visitArray(ctx.array()));
@@ -505,7 +511,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ComponentMetadataProperty visitStylesProperty(AngularParser.StylesPropertyContext ctx) {
+    public Object visitStylesProperty(AngularParser.StylesPropertyContext ctx) {
         StylesProperty stylesProperty = new StylesProperty();
 
         stylesProperty.setArray(visitArray(ctx.array()));
@@ -514,16 +520,16 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ComponentMetadataProperty visitStandaloneProperty(AngularParser.StandalonePropertyContext ctx) {
+    public Object visitStandaloneProperty(AngularParser.StandalonePropertyContext ctx) {
         StandaloneProperty standaloneProperty = new StandaloneProperty();
 
-        standaloneProperty.setValue(ctx.STRING().getText());
+        standaloneProperty.setValue(ctx.BOOL().getText());
 
         return standaloneProperty;
     }
 
     @Override
-    public ComponentMetadataProperty visitInputsProperty(AngularParser.InputsPropertyContext ctx) {
+    public Object visitInputsProperty(AngularParser.InputsPropertyContext ctx) {
         InputsProperty inputsProperty = new InputsProperty();
 
         inputsProperty.setArray(visitArray(ctx.array()));
@@ -532,7 +538,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ComponentMetadataProperty visitOutputsProperty(AngularParser.OutputsPropertyContext ctx) {
+    public Object visitOutputsProperty(AngularParser.OutputsPropertyContext ctx) {
         OutputsProperty outputsProperty = new OutputsProperty();
 
         outputsProperty.setArray(visitArray(ctx.array()));
@@ -541,7 +547,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ComponentMetadataProperty visitImportsComponentProperty(AngularParser.ImportsComponentPropertyContext ctx) {
+    public Object visitImportsComponentProperty(AngularParser.ImportsComponentPropertyContext ctx) {
         ImportsComponentProperty importsComponentProperty = new ImportsComponentProperty();
 
         importsComponentProperty.setArray(visitArray(ctx.array()));
@@ -550,7 +556,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ComponentMetadataProperty visitExportsComponentProperty(AngularParser.ExportsComponentPropertyContext ctx) {
+    public Object visitExportsComponentProperty(AngularParser.ExportsComponentPropertyContext ctx) {
         ExportsComponentProperty exportsComponentProperty = new ExportsComponentProperty();
 
         exportsComponentProperty.setArray(visitArray(ctx.array()));
@@ -559,7 +565,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ComponentMetadataProperty visitProvidersComponentProperty(AngularParser.ProvidersComponentPropertyContext ctx) {
+    public Object visitProvidersComponentProperty(AngularParser.ProvidersComponentPropertyContext ctx) {
         ProvidersComponentProperty providersComponentProperty = new ProvidersComponentProperty();
 
         providersComponentProperty.setArray(visitArray(ctx.array()));
@@ -568,7 +574,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ComponentMetadataProperty visitDeclarationsComponentProperty(AngularParser.DeclarationsComponentPropertyContext ctx) {
+    public Object visitDeclarationsComponentProperty(AngularParser.DeclarationsComponentPropertyContext ctx) {
         DeclarationsComponentProperty declarationsComponentProperty = new DeclarationsComponentProperty();
 
         declarationsComponentProperty.setArray(visitArray(ctx.array()));
@@ -579,7 +585,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     /* ===================== Other Angular Declarations ===================== */
 
     @Override
-    public DirectiveDeclaration visitDirectiveDeclaration(AngularParser.DirectiveDeclarationContext ctx) {
+    public Object visitDirectiveDeclaration(AngularParser.DirectiveDeclarationContext ctx) {
         DirectiveDeclaration directiveDeclaration = new DirectiveDeclaration();
 
         directiveDeclaration.setClassDeclaration(visitClassDeclaration(ctx.classDeclaration()));
@@ -605,7 +611,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public DirectiveMetadataProperty visitSelectorDirectiveProperty(AngularParser.SelectorDirectivePropertyContext ctx) {
+    public Object visitSelectorDirectiveProperty(AngularParser.SelectorDirectivePropertyContext ctx) {
         SelectorDirectiveProperty selectorDirectiveProperty = new SelectorDirectiveProperty();
 
         selectorDirectiveProperty.setString(ctx.STRING().getText());
@@ -614,7 +620,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public DirectiveMetadataProperty visitIdentifierProperty(AngularParser.IdentifierPropertyContext ctx) {
+    public Object visitIdentifierProperty(AngularParser.IdentifierPropertyContext ctx) {
         IdentifierProperty identifierProperty = new IdentifierProperty();
 
         identifierProperty.setIdentifier(ctx.IDENTIFIER().getText());
@@ -634,7 +640,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public PipeDeclaration visitPipeDeclaration(AngularParser.PipeDeclarationContext ctx) {
+    public Object visitPipeDeclaration(AngularParser.PipeDeclarationContext ctx) {
         PipeDeclaration pipeDeclaration = new PipeDeclaration();
 
         pipeDeclaration.setClassDeclaration(visitClassDeclaration(ctx.classDeclaration()));
@@ -664,13 +670,13 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         PipeMetadataProperty pipeMetadataProperty = new PipeMetadataProperty();
 
         pipeMetadataProperty.setName(ctx.IDENTIFIER().getText());
-        pipeMetadataProperty.setValue((Value) visit(ctx.value()));
+        pipeMetadataProperty.setExpression((Expression) visit(ctx.expression()));
 
         return pipeMetadataProperty;
     }
 
     @Override
-    public InjectableDeclaration visitInjectableDeclaration(AngularParser.InjectableDeclarationContext ctx) {
+    public Object visitInjectableDeclaration(AngularParser.InjectableDeclarationContext ctx) {
         InjectableDeclaration injectableDeclaration = new InjectableDeclaration();
 
         injectableDeclaration.setClassDeclaration(visitClassDeclaration(ctx.classDeclaration()));
@@ -700,7 +706,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         InjectableMetadataProperty injectableMetadataProperty = new InjectableMetadataProperty();
 
         injectableMetadataProperty.setName(ctx.IDENTIFIER().getText());
-        injectableMetadataProperty.setValue((Value) visit(ctx.value()));
+        injectableMetadataProperty.setExpression((Expression) visit(ctx.expression()));
 
         return injectableMetadataProperty;
     }
@@ -812,7 +818,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         }
 
         if (ctx.initialization() != null) {
-            propertyDeclaration.setInitialization((Initialization) visit(ctx.initialization()));
+            propertyDeclaration.setInitialization(visitInitialization(ctx.initialization()));
         }
 
         return propertyDeclaration;
@@ -873,7 +879,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public InterfaceDeclaration visitInterfaceDeclaration(AngularParser.InterfaceDeclarationContext ctx) {
+    public Object visitInterfaceDeclaration(AngularParser.InterfaceDeclarationContext ctx) {
         InterfaceDeclaration interfaceDeclaration = new InterfaceDeclaration();
 
         if (ctx.EXPORT() != null) {
@@ -926,7 +932,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public EnumDeclaration visitEnumDeclaration(AngularParser.EnumDeclarationContext ctx) {
+    public Object visitEnumDeclaration(AngularParser.EnumDeclarationContext ctx) {
         EnumDeclaration enumDeclaration = new EnumDeclaration();
 
         if (ctx.EXPORT() != null) {
@@ -962,8 +968,8 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         // set Name
         enumProperty.setName(ctx.IDENTIFIER().getText());
 
-        if (ctx.value() != null) {
-            enumProperty.setValue((Value) visit(ctx.value()));
+        if (ctx.expression() != null) {
+            enumProperty.setExpression((Expression) visit(ctx.expression()));
         }
 
         return enumProperty;
@@ -972,32 +978,32 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     /* ====================== Statement Rules ====================== */
 
     @Override
-    public Statement visitAssignmentSt(AngularParser.AssignmentStContext ctx) {
+    public Object visitAssignmentSt(AngularParser.AssignmentStContext ctx) {
         return visitAssignment(ctx.assignment());
     }
 
     @Override
-    public Statement visitPrintSt(AngularParser.PrintStContext ctx) {
+    public Object visitPrintSt(AngularParser.PrintStContext ctx) {
         return visitPrintStatement(ctx.printStatement());
     }
 
     @Override
-    public Statement visitReturnSt(AngularParser.ReturnStContext ctx) {
+    public Object visitReturnSt(AngularParser.ReturnStContext ctx) {
         return visitReturnStatement(ctx.returnStatement());
     }
 
     @Override
-    public Statement visitThrowSt(AngularParser.ThrowStContext ctx) {
+    public Object visitThrowSt(AngularParser.ThrowStContext ctx) {
         return visitThrowStatement(ctx.throwStatement());
     }
 
     @Override
-    public Statement visitConditionalSt(AngularParser.ConditionalStContext ctx) {
+    public Object visitConditionalSt(AngularParser.ConditionalStContext ctx) {
         return visitConditionalStatement(ctx.conditionalStatement());
     }
 
     @Override
-    public Statement visitBootstrapCallSt(AngularParser.BootstrapCallStContext ctx) {
+    public Object visitBootstrapCallSt(AngularParser.BootstrapCallStContext ctx) {
         return visitBootstrapCall(ctx.bootstrapCall());
     }
 
@@ -1012,18 +1018,22 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public Assignment visitAssignment(AngularParser.AssignmentContext ctx) {
+    public Object visitIterationSt(AngularParser.IterationStContext ctx) {
+        return visit(ctx.iterationStatement());
+    }
+
+    @Override
+    public Object visitAssignment(AngularParser.AssignmentContext ctx) {
         Assignment assignment = new Assignment();
 
         assignment.setMemberAccess((MemberAccess) visit(ctx.memberAccess()));
-
-        assignment.setInitialization((Initialization) visit(ctx.initialization()));
+        assignment.setInitialization(visitInitialization(ctx.initialization()));
 
         return assignment;
     }
 
     @Override
-    public PrintStatement visitPrintStatement(AngularParser.PrintStatementContext ctx) {
+    public Object visitPrintStatement(AngularParser.PrintStatementContext ctx) {
         PrintStatement printStatement = new PrintStatement();
 
         if (ctx.parameterList() != null) {
@@ -1034,35 +1044,25 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ReturnStatement visitReturnStatement(AngularParser.ReturnStatementContext ctx) {
+    public Object visitReturnStatement(AngularParser.ReturnStatementContext ctx) {
         ReturnStatement returnStatement = new ReturnStatement();
 
-        if (ctx.expression() != null) {
-            returnStatement.setExpression((Expression) visit(ctx.expression()));
-        }
-        else {
-            returnStatement.setValue((Value) visit(ctx.value()));
-        }
+        returnStatement.setExpression((Expression) visit(ctx.expression()));
 
         return returnStatement;
     }
 
     @Override
-    public ThrowStatement visitThrowStatement(AngularParser.ThrowStatementContext ctx) {
+    public Object visitThrowStatement(AngularParser.ThrowStatementContext ctx) {
         ThrowStatement throwStatement = new ThrowStatement();
 
-        if (ctx.expression() != null) {
-            throwStatement.setExpression((Expression) visit(ctx.expression()));
-        }
-        else {
-            throwStatement.setValue((Value) visit(ctx.value()));
-        }
+        throwStatement.setExpression((Expression) visit(ctx.expression()));
 
         return throwStatement;
     }
 
     @Override
-    public ConditionalStatement visitConditionalStatement(AngularParser.ConditionalStatementContext ctx) {
+    public Object visitConditionalStatement(AngularParser.ConditionalStatementContext ctx) {
         ConditionalStatement conditionalStatement = new ConditionalStatement();
 
         // set if
@@ -1147,7 +1147,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public BootstrapCall visitBootstrapCall(AngularParser.BootstrapCallContext ctx) {
+    public Object visitBootstrapCall(AngularParser.BootstrapCallContext ctx) {
         BootstrapCall bootstrapCall = new BootstrapCall();
 
         bootstrapCall.setBootstrapSpecifier(visitBootstrapSpecifier(ctx.bootstrapSpecifier()));
@@ -1163,6 +1163,65 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         return bootstrapCall;
     }
 
+    @Override
+    public Object visitStandardForLoop(AngularParser.StandardForLoopContext ctx) {
+        StandardForLoop standardForLoop = new StandardForLoop();
+
+        if (ctx.variableDeclaration() != null) {
+            standardForLoop.setVariableDeclaration(visitVariableDeclaration(ctx.variableDeclaration()));
+        }
+
+        if (ctx.expression(0) != null) {
+            standardForLoop.setCondition((Expression) visit(ctx.expression(0)));
+        }
+
+        if (ctx.expression(1) != null) {
+            standardForLoop.setUpdate((Expression) visit(ctx.expression(1)));
+        }
+
+        standardForLoop.setStatementBody(visitStatementBody(ctx.statementBody()));
+
+        return standardForLoop;
+    }
+
+    @Override
+    public Object visitForOfLoop(AngularParser.ForOfLoopContext ctx) {
+        ForOfLoop forOfLoop = new ForOfLoop();
+
+        forOfLoop.setStatementBody(visitStatementBody(ctx.statementBody()));
+
+        return forOfLoop;
+    }
+
+    @Override
+    public Object visitForInLoop(AngularParser.ForInLoopContext ctx) {
+        ForInLoop forInLoop = new ForInLoop();
+
+        forInLoop.setStatementBody(visitStatementBody(ctx.statementBody()));
+
+        return forInLoop;
+    }
+
+    @Override
+    public Object visitWhileLoop(AngularParser.WhileLoopContext ctx) {
+        WhileLoop whileLoop = new WhileLoop();
+
+        whileLoop.setCondition((Expression) visit(ctx.expression()));
+        whileLoop.setStatementBody(visitStatementBody(ctx.statementBody()));
+
+        return whileLoop;
+    }
+
+    @Override
+    public Object visitDoWhileLoop(AngularParser.DoWhileLoopContext ctx) {
+        DoWhileLoop doWhileLoop = new DoWhileLoop();
+
+        doWhileLoop.setCondition((Expression) visit(ctx.expression()));
+        doWhileLoop.setStatementBody(visitStatementBody(ctx.statementBody()));
+
+        return doWhileLoop;
+    }
+
     /* ====================== Parameter Rules ====================== */
 
     @Override
@@ -1171,7 +1230,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
 
         List<Parameter> parameters = new ArrayList<>();
         for (AngularParser.ParameterContext parameterContext : ctx.parameter()) {
-            parameters.add((Parameter) visit(parameterContext));
+            parameters.add(visitParameter(parameterContext));
         }
         parameterList.setParameters(parameters);
 
@@ -1179,23 +1238,12 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public Object visitParameterDeclarationPar(AngularParser.ParameterDeclarationParContext ctx) {
-        return visitParameterDeclaration(ctx.parameterDeclaration());
-    }
+    public Parameter visitParameter(AngularParser.ParameterContext ctx) {
+        Parameter parameter = new Parameter();
 
-    @Override
-    public Object visitValueParameter(AngularParser.ValueParameterContext ctx) {
-        return visit(ctx.value());
-    }
+        parameter.setExpression((Expression) visit(ctx.expression()));
 
-    @Override
-    public Object visitArrowFunctionParameter(AngularParser.ArrowFunctionParameterContext ctx) {
-        return visitArrowFunction(ctx.arrowFunction());
-    }
-
-    @Override
-    public Object visitExpressionParameter(AngularParser.ExpressionParameterContext ctx) {
-        return visit(ctx.expression());
+        return parameter;
     }
 
     @Override
@@ -1218,7 +1266,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         }
 
         if (ctx.initialization() != null) {
-            parameterDeclaration.setInitialization((Initialization) visit(ctx.initialization()));
+            parameterDeclaration.setInitialization(visitInitialization(ctx.initialization()));
         }
 
         return parameterDeclaration;
@@ -1230,11 +1278,11 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     public Array visitArray(AngularParser.ArrayContext ctx) {
         Array array = new Array();
 
-        List<Value> valueList = new ArrayList<>();
-        for (AngularParser.ValueContext valueContext : ctx.value()) {
-            valueList.add((Value) visit(valueContext));
+        List<Expression> expressionList = new ArrayList<>();
+        for (AngularParser.ExpressionContext expressionContext : ctx.expression()) {
+            expressionList.add((Expression) visit(expressionContext));
         }
-        array.setValueList(valueList);
+        array.setExpressionList(expressionList);
 
         return array;
     }
@@ -1307,7 +1355,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public ObjectInstantiation visitObjectInstantiation(AngularParser.ObjectInstantiationContext ctx) {
+    public Object visitObjectInstantiation(AngularParser.ObjectInstantiationContext ctx) {
         ObjectInstantiation objectInstantiation = new ObjectInstantiation();
 
         objectInstantiation.setName(ctx.IDENTIFIER().getText());
@@ -1358,18 +1406,12 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     /* ===================== Initialization Rules ===================== */
 
     @Override
-    public Object visitValueInitialization(AngularParser.ValueInitializationContext ctx) {
-        return visit(ctx.value());
-    }
+    public Initialization visitInitialization(AngularParser.InitializationContext ctx) {
+        Initialization initialization = new Initialization();
 
-    @Override
-    public Object visitExpressionInitialization(AngularParser.ExpressionInitializationContext ctx) {
-        return visit(ctx.expression());
-    }
+        initialization.setExpression((Expression) visit(ctx.expression()));
 
-    @Override
-    public Object visitFunctionDeclarationInitialization(AngularParser.FunctionDeclarationInitializationContext ctx) {
-        return visit(ctx.functionDeclaration());
+        return initialization;
     }
 
     /* ===================== Primary Value Rules ===================== */
@@ -1380,16 +1422,16 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public Object visitIDENTIFIERPrimary(AngularParser.IDENTIFIERPrimaryContext ctx) {
-        Primary primary = new Primary();
+    public Object visitIdentifierPrimary(AngularParser.IdentifierPrimaryContext ctx) {
+        IdentifierPrimary identifierPrimary = new IdentifierPrimary();
 
-        primary.setIdentifier(ctx.IDENTIFIER().getText());
+        identifierPrimary.setIdentifier(ctx.IDENTIFIER().getText());
 
-        return primary;
+        return identifierPrimary;
     }
 
     @Override
-    public Literal visitLiteral(AngularParser.LiteralContext ctx) {
+    public Object visitLiteral(AngularParser.LiteralContext ctx) {
         Literal literal = new Literal();
 
         if (ctx.NUMBER() != null) {
@@ -1404,9 +1446,13 @@ public class ASTVisitor extends AngularParserBaseVisitor {
             literal.setType("Bool");
             literal.setValue(ctx.BOOL().getText());
         }
-        else {
+        else if (ctx.NULL() != null) {
             literal.setType("Null");
             literal.setValue(ctx.NULL().getText());
+        }
+        else {
+            literal.setType("Template_Literal");
+            literal.setValue(ctx.TEMPLATE_LITERAL().getText());
         }
 
         return literal;
@@ -1419,16 +1465,6 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         parenthesizedExpression.setExpression((Expression) visit(ctx.expression()));
 
         return parenthesizedExpression;
-    }
-
-    @Override
-    public Object visitMemberAccessExpression(AngularParser.MemberAccessExpressionContext ctx) {
-        MemberAccessExpression memberAccessExpression = new MemberAccessExpression();
-
-        memberAccessExpression.setLeftExpression((Expression) visit(ctx.expression(0)));
-        memberAccessExpression.setRightExpression((Expression) visit(ctx.expression(1)));
-
-        return memberAccessExpression;
     }
 
     @Override
@@ -1508,15 +1544,6 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         preIncrementExpression.setExpression((Expression) visit(ctx.expression()));
 
         return preIncrementExpression;
-    }
-
-    @Override
-    public Object visitPrimaryExpression(AngularParser.PrimaryExpressionContext ctx) {
-        PrimaryExpression primaryExpression = new PrimaryExpression();
-
-        primaryExpression.setPrimary((Primary) visit(ctx.primary()));
-
-        return primaryExpression;
     }
 
     @Override
@@ -1609,6 +1636,42 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         }
 
         return multiplicativeExpression;
+    }
+
+    @Override
+    public Object visitMemberAccessExpression(AngularParser.MemberAccessExpressionContext ctx) {
+        MemberAccessExpression memberAccessExpression = new MemberAccessExpression();
+
+        memberAccessExpression.setExpression((Expression) visit(ctx.expression()));
+
+        return memberAccessExpression;
+    }
+
+    @Override
+    public Object visitFunctionExpression(AngularParser.FunctionExpressionContext ctx) {
+        FunctionExpression functionExpression = new FunctionExpression();
+
+        functionExpression.setFunctionDeclaration((FunctionDeclaration) visit(ctx.functionDeclaration()));
+
+        return functionExpression;
+    }
+
+    @Override
+    public Object visitValueExpression(AngularParser.ValueExpressionContext ctx) {
+        ValueExpression valueExpression = new ValueExpression();
+
+        valueExpression.setValue((Value) visit(ctx.value()));
+
+        return valueExpression;
+    }
+
+    @Override
+    public Object visitParameterExpression(AngularParser.ParameterExpressionContext ctx) {
+        ParameterExpression parameterExpression = new ParameterExpression();
+
+        parameterExpression.setParameterDeclaration(visitParameterDeclaration(ctx.parameterDeclaration()));
+
+        return parameterExpression;
     }
 
     /* ==================== Type Annotation Rules ==================== */
@@ -1868,7 +1931,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
                 .map(TerminalNode::getText)          // Convert TerminalNode to String
                 .toList();
 
-        interpolation.setAttributes(attributes);
+        interpolation.setInterplationElementList(attributes);
 
         return interpolation;
     }

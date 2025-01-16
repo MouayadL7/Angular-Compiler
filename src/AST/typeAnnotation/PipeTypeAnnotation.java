@@ -1,13 +1,11 @@
 package AST.typeAnnotation;
 
-import AST.Pair;
-import AST.Space;
-import AST.parameterList.Parameter;
+import AST.helpers.Space;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PipeTypeAnnotation {
+public class PipeTypeAnnotation extends TypeAnnotation {
     private List<String> typeAnnotations;
 
     public PipeTypeAnnotation() {

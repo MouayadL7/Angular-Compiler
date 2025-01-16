@@ -965,6 +965,18 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterIterationSt(AngularParser.IterationStContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIterationSt(AngularParser.IterationStContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterBootstrapCallSt(AngularParser.BootstrapCallStContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1133,6 +1145,66 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterStandardForLoop(AngularParser.StandardForLoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStandardForLoop(AngularParser.StandardForLoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterForOfLoop(AngularParser.ForOfLoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitForOfLoop(AngularParser.ForOfLoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterForInLoop(AngularParser.ForInLoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitForInLoop(AngularParser.ForInLoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWhileLoop(AngularParser.WhileLoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhileLoop(AngularParser.WhileLoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDoWhileLoop(AngularParser.DoWhileLoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDoWhileLoop(AngularParser.DoWhileLoopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterParameterList(AngularParser.ParameterListContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1145,49 +1217,13 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterParameterDeclarationPar(AngularParser.ParameterDeclarationParContext ctx) { }
+	@Override public void enterParameter(AngularParser.ParameterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitParameterDeclarationPar(AngularParser.ParameterDeclarationParContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterValueParameter(AngularParser.ValueParameterContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitValueParameter(AngularParser.ValueParameterContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterArrowFunctionParameter(AngularParser.ArrowFunctionParameterContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitArrowFunctionParameter(AngularParser.ArrowFunctionParameterContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExpressionParameter(AngularParser.ExpressionParameterContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExpressionParameter(AngularParser.ExpressionParameterContext ctx) { }
+	@Override public void exitParameter(AngularParser.ParameterContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1373,37 +1409,13 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterValueInitialization(AngularParser.ValueInitializationContext ctx) { }
+	@Override public void enterInitialization(AngularParser.InitializationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitValueInitialization(AngularParser.ValueInitializationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterExpressionInitialization(AngularParser.ExpressionInitializationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitExpressionInitialization(AngularParser.ExpressionInitializationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFunctionDeclarationInitialization(AngularParser.FunctionDeclarationInitializationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFunctionDeclarationInitialization(AngularParser.FunctionDeclarationInitializationContext ctx) { }
+	@Override public void exitInitialization(AngularParser.InitializationContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1421,13 +1433,13 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIDENTIFIERPrimary(AngularParser.IDENTIFIERPrimaryContext ctx) { }
+	@Override public void enterIdentifierPrimary(AngularParser.IdentifierPrimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIDENTIFIERPrimary(AngularParser.IDENTIFIERPrimaryContext ctx) { }
+	@Override public void exitIdentifierPrimary(AngularParser.IdentifierPrimaryContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1541,18 +1553,6 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterPrimaryExpression(AngularParser.PrimaryExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPrimaryExpression(AngularParser.PrimaryExpressionContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterLogicalOrExpression(AngularParser.LogicalOrExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1601,6 +1601,18 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunctionExpression(AngularParser.FunctionExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionExpression(AngularParser.FunctionExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterPostDecreaseExpression(AngularParser.PostDecreaseExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1608,6 +1620,30 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitPostDecreaseExpression(AngularParser.PostDecreaseExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterValueExpression(AngularParser.ValueExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitValueExpression(AngularParser.ValueExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParameterExpression(AngularParser.ParameterExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParameterExpression(AngularParser.ParameterExpressionContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1908,6 +1944,18 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitInterpolation(AngularParser.InterpolationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInterplationElement(AngularParser.InterplationElementContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInterplationElement(AngularParser.InterplationElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

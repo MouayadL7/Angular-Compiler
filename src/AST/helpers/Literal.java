@@ -1,8 +1,6 @@
 package AST.helpers;
 
-import AST.Space;
-
-public class Literal {
+public class Literal extends Primary{
     private String type;
     private String value;
 

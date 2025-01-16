@@ -1,9 +1,9 @@
 package AST.HTML.attributeHTML;
 
 import AST.HTML.StructuralDirective;
-import AST.Space;
+import AST.helpers.Space;
 
-public class StructuralDirectiveAttr {
+public class StructuralDirectiveAttr extends AttributeHTML{
     private StructuralDirective structuralDirective;
     private String value;
 

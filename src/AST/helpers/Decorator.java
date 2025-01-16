@@ -1,6 +1,5 @@
 package AST.helpers;
 
-import AST.Space;
 import AST.parameterList.ParameterList;
 
 public class Decorator {

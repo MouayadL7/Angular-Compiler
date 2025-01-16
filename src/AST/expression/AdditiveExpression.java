@@ -1,8 +1,8 @@
 package AST.expression;
 
-import AST.Space;
+import AST.helpers.Space;
 
-public class AdditiveExpression extends Expression{
+public class AdditiveExpression extends Expression {
 
     private Expression left;
     private Expression right;
@@ -35,15 +35,14 @@ public class AdditiveExpression extends Expression{
 
     @Override
     public String toString() {
-
         StringBuilder stringBuilder = new StringBuilder();
-
         stringBuilder.append("\t".repeat(Space.currentValue)).append("AdditiveExpression: {\n");
+
         Space.currentValue++;
         stringBuilder.append("\t".repeat(Space.currentValue)).append("Left = ").append(left.toString()).append(", Operator = ").append(operator).append(" , Right = ").append(right.toString()).append(",\n");
         Space.currentValue--;
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
 
+        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
     }
 

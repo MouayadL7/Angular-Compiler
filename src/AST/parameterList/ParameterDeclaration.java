@@ -1,6 +1,6 @@
 package AST.parameterList;
 
-import AST.Space;
+import AST.helpers.Space;
 import AST.helpers.AccessModifier;
 import AST.helpers.Decorator;
 import AST.helpers.Initialization;
@@ -9,7 +9,7 @@ import AST.typeAnnotation.TypeAnnotation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParameterDeclaration {
+public class ParameterDeclaration extends Parameter{
     private List<Decorator> decoratorList;
     private AccessModifier accessModifier;
     private String name;

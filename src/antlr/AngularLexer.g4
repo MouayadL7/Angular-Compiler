@@ -4,6 +4,7 @@ lexer grammar AngularLexer;
 SPACES: [ \t\r\n]+ -> skip;                     // Whitespace
 LINE_COMMENT: '//' ~[\r\n]* -> skip;            // Single-line comments
 BLOCK_COMMENT: '/*' .*? '*/' -> skip;           // Multi-line comments
+HTML_COMMENT: '<!--' .*? '-->' -> skip ;
 
 
 // Angular-Specific Keywords
@@ -55,6 +56,7 @@ THROW: 'throw';
 CONSOLE: 'console';
 LOG: 'log';
 CATCH: 'catch';
+ERROR: 'error';
 
 
 // Class-Related Keywords
@@ -150,20 +152,40 @@ RBRACE: '}';
 LBRACK: '[';
 RBRACK: ']';
 
+// Iteration-Related Keywords
+FOR: 'for';
+DO: 'do';
+WHILE: 'while';
+BREAK: 'break';
+CONTINUE: 'continue';
+OF: 'of';
+IN: 'in';
 
 // Literals
-STRING: QUOTE (~["\\] | '\\' .)* QUOTE;             // Integer or decimal numbers
+STRING: '"' (~["\\] | '\\' .)* '"' | '\'' (~['\\] | '\\' .)* '\'';             // Integer or decimal numbers
 NUMBER: [0-9]+ ('.' [0-9]+)?;                       // Integer or decimal numbers
 BOOL: 'true' | 'false';                             // Boolean literals
 NULL: 'null';                                       // Null value
-
+TEMPLATE_LITERAL: '`' ( ~['`', '\\', '$'] | '\\' . | '$' ~['{'] | '${' | TEMPLATE_EXPRESSION )* '`';
+fragment TEMPLATE_EXPRESSION: '{' IDENTIFIER '}';
 
 // Identifiers
 IDENTIFIER: [a-zA-Z][-_a-zA-Z0-9]*; // General identifiers
 
 
 // Beginning of the HTML template
-BEGINNING_HTML: '`' -> pushMode(HTML);
+BEGINNING_HTML: '`' WS* '<' -> pushMode(HTML);
+fragment WS
+    : SPACES
+    | LINE_COMMENT
+    | BLOCK_COMMENT
+    | HTML_COMMENT
+    ;
+
+
+// CSS Style
+STYLE_TEMPLATE: '`' (~["\\] | '\\' .)* '`';
+
 
 mode HTML;
 // Tokens for standard HTML
@@ -171,6 +193,7 @@ OPEN_TAG        : '<' ;
 CLOSE_TAG       : '>' ;
 SLASH           : '/' ;
 EQUALS          : '=' ;
+COL             : ':' ;
 STRING_HTML     : '"' .*? '"' | '\'' .*? '\'' ;
 
 // Tokens for Angular-specific syntax
@@ -185,8 +208,8 @@ DDIRECTIVE      : '*' ATTRIBUTE ;
 P               : '|' ;
 REFERENCE_VAR   : '#' ATTRIBUTE ;
 
-// Token for attributes and tag names
-ATTRIBUTE       : [a-zA-Z_:][-a-zA-Z0-9_:.!?]* ;
+// Token for interplationElementList and tag names
+ATTRIBUTE       : [a-zA-Z_][a-zA-Z0-9_.!?]* ;
 
 // Whitespace and comments
 WHITESPACE      : [ \t\r\n]+ -> skip ;

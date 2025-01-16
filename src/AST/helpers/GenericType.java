@@ -1,6 +1,5 @@
 package AST.helpers;
 
-import AST.Space;
 import AST.typeAnnotation.TypeAnnotation;
 
 import java.util.ArrayList;

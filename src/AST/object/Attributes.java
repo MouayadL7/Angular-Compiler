@@ -1,6 +1,6 @@
 package AST.object;
 
-import AST.Space;
+import AST.helpers.Space;
 
 import java.util.ArrayList;
 import java.util.List;

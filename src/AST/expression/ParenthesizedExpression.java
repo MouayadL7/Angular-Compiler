@@ -1,6 +1,6 @@
 package AST.expression;
 
-import AST.Space;
+import AST.helpers.Space;
 
 public class ParenthesizedExpression extends Expression{
     private Expression expression;
@@ -15,15 +15,14 @@ public class ParenthesizedExpression extends Expression{
 
     @Override
     public String toString() {
-
         StringBuilder stringBuilder = new StringBuilder();
-
         stringBuilder.append("\t".repeat(Space.currentValue)).append("ParenthesizedExpression: {\n");
+
         Space.currentValue++;
         stringBuilder.append("(").append(expression).append(")\n");
         Space.currentValue--;
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
 
+        stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
     }
 }

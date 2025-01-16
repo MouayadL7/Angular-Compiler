@@ -1,6 +1,7 @@
 package AST.expression;
 
-import AST.program.statement.Statement;
+import AST.helpers.Initialization;
+import AST.statement.Statement;
 
 public abstract class Expression extends Statement {
 

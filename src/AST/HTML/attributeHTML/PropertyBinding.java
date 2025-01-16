@@ -1,8 +1,8 @@
 package AST.HTML.attributeHTML;
 
-import AST.Space;
+import AST.helpers.Space;
 
-public class PropertyBinding {
+public class PropertyBinding extends AttributeHTML{
     private String binding;
     private String value;
 

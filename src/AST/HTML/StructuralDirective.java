@@ -1,7 +1,5 @@
 package AST.HTML;
 
-import AST.Space;
-
 public class StructuralDirective {
     private String name;
 

@@ -1,8 +1,8 @@
 package AST.HTML.attributeHTML;
 
-import AST.Space;
+import AST.helpers.Space;
 
-public class TemplateReferenceVariable {
+public class TemplateReferenceVariable extends AttributeHTML{
     private String referenceVar;
     private String value;
 

@@ -1,9 +1,9 @@
 package AST.typeAnnotation;
 
-import AST.Space;
+import AST.helpers.Space;
 import AST.array.Array;
 
-public class TupleTypeAnnotation {
+public class TupleTypeAnnotation extends TypeAnnotation {
     private Array array;
 
     public Array getArray() {

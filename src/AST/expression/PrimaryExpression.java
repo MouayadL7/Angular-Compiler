@@ -1,9 +1,9 @@
 package AST.expression;
 
-import AST.Space;
 import AST.helpers.Primary;
+import AST.helpers.Space;
 
-public class PrimaryExpression {
+public class PrimaryExpression extends Expression{
     private Primary primary;
 
     public Primary getPrimary() {

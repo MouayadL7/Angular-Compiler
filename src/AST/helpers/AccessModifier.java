@@ -1,7 +1,5 @@
 package AST.helpers;
 
-import AST.Space;
-
 public class AccessModifier {
     private String name;
 

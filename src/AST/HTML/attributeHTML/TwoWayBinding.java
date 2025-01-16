@@ -1,8 +1,8 @@
 package AST.HTML.attributeHTML;
 
-import AST.Space;
+import AST.helpers.Space;
 
-public class TwoWayBinding {
+public class TwoWayBinding extends AttributeHTML{
     private String twoBind;
     private String value;
 
