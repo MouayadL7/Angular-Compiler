@@ -1757,37 +1757,37 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStandardTagElement(AngularParser.StandardTagElementContext ctx) { }
+	@Override public void enterStandardTagEl(AngularParser.StandardTagElContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStandardTagElement(AngularParser.StandardTagElementContext ctx) { }
+	@Override public void exitStandardTagEl(AngularParser.StandardTagElContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSelfClosingTagElement(AngularParser.SelfClosingTagElementContext ctx) { }
+	@Override public void enterSelfClosingTagEl(AngularParser.SelfClosingTagElContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitSelfClosingTagElement(AngularParser.SelfClosingTagElementContext ctx) { }
+	@Override public void exitSelfClosingTagEl(AngularParser.SelfClosingTagElContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInterpolationElement(AngularParser.InterpolationElementContext ctx) { }
+	@Override public void enterInterpolationEl(AngularParser.InterpolationElContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInterpolationElement(AngularParser.InterpolationElementContext ctx) { }
+	@Override public void exitInterpolationEl(AngularParser.InterpolationElContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1949,13 +1949,13 @@ public class AngularParserBaseListener implements AngularParserListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterInterplationElement(AngularParser.InterplationElementContext ctx) { }
+	@Override public void enterInterpolationElement(AngularParser.InterpolationElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitInterplationElement(AngularParser.InterplationElementContext ctx) { }
+	@Override public void exitInterpolationElement(AngularParser.InterpolationElementContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

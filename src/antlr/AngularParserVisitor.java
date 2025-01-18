@@ -964,26 +964,26 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitHtmlTemplate(AngularParser.HtmlTemplateContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code StandardTagElement}
+	 * Visit a parse tree produced by the {@code StandardTagEl}
 	 * labeled alternative in {@link AngularParser#element}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStandardTagElement(AngularParser.StandardTagElementContext ctx);
+	T visitStandardTagEl(AngularParser.StandardTagElContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code SelfClosingTagElement}
+	 * Visit a parse tree produced by the {@code SelfClosingTagEl}
 	 * labeled alternative in {@link AngularParser#element}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitSelfClosingTagElement(AngularParser.SelfClosingTagElementContext ctx);
+	T visitSelfClosingTagEl(AngularParser.SelfClosingTagElContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code InterpolationElement}
+	 * Visit a parse tree produced by the {@code InterpolationEl}
 	 * labeled alternative in {@link AngularParser#element}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInterpolationElement(AngularParser.InterpolationElementContext ctx);
+	T visitInterpolationEl(AngularParser.InterpolationElContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#openTag}.
 	 * @param ctx the parse tree
@@ -1072,11 +1072,11 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInterpolation(AngularParser.InterpolationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#interplationElement}.
+	 * Visit a parse tree produced by {@link AngularParser#interpolationElement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInterplationElement(AngularParser.InterplationElementContext ctx);
+	T visitInterpolationElement(AngularParser.InterpolationElementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#tagName}.
 	 * @param ctx the parse tree

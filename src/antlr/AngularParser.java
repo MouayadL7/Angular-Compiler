@@ -67,7 +67,7 @@ public class AngularParser extends Parser {
 		RULE_genericType = 72, RULE_typeAnnotation = 73, RULE_accessModifier = 74, 
 		RULE_htmlTemplate = 75, RULE_element = 76, RULE_openTag = 77, RULE_closeTag = 78, 
 		RULE_selfClosingTag = 79, RULE_content = 80, RULE_attributeHTML = 81, 
-		RULE_interpolation = 82, RULE_interplationElement = 83, RULE_tagName = 84, 
+		RULE_interpolation = 82, RULE_interpolationElement = 83, RULE_tagName = 84, 
 		RULE_structuralDirective = 85;
 	private static String[] makeRuleNames() {
 		return new String[] {
@@ -91,7 +91,7 @@ public class AngularParser extends Parser {
 			"arrayAccess", "initialization", "primary", "literal", "expression", 
 			"genericType", "typeAnnotation", "accessModifier", "htmlTemplate", "element", 
 			"openTag", "closeTag", "selfClosingTag", "content", "attributeHTML", 
-			"interpolation", "interplationElement", "tagName", "structuralDirective"
+			"interpolation", "interpolationElement", "tagName", "structuralDirective"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -8236,47 +8236,7 @@ public class AngularParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class InterpolationElementContext extends ElementContext {
-		public InterpolationContext interpolation() {
-			return getRuleContext(InterpolationContext.class,0);
-		}
-		public InterpolationElementContext(ElementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterInterpolationElement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitInterpolationElement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitInterpolationElement(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class SelfClosingTagElementContext extends ElementContext {
-		public SelfClosingTagContext selfClosingTag() {
-			return getRuleContext(SelfClosingTagContext.class,0);
-		}
-		public SelfClosingTagElementContext(ElementContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterSelfClosingTagElement(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitSelfClosingTagElement(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitSelfClosingTagElement(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class StandardTagElementContext extends ElementContext {
+	public static class StandardTagElContext extends ElementContext {
 		public OpenTagContext openTag() {
 			return getRuleContext(OpenTagContext.class,0);
 		}
@@ -8289,18 +8249,58 @@ public class AngularParser extends Parser {
 		public ContentContext content(int i) {
 			return getRuleContext(ContentContext.class,i);
 		}
-		public StandardTagElementContext(ElementContext ctx) { copyFrom(ctx); }
+		public StandardTagElContext(ElementContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterStandardTagElement(this);
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterStandardTagEl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitStandardTagElement(this);
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitStandardTagEl(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitStandardTagElement(this);
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitStandardTagEl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class SelfClosingTagElContext extends ElementContext {
+		public SelfClosingTagContext selfClosingTag() {
+			return getRuleContext(SelfClosingTagContext.class,0);
+		}
+		public SelfClosingTagElContext(ElementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterSelfClosingTagEl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitSelfClosingTagEl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitSelfClosingTagEl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class InterpolationElContext extends ElementContext {
+		public InterpolationContext interpolation() {
+			return getRuleContext(InterpolationContext.class,0);
+		}
+		public InterpolationElContext(ElementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterInterpolationEl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitInterpolationEl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitInterpolationEl(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -8314,7 +8314,7 @@ public class AngularParser extends Parser {
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,116,_ctx) ) {
 			case 1:
-				_localctx = new StandardTagElementContext(_localctx);
+				_localctx = new StandardTagElContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
 				setState(1018);
@@ -8340,7 +8340,7 @@ public class AngularParser extends Parser {
 				}
 				break;
 			case 2:
-				_localctx = new SelfClosingTagElementContext(_localctx);
+				_localctx = new SelfClosingTagElContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
 				setState(1027);
@@ -8348,7 +8348,7 @@ public class AngularParser extends Parser {
 				}
 				break;
 			case 3:
-				_localctx = new InterpolationElementContext(_localctx);
+				_localctx = new InterpolationElContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
 				setState(1028);
@@ -8942,11 +8942,11 @@ public class AngularParser extends Parser {
 	public static class InterpolationContext extends ParserRuleContext {
 		public TerminalNode INTERPOLATION_START() { return getToken(AngularParser.INTERPOLATION_START, 0); }
 		public TerminalNode INTERPOLATION_END() { return getToken(AngularParser.INTERPOLATION_END, 0); }
-		public List<InterplationElementContext> interplationElement() {
-			return getRuleContexts(InterplationElementContext.class);
+		public List<InterpolationElementContext> interpolationElement() {
+			return getRuleContexts(InterpolationElementContext.class);
 		}
-		public InterplationElementContext interplationElement(int i) {
-			return getRuleContext(InterplationElementContext.class,i);
+		public InterpolationElementContext interpolationElement(int i) {
+			return getRuleContext(InterpolationElementContext.class,i);
 		}
 		public List<TerminalNode> P() { return getTokens(AngularParser.P); }
 		public TerminalNode P(int i) {
@@ -8987,7 +8987,7 @@ public class AngularParser extends Parser {
 				{
 				{
 				setState(1091);
-				interplationElement();
+				interpolationElement();
 				}
 				setState(1096);
 				_errHandler.sync(this);
@@ -8998,7 +8998,7 @@ public class AngularParser extends Parser {
 					setState(1092);
 					match(P);
 					setState(1093);
-					interplationElement();
+					interpolationElement();
 					}
 					}
 					setState(1098);
@@ -9024,35 +9024,35 @@ public class AngularParser extends Parser {
 	}
 
 	@SuppressWarnings("CheckReturnValue")
-	public static class InterplationElementContext extends ParserRuleContext {
+	public static class InterpolationElementContext extends ParserRuleContext {
 		public List<TerminalNode> ATTRIBUTE() { return getTokens(AngularParser.ATTRIBUTE); }
 		public TerminalNode ATTRIBUTE(int i) {
 			return getToken(AngularParser.ATTRIBUTE, i);
 		}
 		public TerminalNode COL() { return getToken(AngularParser.COL, 0); }
 		public TerminalNode STRING_HTML() { return getToken(AngularParser.STRING_HTML, 0); }
-		public InterplationElementContext(ParserRuleContext parent, int invokingState) {
+		public InterpolationElementContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_interplationElement; }
+		@Override public int getRuleIndex() { return RULE_interpolationElement; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterInterplationElement(this);
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterInterpolationElement(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitInterplationElement(this);
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitInterpolationElement(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitInterplationElement(this);
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitInterpolationElement(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final InterplationElementContext interplationElement() throws RecognitionException {
-		InterplationElementContext _localctx = new InterplationElementContext(_ctx, getState());
-		enterRule(_localctx, 166, RULE_interplationElement);
+	public final InterpolationElementContext interpolationElement() throws RecognitionException {
+		InterpolationElementContext _localctx = new InterpolationElementContext(_ctx, getState());
+		enterRule(_localctx, 166, RULE_interpolationElement);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);

@@ -35,7 +35,8 @@ interface Product {
       </div>
     </div>
   `,
-  styles: [`
+  styles: [
+  `
     .container {
       display: flex;
       gap: 20px;

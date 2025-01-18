@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String source = "src/test/Dynamic-Counter.txt";
+        String source = "src/test/Posts.txt";
         CharStream input = fromFileName(source);
 
         AngularLexer lexer = new AngularLexer(input);

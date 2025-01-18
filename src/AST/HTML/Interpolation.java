@@ -7,18 +7,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Interpolation extends Element {
-    private List<InterplationElement> interplationElementList;
+    private List<InterpolationElement> interpolationElementList;
 
     public Interpolation() {
-        this.interplationElementList = new ArrayList<>();
+        this.interpolationElementList = new ArrayList<>();
     }
 
-    public List<InterplationElement> getInterplationElementList() {
-        return interplationElementList;
+    public List<InterpolationElement> getInterplationElementList() {
+        return interpolationElementList;
     }
 
-    public void setInterplationElementList(List<InterplationElement> interplationElementList) {
-        this.interplationElementList = interplationElementList;
+    public void setInterplationElementList(List<InterpolationElement> interpolationElementList) {
+        this.interpolationElementList = interpolationElementList;
     }
 
     @Override
@@ -26,13 +26,13 @@ public class Interpolation extends Element {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\t".repeat(Space.currentValue)).append("Interpolation: {\n");
 
-        if (!interplationElementList.isEmpty()) {
+        if (!interpolationElementList.isEmpty()) {
             Space.currentValue++;
-            stringBuilder.append("\t".repeat(Space.currentValue)).append("interplationElementList: [ ");
+            stringBuilder.append("\t".repeat(Space.currentValue)).append("interpolationElementList: [ ");
 
-            for (int i = 0; i < interplationElementList.size(); i++) {
-                stringBuilder.append(interplationElementList.get(i));
-                if (i + 1 < interplationElementList.size()) {
+            for (int i = 0; i < interpolationElementList.size(); i++) {
+                stringBuilder.append(interpolationElementList.get(i));
+                if (i + 1 < interpolationElementList.size()) {
                     stringBuilder.append(" | ");
                 }
             }

@@ -1773,7 +1773,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public Object visitStandardTagElement(AngularParser.StandardTagElementContext ctx) {
+    public Object visitStandardTagEl(AngularParser.StandardTagElContext ctx) {
         StandardTagElement standardTagElement = new StandardTagElement();
 
         standardTagElement.setOpenTag(visitOpenTag(ctx.openTag()));
@@ -1790,12 +1790,12 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public Object visitSelfClosingTagElement(AngularParser.SelfClosingTagElementContext ctx) {
+    public Object visitSelfClosingTagEl(AngularParser.SelfClosingTagElContext ctx) {
         return visitSelfClosingTag(ctx.selfClosingTag());
     }
 
     @Override
-    public Object visitInterpolationElement(AngularParser.InterpolationElementContext ctx) {
+    public Object visitInterpolationEl(AngularParser.InterpolationElContext ctx) {
         return visitInterpolation(ctx.interpolation());
     }
 
@@ -1925,15 +1925,29 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     public Object visitInterpolation(AngularParser.InterpolationContext ctx) {
         Interpolation interpolation = new Interpolation();
 
-        List<String> attributes = ctx.ATTRIBUTE()
-                .subList(0, ctx.ATTRIBUTE().size()) // Get the relevant sublist
-                .stream()
-                .map(TerminalNode::getText)          // Convert TerminalNode to String
-                .toList();
-
-        interpolation.setInterplationElementList(attributes);
+        List<InterpolationElement> interpolationElementList = new ArrayList<>();
+        for (AngularParser.InterpolationElementContext interpolationElementContext : ctx.interpolationElement()) {
+            interpolationElementList.add(visitInterpolationElement(interpolationElementContext));
+        }
+        interpolation.setInterplationElementList(interpolationElementList);
 
         return interpolation;
+    }
+
+    @Override
+    public InterpolationElement visitInterpolationElement(AngularParser.InterpolationElementContext ctx) {
+        InterpolationElement interpolationElement = new InterpolationElement();
+
+        interpolationElement.setAttribute(ctx.ATTRIBUTE(0).getText());
+
+        if (ctx.ATTRIBUTE(1) != null) {
+            interpolationElement.setValue(ctx.ATTRIBUTE(1).getText());
+        }
+        else if (ctx.STRING_HTML() != null) {
+            interpolationElement.setValue(ctx.STRING_HTML().getText());
+        }
+
+        return interpolationElement;
     }
 
     @Override

@@ -427,11 +427,11 @@ value
 
 /* ====================== Object Rules ====================== */
 object
-    : LBRACE interplationElementList? RBRACE                               // An object declaration with optional interplationElementList (e.g., `{ key: value }`).
+    : LBRACE attributes? RBRACE                               // An object declaration with optional interpolationElementList (e.g., `{ key: value }`).
     ;
 
-interplationElementList
-    : attribute (COMMA attribute)* COMMA?                     // A list of interplationElementList separated by commas.
+attributes
+    : attribute (COMMA attribute)* COMMA?                     // A list of interpolationElementList separated by commas.
     ;
 
 attribute
@@ -529,14 +529,14 @@ accessModifier
 
 /* Entry rule for the template */
 htmlTemplate
-    : BEGINNING_HTML element* END_HTML
+    : HTML_TEMPLATE element* END_HTML
     ;
 
 /* Element definition */
 element
-    : openTag content* closeTag         # StandardTagElement        // e.g., <div> ... </div>
-    | selfClosingTag                    # SelfClosingTagElement     // e.g., <input ... />
-    | interpolation                     # InterpolationElement      // e.g., {{ post.userName }}
+    : openTag content* closeTag         # StandardTagEl        // e.g., <div> ... </div>
+    | selfClosingTag                    # SelfClosingTagEl     // e.g., <input ... />
+    | interpolation                     # InterpolationEl      // e.g., {{ post.userName }}
     ;
 
 /* Open and close tag rules */
@@ -566,15 +566,15 @@ attributeHTML
     | TWOBIND EQUALS STRING_HTML                    # TwoWayBinding                 // e.g., [(ngModel)]="value"
     | structuralDirective EQUALS STRING_HTML        # StructuralDirectiveAttr       // e.g., *ngIf="condition"
     | REFERENCE_VAR (EQUALS STRING_HTML)?           # TemplateReferenceVariable     // Optionally includes a value assignment, (e.g., #elementRef="customRef")
-    | ATTRIBUTE                                     # AttributeOnly                 // Matches interplationElementList without values, e.g., disabled or checked
+    | ATTRIBUTE                                     # AttributeOnly                 // Matches interpolationElementList without values, e.g., disabled or checked
     ;
 
 /* Interpolation rule for Angular syntax */
 interpolation
-    : INTERPOLATION_START ((interplationElement) (P interplationElement)*)? INTERPOLATION_END
+    : INTERPOLATION_START ((interpolationElement) (P interpolationElement)*)? INTERPOLATION_END
     ;
 
-interplationElement
+interpolationElement
     : ATTRIBUTE (COL (ATTRIBUTE | STRING_HTML))?
     ;
 

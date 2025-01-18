@@ -340,7 +340,7 @@ parameterDeclaration
 array
 value
 object
-interplationElementList
+attributes
 attribute
 objectInstantiation
 memberAccess
@@ -360,7 +360,7 @@ selfClosingTag
 content
 attributeHTML
 interpolation
-interplationElement
+interpolationElement
 tagName
 structuralDirective
 

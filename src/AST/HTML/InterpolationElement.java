@@ -1,6 +1,6 @@
 package AST.HTML;
 
-public class InterplationElement {
+public class InterpolationElement {
     private String attribute;
     private String value;
 

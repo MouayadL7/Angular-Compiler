@@ -174,18 +174,17 @@ IDENTIFIER: [a-zA-Z][-_a-zA-Z0-9]*; // General identifiers
 
 
 // Beginning of the HTML template
-BEGINNING_HTML: '`' WS* '<' -> pushMode(HTML);
+HTML_TEMPLATE: '`' WS* '<' -> pushMode(HTML);
+
+// CSS Style
+CSS_TEMPLATE: '`' (~["\\] | '\\' .)* '`';
+
 fragment WS
     : SPACES
     | LINE_COMMENT
     | BLOCK_COMMENT
     | HTML_COMMENT
     ;
-
-
-// CSS Style
-STYLE_TEMPLATE: '`' (~["\\] | '\\' .)* '`';
-
 
 mode HTML;
 // Tokens for standard HTML
@@ -208,7 +207,7 @@ DDIRECTIVE      : '*' ATTRIBUTE ;
 P               : '|' ;
 REFERENCE_VAR   : '#' ATTRIBUTE ;
 
-// Token for interplationElementList and tag names
+// Token for interpolationElementList and tag names
 ATTRIBUTE       : [a-zA-Z_][a-zA-Z0-9_.!?]* ;
 
 // Whitespace and comments

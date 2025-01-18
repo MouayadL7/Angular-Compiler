@@ -1033,21 +1033,21 @@ public class AngularParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitStandardTagElement(AngularParser.StandardTagElementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitStandardTagEl(AngularParser.StandardTagElContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitSelfClosingTagElement(AngularParser.SelfClosingTagElementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitSelfClosingTagEl(AngularParser.SelfClosingTagElContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInterpolationElement(AngularParser.InterpolationElementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInterpolationEl(AngularParser.InterpolationElContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1145,7 +1145,7 @@ public class AngularParserBaseVisitor<T> extends AbstractParseTreeVisitor<T> imp
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitInterplationElement(AngularParser.InterplationElementContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInterpolationElement(AngularParser.InterpolationElementContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
