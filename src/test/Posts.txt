@@ -51,7 +51,6 @@ export class PostService {
     },
   ];
 
-  // Method to fetch posts (you can change this to fetch from an API)
   getPosts(): Post[] {
     return this.posts;
   }

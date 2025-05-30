@@ -27,6 +27,6 @@ public class Main {
         Program program = (astVisitor.visitProgram(tree));
 
         System.out.println(program);
-    //    System.out.println(astVisitor.symbolTable);
+    //    System.out.println(astVisitor.symbolTable2);
     }
 }

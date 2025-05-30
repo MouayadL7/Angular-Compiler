@@ -472,7 +472,7 @@ literal
     | BOOL                                                      // A boolean value (`true` or `false`).
     | NULL                                                      // A null value.
     | TEMPLATE_LITERAL
-    | STYLE_TEMPLATE
+    | CSS_TEMPLATE
     ;
 
 /* ================= Expression Rules ================= */

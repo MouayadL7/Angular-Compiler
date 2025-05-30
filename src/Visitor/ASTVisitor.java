@@ -64,7 +64,9 @@ import AST.statement.importStatement.importSpecifier.IdentifierImportSpecifier;
 import AST.statement.importStatement.importSpecifier.ImportSpecifier;
 import AST.statement.iterationStatement.*;
 import AST.typeAnnotation.*;
+import ErrorHandling.SemanticCheck;
 import SymbolTable.SymbolTable;
+import SymbolTable.SymbolTable2;
 import antlr.AngularParser;
 import antlr.AngularParserBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -74,7 +76,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ASTVisitor extends AngularParserBaseVisitor {
-    public SymbolTable symbolTable = new SymbolTable();
+
+    public SymbolTable symbolTable;
+    public final SemanticCheck semanticCheck;
+
+    public ASTVisitor(SemanticCheck semanticCheck) {
+        this.symbolTable = new SymbolTable();
+        this.semanticCheck = semanticCheck;
+    }
+
+    public SymbolTable getSymbolTable() {
+        return symbolTable;
+    }
+
+    public void setSymbolTable(SymbolTable symbolTable) {
+        this.symbolTable = symbolTable;
+    }
 
     /* ======================== Program ======================== */
 
@@ -468,6 +485,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         List<ComponentMetadataProperty> componentMetadataPropertyList = new ArrayList<>();
         for (AngularParser.MetadataComponentPropertyContext metadataComponentPropertyContext : ctx.metadataComponentProperty()) {
             componentMetadataPropertyList.add((ComponentMetadataProperty) visit(metadataComponentPropertyContext));
+
         }
         componentMetadata.setMetadataComponentPropertyList(componentMetadataPropertyList);
 
