@@ -64,9 +64,13 @@ import AST.statement.importStatement.importSpecifier.IdentifierImportSpecifier;
 import AST.statement.importStatement.importSpecifier.ImportSpecifier;
 import AST.statement.iterationStatement.*;
 import AST.typeAnnotation.*;
-import ErrorHandling.SemanticCheck;
-import SymbolTable.SymbolTable;
-import SymbolTable.SymbolTable2;
+import ErrorHandling.Component.ComponentInfo;
+import ErrorHandling.Component.DuplicateSelectorSymbolTable;
+import ErrorHandling.Component.SelectorSymbolTable;
+import ErrorHandling.Component.MissingTemplateSymbolTable;
+import ErrorHandling.HTML.ImportSymbolTable;
+import ErrorHandling.HTML.TemplateElementInfo;
+import ErrorHandling.HTML.TemplateSymbolTable;
 import antlr.AngularParser;
 import antlr.AngularParserBaseVisitor;
 import org.antlr.v4.runtime.tree.ParseTree;
@@ -77,21 +81,25 @@ import java.util.List;
 
 public class ASTVisitor extends AngularParserBaseVisitor {
 
-    public SymbolTable symbolTable;
-    public final SemanticCheck semanticCheck;
+    private final SelectorSymbolTable selectorSymbolTable = new SelectorSymbolTable();
+    private final DuplicateSelectorSymbolTable duplicateSelectorSymbolTable = new DuplicateSelectorSymbolTable();
+    private final MissingTemplateSymbolTable missingTemplateSymbolTable = new MissingTemplateSymbolTable();
+    private final TemplateSymbolTable templateSymbolTable = new TemplateSymbolTable();
+    private final ImportSymbolTable importSymbolTable = new ImportSymbolTable();
 
-    public ASTVisitor(SemanticCheck semanticCheck) {
-        this.symbolTable = new SymbolTable();
-        this.semanticCheck = semanticCheck;
+    public SelectorSymbolTable getSelectorSymbolTable() {
+        return selectorSymbolTable;
     }
 
-    public SymbolTable getSymbolTable() {
-        return symbolTable;
+    public DuplicateSelectorSymbolTable getDuplicateSelectorSymbolTable() {
+        return duplicateSelectorSymbolTable;
     }
 
-    public void setSymbolTable(SymbolTable symbolTable) {
-        this.symbolTable = symbolTable;
-    }
+    public MissingTemplateSymbolTable getMissingTemplateSymbolTable() { return missingTemplateSymbolTable; }
+
+    public TemplateSymbolTable getTemplateSymbolTable() { return templateSymbolTable; }
+
+    public ImportSymbolTable getImportSymbolTable() { return importSymbolTable; }
 
     /* ======================== Program ======================== */
 
@@ -152,6 +160,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
 
         if (ctx.IDENTIFIER() != null) {
             importDefaultSpecifier.setName(ctx.IDENTIFIER().getText());
+            importSymbolTable.addImport(ctx.IDENTIFIER().getText());
         }
 
         return importDefaultSpecifier;
@@ -176,6 +185,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         for (AngularParser.ImportSpecifierContext importSpecifierContext : ctx.importSpecifier()) {
             importSpecifierList.add((ImportSpecifier) visit(importSpecifierContext));
         }
+
         importNamedSpecifier.setImportSpecifierList(importSpecifierList);
 
         return importNamedSpecifier;
@@ -187,6 +197,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
 
         if (ctx.IDENTIFIER() != null) {
             identifierImportSpecifier.setIdentifier(ctx.IDENTIFIER().getText());
+            importSymbolTable.addImport(ctx.IDENTIFIER().getText());
         }
 
         return identifierImportSpecifier;
@@ -467,6 +478,33 @@ public class ASTVisitor extends AngularParserBaseVisitor {
 
     @Override
     public Object visitComponentDeclaration(AngularParser.ComponentDeclarationContext ctx) {
+        ComponentInfo info = new ComponentInfo();
+
+        info.setComponentName(ctx.classDeclaration().IDENTIFIER(0).getText());
+        info.setComponentLine(ctx.getStart().getLine());
+
+        if (ctx.componentMetadata() != null) {
+            AngularParser.ComponentMetadataContext metadataCtx = ctx.componentMetadata();
+            for (AngularParser.MetadataComponentPropertyContext propCtx : metadataCtx.metadataComponentProperty()) {
+                Object tree = visit(propCtx);
+
+                if (tree instanceof SelectorComponentProperty) {
+                    String selectorText = ((SelectorComponentProperty) tree).getString()
+                            .replaceAll("\"", "")
+                            .replaceAll("'", "");
+
+                    info.setSelector(selectorText);
+                    info.setSelectorLine(propCtx.getStart().getLine());
+                } else if (tree instanceof TemplateProperty || tree instanceof TemplateUrlProperty) {
+                    info.setHasTemplate(true);
+                }
+            }
+        }
+
+        selectorSymbolTable.add(info);
+        duplicateSelectorSymbolTable.add(info);
+        missingTemplateSymbolTable.add(info);
+
         ComponentDeclaration componentDeclaration = new ComponentDeclaration();
 
         componentDeclaration.setClassDeclaration(visitClassDeclaration(ctx.classDeclaration()));
@@ -1468,7 +1506,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
             literal.setType("Null");
             literal.setValue(ctx.NULL().getText());
         }
-        else {
+        else if (ctx.TEMPLATE_LITERAL() != null) {
             literal.setType("Template_Literal");
             literal.setValue(ctx.TEMPLATE_LITERAL().getText());
         }
@@ -1819,14 +1857,27 @@ public class ASTVisitor extends AngularParserBaseVisitor {
 
     @Override
     public OpenTag visitOpenTag(AngularParser.OpenTagContext ctx) {
-        OpenTag openTag = new OpenTag();
+        TemplateElementInfo element = new TemplateElementInfo();
 
+        element.setTagName(ctx.tagName().ATTRIBUTE().getText());
+        element.setLine(ctx.getStart().getLine());
+
+        OpenTag openTag = new OpenTag();
         openTag.setTagName(visitTagName(ctx.tagName()));
 
         List<AttributeHTML> attributeHTMLList = new ArrayList<>();
         for (AngularParser.AttributeHTMLContext attributeHTMLContext : ctx.attributeHTML()) {
             attributeHTMLList.add((AttributeHTML) visit(attributeHTMLContext));
+
+            Object tree = visit(attributeHTMLContext);
+            if (tree instanceof StructuralDirectiveAttr) {
+                element.addStructuralDirective(((StructuralDirectiveAttr) tree).getStructuralDirective().getName());
+            }
         }
+
+        templateSymbolTable.addElement(element);
+        importSymbolTable.addElement(element);
+
         openTag.setAttributeHtmlList(attributeHTMLList);
 
         return openTag;
@@ -1843,6 +1894,11 @@ public class ASTVisitor extends AngularParserBaseVisitor {
 
     @Override
     public Object visitSelfClosingTag(AngularParser.SelfClosingTagContext ctx) {
+        TemplateElementInfo element = new TemplateElementInfo();
+
+        element.setTagName(ctx.tagName().ATTRIBUTE().getText());
+        element.setLine(ctx.getStart().getLine());
+
         SelfClosingTag selfClosingTag = new SelfClosingTag();
 
         selfClosingTag.setTagName(visitTagName(ctx.tagName()));
@@ -1850,7 +1906,16 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         List<AttributeHTML> attributeHTMLList = new ArrayList<>();
         for (AngularParser.AttributeHTMLContext attributeHTMLContext : ctx.attributeHTML()) {
             attributeHTMLList.add((AttributeHTML) visit(attributeHTMLContext));
+
+            Object tree = visit(attributeHTMLContext);
+            if (tree instanceof StructuralDirectiveAttr) {
+                element.addStructuralDirective(((StructuralDirectiveAttr) tree).getStructuralDirective().getName());
+            }
         }
+
+        templateSymbolTable.addElement(element);
+        importSymbolTable.addElement(element);
+
         selfClosingTag.setAttributeHtmlList(attributeHTMLList);
 
         return selfClosingTag;

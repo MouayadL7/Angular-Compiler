@@ -1,0 +1,23 @@
+import { Component, Input } from '@angular/core';
+
+@Component({
+  selector: 'app-message',
+  template: `<p>Message: {{ text }}</p>`,
+  standalone: true
+})
+export class MessageComponent {
+  @Input() text: string = '';
+}
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [MessageComponent],
+  template: `
+    <h1>Two Components in One File</h1>
+    <app-message [text]="message"></app-message>
+  `
+})
+export class AppComponent {
+  message = 'Hello from AppComponent!';
+}

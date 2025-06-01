@@ -7,10 +7,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Interpolation extends Element {
+    private String attribute;
     private List<InterpolationElement> interpolationElementList;
 
     public Interpolation() {
         this.interpolationElementList = new ArrayList<>();
+    }
+
+    public String getAttribute() {
+        return attribute;
+    }
+
+    public void setAttribute(String attribute) {
+        this.attribute = attribute;
     }
 
     public List<InterpolationElement> getInterplationElementList() {

@@ -208,7 +208,8 @@ P               : '|' ;
 REFERENCE_VAR   : '#' ATTRIBUTE ;
 
 // Token for interpolationElementList and tag names
-ATTRIBUTE       : [a-zA-Z_][a-zA-Z0-9_.!?]* ;
+ATTRIBUTE       : [a-zA-Z_][a-zA-Z0-9_.!?-]* ;
+HTML_CLASS      : 'class' ;
 
 // Whitespace and comments
 WHITESPACE      : [ \t\r\n]+ -> skip ;

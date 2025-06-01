@@ -1,4 +1,4 @@
-// Generated from C:/Users/MEED/Desktop/Angular-Compiler/src/antlr/AngularParser.g4 by ANTLR 4.13.2
+// Generated from C:/Users/askar/Desktop/Angular-Compiler/src/antlr/AngularParser.g4 by ANTLR 4.13.2
 package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 

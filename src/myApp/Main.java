@@ -1,6 +1,7 @@
 package myApp;
 
 import AST.program.Program;
+import ErrorHandling.SemanticCheckManager;
 import Visitor.ASTVisitor;
 import antlr.AngularLexer;
 import antlr.AngularParser;
@@ -14,7 +15,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String source = "src/test/Posts.txt";
+        String source = "src/test/Dynamic-Counter.txt";
         CharStream input = fromFileName(source);
 
         AngularLexer lexer = new AngularLexer(input);
@@ -26,7 +27,16 @@ public class Main {
         ASTVisitor astVisitor = new ASTVisitor();
         Program program = (astVisitor.visitProgram(tree));
 
+        SemanticCheckManager semanticCheckManager = new SemanticCheckManager (
+                astVisitor.getSelectorSymbolTable(),
+                astVisitor.getDuplicateSelectorSymbolTable(),
+                astVisitor.getMissingTemplateSymbolTable(),
+                astVisitor.getTemplateSymbolTable(),
+                astVisitor.getImportSymbolTable()
+        );
+
         System.out.println(program);
-    //    System.out.println(astVisitor.symbolTable2);
+
+        semanticCheckManager.runChecks();
     }
 }

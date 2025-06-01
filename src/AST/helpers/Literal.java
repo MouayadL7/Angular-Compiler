@@ -26,10 +26,12 @@ public class Literal extends Primary{
         stringBuilder.append("\t".repeat(Space.currentValue)).append("Literal: {\n");
 
         Space.currentValue++;
-        if (type.equals("String")) {
-            stringBuilder.append("\t".repeat(Space.currentValue)).append("Type = ").append(type).append(", Value = \"").append(value).append("\"");
-        } else {
-            stringBuilder.append("\t".repeat(Space.currentValue)).append("Type = ").append(type).append(", Value = ").append(value);
+        if (type != null) {
+            if (type.equals("String")) {
+                stringBuilder.append("\t".repeat(Space.currentValue)).append("Type = ").append(type).append(", Value = \"").append(value).append("\"");
+            } else {
+                stringBuilder.append("\t".repeat(Space.currentValue)).append("Type = ").append(type).append(", Value = ").append(value);
+            }
         }
         Space.currentValue--;
 

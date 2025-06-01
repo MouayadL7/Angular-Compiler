@@ -571,7 +571,7 @@ attributeHTML
 
 /* Interpolation rule for Angular syntax */
 interpolation
-    : INTERPOLATION_START ((interpolationElement) (P interpolationElement)*)? INTERPOLATION_END
+    : (ATTRIBUTE (COL | EQUALS))? INTERPOLATION_START ((interpolationElement) (P interpolationElement)*)? INTERPOLATION_END
     ;
 
 interpolationElement

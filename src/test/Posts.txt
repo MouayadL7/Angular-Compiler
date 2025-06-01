@@ -57,6 +57,14 @@ export class PostService {
 }
 
 @Component({
+    selector: 'app-root',
+})
+export class PostListComponent implements OnInit {
+  //
+}
+
+
+@Component({
   selector: 'app-root',
   standalone: true,
   imports: [CommonModule, DatePipe],
