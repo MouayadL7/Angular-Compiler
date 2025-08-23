@@ -166,18 +166,18 @@ STRING: '"' (~["\\] | '\\' .)* '"' | '\'' (~['\\] | '\\' .)* '\'';             /
 NUMBER: [0-9]+ ('.' [0-9]+)?;                       // Integer or decimal numbers
 BOOL: 'true' | 'false';                             // Boolean literals
 NULL: 'null';                                       // Null value
-TEMPLATE_LITERAL: '`' ( ~['`', '\\', '$'] | '\\' . | '$' ~['{'] | '${' | TEMPLATE_EXPRESSION )* '`';
-fragment TEMPLATE_EXPRESSION: '{' IDENTIFIER '}';
+//TEMPLATE_LITERAL: '`' ( ~['`', '\\', '$'] | '\\' . | '$' ~['{'] | '${' | TEMPLATE_EXPRESSION )* '`';
+//fragment TEMPLATE_EXPRESSION: '{' IDENTIFIER '}';
 
 // Identifiers
 IDENTIFIER: [a-zA-Z][-_a-zA-Z0-9]*; // General identifiers
 
 
 // Beginning of the HTML template
-HTML_TEMPLATE: '`' WS* '<' -> pushMode(HTML);
+HTML_TEMPLATE: '`' -> pushMode(HTML);
 
 // CSS Style
-CSS_TEMPLATE: '`' (~["\\] | '\\' .)* '`';
+//CSS_TEMPLATE: '`' (~["\\] | '\\' .)* '`';
 
 fragment WS
     : SPACES

@@ -471,7 +471,7 @@ literal
     | STRING                                                    // A string literal (e.g., `"hello"`, `'world'`).
     | BOOL                                                      // A boolean value (`true` or `false`).
     | NULL                                                      // A null value.
-    | TEMPLATE_LITERAL
+    //| TEMPLATE_LITERAL
     | CSS_TEMPLATE
     ;
 

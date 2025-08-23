@@ -1,4 +1,4 @@
-// Generated from C:/Users/askar/Desktop/Angular-Compiler/src/antlr/AngularParser.g4 by ANTLR 4.13.2
+// Generated from java-escape by ANTLR 4.11.1
 package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
