@@ -82,6 +82,48 @@ PUBLIC: 'public';
 PROTECTED: 'protected';
 
 
+// Router / Navigation Keywords
+ROUTER_MODULE: 'RouterModule';
+ROUTES: 'Routes';
+FOR_ROOT: 'forRoot';
+FOR_CHILD: 'forChild';
+ROUTER: 'Router';
+NAVIGATE: 'navigate';
+NAVIGATE_BY_URL: 'navigateByUrl';
+
+// Route object keys
+ROUTE_PATH: 'path';
+ROUTE_COMPONENT: 'component';
+ROUTE_REDIRECT_TO: 'redirectTo';
+ROUTE_PATH_MATCH: 'pathMatch';
+ROUTE_CHILDREN: 'children';
+ROUTE_LOAD_CHILDREN: 'loadChildren';
+ROUTE_CAN_ACTIVATE: 'canActivate';
+ROUTE_CAN_ACTIVATE_CHILD: 'canActivateChild';
+ROUTE_CAN_DEACTIVATE: 'canDeactivate';
+ROUTE_CAN_MATCH: 'canMatch';
+ROUTE_RESOLVE: 'resolve';
+ROUTE_DATA: 'data';
+
+// NgRx / State Management
+STORE_MODULE: 'StoreModule';
+EFFECTS_MODULE: 'EffectsModule';
+FOR_FEATURE: 'forFeature';
+
+CREATE_ACTION: 'createAction';
+PROPS: 'props';
+CREATE_REDUCER: 'createReducer';
+ON_KW: 'on';                 // 'on' is a common identifier; making it a token is fine.
+CREATE_SELECTOR: 'createSelector';
+CREATE_FEATURE_SELECTOR: 'createFeatureSelector';
+CREATE_EFFECT: 'createEffect';
+OF_TYPE: 'ofType';
+SELECT: 'select';
+DISPATCH: 'dispatch';
+ACTIONS: 'Actions';
+PIPEFN: 'pipe';              // not @Pipe (that’s already PIPE). This is RxJS pipe()
+
+
 // Comparison Operators
 GT: '>';
 GTE: '>=';

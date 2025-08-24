@@ -25,21 +25,29 @@ public class AngularParser extends Parser {
 		LET=29, CONST=30, IF=31, ELSE=32, RETURN=33, THROW=34, CONSOLE=35, LOG=36, 
 		CATCH=37, ERROR=38, EXPORT=39, INTERFACE=40, CLASS=41, ENUM=42, EXTENDS=43, 
 		IMPLEMENTS=44, CONSTRUCTOR=45, THIS=46, NEW=47, FUNCTION=48, PRIVATE=49, 
-		PUBLIC=50, PROTECTED=51, GT=52, GTE=53, LT=54, LTE=55, ASSIGN=56, NOT=57, 
-		EQ=58, NEQ=59, STRICT_EQ=60, STRICT_NEQ=61, PLUS=62, MINUS=63, MULT=64, 
-		DIV=65, MOD=66, AND=67, OR=68, BIT_AND=69, BIT_XOR=70, BIT_OR=71, PLUS_ASSIGN=72, 
-		MINUS_ASSIGN=73, MULTIPLY_ASSIGN=74, DIVIDE_ASSIGN=75, MODULUS_ASSIGN=76, 
-		POWER_ASSIGN=77, RIGHT_SHIFT_ARITHMETIC_ASSIGN=78, LEFT_SHIFT_ARITHMETIC_ASSIGN=79, 
-		RIGHT_SHIFT_LOGICAL_ASSIGN=80, BIT_AND_ASSIGN=81, BIT_XOR_ASSIGN=82, BIT_OR_ASSIGN=83, 
-		ARROW=84, NULLCOALESCE=85, PLUS_PLUS=86, MINUS_MINUS=87, SEMI=88, COLON=89, 
-		COMMA=90, DOT=91, QUES=92, AT=93, HASH_TAG=94, QUOTE=95, LPAREN=96, RPAREN=97, 
-		LBRACE=98, RBRACE=99, LBRACK=100, RBRACK=101, FOR=102, DO=103, WHILE=104, 
-		BREAK=105, CONTINUE=106, OF=107, IN=108, STRING=109, NUMBER=110, BOOL=111, 
-		NULL=112, IDENTIFIER=113, HTML_TEMPLATE=114, CSS_TEMPLATE=115, OPEN_TAG=116, 
-		CLOSE_TAG=117, SLASH=118, EQUALS=119, COL=120, STRING_HTML=121, INTERPOLATION_START=122, 
-		INTERPOLATION_END=123, BINDING=124, EVENT=125, TWOBIND=126, NGFOR=127, 
-		NGIF=128, DDIRECTIVE=129, P=130, REFERENCE_VAR=131, ATTRIBUTE=132, HTML_CLASS=133, 
-		WHITESPACE=134, COMMENT=135, END_HTML=136;
+		PUBLIC=50, PROTECTED=51, ROUTER_MODULE=52, ROUTES=53, FOR_ROOT=54, FOR_CHILD=55, 
+		ROUTER=56, NAVIGATE=57, NAVIGATE_BY_URL=58, ROUTE_PATH=59, ROUTE_COMPONENT=60, 
+		ROUTE_REDIRECT_TO=61, ROUTE_PATH_MATCH=62, ROUTE_CHILDREN=63, ROUTE_LOAD_CHILDREN=64, 
+		ROUTE_CAN_ACTIVATE=65, ROUTE_CAN_ACTIVATE_CHILD=66, ROUTE_CAN_DEACTIVATE=67, 
+		ROUTE_CAN_MATCH=68, ROUTE_RESOLVE=69, ROUTE_DATA=70, STORE_MODULE=71, 
+		EFFECTS_MODULE=72, FOR_FEATURE=73, CREATE_ACTION=74, PROPS=75, CREATE_REDUCER=76, 
+		ON_KW=77, CREATE_SELECTOR=78, CREATE_FEATURE_SELECTOR=79, CREATE_EFFECT=80, 
+		OF_TYPE=81, SELECT=82, DISPATCH=83, ACTIONS=84, PIPEFN=85, GT=86, GTE=87, 
+		LT=88, LTE=89, ASSIGN=90, NOT=91, EQ=92, NEQ=93, STRICT_EQ=94, STRICT_NEQ=95, 
+		PLUS=96, MINUS=97, MULT=98, DIV=99, MOD=100, AND=101, OR=102, BIT_AND=103, 
+		BIT_XOR=104, BIT_OR=105, PLUS_ASSIGN=106, MINUS_ASSIGN=107, MULTIPLY_ASSIGN=108, 
+		DIVIDE_ASSIGN=109, MODULUS_ASSIGN=110, POWER_ASSIGN=111, RIGHT_SHIFT_ARITHMETIC_ASSIGN=112, 
+		LEFT_SHIFT_ARITHMETIC_ASSIGN=113, RIGHT_SHIFT_LOGICAL_ASSIGN=114, BIT_AND_ASSIGN=115, 
+		BIT_XOR_ASSIGN=116, BIT_OR_ASSIGN=117, ARROW=118, NULLCOALESCE=119, PLUS_PLUS=120, 
+		MINUS_MINUS=121, SEMI=122, COLON=123, COMMA=124, DOT=125, QUES=126, AT=127, 
+		HASH_TAG=128, QUOTE=129, LPAREN=130, RPAREN=131, LBRACE=132, RBRACE=133, 
+		LBRACK=134, RBRACK=135, FOR=136, DO=137, WHILE=138, BREAK=139, CONTINUE=140, 
+		OF=141, IN=142, STRING=143, NUMBER=144, BOOL=145, NULL=146, IDENTIFIER=147, 
+		HTML_TEMPLATE=148, OPEN_TAG=149, CLOSE_TAG=150, SLASH=151, EQUALS=152, 
+		COL=153, STRING_HTML=154, INTERPOLATION_START=155, INTERPOLATION_END=156, 
+		BINDING=157, EVENT=158, TWOBIND=159, NGFOR=160, NGIF=161, DDIRECTIVE=162, 
+		P=163, REFERENCE_VAR=164, ATTRIBUTE=165, HTML_CLASS=166, WHITESPACE=167, 
+		COMMENT=168, END_HTML=169;
 	public static final int
 		RULE_program = 0, RULE_importStatement = 1, RULE_importDeclaration = 2, 
 		RULE_importDefaultSpecifier = 3, RULE_importNamespaceSpecifier = 4, RULE_importNamedSpecifier = 5, 
@@ -63,12 +71,16 @@ public class AngularParser extends Parser {
 		RULE_parameter = 58, RULE_parameterDeclaration = 59, RULE_array = 60, 
 		RULE_value = 61, RULE_object = 62, RULE_attributes = 63, RULE_attribute = 64, 
 		RULE_objectInstantiation = 65, RULE_memberAccess = 66, RULE_arrayAccess = 67, 
-		RULE_initialization = 68, RULE_primary = 69, RULE_literal = 70, RULE_expression = 71, 
-		RULE_genericType = 72, RULE_typeAnnotation = 73, RULE_accessModifier = 74, 
-		RULE_htmlTemplate = 75, RULE_element = 76, RULE_openTag = 77, RULE_closeTag = 78, 
-		RULE_selfClosingTag = 79, RULE_content = 80, RULE_attributeHTML = 81, 
-		RULE_interpolation = 82, RULE_interpolationElement = 83, RULE_tagName = 84, 
-		RULE_structuralDirective = 85;
+		RULE_memberChain = 68, RULE_callExpression = 69, RULE_initialization = 70, 
+		RULE_primary = 71, RULE_literal = 72, RULE_expression = 73, RULE_genericType = 74, 
+		RULE_typeAnnotation = 75, RULE_accessModifier = 76, RULE_htmlTemplate = 77, 
+		RULE_element = 78, RULE_openTag = 79, RULE_closeTag = 80, RULE_selfClosingTag = 81, 
+		RULE_content = 82, RULE_attributeHTML = 83, RULE_interpolation = 84, RULE_interpolationElement = 85, 
+		RULE_tagName = 86, RULE_structuralDirective = 87, RULE_routesDeclaration = 88, 
+		RULE_routesArray = 89, RULE_route = 90, RULE_routeProperty = 91, RULE_routerModuleCall = 92, 
+		RULE_navigationStatement = 93, RULE_actionDeclaration = 94, RULE_reducerDeclaration = 95, 
+		RULE_effectDeclaration = 96, RULE_storeModuleCall = 97, RULE_effectsModuleCall = 98, 
+		RULE_storeDispatchStatement = 99, RULE_storeSelectExpression = 100;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"program", "importStatement", "importDeclaration", "importDefaultSpecifier", 
@@ -88,10 +100,14 @@ public class AngularParser extends Parser {
 			"elseStatement", "statementBody", "functionCall", "bootstrapCall", "iterationStatement", 
 			"parameterList", "parameter", "parameterDeclaration", "array", "value", 
 			"object", "attributes", "attribute", "objectInstantiation", "memberAccess", 
-			"arrayAccess", "initialization", "primary", "literal", "expression", 
-			"genericType", "typeAnnotation", "accessModifier", "htmlTemplate", "element", 
-			"openTag", "closeTag", "selfClosingTag", "content", "attributeHTML", 
-			"interpolation", "interpolationElement", "tagName", "structuralDirective"
+			"arrayAccess", "memberChain", "callExpression", "initialization", "primary", 
+			"literal", "expression", "genericType", "typeAnnotation", "accessModifier", 
+			"htmlTemplate", "element", "openTag", "closeTag", "selfClosingTag", "content", 
+			"attributeHTML", "interpolation", "interpolationElement", "tagName", 
+			"structuralDirective", "routesDeclaration", "routesArray", "route", "routeProperty", 
+			"routerModuleCall", "navigationStatement", "actionDeclaration", "reducerDeclaration", 
+			"effectDeclaration", "storeModuleCall", "effectsModuleCall", "storeDispatchStatement", 
+			"storeSelectExpression"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -106,16 +122,22 @@ public class AngularParser extends Parser {
 			"'let'", "'const'", "'if'", "'else'", "'return'", "'throw'", "'console'", 
 			"'log'", "'catch'", "'error'", "'export'", "'interface'", null, "'enum'", 
 			"'extends'", "'implements'", "'constructor'", "'this'", "'new'", "'function'", 
-			"'private'", "'public'", "'protected'", null, "'>='", null, "'<='", null, 
-			"'!'", "'=='", "'!='", "'==='", "'!=='", "'+'", "'-'", "'*'", null, "'%'", 
-			"'&&'", "'||'", "'&'", "'^'", null, "'+='", "'-='", "'*='", "'/='", "'%='", 
-			"'**='", "'>>='", "'<<='", "'>>>='", "'&='", "'^='", "'|='", "'=>'", 
-			"'??'", "'++'", "'--'", "';'", null, "','", "'.'", "'?'", "'@'", "'#'", 
-			null, "'('", "')'", "'{'", "'}'", "'['", "']'", "'for'", "'do'", "'while'", 
-			"'break'", "'continue'", "'of'", "'in'", null, null, null, "'null'", 
-			null, null, null, null, null, null, null, null, null, "'{{'", "'}}'", 
-			null, null, null, "'*ngFor'", "'*ngIf'", null, null, null, null, null, 
-			null, null, "'`'"
+			"'private'", "'public'", "'protected'", "'RouterModule'", "'Routes'", 
+			"'forRoot'", "'forChild'", "'Router'", "'navigate'", "'navigateByUrl'", 
+			"'path'", "'component'", "'redirectTo'", "'pathMatch'", "'children'", 
+			"'loadChildren'", "'canActivate'", "'canActivateChild'", "'canDeactivate'", 
+			"'canMatch'", "'resolve'", "'data'", "'StoreModule'", "'EffectsModule'", 
+			"'forFeature'", "'createAction'", "'props'", "'createReducer'", "'on'", 
+			"'createSelector'", "'createFeatureSelector'", "'createEffect'", "'ofType'", 
+			"'select'", "'dispatch'", "'Actions'", "'pipe'", null, "'>='", null, 
+			"'<='", null, "'!'", "'=='", "'!='", "'==='", "'!=='", "'+'", "'-'", 
+			"'*'", null, "'%'", "'&&'", "'||'", "'&'", "'^'", null, "'+='", "'-='", 
+			"'*='", "'/='", "'%='", "'**='", "'>>='", "'<<='", "'>>>='", "'&='", 
+			"'^='", "'|='", "'=>'", "'??'", "'++'", "'--'", "';'", null, "','", "'.'", 
+			"'?'", "'@'", "'#'", null, "'('", "')'", "'{'", "'}'", "'['", "']'", 
+			"'for'", "'do'", "'while'", "'break'", "'continue'", "'of'", "'in'", 
+			null, null, null, "'null'", null, null, null, null, null, null, null, 
+			null, "'{{'", "'}}'", null, null, null, "'*ngFor'", "'*ngIf'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -129,16 +151,23 @@ public class AngularParser extends Parser {
 			"LET", "CONST", "IF", "ELSE", "RETURN", "THROW", "CONSOLE", "LOG", "CATCH", 
 			"ERROR", "EXPORT", "INTERFACE", "CLASS", "ENUM", "EXTENDS", "IMPLEMENTS", 
 			"CONSTRUCTOR", "THIS", "NEW", "FUNCTION", "PRIVATE", "PUBLIC", "PROTECTED", 
-			"GT", "GTE", "LT", "LTE", "ASSIGN", "NOT", "EQ", "NEQ", "STRICT_EQ", 
-			"STRICT_NEQ", "PLUS", "MINUS", "MULT", "DIV", "MOD", "AND", "OR", "BIT_AND", 
-			"BIT_XOR", "BIT_OR", "PLUS_ASSIGN", "MINUS_ASSIGN", "MULTIPLY_ASSIGN", 
-			"DIVIDE_ASSIGN", "MODULUS_ASSIGN", "POWER_ASSIGN", "RIGHT_SHIFT_ARITHMETIC_ASSIGN", 
-			"LEFT_SHIFT_ARITHMETIC_ASSIGN", "RIGHT_SHIFT_LOGICAL_ASSIGN", "BIT_AND_ASSIGN", 
-			"BIT_XOR_ASSIGN", "BIT_OR_ASSIGN", "ARROW", "NULLCOALESCE", "PLUS_PLUS", 
-			"MINUS_MINUS", "SEMI", "COLON", "COMMA", "DOT", "QUES", "AT", "HASH_TAG", 
-			"QUOTE", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACK", "RBRACK", 
-			"FOR", "DO", "WHILE", "BREAK", "CONTINUE", "OF", "IN", "STRING", "NUMBER", 
-			"BOOL", "NULL", "IDENTIFIER", "HTML_TEMPLATE", "CSS_TEMPLATE", "OPEN_TAG", 
+			"ROUTER_MODULE", "ROUTES", "FOR_ROOT", "FOR_CHILD", "ROUTER", "NAVIGATE", 
+			"NAVIGATE_BY_URL", "ROUTE_PATH", "ROUTE_COMPONENT", "ROUTE_REDIRECT_TO", 
+			"ROUTE_PATH_MATCH", "ROUTE_CHILDREN", "ROUTE_LOAD_CHILDREN", "ROUTE_CAN_ACTIVATE", 
+			"ROUTE_CAN_ACTIVATE_CHILD", "ROUTE_CAN_DEACTIVATE", "ROUTE_CAN_MATCH", 
+			"ROUTE_RESOLVE", "ROUTE_DATA", "STORE_MODULE", "EFFECTS_MODULE", "FOR_FEATURE", 
+			"CREATE_ACTION", "PROPS", "CREATE_REDUCER", "ON_KW", "CREATE_SELECTOR", 
+			"CREATE_FEATURE_SELECTOR", "CREATE_EFFECT", "OF_TYPE", "SELECT", "DISPATCH", 
+			"ACTIONS", "PIPEFN", "GT", "GTE", "LT", "LTE", "ASSIGN", "NOT", "EQ", 
+			"NEQ", "STRICT_EQ", "STRICT_NEQ", "PLUS", "MINUS", "MULT", "DIV", "MOD", 
+			"AND", "OR", "BIT_AND", "BIT_XOR", "BIT_OR", "PLUS_ASSIGN", "MINUS_ASSIGN", 
+			"MULTIPLY_ASSIGN", "DIVIDE_ASSIGN", "MODULUS_ASSIGN", "POWER_ASSIGN", 
+			"RIGHT_SHIFT_ARITHMETIC_ASSIGN", "LEFT_SHIFT_ARITHMETIC_ASSIGN", "RIGHT_SHIFT_LOGICAL_ASSIGN", 
+			"BIT_AND_ASSIGN", "BIT_XOR_ASSIGN", "BIT_OR_ASSIGN", "ARROW", "NULLCOALESCE", 
+			"PLUS_PLUS", "MINUS_MINUS", "SEMI", "COLON", "COMMA", "DOT", "QUES", 
+			"AT", "HASH_TAG", "QUOTE", "LPAREN", "RPAREN", "LBRACE", "RBRACE", "LBRACK", 
+			"RBRACK", "FOR", "DO", "WHILE", "BREAK", "CONTINUE", "OF", "IN", "STRING", 
+			"NUMBER", "BOOL", "NULL", "IDENTIFIER", "HTML_TEMPLATE", "OPEN_TAG", 
 			"CLOSE_TAG", "SLASH", "EQUALS", "COL", "STRING_HTML", "INTERPOLATION_START", 
 			"INTERPOLATION_END", "BINDING", "EVENT", "TWOBIND", "NGFOR", "NGIF", 
 			"DDIRECTIVE", "P", "REFERENCE_VAR", "ATTRIBUTE", "HTML_CLASS", "WHITESPACE", 
@@ -242,43 +271,43 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(175);
+			setState(205);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==IMPORT) {
 				{
 				{
-				setState(172);
+				setState(202);
 				importStatement();
 				}
 				}
-				setState(177);
+				setState(207);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(182);
+			setState(212);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 148556729653658592L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 797398179L) != 0) {
+			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 8945141205173216L) != 0 || (((_la - 71)) & ~0x3f) == 0 && ((1L << (_la - 71)) & -6267321831438417917L) != 0 || (((_la - 136)) & ~0x3f) == 0 && ((1L << (_la - 136)) & 3975L) != 0) {
 				{
-				setState(180);
+				setState(210);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,1,_ctx) ) {
 				case 1:
 					{
-					setState(178);
+					setState(208);
 					declaration();
 					}
 					break;
 				case 2:
 					{
-					setState(179);
+					setState(209);
 					statement();
 					}
 					break;
 				}
 				}
-				setState(184);
+				setState(214);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -329,15 +358,15 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(185);
+			setState(215);
 			match(IMPORT);
-			setState(186);
+			setState(216);
 			importDeclaration();
-			setState(187);
+			setState(217);
 			match(FROM);
-			setState(188);
+			setState(218);
 			match(STRING);
-			setState(189);
+			setState(219);
 			match(SEMI);
 			}
 		}
@@ -429,14 +458,14 @@ public class AngularParser extends Parser {
 		ImportDeclarationContext _localctx = new ImportDeclarationContext(_ctx, getState());
 		enterRule(_localctx, 4, RULE_importDeclaration);
 		try {
-			setState(194);
+			setState(224);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,3,_ctx) ) {
 			case 1:
 				_localctx = new DefaultSpecifierDeclarationContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(191);
+				setState(221);
 				importDefaultSpecifier();
 				}
 				break;
@@ -444,7 +473,7 @@ public class AngularParser extends Parser {
 				_localctx = new NamespaceSpecifierDeclarationContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(192);
+				setState(222);
 				importNamespaceSpecifier();
 				}
 				break;
@@ -452,7 +481,7 @@ public class AngularParser extends Parser {
 				_localctx = new NamedSpecifierDeclarationContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(193);
+				setState(223);
 				importNamedSpecifier();
 				}
 				break;
@@ -497,7 +526,7 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(196);
+			setState(226);
 			match(IDENTIFIER);
 			}
 		}
@@ -542,11 +571,11 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(198);
+			setState(228);
 			match(MULT);
-			setState(199);
+			setState(229);
 			match(AS);
-			setState(200);
+			setState(230);
 			match(IDENTIFIER);
 			}
 		}
@@ -602,55 +631,55 @@ public class AngularParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(207);
+			setState(237);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 469762048L) != 0 || _la==IDENTIFIER) {
 				{
 				{
-				setState(202);
+				setState(232);
 				importSpecifier();
-				setState(203);
+				setState(233);
 				match(COMMA);
 				}
 				}
-				setState(209);
+				setState(239);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(210);
+			setState(240);
 			match(LBRACE);
-			setState(222);
+			setState(252);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 469762048L) != 0 || _la==IDENTIFIER) {
 				{
-				setState(211);
+				setState(241);
 				importSpecifier();
-				setState(216);
+				setState(246);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(212);
+						setState(242);
 						match(COMMA);
-						setState(213);
+						setState(243);
 						importSpecifier();
 						}
 						} 
 					}
-					setState(218);
+					setState(248);
 					_errHandler.sync(this);
 					_alt = getInterpreter().adaptivePredict(_input,5,_ctx);
 				}
-				setState(220);
+				setState(250);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==COMMA) {
 					{
-					setState(219);
+					setState(249);
 					match(COMMA);
 					}
 				}
@@ -658,7 +687,7 @@ public class AngularParser extends Parser {
 				}
 			}
 
-			setState(224);
+			setState(254);
 			match(RBRACE);
 			}
 		}
@@ -728,14 +757,14 @@ public class AngularParser extends Parser {
 		ImportSpecifierContext _localctx = new ImportSpecifierContext(_ctx, getState());
 		enterRule(_localctx, 12, RULE_importSpecifier);
 		try {
-			setState(228);
+			setState(258);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
 				_localctx = new IdentifierImportSpecifierContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(226);
+				setState(256);
 				match(IDENTIFIER);
 				}
 				break;
@@ -745,7 +774,7 @@ public class AngularParser extends Parser {
 				_localctx = new BootstrapImportSpecifierContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(227);
+				setState(257);
 				bootstrapSpecifier();
 				}
 				break;
@@ -795,7 +824,7 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(230);
+			setState(260);
 			_la = _input.LA(1);
 			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 469762048L) != 0) ) {
 			_errHandler.recoverInline(this);
@@ -851,46 +880,6 @@ public class AngularParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class ClassDeclContext extends DeclarationContext {
-		public ClassDeclarationContext classDeclaration() {
-			return getRuleContext(ClassDeclarationContext.class,0);
-		}
-		public ClassDeclContext(DeclarationContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterClassDecl(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitClassDecl(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitClassDecl(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class InjectableDeclContext extends DeclarationContext {
-		public InjectableDeclarationContext injectableDeclaration() {
-			return getRuleContext(InjectableDeclarationContext.class,0);
-		}
-		public InjectableDeclContext(DeclarationContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterInjectableDecl(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitInjectableDecl(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitInjectableDecl(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
 	public static class ComponentDeclContext extends DeclarationContext {
 		public ComponentDeclarationContext componentDeclaration() {
 			return getRuleContext(ComponentDeclarationContext.class,0);
@@ -911,22 +900,22 @@ public class AngularParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class InterfaceDeclContext extends DeclarationContext {
-		public InterfaceDeclarationContext interfaceDeclaration() {
-			return getRuleContext(InterfaceDeclarationContext.class,0);
+	public static class ActionDeclContext extends DeclarationContext {
+		public ActionDeclarationContext actionDeclaration() {
+			return getRuleContext(ActionDeclarationContext.class,0);
 		}
-		public InterfaceDeclContext(DeclarationContext ctx) { copyFrom(ctx); }
+		public ActionDeclContext(DeclarationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterInterfaceDecl(this);
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterActionDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitInterfaceDecl(this);
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitActionDecl(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitInterfaceDecl(this);
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitActionDecl(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -991,6 +980,126 @@ public class AngularParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
+	public static class FunctionDeclContext extends DeclarationContext {
+		public FunctionDeclarationContext functionDeclaration() {
+			return getRuleContext(FunctionDeclarationContext.class,0);
+		}
+		public FunctionDeclContext(DeclarationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterFunctionDecl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitFunctionDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitFunctionDecl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class ClassDeclContext extends DeclarationContext {
+		public ClassDeclarationContext classDeclaration() {
+			return getRuleContext(ClassDeclarationContext.class,0);
+		}
+		public ClassDeclContext(DeclarationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterClassDecl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitClassDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitClassDecl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class EffectDeclContext extends DeclarationContext {
+		public EffectDeclarationContext effectDeclaration() {
+			return getRuleContext(EffectDeclarationContext.class,0);
+		}
+		public EffectDeclContext(DeclarationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterEffectDecl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitEffectDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitEffectDecl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class InjectableDeclContext extends DeclarationContext {
+		public InjectableDeclarationContext injectableDeclaration() {
+			return getRuleContext(InjectableDeclarationContext.class,0);
+		}
+		public InjectableDeclContext(DeclarationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterInjectableDecl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitInjectableDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitInjectableDecl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class InterfaceDeclContext extends DeclarationContext {
+		public InterfaceDeclarationContext interfaceDeclaration() {
+			return getRuleContext(InterfaceDeclarationContext.class,0);
+		}
+		public InterfaceDeclContext(DeclarationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterInterfaceDecl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitInterfaceDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitInterfaceDecl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class RouteDeclContext extends DeclarationContext {
+		public RoutesDeclarationContext routesDeclaration() {
+			return getRuleContext(RoutesDeclarationContext.class,0);
+		}
+		public RouteDeclContext(DeclarationContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterRouteDecl(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitRouteDecl(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitRouteDecl(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class NgModuleDeclContext extends DeclarationContext {
 		public NgModuleDeclarationContext ngModuleDeclaration() {
 			return getRuleContext(NgModuleDeclarationContext.class,0);
@@ -1011,22 +1120,22 @@ public class AngularParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
-	public static class FunctionDeclContext extends DeclarationContext {
-		public FunctionDeclarationContext functionDeclaration() {
-			return getRuleContext(FunctionDeclarationContext.class,0);
+	public static class ReducerDeclContext extends DeclarationContext {
+		public ReducerDeclarationContext reducerDeclaration() {
+			return getRuleContext(ReducerDeclarationContext.class,0);
 		}
-		public FunctionDeclContext(DeclarationContext ctx) { copyFrom(ctx); }
+		public ReducerDeclContext(DeclarationContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterFunctionDecl(this);
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterReducerDecl(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitFunctionDecl(this);
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitReducerDecl(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitFunctionDecl(this);
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitReducerDecl(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -1035,14 +1144,14 @@ public class AngularParser extends Parser {
 		DeclarationContext _localctx = new DeclarationContext(_ctx, getState());
 		enterRule(_localctx, 16, RULE_declaration);
 		try {
-			setState(242);
+			setState(276);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,9,_ctx) ) {
 			case 1:
 				_localctx = new NgModuleDeclContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(232);
+				setState(262);
 				ngModuleDeclaration();
 				}
 				break;
@@ -1050,7 +1159,7 @@ public class AngularParser extends Parser {
 				_localctx = new ComponentDeclContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(233);
+				setState(263);
 				componentDeclaration();
 				}
 				break;
@@ -1058,7 +1167,7 @@ public class AngularParser extends Parser {
 				_localctx = new PipeDeclContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(234);
+				setState(264);
 				pipeDeclaration();
 				}
 				break;
@@ -1066,7 +1175,7 @@ public class AngularParser extends Parser {
 				_localctx = new InjectableDeclContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(235);
+				setState(265);
 				injectableDeclaration();
 				}
 				break;
@@ -1074,7 +1183,7 @@ public class AngularParser extends Parser {
 				_localctx = new DirectiveDeclContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(236);
+				setState(266);
 				directiveDeclaration();
 				}
 				break;
@@ -1082,7 +1191,7 @@ public class AngularParser extends Parser {
 				_localctx = new InterfaceDeclContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(237);
+				setState(267);
 				interfaceDeclaration();
 				}
 				break;
@@ -1090,7 +1199,7 @@ public class AngularParser extends Parser {
 				_localctx = new ClassDeclContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(238);
+				setState(268);
 				classDeclaration();
 				}
 				break;
@@ -1098,7 +1207,7 @@ public class AngularParser extends Parser {
 				_localctx = new EnumDeclContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(239);
+				setState(269);
 				enumDeclaration();
 				}
 				break;
@@ -1106,7 +1215,7 @@ public class AngularParser extends Parser {
 				_localctx = new VariableDeclContext(_localctx);
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(240);
+				setState(270);
 				variableDeclaration();
 				}
 				break;
@@ -1114,8 +1223,40 @@ public class AngularParser extends Parser {
 				_localctx = new FunctionDeclContext(_localctx);
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(241);
+				setState(271);
 				functionDeclaration();
+				}
+				break;
+			case 11:
+				_localctx = new ActionDeclContext(_localctx);
+				enterOuterAlt(_localctx, 11);
+				{
+				setState(272);
+				actionDeclaration();
+				}
+				break;
+			case 12:
+				_localctx = new ReducerDeclContext(_localctx);
+				enterOuterAlt(_localctx, 12);
+				{
+				setState(273);
+				reducerDeclaration();
+				}
+				break;
+			case 13:
+				_localctx = new EffectDeclContext(_localctx);
+				enterOuterAlt(_localctx, 13);
+				{
+				setState(274);
+				effectDeclaration();
+				}
+				break;
+			case 14:
+				_localctx = new RouteDeclContext(_localctx);
+				enterOuterAlt(_localctx, 14);
+				{
+				setState(275);
+				routesDeclaration();
 				}
 				break;
 			}
@@ -1172,40 +1313,40 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(244);
+			setState(278);
 			varHelper();
-			setState(245);
+			setState(279);
 			match(IDENTIFIER);
-			setState(248);
+			setState(282);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COLON) {
 				{
-				setState(246);
+				setState(280);
 				match(COLON);
-				setState(247);
+				setState(281);
 				typeAnnotation();
 				}
 			}
 
-			setState(252);
+			setState(286);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ASSIGN) {
 				{
-				setState(250);
+				setState(284);
 				match(ASSIGN);
-				setState(251);
+				setState(285);
 				initialization();
 				}
 			}
 
-			setState(255);
+			setState(289);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,12,_ctx) ) {
 			case 1:
 				{
-				setState(254);
+				setState(288);
 				match(SEMI);
 				}
 				break;
@@ -1253,7 +1394,7 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(257);
+			setState(291);
 			_la = _input.LA(1);
 			if ( !(_la==LET || _la==CONST) ) {
 			_errHandler.recoverInline(this);
@@ -1353,14 +1494,14 @@ public class AngularParser extends Parser {
 		FunctionDeclarationContext _localctx = new FunctionDeclarationContext(_ctx, getState());
 		enterRule(_localctx, 22, RULE_functionDeclaration);
 		try {
-			setState(262);
+			setState(296);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,13,_ctx) ) {
 			case 1:
 				_localctx = new NormalFunctionDeclarationContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(259);
+				setState(293);
 				normalFunction();
 				}
 				break;
@@ -1368,7 +1509,7 @@ public class AngularParser extends Parser {
 				_localctx = new AnonymousFunctionDeclarationContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(260);
+				setState(294);
 				anonymousFunction();
 				}
 				break;
@@ -1376,7 +1517,7 @@ public class AngularParser extends Parser {
 				_localctx = new ArrowFunctionDeclarationContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(261);
+				setState(295);
 				arrowFunction();
 				}
 				break;
@@ -1437,41 +1578,41 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(264);
+			setState(298);
 			match(FUNCTION);
-			setState(265);
+			setState(299);
 			match(IDENTIFIER);
-			setState(266);
+			setState(300);
 			match(LPAREN);
-			setState(268);
+			setState(302);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548418959048704L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 796939427L) != 0) {
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
 				{
-				setState(267);
+				setState(301);
 				parameterList();
 				}
 			}
 
-			setState(270);
+			setState(304);
 			match(RPAREN);
-			setState(273);
+			setState(307);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COLON) {
 				{
-				setState(271);
+				setState(305);
 				match(COLON);
-				setState(272);
+				setState(306);
 				typeAnnotation();
 				}
 			}
 
-			setState(275);
+			setState(309);
 			match(LBRACE);
-			setState(276);
+			setState(310);
 			block();
-			setState(277);
+			setState(311);
 			match(RBRACE);
 			}
 		}
@@ -1529,39 +1670,39 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(279);
+			setState(313);
 			match(FUNCTION);
-			setState(280);
+			setState(314);
 			match(LPAREN);
-			setState(282);
+			setState(316);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548418959048704L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 796939427L) != 0) {
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
 				{
-				setState(281);
+				setState(315);
 				parameterList();
 				}
 			}
 
-			setState(284);
+			setState(318);
 			match(RPAREN);
-			setState(287);
+			setState(321);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COLON) {
 				{
-				setState(285);
+				setState(319);
 				match(COLON);
-				setState(286);
+				setState(320);
 				typeAnnotation();
 				}
 			}
 
-			setState(289);
+			setState(323);
 			match(LBRACE);
-			setState(290);
+			setState(324);
 			block();
-			setState(291);
+			setState(325);
 			match(RBRACE);
 			}
 		}
@@ -1621,64 +1762,64 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(299);
+			setState(333);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case LPAREN:
 				{
 				{
-				setState(293);
+				setState(327);
 				match(LPAREN);
-				setState(295);
+				setState(329);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548418959048704L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 796939427L) != 0) {
+				if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
 					{
-					setState(294);
+					setState(328);
 					parameterList();
 					}
 				}
 
-				setState(297);
+				setState(331);
 				match(RPAREN);
 				}
 				}
 				break;
 			case IDENTIFIER:
 				{
-				setState(298);
+				setState(332);
 				match(IDENTIFIER);
 				}
 				break;
 			default:
 				throw new NoViableAltException(this);
 			}
-			setState(303);
+			setState(337);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COLON) {
 				{
-				setState(301);
+				setState(335);
 				match(COLON);
-				setState(302);
+				setState(336);
 				typeAnnotation();
 				}
 			}
 
-			setState(305);
+			setState(339);
 			match(ARROW);
-			setState(308);
+			setState(342);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
 			case 1:
 				{
-				setState(306);
+				setState(340);
 				statement();
 				}
 				break;
 			case 2:
 				{
-				setState(307);
+				setState(341);
 				block();
 				}
 				break;
@@ -1738,14 +1879,14 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(310);
+			setState(344);
 			match(LBRACE);
-			setState(315);
+			setState(349);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548483316449280L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 797398179L) != 0) {
+			while ((((_la - 26)) & ~0x3f) == 0 && ((1L << (_la - 26)) & 105553249436607L) != 0 || (((_la - 91)) & ~0x3f) == 0 && ((1L << (_la - 91)) & 139869494255288321L) != 0) {
 				{
-				setState(313);
+				setState(347);
 				_errHandler.sync(this);
 				switch (_input.LA(1)) {
 				case PLATFORM_BROWSER_DYNAMIC:
@@ -1761,10 +1902,12 @@ public class AngularParser extends Parser {
 				case PRIVATE:
 				case PUBLIC:
 				case PROTECTED:
+				case ROUTER_MODULE:
+				case STORE_MODULE:
+				case EFFECTS_MODULE:
 				case NOT:
 				case PLUS_PLUS:
 				case MINUS_MINUS:
-				case DOT:
 				case AT:
 				case LPAREN:
 				case LBRACE:
@@ -1777,16 +1920,15 @@ public class AngularParser extends Parser {
 				case BOOL:
 				case NULL:
 				case IDENTIFIER:
-				case CSS_TEMPLATE:
 					{
-					setState(311);
+					setState(345);
 					statement();
 					}
 					break;
 				case LET:
 				case CONST:
 					{
-					setState(312);
+					setState(346);
 					variableDeclaration();
 					}
 					break;
@@ -1794,11 +1936,11 @@ public class AngularParser extends Parser {
 					throw new NoViableAltException(this);
 				}
 				}
-				setState(317);
+				setState(351);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(318);
+			setState(352);
 			match(RBRACE);
 			}
 		}
@@ -1852,35 +1994,35 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(320);
+			setState(354);
 			match(MODULE);
-			setState(321);
+			setState(355);
 			match(LPAREN);
-			setState(327);
+			setState(361);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==LBRACE) {
 				{
-				setState(322);
+				setState(356);
 				match(LBRACE);
-				setState(324);
+				setState(358);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (((_la) & ~0x3f) == 0 && ((1L << _la) & 3768320L) != 0) {
 					{
-					setState(323);
+					setState(357);
 					moduleMetadata();
 					}
 				}
 
-				setState(326);
+				setState(360);
 				match(RBRACE);
 				}
 			}
 
-			setState(329);
+			setState(363);
 			match(RPAREN);
-			setState(330);
+			setState(364);
 			classDeclaration();
 			}
 		}
@@ -1934,32 +2076,32 @@ public class AngularParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(332);
+			setState(366);
 			metadataModuleProperty();
-			setState(337);
+			setState(371);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,26,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(333);
+					setState(367);
 					match(COMMA);
-					setState(334);
+					setState(368);
 					metadataModuleProperty();
 					}
 					} 
 				}
-				setState(339);
+				setState(373);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,26,_ctx);
 			}
-			setState(341);
+			setState(375);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(340);
+				setState(374);
 				match(COMMA);
 				}
 			}
@@ -2104,18 +2246,18 @@ public class AngularParser extends Parser {
 		MetadataModulePropertyContext _localctx = new MetadataModulePropertyContext(_ctx, getState());
 		enterRule(_localctx, 36, RULE_metadataModuleProperty);
 		try {
-			setState(358);
+			setState(392);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case BOOTSTRAP:
 				_localctx = new BootstrapPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(343);
+				setState(377);
 				match(BOOTSTRAP);
-				setState(344);
+				setState(378);
 				match(COLON);
-				setState(345);
+				setState(379);
 				array();
 				}
 				break;
@@ -2123,11 +2265,11 @@ public class AngularParser extends Parser {
 				_localctx = new DeclarationsModulePropertyContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(346);
+				setState(380);
 				match(DECLARATIONS);
-				setState(347);
+				setState(381);
 				match(COLON);
-				setState(348);
+				setState(382);
 				array();
 				}
 				break;
@@ -2135,11 +2277,11 @@ public class AngularParser extends Parser {
 				_localctx = new ImportsModulePropertyContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(349);
+				setState(383);
 				match(IMPORTS);
-				setState(350);
+				setState(384);
 				match(COLON);
-				setState(351);
+				setState(385);
 				array();
 				}
 				break;
@@ -2147,11 +2289,11 @@ public class AngularParser extends Parser {
 				_localctx = new ExportsModulePropertyContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(352);
+				setState(386);
 				match(EXPORTS);
-				setState(353);
+				setState(387);
 				match(COLON);
-				setState(354);
+				setState(388);
 				array();
 				}
 				break;
@@ -2159,11 +2301,11 @@ public class AngularParser extends Parser {
 				_localctx = new ProvidersModulePropertyContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(355);
+				setState(389);
 				match(PROVIDERS);
-				setState(356);
+				setState(390);
 				match(COLON);
-				setState(357);
+				setState(391);
 				array();
 				}
 				break;
@@ -2221,35 +2363,35 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(360);
+			setState(394);
 			match(COMPONENT);
-			setState(361);
+			setState(395);
 			match(LPAREN);
-			setState(367);
+			setState(401);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==LBRACE) {
 				{
-				setState(362);
+				setState(396);
 				match(LBRACE);
-				setState(364);
+				setState(398);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (((_la) & ~0x3f) == 0 && ((1L << _la) & 6290432L) != 0) {
 					{
-					setState(363);
+					setState(397);
 					componentMetadata();
 					}
 				}
 
-				setState(366);
+				setState(400);
 				match(RBRACE);
 				}
 			}
 
-			setState(369);
+			setState(403);
 			match(RPAREN);
-			setState(370);
+			setState(404);
 			classDeclaration();
 			}
 		}
@@ -2303,32 +2445,32 @@ public class AngularParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(372);
+			setState(406);
 			metadataComponentProperty();
-			setState(377);
+			setState(411);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,31,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(373);
+					setState(407);
 					match(COMMA);
-					setState(374);
+					setState(408);
 					metadataComponentProperty();
 					}
 					} 
 				}
-				setState(379);
+				setState(413);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,31,_ctx);
 			}
-			setState(381);
+			setState(415);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(380);
+				setState(414);
 				match(COMMA);
 				}
 			}
@@ -2621,18 +2763,18 @@ public class AngularParser extends Parser {
 		MetadataComponentPropertyContext _localctx = new MetadataComponentPropertyContext(_ctx, getState());
 		enterRule(_localctx, 42, RULE_metadataComponentProperty);
 		try {
-			setState(419);
+			setState(453);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SELECTOR:
 				_localctx = new SelectorComponentPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(383);
+				setState(417);
 				match(SELECTOR);
-				setState(384);
+				setState(418);
 				match(COLON);
-				setState(385);
+				setState(419);
 				match(STRING);
 				}
 				break;
@@ -2640,11 +2782,11 @@ public class AngularParser extends Parser {
 				_localctx = new TemplateUrlPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(386);
+				setState(420);
 				match(TEMPLATE_URL);
-				setState(387);
+				setState(421);
 				match(COLON);
-				setState(388);
+				setState(422);
 				match(STRING);
 				}
 				break;
@@ -2652,11 +2794,11 @@ public class AngularParser extends Parser {
 				_localctx = new TemplatePropertyContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(389);
+				setState(423);
 				match(TEMPLATE);
-				setState(390);
+				setState(424);
 				match(COLON);
-				setState(391);
+				setState(425);
 				htmlTemplate();
 				}
 				break;
@@ -2664,11 +2806,11 @@ public class AngularParser extends Parser {
 				_localctx = new StyleUrlsPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(392);
+				setState(426);
 				match(STYLE_URLS);
-				setState(393);
+				setState(427);
 				match(COLON);
-				setState(394);
+				setState(428);
 				array();
 				}
 				break;
@@ -2676,11 +2818,11 @@ public class AngularParser extends Parser {
 				_localctx = new StylesPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(395);
+				setState(429);
 				match(STYLES);
-				setState(396);
+				setState(430);
 				match(COLON);
-				setState(397);
+				setState(431);
 				array();
 				}
 				break;
@@ -2688,11 +2830,11 @@ public class AngularParser extends Parser {
 				_localctx = new StandalonePropertyContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(398);
+				setState(432);
 				match(STANDALONE);
-				setState(399);
+				setState(433);
 				match(COLON);
-				setState(400);
+				setState(434);
 				match(BOOL);
 				}
 				break;
@@ -2700,11 +2842,11 @@ public class AngularParser extends Parser {
 				_localctx = new InputsPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(401);
+				setState(435);
 				match(INPUTS);
-				setState(402);
+				setState(436);
 				match(COLON);
-				setState(403);
+				setState(437);
 				array();
 				}
 				break;
@@ -2712,11 +2854,11 @@ public class AngularParser extends Parser {
 				_localctx = new OutputsPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(404);
+				setState(438);
 				match(OUTPUTS);
-				setState(405);
+				setState(439);
 				match(COLON);
-				setState(406);
+				setState(440);
 				array();
 				}
 				break;
@@ -2724,11 +2866,11 @@ public class AngularParser extends Parser {
 				_localctx = new ImportsComponentPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(407);
+				setState(441);
 				match(IMPORTS);
-				setState(408);
+				setState(442);
 				match(COLON);
-				setState(409);
+				setState(443);
 				array();
 				}
 				break;
@@ -2736,11 +2878,11 @@ public class AngularParser extends Parser {
 				_localctx = new ExportsComponentPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 10);
 				{
-				setState(410);
+				setState(444);
 				match(EXPORTS);
-				setState(411);
+				setState(445);
 				match(COLON);
-				setState(412);
+				setState(446);
 				array();
 				}
 				break;
@@ -2748,11 +2890,11 @@ public class AngularParser extends Parser {
 				_localctx = new ProvidersComponentPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 11);
 				{
-				setState(413);
+				setState(447);
 				match(PROVIDERS);
-				setState(414);
+				setState(448);
 				match(COLON);
-				setState(415);
+				setState(449);
 				array();
 				}
 				break;
@@ -2760,11 +2902,11 @@ public class AngularParser extends Parser {
 				_localctx = new DeclarationsComponentPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 12);
 				{
-				setState(416);
+				setState(450);
 				match(DECLARATIONS);
-				setState(417);
+				setState(451);
 				match(COLON);
-				setState(418);
+				setState(452);
 				array();
 				}
 				break;
@@ -2822,35 +2964,35 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(421);
+			setState(455);
 			match(DIRECTIVE);
-			setState(422);
+			setState(456);
 			match(LPAREN);
-			setState(428);
+			setState(462);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==LBRACE) {
 				{
-				setState(423);
+				setState(457);
 				match(LBRACE);
-				setState(425);
+				setState(459);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==SELECTOR || _la==IDENTIFIER) {
 					{
-					setState(424);
+					setState(458);
 					directiveMetadata();
 					}
 				}
 
-				setState(427);
+				setState(461);
 				match(RBRACE);
 				}
 			}
 
-			setState(430);
+			setState(464);
 			match(RPAREN);
-			setState(431);
+			setState(465);
 			classDeclaration();
 			}
 		}
@@ -2904,32 +3046,32 @@ public class AngularParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(433);
+			setState(467);
 			directiveMetadataProperty();
-			setState(438);
+			setState(472);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,36,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(434);
+					setState(468);
 					match(COMMA);
-					setState(435);
+					setState(469);
 					directiveMetadataProperty();
 					}
 					} 
 				}
-				setState(440);
+				setState(474);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,36,_ctx);
 			}
-			setState(442);
+			setState(476);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(441);
+				setState(475);
 				match(COMMA);
 				}
 			}
@@ -3006,18 +3148,18 @@ public class AngularParser extends Parser {
 		DirectiveMetadataPropertyContext _localctx = new DirectiveMetadataPropertyContext(_ctx, getState());
 		enterRule(_localctx, 48, RULE_directiveMetadataProperty);
 		try {
-			setState(450);
+			setState(484);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case SELECTOR:
 				_localctx = new SelectorDirectivePropertyContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(444);
+				setState(478);
 				match(SELECTOR);
-				setState(445);
+				setState(479);
 				match(COLON);
-				setState(446);
+				setState(480);
 				match(STRING);
 				}
 				break;
@@ -3025,11 +3167,11 @@ public class AngularParser extends Parser {
 				_localctx = new IdentifierPropertyContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(447);
+				setState(481);
 				match(IDENTIFIER);
-				setState(448);
+				setState(482);
 				match(COLON);
-				setState(449);
+				setState(483);
 				expression(0);
 				}
 				break;
@@ -3083,23 +3225,23 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(452);
+			setState(486);
 			match(AT);
-			setState(453);
+			setState(487);
 			match(IDENTIFIER);
-			setState(454);
+			setState(488);
 			match(LPAREN);
-			setState(456);
+			setState(490);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548418959048704L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 796939427L) != 0) {
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
 				{
-				setState(455);
+				setState(489);
 				parameterList();
 				}
 			}
 
-			setState(458);
+			setState(492);
 			match(RPAREN);
 			}
 		}
@@ -3153,35 +3295,35 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(460);
+			setState(494);
 			match(PIPE);
-			setState(461);
+			setState(495);
 			match(LPAREN);
-			setState(467);
+			setState(501);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==LBRACE) {
 				{
-				setState(462);
+				setState(496);
 				match(LBRACE);
-				setState(464);
+				setState(498);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==IDENTIFIER) {
 					{
-					setState(463);
+					setState(497);
 					pipeMetadata();
 					}
 				}
 
-				setState(466);
+				setState(500);
 				match(RBRACE);
 				}
 			}
 
-			setState(469);
+			setState(503);
 			match(RPAREN);
-			setState(470);
+			setState(504);
 			classDeclaration();
 			}
 		}
@@ -3235,32 +3377,32 @@ public class AngularParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(472);
+			setState(506);
 			pipeMetadataProperty();
-			setState(477);
+			setState(511);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,42,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(473);
+					setState(507);
 					match(COMMA);
-					setState(474);
+					setState(508);
 					pipeMetadataProperty();
 					}
 					} 
 				}
-				setState(479);
+				setState(513);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,42,_ctx);
 			}
-			setState(481);
+			setState(515);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(480);
+				setState(514);
 				match(COMMA);
 				}
 			}
@@ -3310,11 +3452,11 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(483);
+			setState(517);
 			match(IDENTIFIER);
-			setState(484);
+			setState(518);
 			match(COLON);
-			setState(485);
+			setState(519);
 			expression(0);
 			}
 		}
@@ -3368,35 +3510,35 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(487);
+			setState(521);
 			match(INJECTABLE);
-			setState(488);
+			setState(522);
 			match(LPAREN);
-			setState(494);
+			setState(528);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==LBRACE) {
 				{
-				setState(489);
+				setState(523);
 				match(LBRACE);
-				setState(491);
+				setState(525);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==IDENTIFIER) {
 					{
-					setState(490);
+					setState(524);
 					injectableMetadata();
 					}
 				}
 
-				setState(493);
+				setState(527);
 				match(RBRACE);
 				}
 			}
 
-			setState(496);
+			setState(530);
 			match(RPAREN);
-			setState(497);
+			setState(531);
 			classDeclaration();
 			}
 		}
@@ -3450,32 +3592,32 @@ public class AngularParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(499);
+			setState(533);
 			injectableMetadataProperty();
-			setState(504);
+			setState(538);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,46,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(500);
+					setState(534);
 					match(COMMA);
-					setState(501);
+					setState(535);
 					injectableMetadataProperty();
 					}
 					} 
 				}
-				setState(506);
+				setState(540);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,46,_ctx);
 			}
-			setState(508);
+			setState(542);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(507);
+				setState(541);
 				match(COMMA);
 				}
 			}
@@ -3525,11 +3667,11 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(510);
+			setState(544);
 			match(IDENTIFIER);
-			setState(511);
+			setState(545);
 			match(COLON);
-			setState(512);
+			setState(546);
 			expression(0);
 			}
 		}
@@ -3589,81 +3731,81 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(515);
+			setState(549);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==EXPORT) {
 				{
-				setState(514);
+				setState(548);
 				match(EXPORT);
 				}
 			}
 
-			setState(517);
+			setState(551);
 			match(CLASS);
-			setState(518);
+			setState(552);
 			match(IDENTIFIER);
-			setState(528);
+			setState(562);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==EXTENDS) {
 				{
-				setState(519);
+				setState(553);
 				match(EXTENDS);
-				setState(520);
+				setState(554);
 				match(IDENTIFIER);
-				setState(525);
+				setState(559);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					setState(521);
+					setState(555);
 					match(COMMA);
-					setState(522);
+					setState(556);
 					match(IDENTIFIER);
 					}
 					}
-					setState(527);
+					setState(561);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 			}
 
-			setState(539);
+			setState(573);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==IMPLEMENTS) {
 				{
-				setState(530);
+				setState(564);
 				match(IMPLEMENTS);
-				setState(531);
+				setState(565);
 				match(IDENTIFIER);
-				setState(536);
+				setState(570);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					setState(532);
+					setState(566);
 					match(COMMA);
-					setState(533);
+					setState(567);
 					match(IDENTIFIER);
 					}
 					}
-					setState(538);
+					setState(572);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 			}
 
-			setState(541);
+			setState(575);
 			match(LBRACE);
-			setState(542);
+			setState(576);
 			classBody();
-			setState(543);
+			setState(577);
 			match(RBRACE);
 			}
 		}
@@ -3740,67 +3882,67 @@ public class AngularParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(548);
+			setState(582);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,53,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(545);
+					setState(579);
 					propertyDeclaration();
 					}
 					} 
 				}
-				setState(550);
+				setState(584);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,53,_ctx);
 			}
-			setState(552);
+			setState(586);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==CONSTRUCTOR) {
 				{
-				setState(551);
+				setState(585);
 				constructorDeclaration();
 				}
 			}
 
-			setState(560);
+			setState(594);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548483316449280L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 797398179L) != 0) {
+			while ((((_la - 26)) & ~0x3f) == 0 && ((1L << (_la - 26)) & 105553249436607L) != 0 || (((_la - 91)) & ~0x3f) == 0 && ((1L << (_la - 91)) & 139869494255288321L) != 0) {
 				{
-				setState(558);
+				setState(592);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,55,_ctx) ) {
 				case 1:
 					{
-					setState(554);
+					setState(588);
 					methodDeclaration();
 					}
 					break;
 				case 2:
 					{
-					setState(555);
+					setState(589);
 					statement();
 					}
 					break;
 				case 3:
 					{
-					setState(556);
+					setState(590);
 					variableDeclaration();
 					}
 					break;
 				case 4:
 					{
-					setState(557);
+					setState(591);
 					functionDeclaration();
 					}
 					break;
 				}
 				}
-				setState(562);
+				setState(596);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -3865,67 +4007,67 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(566);
+			setState(600);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==AT) {
 				{
 				{
-				setState(563);
+				setState(597);
 				decorator();
 				}
 				}
-				setState(568);
+				setState(602);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(570);
+			setState(604);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 3940649673949184L) != 0) {
 				{
-				setState(569);
+				setState(603);
 				accessModifier();
 				}
 			}
 
-			setState(572);
+			setState(606);
 			match(IDENTIFIER);
-			setState(578);
+			setState(612);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COLON || _la==QUES) {
 				{
-				setState(574);
+				setState(608);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==QUES) {
 					{
-					setState(573);
+					setState(607);
 					match(QUES);
 					}
 				}
 
-				setState(576);
+				setState(610);
 				match(COLON);
-				setState(577);
+				setState(611);
 				typeAnnotation();
 				}
 			}
 
-			setState(582);
+			setState(616);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ASSIGN) {
 				{
-				setState(580);
+				setState(614);
 				match(ASSIGN);
-				setState(581);
+				setState(615);
 				initialization();
 				}
 			}
 
-			setState(584);
+			setState(618);
 			match(SEMI);
 			}
 		}
@@ -3987,49 +4129,49 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(589);
+			setState(623);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==AT) {
 				{
 				{
-				setState(586);
+				setState(620);
 				decorator();
 				}
 				}
-				setState(591);
+				setState(625);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(592);
+			setState(626);
 			match(IDENTIFIER);
-			setState(593);
+			setState(627);
 			match(LPAREN);
-			setState(595);
+			setState(629);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548418959048704L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 796939427L) != 0) {
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
 				{
-				setState(594);
+				setState(628);
 				parameterList();
 				}
 			}
 
-			setState(597);
+			setState(631);
 			match(RPAREN);
-			setState(600);
+			setState(634);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COLON) {
 				{
-				setState(598);
+				setState(632);
 				match(COLON);
-				setState(599);
+				setState(633);
 				typeAnnotation();
 				}
 			}
 
-			setState(602);
+			setState(636);
 			block();
 			}
 		}
@@ -4083,27 +4225,27 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(604);
+			setState(638);
 			match(CONSTRUCTOR);
-			setState(605);
+			setState(639);
 			match(LPAREN);
-			setState(607);
+			setState(641);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548418959048704L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 796939427L) != 0) {
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
 				{
-				setState(606);
+				setState(640);
 				parameterList();
 				}
 			}
 
-			setState(609);
+			setState(643);
 			match(RPAREN);
-			setState(610);
+			setState(644);
 			match(LBRACE);
-			setState(611);
+			setState(645);
 			constructorBody();
-			setState(612);
+			setState(646);
 			match(RBRACE);
 			}
 		}
@@ -4152,17 +4294,17 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(617);
+			setState(651);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548481705836544L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 797398179L) != 0) {
+			while ((((_la - 26)) & ~0x3f) == 0 && ((1L << (_la - 26)) & 105553249436583L) != 0 || (((_la - 91)) & ~0x3f) == 0 && ((1L << (_la - 91)) & 139869494255288321L) != 0) {
 				{
 				{
-				setState(614);
+				setState(648);
 				statement();
 				}
 				}
-				setState(619);
+				setState(653);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -4223,53 +4365,53 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(621);
+			setState(655);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==EXPORT) {
 				{
-				setState(620);
+				setState(654);
 				match(EXPORT);
 				}
 			}
 
-			setState(623);
+			setState(657);
 			match(INTERFACE);
-			setState(624);
+			setState(658);
 			match(IDENTIFIER);
-			setState(634);
+			setState(668);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==EXTENDS) {
 				{
-				setState(625);
+				setState(659);
 				match(EXTENDS);
-				setState(626);
+				setState(660);
 				match(IDENTIFIER);
-				setState(631);
+				setState(665);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==COMMA) {
 					{
 					{
-					setState(627);
+					setState(661);
 					match(COMMA);
-					setState(628);
+					setState(662);
 					match(IDENTIFIER);
 					}
 					}
-					setState(633);
+					setState(667);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 			}
 
-			setState(636);
+			setState(670);
 			match(LBRACE);
-			setState(637);
+			setState(671);
 			interfaceBody();
-			setState(638);
+			setState(672);
 			match(RBRACE);
 			}
 		}
@@ -4318,17 +4460,17 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(643);
+			setState(677);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==IDENTIFIER) {
 				{
 				{
-				setState(640);
+				setState(674);
 				interfaceProperty();
 				}
 				}
-				setState(645);
+				setState(679);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -4380,23 +4522,23 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(646);
+			setState(680);
 			match(IDENTIFIER);
-			setState(648);
+			setState(682);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==QUES) {
 				{
-				setState(647);
+				setState(681);
 				match(QUES);
 				}
 			}
 
-			setState(650);
+			setState(684);
 			match(COLON);
-			setState(651);
+			setState(685);
 			typeAnnotation();
-			setState(652);
+			setState(686);
 			match(SEMI);
 			}
 		}
@@ -4447,25 +4589,25 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(655);
+			setState(689);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==EXPORT) {
 				{
-				setState(654);
+				setState(688);
 				match(EXPORT);
 				}
 			}
 
-			setState(657);
+			setState(691);
 			match(ENUM);
-			setState(658);
+			setState(692);
 			match(IDENTIFIER);
-			setState(659);
+			setState(693);
 			match(LBRACE);
-			setState(660);
+			setState(694);
 			enumBody();
-			setState(661);
+			setState(695);
 			match(RBRACE);
 			}
 		}
@@ -4519,32 +4661,32 @@ public class AngularParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(663);
+			setState(697);
 			enumProperty();
-			setState(668);
+			setState(702);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,73,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(664);
+					setState(698);
 					match(COMMA);
-					setState(665);
+					setState(699);
 					enumProperty();
 					}
 					} 
 				}
-				setState(670);
+				setState(704);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,73,_ctx);
 			}
-			setState(672);
+			setState(706);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(671);
+				setState(705);
 				match(COMMA);
 				}
 			}
@@ -4595,16 +4737,16 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(674);
+			setState(708);
 			match(IDENTIFIER);
-			setState(677);
+			setState(711);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ASSIGN) {
 				{
-				setState(675);
+				setState(709);
 				match(ASSIGN);
-				setState(676);
+				setState(710);
 				expression(0);
 				}
 			}
@@ -4655,6 +4797,26 @@ public class AngularParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
+	public static class NavigationStContext extends StatementContext {
+		public NavigationStatementContext navigationStatement() {
+			return getRuleContext(NavigationStatementContext.class,0);
+		}
+		public NavigationStContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterNavigationSt(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitNavigationSt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitNavigationSt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class ConditionalStContext extends StatementContext {
 		public ConditionalStatementContext conditionalStatement() {
 			return getRuleContext(ConditionalStatementContext.class,0);
@@ -4691,6 +4853,26 @@ public class AngularParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitFunctionCallSt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class RouterModuleStContext extends StatementContext {
+		public RouterModuleCallContext routerModuleCall() {
+			return getRuleContext(RouterModuleCallContext.class,0);
+		}
+		public RouterModuleStContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterRouterModuleSt(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitRouterModuleSt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitRouterModuleSt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4732,6 +4914,26 @@ public class AngularParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitPrintSt(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class StoreDispatchStContext extends StatementContext {
+		public StoreDispatchStatementContext storeDispatchStatement() {
+			return getRuleContext(StoreDispatchStatementContext.class,0);
+		}
+		public StoreDispatchStContext(StatementContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterStoreDispatchSt(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitStoreDispatchSt(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitStoreDispatchSt(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -4820,14 +5022,14 @@ public class AngularParser extends Parser {
 		StatementContext _localctx = new StatementContext(_ctx, getState());
 		enterRule(_localctx, 88, RULE_statement);
 		try {
-			setState(691);
+			setState(728);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,77,_ctx) ) {
 			case 1:
 				_localctx = new AssignmentStContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(679);
+				setState(713);
 				assignment();
 				}
 				break;
@@ -4835,7 +5037,7 @@ public class AngularParser extends Parser {
 				_localctx = new PrintStContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(680);
+				setState(714);
 				printStatement();
 				}
 				break;
@@ -4843,7 +5045,7 @@ public class AngularParser extends Parser {
 				_localctx = new ReturnStContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(681);
+				setState(715);
 				returnStatement();
 				}
 				break;
@@ -4851,7 +5053,7 @@ public class AngularParser extends Parser {
 				_localctx = new ThrowStContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(682);
+				setState(716);
 				throwStatement();
 				}
 				break;
@@ -4859,7 +5061,7 @@ public class AngularParser extends Parser {
 				_localctx = new ConditionalStContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(683);
+				setState(717);
 				conditionalStatement();
 				}
 				break;
@@ -4867,7 +5069,7 @@ public class AngularParser extends Parser {
 				_localctx = new IterationStContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(684);
+				setState(718);
 				iterationStatement();
 				}
 				break;
@@ -4875,7 +5077,7 @@ public class AngularParser extends Parser {
 				_localctx = new BootstrapCallStContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(685);
+				setState(719);
 				bootstrapCall();
 				}
 				break;
@@ -4883,7 +5085,7 @@ public class AngularParser extends Parser {
 				_localctx = new FunctionCallStContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
-				setState(686);
+				setState(720);
 				functionCall();
 				}
 				break;
@@ -4891,18 +5093,42 @@ public class AngularParser extends Parser {
 				_localctx = new ExpressionStContext(_localctx);
 				enterOuterAlt(_localctx, 9);
 				{
-				setState(687);
+				setState(721);
 				expression(0);
-				setState(689);
+				setState(723);
 				_errHandler.sync(this);
 				switch ( getInterpreter().adaptivePredict(_input,76,_ctx) ) {
 				case 1:
 					{
-					setState(688);
+					setState(722);
 					match(SEMI);
 					}
 					break;
 				}
+				}
+				break;
+			case 10:
+				_localctx = new StoreDispatchStContext(_localctx);
+				enterOuterAlt(_localctx, 10);
+				{
+				setState(725);
+				storeDispatchStatement();
+				}
+				break;
+			case 11:
+				_localctx = new NavigationStContext(_localctx);
+				enterOuterAlt(_localctx, 11);
+				{
+				setState(726);
+				navigationStatement();
+				}
+				break;
+			case 12:
+				_localctx = new RouterModuleStContext(_localctx);
+				enterOuterAlt(_localctx, 12);
+				{
+				setState(727);
+				routerModuleCall();
 				}
 				break;
 			}
@@ -4953,13 +5179,13 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(693);
+			setState(730);
 			memberAccess();
-			setState(694);
+			setState(731);
 			match(ASSIGN);
-			setState(695);
+			setState(732);
 			initialization();
-			setState(696);
+			setState(733);
 			match(SEMI);
 			}
 		}
@@ -5012,11 +5238,11 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(698);
+			setState(735);
 			match(CONSOLE);
-			setState(699);
+			setState(736);
 			match(DOT);
-			setState(700);
+			setState(737);
 			_la = _input.LA(1);
 			if ( !(_la==LOG || _la==ERROR) ) {
 			_errHandler.recoverInline(this);
@@ -5026,26 +5252,26 @@ public class AngularParser extends Parser {
 				_errHandler.reportMatch(this);
 				consume();
 			}
-			setState(701);
+			setState(738);
 			match(LPAREN);
-			setState(703);
+			setState(740);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548418959048704L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 796939427L) != 0) {
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
 				{
-				setState(702);
+				setState(739);
 				parameterList();
 				}
 			}
 
-			setState(705);
+			setState(742);
 			match(RPAREN);
-			setState(707);
+			setState(744);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,79,_ctx) ) {
 			case 1:
 				{
-				setState(706);
+				setState(743);
 				match(SEMI);
 				}
 				break;
@@ -5095,11 +5321,11 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(709);
+			setState(746);
 			match(RETURN);
-			setState(710);
+			setState(747);
 			expression(0);
-			setState(711);
+			setState(748);
 			match(SEMI);
 			}
 		}
@@ -5146,11 +5372,11 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(713);
+			setState(750);
 			match(THROW);
-			setState(714);
+			setState(751);
 			expression(0);
-			setState(715);
+			setState(752);
 			match(SEMI);
 			}
 		}
@@ -5205,30 +5431,30 @@ public class AngularParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(717);
+			setState(754);
 			ifStatement();
-			setState(721);
+			setState(758);
 			_errHandler.sync(this);
 			_alt = getInterpreter().adaptivePredict(_input,80,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(718);
+					setState(755);
 					elseIfStatement();
 					}
 					} 
 				}
-				setState(723);
+				setState(760);
 				_errHandler.sync(this);
 				_alt = getInterpreter().adaptivePredict(_input,80,_ctx);
 			}
-			setState(725);
+			setState(762);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,81,_ctx) ) {
 			case 1:
 				{
-				setState(724);
+				setState(761);
 				elseStatement();
 				}
 				break;
@@ -5282,15 +5508,15 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(727);
+			setState(764);
 			match(IF);
-			setState(728);
+			setState(765);
 			match(LPAREN);
-			setState(729);
+			setState(766);
 			expression(0);
-			setState(730);
+			setState(767);
 			match(RPAREN);
-			setState(731);
+			setState(768);
 			statementBody();
 			}
 		}
@@ -5342,17 +5568,17 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(733);
+			setState(770);
 			match(ELSE);
-			setState(734);
+			setState(771);
 			match(IF);
-			setState(735);
+			setState(772);
 			match(LPAREN);
-			setState(736);
+			setState(773);
 			expression(0);
-			setState(737);
+			setState(774);
 			match(RPAREN);
-			setState(738);
+			setState(775);
 			statementBody();
 			}
 		}
@@ -5398,9 +5624,9 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(740);
+			setState(777);
 			match(ELSE);
-			setState(741);
+			setState(778);
 			statementBody();
 			}
 		}
@@ -5448,18 +5674,18 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(745);
+			setState(782);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,82,_ctx) ) {
 			case 1:
 				{
-				setState(743);
+				setState(780);
 				statement();
 				}
 				break;
 			case 2:
 				{
-				setState(744);
+				setState(781);
 				block();
 				}
 				break;
@@ -5479,13 +5705,12 @@ public class AngularParser extends Parser {
 
 	@SuppressWarnings("CheckReturnValue")
 	public static class FunctionCallContext extends ParserRuleContext {
-		public TerminalNode IDENTIFIER() { return getToken(AngularParser.IDENTIFIER, 0); }
+		public MemberChainContext memberChain() {
+			return getRuleContext(MemberChainContext.class,0);
+		}
 		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
 		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
 		public TerminalNode SEMI() { return getToken(AngularParser.SEMI, 0); }
-		public GenericTypeContext genericType() {
-			return getRuleContext(GenericTypeContext.class,0);
-		}
 		public ParameterListContext parameterList() {
 			return getRuleContext(ParameterListContext.class,0);
 		}
@@ -5515,33 +5740,23 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(747);
-			match(IDENTIFIER);
-			setState(749);
-			_errHandler.sync(this);
-			_la = _input.LA(1);
-			if (_la==LT) {
-				{
-				setState(748);
-				genericType();
-				}
-			}
-
-			setState(751);
+			setState(784);
+			memberChain();
+			setState(785);
 			match(LPAREN);
-			setState(753);
+			setState(787);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548418959048704L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 796939427L) != 0) {
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
 				{
-				setState(752);
+				setState(786);
 				parameterList();
 				}
 			}
 
-			setState(755);
+			setState(789);
 			match(RPAREN);
-			setState(756);
+			setState(790);
 			match(SEMI);
 			}
 		}
@@ -5604,41 +5819,41 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(758);
+			setState(792);
 			bootstrapSpecifier();
-			setState(759);
+			setState(793);
 			match(LPAREN);
-			setState(761);
+			setState(795);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548418959048704L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 796939427L) != 0) {
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
 				{
-				setState(760);
+				setState(794);
 				parameterList();
 				}
 			}
 
-			setState(763);
+			setState(797);
 			match(RPAREN);
-			setState(770);
+			setState(804);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==DOT) {
 				{
-				setState(764);
+				setState(798);
 				match(DOT);
-				setState(765);
+				setState(799);
 				match(CATCH);
-				setState(766);
+				setState(800);
 				match(LPAREN);
-				setState(767);
+				setState(801);
 				arrowFunction();
-				setState(768);
+				setState(802);
 				match(RPAREN);
 				}
 			}
 
-			setState(772);
+			setState(806);
 			match(SEMI);
 			}
 		}
@@ -5823,54 +6038,54 @@ public class AngularParser extends Parser {
 		enterRule(_localctx, 112, RULE_iterationStatement);
 		int _la;
 		try {
-			setState(821);
+			setState(855);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,90,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,89,_ctx) ) {
 			case 1:
 				_localctx = new StandardForLoopContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(774);
+				setState(808);
 				match(FOR);
-				setState(775);
+				setState(809);
 				match(LPAREN);
-				setState(777);
+				setState(811);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==LET || _la==CONST) {
 					{
-					setState(776);
+					setState(810);
 					variableDeclaration();
 					}
 				}
 
-				setState(779);
+				setState(813);
 				match(SEMI);
-				setState(781);
+				setState(815);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548418959048704L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 796939427L) != 0) {
+				if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
 					{
-					setState(780);
+					setState(814);
 					expression(0);
 					}
 				}
 
-				setState(783);
+				setState(817);
 				match(SEMI);
-				setState(785);
+				setState(819);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548418959048704L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 796939427L) != 0) {
+				if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
 					{
-					setState(784);
+					setState(818);
 					expression(0);
 					}
 				}
 
-				setState(787);
+				setState(821);
 				match(RPAREN);
-				setState(788);
+				setState(822);
 				statementBody();
 				}
 				break;
@@ -5878,21 +6093,21 @@ public class AngularParser extends Parser {
 				_localctx = new ForOfLoopContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(789);
+				setState(823);
 				match(FOR);
-				setState(790);
+				setState(824);
 				match(LPAREN);
-				setState(791);
+				setState(825);
 				varHelper();
-				setState(792);
+				setState(826);
 				match(IDENTIFIER);
-				setState(793);
+				setState(827);
 				match(OF);
-				setState(794);
+				setState(828);
 				match(IDENTIFIER);
-				setState(795);
+				setState(829);
 				match(RPAREN);
-				setState(796);
+				setState(830);
 				statementBody();
 				}
 				break;
@@ -5900,21 +6115,21 @@ public class AngularParser extends Parser {
 				_localctx = new ForInLoopContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(798);
+				setState(832);
 				match(FOR);
-				setState(799);
+				setState(833);
 				match(LPAREN);
-				setState(800);
+				setState(834);
 				varHelper();
-				setState(801);
+				setState(835);
 				match(IDENTIFIER);
-				setState(802);
+				setState(836);
 				match(IN);
-				setState(803);
+				setState(837);
 				match(IDENTIFIER);
-				setState(804);
+				setState(838);
 				match(RPAREN);
-				setState(805);
+				setState(839);
 				statementBody();
 				}
 				break;
@@ -5922,15 +6137,15 @@ public class AngularParser extends Parser {
 				_localctx = new WhileLoopContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(807);
+				setState(841);
 				match(WHILE);
-				setState(808);
+				setState(842);
 				match(LPAREN);
-				setState(809);
+				setState(843);
 				expression(0);
-				setState(810);
+				setState(844);
 				match(RPAREN);
-				setState(811);
+				setState(845);
 				statementBody();
 				}
 				break;
@@ -5938,19 +6153,19 @@ public class AngularParser extends Parser {
 				_localctx = new DoWhileLoopContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(813);
+				setState(847);
 				match(DO);
-				setState(814);
+				setState(848);
 				statementBody();
-				setState(815);
+				setState(849);
 				match(WHILE);
-				setState(816);
+				setState(850);
 				match(LPAREN);
-				setState(817);
+				setState(851);
 				expression(0);
-				setState(818);
+				setState(852);
 				match(RPAREN);
-				setState(819);
+				setState(853);
 				match(SEMI);
 				}
 				break;
@@ -6005,21 +6220,21 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(823);
+			setState(857);
 			parameter();
-			setState(828);
+			setState(862);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(824);
+				setState(858);
 				match(COMMA);
-				setState(825);
+				setState(859);
 				parameter();
 				}
 				}
-				setState(830);
+				setState(864);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -6066,7 +6281,7 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(831);
+			setState(865);
 			expression(0);
 			}
 		}
@@ -6127,52 +6342,52 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(836);
+			setState(870);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==AT) {
 				{
 				{
-				setState(833);
+				setState(867);
 				decorator();
 				}
 				}
-				setState(838);
+				setState(872);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(840);
+			setState(874);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 3940649673949184L) != 0) {
 				{
-				setState(839);
+				setState(873);
 				accessModifier();
 				}
 			}
 
-			setState(842);
+			setState(876);
 			match(IDENTIFIER);
-			setState(845);
+			setState(879);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,94,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,93,_ctx) ) {
 			case 1:
 				{
-				setState(843);
+				setState(877);
 				match(COLON);
-				setState(844);
+				setState(878);
 				typeAnnotation();
 				}
 				break;
 			}
-			setState(849);
+			setState(883);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,95,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,94,_ctx) ) {
 			case 1:
 				{
-				setState(847);
+				setState(881);
 				match(ASSIGN);
-				setState(848);
+				setState(882);
 				initialization();
 				}
 				break;
@@ -6231,47 +6446,47 @@ public class AngularParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(851);
+			setState(885);
 			match(LBRACK);
-			setState(860);
+			setState(894);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548418959048704L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 796939427L) != 0) {
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
 				{
-				setState(852);
+				setState(886);
 				expression(0);
-				setState(857);
+				setState(891);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,96,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,95,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(853);
+						setState(887);
 						match(COMMA);
-						setState(854);
+						setState(888);
 						expression(0);
 						}
 						} 
 					}
-					setState(859);
+					setState(893);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,96,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,95,_ctx);
 				}
 				}
 			}
 
-			setState(863);
+			setState(897);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(862);
+				setState(896);
 				match(COMMA);
 				}
 			}
 
-			setState(865);
+			setState(899);
 			match(RBRACK);
 			}
 		}
@@ -6423,14 +6638,14 @@ public class AngularParser extends Parser {
 		ValueContext _localctx = new ValueContext(_ctx, getState());
 		enterRule(_localctx, 122, RULE_value);
 		try {
-			setState(873);
+			setState(907);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,99,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,98,_ctx) ) {
 			case 1:
 				_localctx = new PrimaryValueContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(867);
+				setState(901);
 				primary();
 				}
 				break;
@@ -6438,7 +6653,7 @@ public class AngularParser extends Parser {
 				_localctx = new ArrayValueContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(868);
+				setState(902);
 				array();
 				}
 				break;
@@ -6446,7 +6661,7 @@ public class AngularParser extends Parser {
 				_localctx = new ArrayAccessValueContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(869);
+				setState(903);
 				arrayAccess();
 				}
 				break;
@@ -6454,7 +6669,7 @@ public class AngularParser extends Parser {
 				_localctx = new MemberAccessValueContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(870);
+				setState(904);
 				memberAccess();
 				}
 				break;
@@ -6462,7 +6677,7 @@ public class AngularParser extends Parser {
 				_localctx = new ObjectValueContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(871);
+				setState(905);
 				object();
 				}
 				break;
@@ -6470,7 +6685,7 @@ public class AngularParser extends Parser {
 				_localctx = new ObjectInstantiationValueContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(872);
+				setState(906);
 				objectInstantiation();
 				}
 				break;
@@ -6520,19 +6735,19 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(875);
+			setState(909);
 			match(LBRACE);
-			setState(877);
+			setState(911);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==IDENTIFIER) {
 				{
-				setState(876);
+				setState(910);
 				attributes();
 				}
 			}
 
-			setState(879);
+			setState(913);
 			match(RBRACE);
 			}
 		}
@@ -6586,32 +6801,32 @@ public class AngularParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(881);
+			setState(915);
 			attribute();
-			setState(886);
+			setState(920);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,101,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,100,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					{
 					{
-					setState(882);
+					setState(916);
 					match(COMMA);
-					setState(883);
+					setState(917);
 					attribute();
 					}
 					} 
 				}
-				setState(888);
+				setState(922);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,101,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,100,_ctx);
 			}
-			setState(890);
+			setState(924);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COMMA) {
 				{
-				setState(889);
+				setState(923);
 				match(COMMA);
 				}
 			}
@@ -6661,11 +6876,11 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(892);
+			setState(926);
 			match(IDENTIFIER);
-			setState(893);
+			setState(927);
 			match(COLON);
-			setState(894);
+			setState(928);
 			expression(0);
 			}
 		}
@@ -6718,33 +6933,33 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(896);
+			setState(930);
 			match(NEW);
-			setState(897);
+			setState(931);
 			match(IDENTIFIER);
-			setState(899);
+			setState(933);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==LT) {
 				{
-				setState(898);
+				setState(932);
 				genericType();
 				}
 			}
 
-			setState(901);
+			setState(935);
 			match(LPAREN);
-			setState(903);
+			setState(937);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 148548418959048704L) != 0 || (((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 796939427L) != 0) {
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
 				{
-				setState(902);
+				setState(936);
 				parameterList();
 				}
 			}
 
-			setState(905);
+			setState(939);
 			match(RPAREN);
 			}
 		}
@@ -6818,21 +7033,21 @@ public class AngularParser extends Parser {
 		MemberAccessContext _localctx = new MemberAccessContext(_ctx, getState());
 		enterRule(_localctx, 132, RULE_memberAccess);
 		try {
-			setState(913);
+			setState(947);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case IDENTIFIER:
 				_localctx = new MemberAccessIdentifierContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(907);
+				setState(941);
 				match(IDENTIFIER);
-				setState(909);
+				setState(943);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,105,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,104,_ctx) ) {
 				case 1:
 					{
-					setState(908);
+					setState(942);
 					expression(0);
 					}
 					break;
@@ -6843,9 +7058,9 @@ public class AngularParser extends Parser {
 				_localctx = new MemberAccessThisContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(911);
+				setState(945);
 				match(THIS);
-				setState(912);
+				setState(946);
 				expression(0);
 				}
 				break;
@@ -6897,14 +7112,151 @@ public class AngularParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(915);
+			setState(949);
 			match(IDENTIFIER);
-			setState(916);
+			setState(950);
 			match(LBRACK);
-			setState(917);
+			setState(951);
 			expression(0);
-			setState(918);
+			setState(952);
 			match(RBRACK);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class MemberChainContext extends ParserRuleContext {
+		public PrimaryContext primary() {
+			return getRuleContext(PrimaryContext.class,0);
+		}
+		public List<TerminalNode> DOT() { return getTokens(AngularParser.DOT); }
+		public TerminalNode DOT(int i) {
+			return getToken(AngularParser.DOT, i);
+		}
+		public List<TerminalNode> IDENTIFIER() { return getTokens(AngularParser.IDENTIFIER); }
+		public TerminalNode IDENTIFIER(int i) {
+			return getToken(AngularParser.IDENTIFIER, i);
+		}
+		public MemberChainContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_memberChain; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterMemberChain(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitMemberChain(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitMemberChain(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final MemberChainContext memberChain() throws RecognitionException {
+		MemberChainContext _localctx = new MemberChainContext(_ctx, getState());
+		enterRule(_localctx, 136, RULE_memberChain);
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(954);
+			primary();
+			setState(959);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,106,_ctx);
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(955);
+					match(DOT);
+					setState(956);
+					match(IDENTIFIER);
+					}
+					} 
+				}
+				setState(961);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,106,_ctx);
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class CallExpressionContext extends ParserRuleContext {
+		public MemberChainContext memberChain() {
+			return getRuleContext(MemberChainContext.class,0);
+		}
+		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
+		public ParameterListContext parameterList() {
+			return getRuleContext(ParameterListContext.class,0);
+		}
+		public CallExpressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_callExpression; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterCallExpression(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitCallExpression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitCallExpression(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final CallExpressionContext callExpression() throws RecognitionException {
+		CallExpressionContext _localctx = new CallExpressionContext(_ctx, getState());
+		enterRule(_localctx, 138, RULE_callExpression);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(962);
+			memberChain();
+			setState(963);
+			match(LPAREN);
+			setState(965);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
+				{
+				setState(964);
+				parameterList();
+				}
+			}
+
+			setState(967);
+			match(RPAREN);
 			}
 		}
 		catch (RecognitionException re) {
@@ -6944,11 +7296,11 @@ public class AngularParser extends Parser {
 
 	public final InitializationContext initialization() throws RecognitionException {
 		InitializationContext _localctx = new InitializationContext(_ctx, getState());
-		enterRule(_localctx, 136, RULE_initialization);
+		enterRule(_localctx, 140, RULE_initialization);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(920);
+			setState(969);
 			expression(0);
 			}
 		}
@@ -7016,20 +7368,19 @@ public class AngularParser extends Parser {
 
 	public final PrimaryContext primary() throws RecognitionException {
 		PrimaryContext _localctx = new PrimaryContext(_ctx, getState());
-		enterRule(_localctx, 138, RULE_primary);
+		enterRule(_localctx, 142, RULE_primary);
 		try {
-			setState(924);
+			setState(973);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case STRING:
 			case NUMBER:
 			case BOOL:
 			case NULL:
-			case CSS_TEMPLATE:
 				_localctx = new LiteralPrimaryContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(922);
+				setState(971);
 				literal();
 				}
 				break;
@@ -7037,7 +7388,7 @@ public class AngularParser extends Parser {
 				_localctx = new IdentifierPrimaryContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(923);
+				setState(972);
 				match(IDENTIFIER);
 				}
 				break;
@@ -7062,7 +7413,6 @@ public class AngularParser extends Parser {
 		public TerminalNode STRING() { return getToken(AngularParser.STRING, 0); }
 		public TerminalNode BOOL() { return getToken(AngularParser.BOOL, 0); }
 		public TerminalNode NULL() { return getToken(AngularParser.NULL, 0); }
-		public TerminalNode CSS_TEMPLATE() { return getToken(AngularParser.CSS_TEMPLATE, 0); }
 		public LiteralContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -7084,14 +7434,14 @@ public class AngularParser extends Parser {
 
 	public final LiteralContext literal() throws RecognitionException {
 		LiteralContext _localctx = new LiteralContext(_ctx, getState());
-		enterRule(_localctx, 140, RULE_literal);
+		enterRule(_localctx, 144, RULE_literal);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(926);
+			setState(975);
 			_la = _input.LA(1);
-			if ( !((((_la - 109)) & ~0x3f) == 0 && ((1L << (_la - 109)) & 79L) != 0) ) {
+			if ( !((((_la - 143)) & ~0x3f) == 0 && ((1L << (_la - 143)) & 15L) != 0) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -7143,27 +7493,6 @@ public class AngularParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitParenthesizedExpression(this);
-			else return visitor.visitChildren(this);
-		}
-	}
-	@SuppressWarnings("CheckReturnValue")
-	public static class MemberAccessExpressionContext extends ExpressionContext {
-		public TerminalNode DOT() { return getToken(AngularParser.DOT, 0); }
-		public ExpressionContext expression() {
-			return getRuleContext(ExpressionContext.class,0);
-		}
-		public MemberAccessExpressionContext(ExpressionContext ctx) { copyFrom(ctx); }
-		@Override
-		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterMemberAccessExpression(this);
-		}
-		@Override
-		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitMemberAccessExpression(this);
-		}
-		@Override
-		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitMemberAccessExpression(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -7356,6 +7685,46 @@ public class AngularParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
+	public static class SelectExpressionContext extends ExpressionContext {
+		public StoreSelectExpressionContext storeSelectExpression() {
+			return getRuleContext(StoreSelectExpressionContext.class,0);
+		}
+		public SelectExpressionContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterSelectExpression(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitSelectExpression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitSelectExpression(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class MemberChainExpressionContext extends ExpressionContext {
+		public MemberChainContext memberChain() {
+			return getRuleContext(MemberChainContext.class,0);
+		}
+		public MemberChainExpressionContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterMemberChainExpression(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitMemberChainExpression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitMemberChainExpression(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class PreDecreaseExpressionContext extends ExpressionContext {
 		public TerminalNode MINUS_MINUS() { return getToken(AngularParser.MINUS_MINUS, 0); }
 		public ExpressionContext expression() {
@@ -7417,6 +7786,26 @@ public class AngularParser extends Parser {
 		}
 	}
 	@SuppressWarnings("CheckReturnValue")
+	public static class EffectsModuleCallExprContext extends ExpressionContext {
+		public EffectsModuleCallContext effectsModuleCall() {
+			return getRuleContext(EffectsModuleCallContext.class,0);
+		}
+		public EffectsModuleCallExprContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterEffectsModuleCallExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitEffectsModuleCallExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitEffectsModuleCallExpr(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
 	public static class PostDecreaseExpressionContext extends ExpressionContext {
 		public ExpressionContext expression() {
 			return getRuleContext(ExpressionContext.class,0);
@@ -7474,6 +7863,46 @@ public class AngularParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitParameterExpression(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class CallExpressionnContext extends ExpressionContext {
+		public CallExpressionContext callExpression() {
+			return getRuleContext(CallExpressionContext.class,0);
+		}
+		public CallExpressionnContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterCallExpressionn(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitCallExpressionn(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitCallExpressionn(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	@SuppressWarnings("CheckReturnValue")
+	public static class StoreModuleCallExprContext extends ExpressionContext {
+		public StoreModuleCallContext storeModuleCall() {
+			return getRuleContext(StoreModuleCallContext.class,0);
+		}
+		public StoreModuleCallExprContext(ExpressionContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterStoreModuleCallExpr(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitStoreModuleCallExpr(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitStoreModuleCallExpr(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -7541,23 +7970,23 @@ public class AngularParser extends Parser {
 		int _parentState = getState();
 		ExpressionContext _localctx = new ExpressionContext(_ctx, _parentState);
 		ExpressionContext _prevctx = _localctx;
-		int _startState = 142;
-		enterRecursionRule(_localctx, 142, RULE_expression, _p);
+		int _startState = 146;
+		enterRecursionRule(_localctx, 146, RULE_expression, _p);
 		int _la;
 		try {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(945);
+			setState(997);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,108,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,109,_ctx) ) {
 			case 1:
 				{
 				_localctx = new FunctionCallExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
 
-				setState(929);
+				setState(978);
 				functionCall();
 				}
 				break;
@@ -7566,7 +7995,7 @@ public class AngularParser extends Parser {
 				_localctx = new FunctionExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(930);
+				setState(979);
 				functionDeclaration();
 				}
 				break;
@@ -7575,10 +8004,10 @@ public class AngularParser extends Parser {
 				_localctx = new PreIncrementExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(931);
+				setState(980);
 				match(PLUS_PLUS);
-				setState(932);
-				expression(14);
+				setState(981);
+				expression(18);
 				}
 				break;
 			case 4:
@@ -7586,10 +8015,10 @@ public class AngularParser extends Parser {
 				_localctx = new PreDecreaseExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(933);
+				setState(982);
 				match(MINUS_MINUS);
-				setState(934);
-				expression(13);
+				setState(983);
+				expression(17);
 				}
 				break;
 			case 5:
@@ -7597,76 +8026,110 @@ public class AngularParser extends Parser {
 				_localctx = new NotExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(935);
+				setState(984);
 				match(NOT);
-				setState(936);
-				expression(12);
+				setState(985);
+				expression(16);
 				}
 				break;
 			case 6:
 				{
-				_localctx = new MemberAccessExpressionContext(_localctx);
+				_localctx = new ParenthesizedExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(937);
-				match(DOT);
-				setState(938);
-				expression(11);
+				setState(986);
+				match(LPAREN);
+				setState(987);
+				expression(0);
+				setState(988);
+				match(RPAREN);
 				}
 				break;
 			case 7:
 				{
-				_localctx = new ParenthesizedExpressionContext(_localctx);
+				_localctx = new ValueExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(939);
-				match(LPAREN);
-				setState(940);
-				expression(0);
-				setState(941);
-				match(RPAREN);
+				setState(990);
+				value();
 				}
 				break;
 			case 8:
 				{
-				_localctx = new ValueExpressionContext(_localctx);
+				_localctx = new ParameterExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(943);
-				value();
+				setState(991);
+				parameterDeclaration();
 				}
 				break;
 			case 9:
 				{
-				_localctx = new ParameterExpressionContext(_localctx);
+				_localctx = new SelectExpressionContext(_localctx);
 				_ctx = _localctx;
 				_prevctx = _localctx;
-				setState(944);
-				parameterDeclaration();
+				setState(992);
+				storeSelectExpression();
+				}
+				break;
+			case 10:
+				{
+				_localctx = new CallExpressionnContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(993);
+				callExpression();
+				}
+				break;
+			case 11:
+				{
+				_localctx = new MemberChainExpressionContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(994);
+				memberChain();
+				}
+				break;
+			case 12:
+				{
+				_localctx = new StoreModuleCallExprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(995);
+				storeModuleCall();
+				}
+				break;
+			case 13:
+				{
+				_localctx = new EffectsModuleCallExprContext(_localctx);
+				_ctx = _localctx;
+				_prevctx = _localctx;
+				setState(996);
+				effectsModuleCall();
 				}
 				break;
 			}
 			_ctx.stop = _input.LT(-1);
-			setState(977);
+			setState(1029);
 			_errHandler.sync(this);
-			_alt = getInterpreter().adaptivePredict(_input,110,_ctx);
+			_alt = getInterpreter().adaptivePredict(_input,111,_ctx);
 			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 				if ( _alt==1 ) {
 					if ( _parseListeners!=null ) triggerExitRuleEvent();
 					_prevctx = _localctx;
 					{
-					setState(975);
+					setState(1027);
 					_errHandler.sync(this);
-					switch ( getInterpreter().adaptivePredict(_input,109,_ctx) ) {
+					switch ( getInterpreter().adaptivePredict(_input,110,_ctx) ) {
 					case 1:
 						{
 						_localctx = new MultiplicativeExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(947);
-						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
-						setState(948);
+						setState(999);
+						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
+						setState(1000);
 						_la = _input.LA(1);
-						if ( !((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & 7L) != 0) ) {
+						if ( !((((_la - 98)) & ~0x3f) == 0 && ((1L << (_la - 98)) & 7L) != 0) ) {
 						_errHandler.recoverInline(this);
 						}
 						else {
@@ -7674,17 +8137,17 @@ public class AngularParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(949);
-						expression(11);
+						setState(1001);
+						expression(16);
 						}
 						break;
 					case 2:
 						{
 						_localctx = new AdditiveExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(950);
-						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
-						setState(951);
+						setState(1002);
+						if (!(precpred(_ctx, 14))) throw new FailedPredicateException(this, "precpred(_ctx, 14)");
+						setState(1003);
 						_la = _input.LA(1);
 						if ( !(_la==PLUS || _la==MINUS) ) {
 						_errHandler.recoverInline(this);
@@ -7694,19 +8157,19 @@ public class AngularParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(952);
-						expression(10);
+						setState(1004);
+						expression(15);
 						}
 						break;
 					case 3:
 						{
 						_localctx = new RelationalExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(953);
-						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
-						setState(954);
+						setState(1005);
+						if (!(precpred(_ctx, 13))) throw new FailedPredicateException(this, "precpred(_ctx, 13)");
+						setState(1006);
 						_la = _input.LA(1);
-						if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 67553994410557440L) != 0) ) {
+						if ( !((((_la - 86)) & ~0x3f) == 0 && ((1L << (_la - 86)) & 15L) != 0) ) {
 						_errHandler.recoverInline(this);
 						}
 						else {
@@ -7714,19 +8177,19 @@ public class AngularParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(955);
-						expression(9);
+						setState(1007);
+						expression(14);
 						}
 						break;
 					case 4:
 						{
 						_localctx = new EqualityExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(956);
-						if (!(precpred(_ctx, 7))) throw new FailedPredicateException(this, "precpred(_ctx, 7)");
-						setState(957);
+						setState(1008);
+						if (!(precpred(_ctx, 12))) throw new FailedPredicateException(this, "precpred(_ctx, 12)");
+						setState(1009);
 						_la = _input.LA(1);
-						if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 4395513236313604096L) != 0) ) {
+						if ( !((((_la - 90)) & ~0x3f) == 0 && ((1L << (_la - 90)) & 61L) != 0) ) {
 						_errHandler.recoverInline(this);
 						}
 						else {
@@ -7734,57 +8197,57 @@ public class AngularParser extends Parser {
 							_errHandler.reportMatch(this);
 							consume();
 						}
-						setState(958);
-						expression(8);
+						setState(1010);
+						expression(13);
 						}
 						break;
 					case 5:
 						{
 						_localctx = new LogicalAndExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(959);
-						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
-						setState(960);
+						setState(1011);
+						if (!(precpred(_ctx, 11))) throw new FailedPredicateException(this, "precpred(_ctx, 11)");
+						setState(1012);
 						match(AND);
-						setState(961);
-						expression(7);
+						setState(1013);
+						expression(12);
 						}
 						break;
 					case 6:
 						{
 						_localctx = new LogicalOrExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(962);
-						if (!(precpred(_ctx, 5))) throw new FailedPredicateException(this, "precpred(_ctx, 5)");
-						setState(963);
+						setState(1014);
+						if (!(precpred(_ctx, 10))) throw new FailedPredicateException(this, "precpred(_ctx, 10)");
+						setState(1015);
 						match(OR);
-						setState(964);
-						expression(6);
+						setState(1016);
+						expression(11);
 						}
 						break;
 					case 7:
 						{
 						_localctx = new TernaryExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(965);
-						if (!(precpred(_ctx, 4))) throw new FailedPredicateException(this, "precpred(_ctx, 4)");
-						setState(966);
+						setState(1017);
+						if (!(precpred(_ctx, 9))) throw new FailedPredicateException(this, "precpred(_ctx, 9)");
+						setState(1018);
 						match(QUES);
-						setState(967);
+						setState(1019);
 						expression(0);
-						setState(968);
+						setState(1020);
 						match(COLON);
-						setState(969);
-						expression(5);
+						setState(1021);
+						expression(10);
 						}
 						break;
 					case 8:
 						{
 						_localctx = new PostIncrementExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(971);
-						if (!(precpred(_ctx, 16))) throw new FailedPredicateException(this, "precpred(_ctx, 16)");
-						setState(972);
+						setState(1023);
+						if (!(precpred(_ctx, 20))) throw new FailedPredicateException(this, "precpred(_ctx, 20)");
+						setState(1024);
 						match(PLUS_PLUS);
 						}
 						break;
@@ -7792,18 +8255,18 @@ public class AngularParser extends Parser {
 						{
 						_localctx = new PostDecreaseExpressionContext(new ExpressionContext(_parentctx, _parentState));
 						pushNewRecursionContext(_localctx, _startState, RULE_expression);
-						setState(973);
-						if (!(precpred(_ctx, 15))) throw new FailedPredicateException(this, "precpred(_ctx, 15)");
-						setState(974);
+						setState(1025);
+						if (!(precpred(_ctx, 19))) throw new FailedPredicateException(this, "precpred(_ctx, 19)");
+						setState(1026);
 						match(MINUS_MINUS);
 						}
 						break;
 					}
 					} 
 				}
-				setState(979);
+				setState(1031);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,110,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,111,_ctx);
 			}
 			}
 		}
@@ -7853,32 +8316,32 @@ public class AngularParser extends Parser {
 
 	public final GenericTypeContext genericType() throws RecognitionException {
 		GenericTypeContext _localctx = new GenericTypeContext(_ctx, getState());
-		enterRule(_localctx, 144, RULE_genericType);
+		enterRule(_localctx, 148, RULE_genericType);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(980);
+			setState(1032);
 			match(LT);
-			setState(981);
+			setState(1033);
 			typeAnnotation();
-			setState(986);
+			setState(1038);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==COMMA) {
 				{
 				{
-				setState(982);
+				setState(1034);
 				match(COMMA);
-				setState(983);
+				setState(1035);
 				typeAnnotation();
 				}
 				}
-				setState(988);
+				setState(1040);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(989);
+			setState(1041);
 			match(GT);
 			}
 		}
@@ -7999,20 +8462,20 @@ public class AngularParser extends Parser {
 
 	public final TypeAnnotationContext typeAnnotation() throws RecognitionException {
 		TypeAnnotationContext _localctx = new TypeAnnotationContext(_ctx, getState());
-		enterRule(_localctx, 146, RULE_typeAnnotation);
+		enterRule(_localctx, 150, RULE_typeAnnotation);
 		int _la;
 		try {
 			int _alt;
-			setState(1005);
+			setState(1057);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,113,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,114,_ctx) ) {
 			case 1:
 				_localctx = new GenericTypeAnnotationContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(991);
+				setState(1043);
 				match(IDENTIFIER);
-				setState(992);
+				setState(1044);
 				genericType();
 				}
 				break;
@@ -8020,7 +8483,7 @@ public class AngularParser extends Parser {
 				_localctx = new PipeTypeAnnotationContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(993);
+				setState(1045);
 				_la = _input.LA(1);
 				if ( !(_la==NULL || _la==IDENTIFIER) ) {
 				_errHandler.recoverInline(this);
@@ -8030,16 +8493,16 @@ public class AngularParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(998);
+				setState(1050);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,112,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,113,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(994);
+						setState(1046);
 						match(BIT_OR);
-						setState(995);
+						setState(1047);
 						_la = _input.LA(1);
 						if ( !(_la==NULL || _la==IDENTIFIER) ) {
 						_errHandler.recoverInline(this);
@@ -8052,9 +8515,9 @@ public class AngularParser extends Parser {
 						}
 						} 
 					}
-					setState(1000);
+					setState(1052);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,112,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,113,_ctx);
 				}
 				}
 				break;
@@ -8062,7 +8525,7 @@ public class AngularParser extends Parser {
 				_localctx = new ArrayTypeAnnotationContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1001);
+				setState(1053);
 				_la = _input.LA(1);
 				if ( !(_la==NULL || _la==IDENTIFIER) ) {
 				_errHandler.recoverInline(this);
@@ -8072,9 +8535,9 @@ public class AngularParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(1002);
+				setState(1054);
 				match(LBRACK);
-				setState(1003);
+				setState(1055);
 				match(RBRACK);
 				}
 				break;
@@ -8082,7 +8545,7 @@ public class AngularParser extends Parser {
 				_localctx = new TupleTypeAnnotationContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1004);
+				setState(1056);
 				array();
 				}
 				break;
@@ -8125,12 +8588,12 @@ public class AngularParser extends Parser {
 
 	public final AccessModifierContext accessModifier() throws RecognitionException {
 		AccessModifierContext _localctx = new AccessModifierContext(_ctx, getState());
-		enterRule(_localctx, 148, RULE_accessModifier);
+		enterRule(_localctx, 152, RULE_accessModifier);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1007);
+			setState(1059);
 			_la = _input.LA(1);
 			if ( !(((_la) & ~0x3f) == 0 && ((1L << _la) & 3940649673949184L) != 0) ) {
 			_errHandler.recoverInline(this);
@@ -8184,28 +8647,28 @@ public class AngularParser extends Parser {
 
 	public final HtmlTemplateContext htmlTemplate() throws RecognitionException {
 		HtmlTemplateContext _localctx = new HtmlTemplateContext(_ctx, getState());
-		enterRule(_localctx, 150, RULE_htmlTemplate);
+		enterRule(_localctx, 154, RULE_htmlTemplate);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1009);
+			setState(1061);
 			match(HTML_TEMPLATE);
-			setState(1013);
+			setState(1065);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la - 116)) & ~0x3f) == 0 && ((1L << (_la - 116)) & 65601L) != 0) {
+			while ((((_la - 149)) & ~0x3f) == 0 && ((1L << (_la - 149)) & 65601L) != 0) {
 				{
 				{
-				setState(1010);
+				setState(1062);
 				element();
 				}
 				}
-				setState(1015);
+				setState(1067);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(1016);
+			setState(1068);
 			match(END_HTML);
 			}
 		}
@@ -8304,35 +8767,35 @@ public class AngularParser extends Parser {
 
 	public final ElementContext element() throws RecognitionException {
 		ElementContext _localctx = new ElementContext(_ctx, getState());
-		enterRule(_localctx, 152, RULE_element);
+		enterRule(_localctx, 156, RULE_element);
 		try {
 			int _alt;
-			setState(1029);
+			setState(1081);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,116,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,117,_ctx) ) {
 			case 1:
 				_localctx = new StandardTagElContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1018);
+				setState(1070);
 				openTag();
-				setState(1022);
+				setState(1074);
 				_errHandler.sync(this);
-				_alt = getInterpreter().adaptivePredict(_input,115,_ctx);
+				_alt = getInterpreter().adaptivePredict(_input,116,_ctx);
 				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
 					if ( _alt==1 ) {
 						{
 						{
-						setState(1019);
+						setState(1071);
 						content();
 						}
 						} 
 					}
-					setState(1024);
+					setState(1076);
 					_errHandler.sync(this);
-					_alt = getInterpreter().adaptivePredict(_input,115,_ctx);
+					_alt = getInterpreter().adaptivePredict(_input,116,_ctx);
 				}
-				setState(1025);
+				setState(1077);
 				closeTag();
 				}
 				break;
@@ -8340,7 +8803,7 @@ public class AngularParser extends Parser {
 				_localctx = new SelfClosingTagElContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1027);
+				setState(1079);
 				selfClosingTag();
 				}
 				break;
@@ -8348,7 +8811,7 @@ public class AngularParser extends Parser {
 				_localctx = new InterpolationElContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1028);
+				setState(1080);
 				interpolation();
 				}
 				break;
@@ -8399,38 +8862,38 @@ public class AngularParser extends Parser {
 
 	public final OpenTagContext openTag() throws RecognitionException {
 		OpenTagContext _localctx = new OpenTagContext(_ctx, getState());
-		enterRule(_localctx, 154, RULE_openTag);
+		enterRule(_localctx, 158, RULE_openTag);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1032);
+			setState(1084);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==OPEN_TAG) {
 				{
-				setState(1031);
+				setState(1083);
 				match(OPEN_TAG);
 				}
 			}
 
-			setState(1034);
+			setState(1086);
 			tagName();
-			setState(1038);
+			setState(1090);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la - 124)) & ~0x3f) == 0 && ((1L << (_la - 124)) & 447L) != 0) {
+			while ((((_la - 157)) & ~0x3f) == 0 && ((1L << (_la - 157)) & 447L) != 0) {
 				{
 				{
-				setState(1035);
+				setState(1087);
 				attributeHTML();
 				}
 				}
-				setState(1040);
+				setState(1092);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(1041);
+			setState(1093);
 			match(CLOSE_TAG);
 			}
 		}
@@ -8474,17 +8937,17 @@ public class AngularParser extends Parser {
 
 	public final CloseTagContext closeTag() throws RecognitionException {
 		CloseTagContext _localctx = new CloseTagContext(_ctx, getState());
-		enterRule(_localctx, 156, RULE_closeTag);
+		enterRule(_localctx, 160, RULE_closeTag);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1043);
+			setState(1095);
 			match(OPEN_TAG);
-			setState(1044);
+			setState(1096);
 			match(SLASH);
-			setState(1045);
+			setState(1097);
 			tagName();
-			setState(1046);
+			setState(1098);
 			match(CLOSE_TAG);
 			}
 		}
@@ -8534,32 +8997,32 @@ public class AngularParser extends Parser {
 
 	public final SelfClosingTagContext selfClosingTag() throws RecognitionException {
 		SelfClosingTagContext _localctx = new SelfClosingTagContext(_ctx, getState());
-		enterRule(_localctx, 158, RULE_selfClosingTag);
+		enterRule(_localctx, 162, RULE_selfClosingTag);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1048);
+			setState(1100);
 			match(OPEN_TAG);
-			setState(1049);
+			setState(1101);
 			tagName();
-			setState(1053);
+			setState(1105);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while ((((_la - 124)) & ~0x3f) == 0 && ((1L << (_la - 124)) & 447L) != 0) {
+			while ((((_la - 157)) & ~0x3f) == 0 && ((1L << (_la - 157)) & 447L) != 0) {
 				{
 				{
-				setState(1050);
+				setState(1102);
 				attributeHTML();
 				}
 				}
-				setState(1055);
+				setState(1107);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
-			setState(1056);
+			setState(1108);
 			match(SLASH);
-			setState(1057);
+			setState(1109);
 			match(CLOSE_TAG);
 			}
 		}
@@ -8628,17 +9091,17 @@ public class AngularParser extends Parser {
 
 	public final ContentContext content() throws RecognitionException {
 		ContentContext _localctx = new ContentContext(_ctx, getState());
-		enterRule(_localctx, 160, RULE_content);
+		enterRule(_localctx, 164, RULE_content);
 		int _la;
 		try {
-			setState(1064);
+			setState(1116);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,121,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,122,_ctx) ) {
 			case 1:
 				_localctx = new NestedElementContentContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1059);
+				setState(1111);
 				element();
 				}
 				break;
@@ -8646,14 +9109,14 @@ public class AngularParser extends Parser {
 				_localctx = new PlainTextContentContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1060);
+				setState(1112);
 				match(ATTRIBUTE);
-				setState(1062);
+				setState(1114);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==COL) {
 					{
-					setState(1061);
+					setState(1113);
 					match(COL);
 					}
 				}
@@ -8828,21 +9291,21 @@ public class AngularParser extends Parser {
 
 	public final AttributeHTMLContext attributeHTML() throws RecognitionException {
 		AttributeHTMLContext _localctx = new AttributeHTMLContext(_ctx, getState());
-		enterRule(_localctx, 162, RULE_attributeHTML);
+		enterRule(_localctx, 166, RULE_attributeHTML);
 		int _la;
 		try {
-			setState(1088);
+			setState(1140);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,123,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,124,_ctx) ) {
 			case 1:
 				_localctx = new StandardAttributeContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(1066);
+				setState(1118);
 				match(ATTRIBUTE);
-				setState(1067);
+				setState(1119);
 				match(EQUALS);
-				setState(1068);
+				setState(1120);
 				match(STRING_HTML);
 				}
 				break;
@@ -8850,11 +9313,11 @@ public class AngularParser extends Parser {
 				_localctx = new PropertyBindingContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(1069);
+				setState(1121);
 				match(BINDING);
-				setState(1070);
+				setState(1122);
 				match(EQUALS);
-				setState(1071);
+				setState(1123);
 				match(STRING_HTML);
 				}
 				break;
@@ -8862,11 +9325,11 @@ public class AngularParser extends Parser {
 				_localctx = new EventBindingContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(1072);
+				setState(1124);
 				match(EVENT);
-				setState(1073);
+				setState(1125);
 				match(EQUALS);
-				setState(1074);
+				setState(1126);
 				match(STRING_HTML);
 				}
 				break;
@@ -8874,11 +9337,11 @@ public class AngularParser extends Parser {
 				_localctx = new TwoWayBindingContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(1075);
+				setState(1127);
 				match(TWOBIND);
-				setState(1076);
+				setState(1128);
 				match(EQUALS);
-				setState(1077);
+				setState(1129);
 				match(STRING_HTML);
 				}
 				break;
@@ -8886,11 +9349,11 @@ public class AngularParser extends Parser {
 				_localctx = new StructuralDirectiveAttrContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(1078);
+				setState(1130);
 				structuralDirective();
-				setState(1079);
+				setState(1131);
 				match(EQUALS);
-				setState(1080);
+				setState(1132);
 				match(STRING_HTML);
 				}
 				break;
@@ -8898,16 +9361,16 @@ public class AngularParser extends Parser {
 				_localctx = new TemplateReferenceVariableContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(1082);
+				setState(1134);
 				match(REFERENCE_VAR);
-				setState(1085);
+				setState(1137);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==EQUALS) {
 					{
-					setState(1083);
+					setState(1135);
 					match(EQUALS);
-					setState(1084);
+					setState(1136);
 					match(STRING_HTML);
 					}
 				}
@@ -8918,7 +9381,7 @@ public class AngularParser extends Parser {
 				_localctx = new AttributeOnlyContext(_localctx);
 				enterOuterAlt(_localctx, 7);
 				{
-				setState(1087);
+				setState(1139);
 				match(ATTRIBUTE);
 				}
 				break;
@@ -8973,19 +9436,19 @@ public class AngularParser extends Parser {
 
 	public final InterpolationContext interpolation() throws RecognitionException {
 		InterpolationContext _localctx = new InterpolationContext(_ctx, getState());
-		enterRule(_localctx, 164, RULE_interpolation);
+		enterRule(_localctx, 168, RULE_interpolation);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1092);
+			setState(1144);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ATTRIBUTE) {
 				{
-				setState(1090);
+				setState(1142);
 				match(ATTRIBUTE);
-				setState(1091);
+				setState(1143);
 				_la = _input.LA(1);
 				if ( !(_la==EQUALS || _la==COL) ) {
 				_errHandler.recoverInline(this);
@@ -8998,37 +9461,37 @@ public class AngularParser extends Parser {
 				}
 			}
 
-			setState(1094);
+			setState(1146);
 			match(INTERPOLATION_START);
-			setState(1103);
+			setState(1155);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==ATTRIBUTE) {
 				{
 				{
-				setState(1095);
+				setState(1147);
 				interpolationElement();
 				}
-				setState(1100);
+				setState(1152);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				while (_la==P) {
 					{
 					{
-					setState(1096);
+					setState(1148);
 					match(P);
-					setState(1097);
+					setState(1149);
 					interpolationElement();
 					}
 					}
-					setState(1102);
+					setState(1154);
 					_errHandler.sync(this);
 					_la = _input.LA(1);
 				}
 				}
 			}
 
-			setState(1105);
+			setState(1157);
 			match(INTERPOLATION_END);
 			}
 		}
@@ -9072,21 +9535,21 @@ public class AngularParser extends Parser {
 
 	public final InterpolationElementContext interpolationElement() throws RecognitionException {
 		InterpolationElementContext _localctx = new InterpolationElementContext(_ctx, getState());
-		enterRule(_localctx, 166, RULE_interpolationElement);
+		enterRule(_localctx, 170, RULE_interpolationElement);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1107);
+			setState(1159);
 			match(ATTRIBUTE);
-			setState(1110);
+			setState(1162);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==COL) {
 				{
-				setState(1108);
+				setState(1160);
 				match(COL);
-				setState(1109);
+				setState(1161);
 				_la = _input.LA(1);
 				if ( !(_la==STRING_HTML || _la==ATTRIBUTE) ) {
 				_errHandler.recoverInline(this);
@@ -9136,11 +9599,11 @@ public class AngularParser extends Parser {
 
 	public final TagNameContext tagName() throws RecognitionException {
 		TagNameContext _localctx = new TagNameContext(_ctx, getState());
-		enterRule(_localctx, 168, RULE_tagName);
+		enterRule(_localctx, 172, RULE_tagName);
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1112);
+			setState(1164);
 			match(ATTRIBUTE);
 			}
 		}
@@ -9181,14 +9644,14 @@ public class AngularParser extends Parser {
 
 	public final StructuralDirectiveContext structuralDirective() throws RecognitionException {
 		StructuralDirectiveContext _localctx = new StructuralDirectiveContext(_ctx, getState());
-		enterRule(_localctx, 170, RULE_structuralDirective);
+		enterRule(_localctx, 174, RULE_structuralDirective);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(1114);
+			setState(1166);
 			_la = _input.LA(1);
-			if ( !((((_la - 127)) & ~0x3f) == 0 && ((1L << (_la - 127)) & 7L) != 0) ) {
+			if ( !((((_la - 160)) & ~0x3f) == 0 && ((1L << (_la - 160)) & 7L) != 0) ) {
 			_errHandler.recoverInline(this);
 			}
 			else {
@@ -9209,9 +9672,1360 @@ public class AngularParser extends Parser {
 		return _localctx;
 	}
 
+	@SuppressWarnings("CheckReturnValue")
+	public static class RoutesDeclarationContext extends ParserRuleContext {
+		public VarHelperContext varHelper() {
+			return getRuleContext(VarHelperContext.class,0);
+		}
+		public TerminalNode IDENTIFIER() { return getToken(AngularParser.IDENTIFIER, 0); }
+		public TerminalNode ASSIGN() { return getToken(AngularParser.ASSIGN, 0); }
+		public RoutesArrayContext routesArray() {
+			return getRuleContext(RoutesArrayContext.class,0);
+		}
+		public TerminalNode COLON() { return getToken(AngularParser.COLON, 0); }
+		public TerminalNode ROUTES() { return getToken(AngularParser.ROUTES, 0); }
+		public TerminalNode SEMI() { return getToken(AngularParser.SEMI, 0); }
+		public RoutesDeclarationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_routesDeclaration; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterRoutesDeclaration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitRoutesDeclaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitRoutesDeclaration(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final RoutesDeclarationContext routesDeclaration() throws RecognitionException {
+		RoutesDeclarationContext _localctx = new RoutesDeclarationContext(_ctx, getState());
+		enterRule(_localctx, 176, RULE_routesDeclaration);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(1168);
+			varHelper();
+			setState(1169);
+			match(IDENTIFIER);
+			setState(1172);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==COLON) {
+				{
+				setState(1170);
+				match(COLON);
+				setState(1171);
+				match(ROUTES);
+				}
+			}
+
+			setState(1174);
+			match(ASSIGN);
+			setState(1175);
+			routesArray();
+			setState(1177);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==SEMI) {
+				{
+				setState(1176);
+				match(SEMI);
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class RoutesArrayContext extends ParserRuleContext {
+		public TerminalNode LBRACK() { return getToken(AngularParser.LBRACK, 0); }
+		public TerminalNode RBRACK() { return getToken(AngularParser.RBRACK, 0); }
+		public List<RouteContext> route() {
+			return getRuleContexts(RouteContext.class);
+		}
+		public RouteContext route(int i) {
+			return getRuleContext(RouteContext.class,i);
+		}
+		public List<TerminalNode> COMMA() { return getTokens(AngularParser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(AngularParser.COMMA, i);
+		}
+		public RoutesArrayContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_routesArray; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterRoutesArray(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitRoutesArray(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitRoutesArray(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final RoutesArrayContext routesArray() throws RecognitionException {
+		RoutesArrayContext _localctx = new RoutesArrayContext(_ctx, getState());
+		enterRule(_localctx, 178, RULE_routesArray);
+		int _la;
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(1179);
+			match(LBRACK);
+			setState(1188);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==LBRACE) {
+				{
+				setState(1180);
+				route();
+				setState(1185);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,131,_ctx);
+				while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+					if ( _alt==1 ) {
+						{
+						{
+						setState(1181);
+						match(COMMA);
+						setState(1182);
+						route();
+						}
+						} 
+					}
+					setState(1187);
+					_errHandler.sync(this);
+					_alt = getInterpreter().adaptivePredict(_input,131,_ctx);
+				}
+				}
+			}
+
+			setState(1191);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==COMMA) {
+				{
+				setState(1190);
+				match(COMMA);
+				}
+			}
+
+			setState(1193);
+			match(RBRACK);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class RouteContext extends ParserRuleContext {
+		public TerminalNode LBRACE() { return getToken(AngularParser.LBRACE, 0); }
+		public List<RoutePropertyContext> routeProperty() {
+			return getRuleContexts(RoutePropertyContext.class);
+		}
+		public RoutePropertyContext routeProperty(int i) {
+			return getRuleContext(RoutePropertyContext.class,i);
+		}
+		public TerminalNode RBRACE() { return getToken(AngularParser.RBRACE, 0); }
+		public List<TerminalNode> COMMA() { return getTokens(AngularParser.COMMA); }
+		public TerminalNode COMMA(int i) {
+			return getToken(AngularParser.COMMA, i);
+		}
+		public RouteContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_route; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterRoute(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitRoute(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitRoute(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final RouteContext route() throws RecognitionException {
+		RouteContext _localctx = new RouteContext(_ctx, getState());
+		enterRule(_localctx, 180, RULE_route);
+		int _la;
+		try {
+			int _alt;
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(1195);
+			match(LBRACE);
+			setState(1196);
+			routeProperty();
+			setState(1201);
+			_errHandler.sync(this);
+			_alt = getInterpreter().adaptivePredict(_input,134,_ctx);
+			while ( _alt!=2 && _alt!=org.antlr.v4.runtime.atn.ATN.INVALID_ALT_NUMBER ) {
+				if ( _alt==1 ) {
+					{
+					{
+					setState(1197);
+					match(COMMA);
+					setState(1198);
+					routeProperty();
+					}
+					} 
+				}
+				setState(1203);
+				_errHandler.sync(this);
+				_alt = getInterpreter().adaptivePredict(_input,134,_ctx);
+			}
+			setState(1205);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==COMMA) {
+				{
+				setState(1204);
+				match(COMMA);
+				}
+			}
+
+			setState(1207);
+			match(RBRACE);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class RoutePropertyContext extends ParserRuleContext {
+		public TerminalNode ROUTE_PATH() { return getToken(AngularParser.ROUTE_PATH, 0); }
+		public TerminalNode COLON() { return getToken(AngularParser.COLON, 0); }
+		public TerminalNode STRING() { return getToken(AngularParser.STRING, 0); }
+		public TerminalNode ROUTE_COMPONENT() { return getToken(AngularParser.ROUTE_COMPONENT, 0); }
+		public TerminalNode IDENTIFIER() { return getToken(AngularParser.IDENTIFIER, 0); }
+		public TerminalNode ROUTE_REDIRECT_TO() { return getToken(AngularParser.ROUTE_REDIRECT_TO, 0); }
+		public TerminalNode ROUTE_PATH_MATCH() { return getToken(AngularParser.ROUTE_PATH_MATCH, 0); }
+		public TerminalNode ROUTE_CHILDREN() { return getToken(AngularParser.ROUTE_CHILDREN, 0); }
+		public RoutesArrayContext routesArray() {
+			return getRuleContext(RoutesArrayContext.class,0);
+		}
+		public TerminalNode ROUTE_LOAD_CHILDREN() { return getToken(AngularParser.ROUTE_LOAD_CHILDREN, 0); }
+		public ArrowFunctionContext arrowFunction() {
+			return getRuleContext(ArrowFunctionContext.class,0);
+		}
+		public CallExpressionContext callExpression() {
+			return getRuleContext(CallExpressionContext.class,0);
+		}
+		public MemberChainContext memberChain() {
+			return getRuleContext(MemberChainContext.class,0);
+		}
+		public TerminalNode ROUTE_CAN_ACTIVATE() { return getToken(AngularParser.ROUTE_CAN_ACTIVATE, 0); }
+		public ArrayContext array() {
+			return getRuleContext(ArrayContext.class,0);
+		}
+		public TerminalNode ROUTE_CAN_ACTIVATE_CHILD() { return getToken(AngularParser.ROUTE_CAN_ACTIVATE_CHILD, 0); }
+		public TerminalNode ROUTE_CAN_DEACTIVATE() { return getToken(AngularParser.ROUTE_CAN_DEACTIVATE, 0); }
+		public TerminalNode ROUTE_CAN_MATCH() { return getToken(AngularParser.ROUTE_CAN_MATCH, 0); }
+		public TerminalNode ROUTE_RESOLVE() { return getToken(AngularParser.ROUTE_RESOLVE, 0); }
+		public ObjectContext object() {
+			return getRuleContext(ObjectContext.class,0);
+		}
+		public TerminalNode ROUTE_DATA() { return getToken(AngularParser.ROUTE_DATA, 0); }
+		public RoutePropertyContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_routeProperty; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterRouteProperty(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitRouteProperty(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitRouteProperty(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final RoutePropertyContext routeProperty() throws RecognitionException {
+		RoutePropertyContext _localctx = new RoutePropertyContext(_ctx, getState());
+		enterRule(_localctx, 182, RULE_routeProperty);
+		try {
+			setState(1250);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case ROUTE_PATH:
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(1209);
+				match(ROUTE_PATH);
+				setState(1210);
+				match(COLON);
+				setState(1211);
+				match(STRING);
+				}
+				break;
+			case ROUTE_COMPONENT:
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(1212);
+				match(ROUTE_COMPONENT);
+				setState(1213);
+				match(COLON);
+				setState(1214);
+				match(IDENTIFIER);
+				}
+				break;
+			case ROUTE_REDIRECT_TO:
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(1215);
+				match(ROUTE_REDIRECT_TO);
+				setState(1216);
+				match(COLON);
+				setState(1217);
+				match(STRING);
+				}
+				break;
+			case ROUTE_PATH_MATCH:
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(1218);
+				match(ROUTE_PATH_MATCH);
+				setState(1219);
+				match(COLON);
+				setState(1220);
+				match(STRING);
+				}
+				break;
+			case ROUTE_CHILDREN:
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(1221);
+				match(ROUTE_CHILDREN);
+				setState(1222);
+				match(COLON);
+				setState(1223);
+				routesArray();
+				}
+				break;
+			case ROUTE_LOAD_CHILDREN:
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(1224);
+				match(ROUTE_LOAD_CHILDREN);
+				setState(1225);
+				match(COLON);
+				setState(1230);
+				_errHandler.sync(this);
+				switch ( getInterpreter().adaptivePredict(_input,136,_ctx) ) {
+				case 1:
+					{
+					setState(1226);
+					match(STRING);
+					}
+					break;
+				case 2:
+					{
+					setState(1227);
+					arrowFunction();
+					}
+					break;
+				case 3:
+					{
+					setState(1228);
+					callExpression();
+					}
+					break;
+				case 4:
+					{
+					setState(1229);
+					memberChain();
+					}
+					break;
+				}
+				}
+				break;
+			case ROUTE_CAN_ACTIVATE:
+				enterOuterAlt(_localctx, 7);
+				{
+				setState(1232);
+				match(ROUTE_CAN_ACTIVATE);
+				setState(1233);
+				match(COLON);
+				setState(1234);
+				array();
+				}
+				break;
+			case ROUTE_CAN_ACTIVATE_CHILD:
+				enterOuterAlt(_localctx, 8);
+				{
+				setState(1235);
+				match(ROUTE_CAN_ACTIVATE_CHILD);
+				setState(1236);
+				match(COLON);
+				setState(1237);
+				array();
+				}
+				break;
+			case ROUTE_CAN_DEACTIVATE:
+				enterOuterAlt(_localctx, 9);
+				{
+				setState(1238);
+				match(ROUTE_CAN_DEACTIVATE);
+				setState(1239);
+				match(COLON);
+				setState(1240);
+				array();
+				}
+				break;
+			case ROUTE_CAN_MATCH:
+				enterOuterAlt(_localctx, 10);
+				{
+				setState(1241);
+				match(ROUTE_CAN_MATCH);
+				setState(1242);
+				match(COLON);
+				setState(1243);
+				array();
+				}
+				break;
+			case ROUTE_RESOLVE:
+				enterOuterAlt(_localctx, 11);
+				{
+				setState(1244);
+				match(ROUTE_RESOLVE);
+				setState(1245);
+				match(COLON);
+				setState(1246);
+				object();
+				}
+				break;
+			case ROUTE_DATA:
+				enterOuterAlt(_localctx, 12);
+				{
+				setState(1247);
+				match(ROUTE_DATA);
+				setState(1248);
+				match(COLON);
+				setState(1249);
+				object();
+				}
+				break;
+			default:
+				throw new NoViableAltException(this);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class RouterModuleCallContext extends ParserRuleContext {
+		public TerminalNode ROUTER_MODULE() { return getToken(AngularParser.ROUTER_MODULE, 0); }
+		public TerminalNode DOT() { return getToken(AngularParser.DOT, 0); }
+		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
+		public TerminalNode FOR_ROOT() { return getToken(AngularParser.FOR_ROOT, 0); }
+		public TerminalNode FOR_CHILD() { return getToken(AngularParser.FOR_CHILD, 0); }
+		public ParameterListContext parameterList() {
+			return getRuleContext(ParameterListContext.class,0);
+		}
+		public RouterModuleCallContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_routerModuleCall; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterRouterModuleCall(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitRouterModuleCall(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitRouterModuleCall(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final RouterModuleCallContext routerModuleCall() throws RecognitionException {
+		RouterModuleCallContext _localctx = new RouterModuleCallContext(_ctx, getState());
+		enterRule(_localctx, 184, RULE_routerModuleCall);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(1252);
+			match(ROUTER_MODULE);
+			setState(1253);
+			match(DOT);
+			setState(1254);
+			_la = _input.LA(1);
+			if ( !(_la==FOR_ROOT || _la==FOR_CHILD) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			setState(1255);
+			match(LPAREN);
+			setState(1257);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
+				{
+				setState(1256);
+				parameterList();
+				}
+			}
+
+			setState(1259);
+			match(RPAREN);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class NavigationStatementContext extends ParserRuleContext {
+		public TerminalNode IDENTIFIER() { return getToken(AngularParser.IDENTIFIER, 0); }
+		public List<TerminalNode> DOT() { return getTokens(AngularParser.DOT); }
+		public TerminalNode DOT(int i) {
+			return getToken(AngularParser.DOT, i);
+		}
+		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
+		public TerminalNode NAVIGATE() { return getToken(AngularParser.NAVIGATE, 0); }
+		public TerminalNode NAVIGATE_BY_URL() { return getToken(AngularParser.NAVIGATE_BY_URL, 0); }
+		public TerminalNode THIS() { return getToken(AngularParser.THIS, 0); }
+		public ParameterListContext parameterList() {
+			return getRuleContext(ParameterListContext.class,0);
+		}
+		public TerminalNode SEMI() { return getToken(AngularParser.SEMI, 0); }
+		public NavigationStatementContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_navigationStatement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterNavigationStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitNavigationStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitNavigationStatement(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final NavigationStatementContext navigationStatement() throws RecognitionException {
+		NavigationStatementContext _localctx = new NavigationStatementContext(_ctx, getState());
+		enterRule(_localctx, 186, RULE_navigationStatement);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(1263);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==THIS) {
+				{
+				setState(1261);
+				match(THIS);
+				setState(1262);
+				match(DOT);
+				}
+			}
+
+			setState(1265);
+			match(IDENTIFIER);
+			setState(1266);
+			match(DOT);
+			setState(1267);
+			_la = _input.LA(1);
+			if ( !(_la==NAVIGATE || _la==NAVIGATE_BY_URL) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			setState(1268);
+			match(LPAREN);
+			setState(1270);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
+				{
+				setState(1269);
+				parameterList();
+				}
+			}
+
+			setState(1272);
+			match(RPAREN);
+			setState(1274);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,141,_ctx) ) {
+			case 1:
+				{
+				setState(1273);
+				match(SEMI);
+				}
+				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class ActionDeclarationContext extends ParserRuleContext {
+		public VarHelperContext varHelper() {
+			return getRuleContext(VarHelperContext.class,0);
+		}
+		public TerminalNode IDENTIFIER() { return getToken(AngularParser.IDENTIFIER, 0); }
+		public TerminalNode ASSIGN() { return getToken(AngularParser.ASSIGN, 0); }
+		public TerminalNode CREATE_ACTION() { return getToken(AngularParser.CREATE_ACTION, 0); }
+		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
+		public TerminalNode COLON() { return getToken(AngularParser.COLON, 0); }
+		public TypeAnnotationContext typeAnnotation() {
+			return getRuleContext(TypeAnnotationContext.class,0);
+		}
+		public ParameterListContext parameterList() {
+			return getRuleContext(ParameterListContext.class,0);
+		}
+		public TerminalNode SEMI() { return getToken(AngularParser.SEMI, 0); }
+		public ActionDeclarationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_actionDeclaration; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterActionDeclaration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitActionDeclaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitActionDeclaration(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ActionDeclarationContext actionDeclaration() throws RecognitionException {
+		ActionDeclarationContext _localctx = new ActionDeclarationContext(_ctx, getState());
+		enterRule(_localctx, 188, RULE_actionDeclaration);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(1276);
+			varHelper();
+			setState(1277);
+			match(IDENTIFIER);
+			setState(1280);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==COLON) {
+				{
+				setState(1278);
+				match(COLON);
+				setState(1279);
+				typeAnnotation();
+				}
+			}
+
+			setState(1282);
+			match(ASSIGN);
+			setState(1283);
+			match(CREATE_ACTION);
+			setState(1284);
+			match(LPAREN);
+			setState(1286);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
+				{
+				setState(1285);
+				parameterList();
+				}
+			}
+
+			setState(1288);
+			match(RPAREN);
+			setState(1290);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==SEMI) {
+				{
+				setState(1289);
+				match(SEMI);
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class ReducerDeclarationContext extends ParserRuleContext {
+		public VarHelperContext varHelper() {
+			return getRuleContext(VarHelperContext.class,0);
+		}
+		public TerminalNode IDENTIFIER() { return getToken(AngularParser.IDENTIFIER, 0); }
+		public TerminalNode ASSIGN() { return getToken(AngularParser.ASSIGN, 0); }
+		public TerminalNode CREATE_REDUCER() { return getToken(AngularParser.CREATE_REDUCER, 0); }
+		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
+		public TerminalNode COLON() { return getToken(AngularParser.COLON, 0); }
+		public TypeAnnotationContext typeAnnotation() {
+			return getRuleContext(TypeAnnotationContext.class,0);
+		}
+		public ParameterListContext parameterList() {
+			return getRuleContext(ParameterListContext.class,0);
+		}
+		public TerminalNode SEMI() { return getToken(AngularParser.SEMI, 0); }
+		public ReducerDeclarationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_reducerDeclaration; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterReducerDeclaration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitReducerDeclaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitReducerDeclaration(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final ReducerDeclarationContext reducerDeclaration() throws RecognitionException {
+		ReducerDeclarationContext _localctx = new ReducerDeclarationContext(_ctx, getState());
+		enterRule(_localctx, 190, RULE_reducerDeclaration);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(1292);
+			varHelper();
+			setState(1293);
+			match(IDENTIFIER);
+			setState(1296);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==COLON) {
+				{
+				setState(1294);
+				match(COLON);
+				setState(1295);
+				typeAnnotation();
+				}
+			}
+
+			setState(1298);
+			match(ASSIGN);
+			setState(1299);
+			match(CREATE_REDUCER);
+			setState(1300);
+			match(LPAREN);
+			setState(1302);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
+				{
+				setState(1301);
+				parameterList();
+				}
+			}
+
+			setState(1304);
+			match(RPAREN);
+			setState(1306);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==SEMI) {
+				{
+				setState(1305);
+				match(SEMI);
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class EffectDeclarationContext extends ParserRuleContext {
+		public TerminalNode IDENTIFIER() { return getToken(AngularParser.IDENTIFIER, 0); }
+		public TerminalNode ASSIGN() { return getToken(AngularParser.ASSIGN, 0); }
+		public TerminalNode CREATE_EFFECT() { return getToken(AngularParser.CREATE_EFFECT, 0); }
+		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
+		public ArrowFunctionContext arrowFunction() {
+			return getRuleContext(ArrowFunctionContext.class,0);
+		}
+		public CallExpressionContext callExpression() {
+			return getRuleContext(CallExpressionContext.class,0);
+		}
+		public AccessModifierContext accessModifier() {
+			return getRuleContext(AccessModifierContext.class,0);
+		}
+		public TerminalNode QUES() { return getToken(AngularParser.QUES, 0); }
+		public TerminalNode COLON() { return getToken(AngularParser.COLON, 0); }
+		public TypeAnnotationContext typeAnnotation() {
+			return getRuleContext(TypeAnnotationContext.class,0);
+		}
+		public TerminalNode SEMI() { return getToken(AngularParser.SEMI, 0); }
+		public EffectDeclarationContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_effectDeclaration; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterEffectDeclaration(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitEffectDeclaration(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitEffectDeclaration(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final EffectDeclarationContext effectDeclaration() throws RecognitionException {
+		EffectDeclarationContext _localctx = new EffectDeclarationContext(_ctx, getState());
+		enterRule(_localctx, 192, RULE_effectDeclaration);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(1309);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (((_la) & ~0x3f) == 0 && ((1L << _la) & 3940649673949184L) != 0) {
+				{
+				setState(1308);
+				accessModifier();
+				}
+			}
+
+			setState(1311);
+			match(IDENTIFIER);
+			setState(1313);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==QUES) {
+				{
+				setState(1312);
+				match(QUES);
+				}
+			}
+
+			setState(1317);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==COLON) {
+				{
+				setState(1315);
+				match(COLON);
+				setState(1316);
+				typeAnnotation();
+				}
+			}
+
+			setState(1319);
+			match(ASSIGN);
+			setState(1320);
+			match(CREATE_EFFECT);
+			setState(1321);
+			match(LPAREN);
+			setState(1324);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,151,_ctx) ) {
+			case 1:
+				{
+				setState(1322);
+				arrowFunction();
+				}
+				break;
+			case 2:
+				{
+				setState(1323);
+				callExpression();
+				}
+				break;
+			}
+			setState(1326);
+			match(RPAREN);
+			setState(1328);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==SEMI) {
+				{
+				setState(1327);
+				match(SEMI);
+				}
+			}
+
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class StoreModuleCallContext extends ParserRuleContext {
+		public TerminalNode STORE_MODULE() { return getToken(AngularParser.STORE_MODULE, 0); }
+		public TerminalNode DOT() { return getToken(AngularParser.DOT, 0); }
+		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
+		public TerminalNode FOR_ROOT() { return getToken(AngularParser.FOR_ROOT, 0); }
+		public TerminalNode FOR_FEATURE() { return getToken(AngularParser.FOR_FEATURE, 0); }
+		public ParameterListContext parameterList() {
+			return getRuleContext(ParameterListContext.class,0);
+		}
+		public StoreModuleCallContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_storeModuleCall; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterStoreModuleCall(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitStoreModuleCall(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitStoreModuleCall(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final StoreModuleCallContext storeModuleCall() throws RecognitionException {
+		StoreModuleCallContext _localctx = new StoreModuleCallContext(_ctx, getState());
+		enterRule(_localctx, 194, RULE_storeModuleCall);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(1330);
+			match(STORE_MODULE);
+			setState(1331);
+			match(DOT);
+			setState(1332);
+			_la = _input.LA(1);
+			if ( !(_la==FOR_ROOT || _la==FOR_FEATURE) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			setState(1333);
+			match(LPAREN);
+			setState(1335);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
+				{
+				setState(1334);
+				parameterList();
+				}
+			}
+
+			setState(1337);
+			match(RPAREN);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class EffectsModuleCallContext extends ParserRuleContext {
+		public TerminalNode EFFECTS_MODULE() { return getToken(AngularParser.EFFECTS_MODULE, 0); }
+		public TerminalNode DOT() { return getToken(AngularParser.DOT, 0); }
+		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
+		public TerminalNode FOR_ROOT() { return getToken(AngularParser.FOR_ROOT, 0); }
+		public TerminalNode FOR_FEATURE() { return getToken(AngularParser.FOR_FEATURE, 0); }
+		public ParameterListContext parameterList() {
+			return getRuleContext(ParameterListContext.class,0);
+		}
+		public EffectsModuleCallContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_effectsModuleCall; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterEffectsModuleCall(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitEffectsModuleCall(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitEffectsModuleCall(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final EffectsModuleCallContext effectsModuleCall() throws RecognitionException {
+		EffectsModuleCallContext _localctx = new EffectsModuleCallContext(_ctx, getState());
+		enterRule(_localctx, 196, RULE_effectsModuleCall);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(1339);
+			match(EFFECTS_MODULE);
+			setState(1340);
+			match(DOT);
+			setState(1341);
+			_la = _input.LA(1);
+			if ( !(_la==FOR_ROOT || _la==FOR_FEATURE) ) {
+			_errHandler.recoverInline(this);
+			}
+			else {
+				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+				_errHandler.reportMatch(this);
+				consume();
+			}
+			setState(1342);
+			match(LPAREN);
+			setState(1344);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
+				{
+				setState(1343);
+				parameterList();
+				}
+			}
+
+			setState(1346);
+			match(RPAREN);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class StoreDispatchStatementContext extends ParserRuleContext {
+		public TerminalNode IDENTIFIER() { return getToken(AngularParser.IDENTIFIER, 0); }
+		public List<TerminalNode> DOT() { return getTokens(AngularParser.DOT); }
+		public TerminalNode DOT(int i) {
+			return getToken(AngularParser.DOT, i);
+		}
+		public TerminalNode DISPATCH() { return getToken(AngularParser.DISPATCH, 0); }
+		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
+		public TerminalNode THIS() { return getToken(AngularParser.THIS, 0); }
+		public ParameterListContext parameterList() {
+			return getRuleContext(ParameterListContext.class,0);
+		}
+		public TerminalNode SEMI() { return getToken(AngularParser.SEMI, 0); }
+		public StoreDispatchStatementContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_storeDispatchStatement; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterStoreDispatchStatement(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitStoreDispatchStatement(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitStoreDispatchStatement(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final StoreDispatchStatementContext storeDispatchStatement() throws RecognitionException {
+		StoreDispatchStatementContext _localctx = new StoreDispatchStatementContext(_ctx, getState());
+		enterRule(_localctx, 198, RULE_storeDispatchStatement);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(1350);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==THIS) {
+				{
+				setState(1348);
+				match(THIS);
+				setState(1349);
+				match(DOT);
+				}
+			}
+
+			setState(1352);
+			match(IDENTIFIER);
+			setState(1353);
+			match(DOT);
+			setState(1354);
+			match(DISPATCH);
+			setState(1355);
+			match(LPAREN);
+			setState(1357);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
+				{
+				setState(1356);
+				parameterList();
+				}
+			}
+
+			setState(1359);
+			match(RPAREN);
+			setState(1361);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,157,_ctx) ) {
+			case 1:
+				{
+				setState(1360);
+				match(SEMI);
+				}
+				break;
+			}
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
+	@SuppressWarnings("CheckReturnValue")
+	public static class StoreSelectExpressionContext extends ParserRuleContext {
+		public TerminalNode IDENTIFIER() { return getToken(AngularParser.IDENTIFIER, 0); }
+		public List<TerminalNode> DOT() { return getTokens(AngularParser.DOT); }
+		public TerminalNode DOT(int i) {
+			return getToken(AngularParser.DOT, i);
+		}
+		public TerminalNode SELECT() { return getToken(AngularParser.SELECT, 0); }
+		public TerminalNode LPAREN() { return getToken(AngularParser.LPAREN, 0); }
+		public TerminalNode RPAREN() { return getToken(AngularParser.RPAREN, 0); }
+		public TerminalNode THIS() { return getToken(AngularParser.THIS, 0); }
+		public ParameterListContext parameterList() {
+			return getRuleContext(ParameterListContext.class,0);
+		}
+		public StoreSelectExpressionContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_storeSelectExpression; }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).enterStoreSelectExpression(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AngularParserListener ) ((AngularParserListener)listener).exitStoreSelectExpression(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AngularParserVisitor ) return ((AngularParserVisitor<? extends T>)visitor).visitStoreSelectExpression(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+
+	public final StoreSelectExpressionContext storeSelectExpression() throws RecognitionException {
+		StoreSelectExpressionContext _localctx = new StoreSelectExpressionContext(_ctx, getState());
+		enterRule(_localctx, 200, RULE_storeSelectExpression);
+		int _la;
+		try {
+			enterOuterAlt(_localctx, 1);
+			{
+			setState(1365);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if (_la==THIS) {
+				{
+				setState(1363);
+				match(THIS);
+				setState(1364);
+				match(DOT);
+				}
+			}
+
+			setState(1367);
+			match(IDENTIFIER);
+			setState(1368);
+			match(DOT);
+			setState(1369);
+			match(SELECT);
+			setState(1370);
+			match(LPAREN);
+			setState(1372);
+			_errHandler.sync(this);
+			_la = _input.LA(1);
+			if ((((_la - 46)) & ~0x3f) == 0 && ((1L << (_la - 46)) & 35184472752191L) != 0 || (((_la - 120)) & ~0x3f) == 0 && ((1L << (_la - 120)) & 260068483L) != 0) {
+				{
+				setState(1371);
+				parameterList();
+				}
+			}
+
+			setState(1374);
+			match(RPAREN);
+			}
+		}
+		catch (RecognitionException re) {
+			_localctx.exception = re;
+			_errHandler.reportError(this, re);
+			_errHandler.recover(this, re);
+		}
+		finally {
+			exitRule();
+		}
+		return _localctx;
+	}
+
 	public boolean sempred(RuleContext _localctx, int ruleIndex, int predIndex) {
 		switch (ruleIndex) {
-		case 71:
+		case 73:
 			return expression_sempred((ExpressionContext)_localctx, predIndex);
 		}
 		return true;
@@ -9219,29 +11033,29 @@ public class AngularParser extends Parser {
 	private boolean expression_sempred(ExpressionContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 10);
-		case 1:
-			return precpred(_ctx, 9);
-		case 2:
-			return precpred(_ctx, 8);
-		case 3:
-			return precpred(_ctx, 7);
-		case 4:
-			return precpred(_ctx, 6);
-		case 5:
-			return precpred(_ctx, 5);
-		case 6:
-			return precpred(_ctx, 4);
-		case 7:
-			return precpred(_ctx, 16);
-		case 8:
 			return precpred(_ctx, 15);
+		case 1:
+			return precpred(_ctx, 14);
+		case 2:
+			return precpred(_ctx, 13);
+		case 3:
+			return precpred(_ctx, 12);
+		case 4:
+			return precpred(_ctx, 11);
+		case 5:
+			return precpred(_ctx, 10);
+		case 6:
+			return precpred(_ctx, 9);
+		case 7:
+			return precpred(_ctx, 20);
+		case 8:
+			return precpred(_ctx, 19);
 		}
 		return true;
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u0088\u045d\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
+		"\u0004\u0001\u00a9\u0561\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
 		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004"+
 		"\u0002\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007"+
 		"\u0002\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b"+
@@ -9262,701 +11076,884 @@ public class AngularParser extends Parser {
 		"E\u0002F\u0007F\u0002G\u0007G\u0002H\u0007H\u0002I\u0007I\u0002J\u0007"+
 		"J\u0002K\u0007K\u0002L\u0007L\u0002M\u0007M\u0002N\u0007N\u0002O\u0007"+
 		"O\u0002P\u0007P\u0002Q\u0007Q\u0002R\u0007R\u0002S\u0007S\u0002T\u0007"+
-		"T\u0002U\u0007U\u0001\u0000\u0005\u0000\u00ae\b\u0000\n\u0000\f\u0000"+
-		"\u00b1\t\u0000\u0001\u0000\u0001\u0000\u0005\u0000\u00b5\b\u0000\n\u0000"+
-		"\f\u0000\u00b8\t\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"T\u0002U\u0007U\u0002V\u0007V\u0002W\u0007W\u0002X\u0007X\u0002Y\u0007"+
+		"Y\u0002Z\u0007Z\u0002[\u0007[\u0002\\\u0007\\\u0002]\u0007]\u0002^\u0007"+
+		"^\u0002_\u0007_\u0002`\u0007`\u0002a\u0007a\u0002b\u0007b\u0002c\u0007"+
+		"c\u0002d\u0007d\u0001\u0000\u0005\u0000\u00cc\b\u0000\n\u0000\f\u0000"+
+		"\u00cf\t\u0000\u0001\u0000\u0001\u0000\u0005\u0000\u00d3\b\u0000\n\u0000"+
+		"\f\u0000\u00d6\t\u0000\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
 		"\u0001\u0001\u0001\u0001\u0001\u0002\u0001\u0002\u0001\u0002\u0003\u0002"+
-		"\u00c3\b\u0002\u0001\u0003\u0001\u0003\u0001\u0004\u0001\u0004\u0001\u0004"+
-		"\u0001\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0005\u0005\u00ce\b\u0005"+
-		"\n\u0005\f\u0005\u00d1\t\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001"+
-		"\u0005\u0005\u0005\u00d7\b\u0005\n\u0005\f\u0005\u00da\t\u0005\u0001\u0005"+
-		"\u0003\u0005\u00dd\b\u0005\u0003\u0005\u00df\b\u0005\u0001\u0005\u0001"+
-		"\u0005\u0001\u0006\u0001\u0006\u0003\u0006\u00e5\b\u0006\u0001\u0007\u0001"+
+		"\u00e1\b\u0002\u0001\u0003\u0001\u0003\u0001\u0004\u0001\u0004\u0001\u0004"+
+		"\u0001\u0004\u0001\u0005\u0001\u0005\u0001\u0005\u0005\u0005\u00ec\b\u0005"+
+		"\n\u0005\f\u0005\u00ef\t\u0005\u0001\u0005\u0001\u0005\u0001\u0005\u0001"+
+		"\u0005\u0005\u0005\u00f5\b\u0005\n\u0005\f\u0005\u00f8\t\u0005\u0001\u0005"+
+		"\u0003\u0005\u00fb\b\u0005\u0003\u0005\u00fd\b\u0005\u0001\u0005\u0001"+
+		"\u0005\u0001\u0006\u0001\u0006\u0003\u0006\u0103\b\u0006\u0001\u0007\u0001"+
 		"\u0007\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b"+
-		"\u0001\b\u0001\b\u0003\b\u00f3\b\b\u0001\t\u0001\t\u0001\t\u0001\t\u0003"+
-		"\t\u00f9\b\t\u0001\t\u0001\t\u0003\t\u00fd\b\t\u0001\t\u0003\t\u0100\b"+
-		"\t\u0001\n\u0001\n\u0001\u000b\u0001\u000b\u0001\u000b\u0003\u000b\u0107"+
-		"\b\u000b\u0001\f\u0001\f\u0001\f\u0001\f\u0003\f\u010d\b\f\u0001\f\u0001"+
-		"\f\u0001\f\u0003\f\u0112\b\f\u0001\f\u0001\f\u0001\f\u0001\f\u0001\r\u0001"+
-		"\r\u0001\r\u0003\r\u011b\b\r\u0001\r\u0001\r\u0001\r\u0003\r\u0120\b\r"+
-		"\u0001\r\u0001\r\u0001\r\u0001\r\u0001\u000e\u0001\u000e\u0003\u000e\u0128"+
-		"\b\u000e\u0001\u000e\u0001\u000e\u0003\u000e\u012c\b\u000e\u0001\u000e"+
-		"\u0001\u000e\u0003\u000e\u0130\b\u000e\u0001\u000e\u0001\u000e\u0001\u000e"+
-		"\u0003\u000e\u0135\b\u000e\u0001\u000f\u0001\u000f\u0001\u000f\u0005\u000f"+
-		"\u013a\b\u000f\n\u000f\f\u000f\u013d\t\u000f\u0001\u000f\u0001\u000f\u0001"+
-		"\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0003\u0010\u0145\b\u0010\u0001"+
-		"\u0010\u0003\u0010\u0148\b\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001"+
-		"\u0011\u0001\u0011\u0001\u0011\u0005\u0011\u0150\b\u0011\n\u0011\f\u0011"+
-		"\u0153\t\u0011\u0001\u0011\u0003\u0011\u0156\b\u0011\u0001\u0012\u0001"+
-		"\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001"+
-		"\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001"+
-		"\u0012\u0001\u0012\u0003\u0012\u0167\b\u0012\u0001\u0013\u0001\u0013\u0001"+
-		"\u0013\u0001\u0013\u0003\u0013\u016d\b\u0013\u0001\u0013\u0003\u0013\u0170"+
-		"\b\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0014\u0001\u0014\u0001"+
-		"\u0014\u0005\u0014\u0178\b\u0014\n\u0014\f\u0014\u017b\t\u0014\u0001\u0014"+
-		"\u0003\u0014\u017e\b\u0014\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015"+
+		"\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0001\b\u0003\b\u0115\b\b\u0001"+
+		"\t\u0001\t\u0001\t\u0001\t\u0003\t\u011b\b\t\u0001\t\u0001\t\u0003\t\u011f"+
+		"\b\t\u0001\t\u0003\t\u0122\b\t\u0001\n\u0001\n\u0001\u000b\u0001\u000b"+
+		"\u0001\u000b\u0003\u000b\u0129\b\u000b\u0001\f\u0001\f\u0001\f\u0001\f"+
+		"\u0003\f\u012f\b\f\u0001\f\u0001\f\u0001\f\u0003\f\u0134\b\f\u0001\f\u0001"+
+		"\f\u0001\f\u0001\f\u0001\r\u0001\r\u0001\r\u0003\r\u013d\b\r\u0001\r\u0001"+
+		"\r\u0001\r\u0003\r\u0142\b\r\u0001\r\u0001\r\u0001\r\u0001\r\u0001\u000e"+
+		"\u0001\u000e\u0003\u000e\u014a\b\u000e\u0001\u000e\u0001\u000e\u0003\u000e"+
+		"\u014e\b\u000e\u0001\u000e\u0001\u000e\u0003\u000e\u0152\b\u000e\u0001"+
+		"\u000e\u0001\u000e\u0001\u000e\u0003\u000e\u0157\b\u000e\u0001\u000f\u0001"+
+		"\u000f\u0001\u000f\u0005\u000f\u015c\b\u000f\n\u000f\f\u000f\u015f\t\u000f"+
+		"\u0001\u000f\u0001\u000f\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010"+
+		"\u0003\u0010\u0167\b\u0010\u0001\u0010\u0003\u0010\u016a\b\u0010\u0001"+
+		"\u0010\u0001\u0010\u0001\u0010\u0001\u0011\u0001\u0011\u0001\u0011\u0005"+
+		"\u0011\u0172\b\u0011\n\u0011\f\u0011\u0175\t\u0011\u0001\u0011\u0003\u0011"+
+		"\u0178\b\u0011\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012"+
+		"\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012"+
+		"\u0001\u0012\u0001\u0012\u0001\u0012\u0001\u0012\u0003\u0012\u0189\b\u0012"+
+		"\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0003\u0013\u018f\b\u0013"+
+		"\u0001\u0013\u0003\u0013\u0192\b\u0013\u0001\u0013\u0001\u0013\u0001\u0013"+
+		"\u0001\u0014\u0001\u0014\u0001\u0014\u0005\u0014\u019a\b\u0014\n\u0014"+
+		"\f\u0014\u019d\t\u0014\u0001\u0014\u0003\u0014\u01a0\b\u0014\u0001\u0015"+
 		"\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015"+
 		"\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015"+
 		"\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015"+
 		"\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015"+
 		"\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015"+
-		"\u0001\u0015\u0001\u0015\u0003\u0015\u01a4\b\u0015\u0001\u0016\u0001\u0016"+
-		"\u0001\u0016\u0001\u0016\u0003\u0016\u01aa\b\u0016\u0001\u0016\u0003\u0016"+
-		"\u01ad\b\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0017\u0001\u0017"+
-		"\u0001\u0017\u0005\u0017\u01b5\b\u0017\n\u0017\f\u0017\u01b8\t\u0017\u0001"+
-		"\u0017\u0003\u0017\u01bb\b\u0017\u0001\u0018\u0001\u0018\u0001\u0018\u0001"+
-		"\u0018\u0001\u0018\u0001\u0018\u0003\u0018\u01c3\b\u0018\u0001\u0019\u0001"+
-		"\u0019\u0001\u0019\u0001\u0019\u0003\u0019\u01c9\b\u0019\u0001\u0019\u0001"+
-		"\u0019\u0001\u001a\u0001\u001a\u0001\u001a\u0001\u001a\u0003\u001a\u01d1"+
-		"\b\u001a\u0001\u001a\u0003\u001a\u01d4\b\u001a\u0001\u001a\u0001\u001a"+
-		"\u0001\u001a\u0001\u001b\u0001\u001b\u0001\u001b\u0005\u001b\u01dc\b\u001b"+
-		"\n\u001b\f\u001b\u01df\t\u001b\u0001\u001b\u0003\u001b\u01e2\b\u001b\u0001"+
-		"\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0001\u001d\u0001\u001d\u0001"+
-		"\u001d\u0001\u001d\u0003\u001d\u01ec\b\u001d\u0001\u001d\u0003\u001d\u01ef"+
-		"\b\u001d\u0001\u001d\u0001\u001d\u0001\u001d\u0001\u001e\u0001\u001e\u0001"+
-		"\u001e\u0005\u001e\u01f7\b\u001e\n\u001e\f\u001e\u01fa\t\u001e\u0001\u001e"+
-		"\u0003\u001e\u01fd\b\u001e\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f"+
-		"\u0001 \u0003 \u0204\b \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0005"+
-		" \u020c\b \n \f \u020f\t \u0003 \u0211\b \u0001 \u0001 \u0001 \u0001 "+
-		"\u0005 \u0217\b \n \f \u021a\t \u0003 \u021c\b \u0001 \u0001 \u0001 \u0001"+
-		" \u0001!\u0005!\u0223\b!\n!\f!\u0226\t!\u0001!\u0003!\u0229\b!\u0001!"+
-		"\u0001!\u0001!\u0001!\u0005!\u022f\b!\n!\f!\u0232\t!\u0001\"\u0005\"\u0235"+
-		"\b\"\n\"\f\"\u0238\t\"\u0001\"\u0003\"\u023b\b\"\u0001\"\u0001\"\u0003"+
-		"\"\u023f\b\"\u0001\"\u0001\"\u0003\"\u0243\b\"\u0001\"\u0001\"\u0003\""+
-		"\u0247\b\"\u0001\"\u0001\"\u0001#\u0005#\u024c\b#\n#\f#\u024f\t#\u0001"+
-		"#\u0001#\u0001#\u0003#\u0254\b#\u0001#\u0001#\u0001#\u0003#\u0259\b#\u0001"+
-		"#\u0001#\u0001$\u0001$\u0001$\u0003$\u0260\b$\u0001$\u0001$\u0001$\u0001"+
-		"$\u0001$\u0001%\u0005%\u0268\b%\n%\f%\u026b\t%\u0001&\u0003&\u026e\b&"+
-		"\u0001&\u0001&\u0001&\u0001&\u0001&\u0001&\u0005&\u0276\b&\n&\f&\u0279"+
-		"\t&\u0003&\u027b\b&\u0001&\u0001&\u0001&\u0001&\u0001\'\u0005\'\u0282"+
-		"\b\'\n\'\f\'\u0285\t\'\u0001(\u0001(\u0003(\u0289\b(\u0001(\u0001(\u0001"+
-		"(\u0001(\u0001)\u0003)\u0290\b)\u0001)\u0001)\u0001)\u0001)\u0001)\u0001"+
-		")\u0001*\u0001*\u0001*\u0005*\u029b\b*\n*\f*\u029e\t*\u0001*\u0003*\u02a1"+
-		"\b*\u0001+\u0001+\u0001+\u0003+\u02a6\b+\u0001,\u0001,\u0001,\u0001,\u0001"+
-		",\u0001,\u0001,\u0001,\u0001,\u0001,\u0003,\u02b2\b,\u0003,\u02b4\b,\u0001"+
+		"\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0001\u0015\u0003\u0015"+
+		"\u01c6\b\u0015\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0003\u0016"+
+		"\u01cc\b\u0016\u0001\u0016\u0003\u0016\u01cf\b\u0016\u0001\u0016\u0001"+
+		"\u0016\u0001\u0016\u0001\u0017\u0001\u0017\u0001\u0017\u0005\u0017\u01d7"+
+		"\b\u0017\n\u0017\f\u0017\u01da\t\u0017\u0001\u0017\u0003\u0017\u01dd\b"+
+		"\u0017\u0001\u0018\u0001\u0018\u0001\u0018\u0001\u0018\u0001\u0018\u0001"+
+		"\u0018\u0003\u0018\u01e5\b\u0018\u0001\u0019\u0001\u0019\u0001\u0019\u0001"+
+		"\u0019\u0003\u0019\u01eb\b\u0019\u0001\u0019\u0001\u0019\u0001\u001a\u0001"+
+		"\u001a\u0001\u001a\u0001\u001a\u0003\u001a\u01f3\b\u001a\u0001\u001a\u0003"+
+		"\u001a\u01f6\b\u001a\u0001\u001a\u0001\u001a\u0001\u001a\u0001\u001b\u0001"+
+		"\u001b\u0001\u001b\u0005\u001b\u01fe\b\u001b\n\u001b\f\u001b\u0201\t\u001b"+
+		"\u0001\u001b\u0003\u001b\u0204\b\u001b\u0001\u001c\u0001\u001c\u0001\u001c"+
+		"\u0001\u001c\u0001\u001d\u0001\u001d\u0001\u001d\u0001\u001d\u0003\u001d"+
+		"\u020e\b\u001d\u0001\u001d\u0003\u001d\u0211\b\u001d\u0001\u001d\u0001"+
+		"\u001d\u0001\u001d\u0001\u001e\u0001\u001e\u0001\u001e\u0005\u001e\u0219"+
+		"\b\u001e\n\u001e\f\u001e\u021c\t\u001e\u0001\u001e\u0003\u001e\u021f\b"+
+		"\u001e\u0001\u001f\u0001\u001f\u0001\u001f\u0001\u001f\u0001 \u0003 \u0226"+
+		"\b \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0005 \u022e\b \n \f \u0231"+
+		"\t \u0003 \u0233\b \u0001 \u0001 \u0001 \u0001 \u0005 \u0239\b \n \f "+
+		"\u023c\t \u0003 \u023e\b \u0001 \u0001 \u0001 \u0001 \u0001!\u0005!\u0245"+
+		"\b!\n!\f!\u0248\t!\u0001!\u0003!\u024b\b!\u0001!\u0001!\u0001!\u0001!"+
+		"\u0005!\u0251\b!\n!\f!\u0254\t!\u0001\"\u0005\"\u0257\b\"\n\"\f\"\u025a"+
+		"\t\"\u0001\"\u0003\"\u025d\b\"\u0001\"\u0001\"\u0003\"\u0261\b\"\u0001"+
+		"\"\u0001\"\u0003\"\u0265\b\"\u0001\"\u0001\"\u0003\"\u0269\b\"\u0001\""+
+		"\u0001\"\u0001#\u0005#\u026e\b#\n#\f#\u0271\t#\u0001#\u0001#\u0001#\u0003"+
+		"#\u0276\b#\u0001#\u0001#\u0001#\u0003#\u027b\b#\u0001#\u0001#\u0001$\u0001"+
+		"$\u0001$\u0003$\u0282\b$\u0001$\u0001$\u0001$\u0001$\u0001$\u0001%\u0005"+
+		"%\u028a\b%\n%\f%\u028d\t%\u0001&\u0003&\u0290\b&\u0001&\u0001&\u0001&"+
+		"\u0001&\u0001&\u0001&\u0005&\u0298\b&\n&\f&\u029b\t&\u0003&\u029d\b&\u0001"+
+		"&\u0001&\u0001&\u0001&\u0001\'\u0005\'\u02a4\b\'\n\'\f\'\u02a7\t\'\u0001"+
+		"(\u0001(\u0003(\u02ab\b(\u0001(\u0001(\u0001(\u0001(\u0001)\u0003)\u02b2"+
+		"\b)\u0001)\u0001)\u0001)\u0001)\u0001)\u0001)\u0001*\u0001*\u0001*\u0005"+
+		"*\u02bd\b*\n*\f*\u02c0\t*\u0001*\u0003*\u02c3\b*\u0001+\u0001+\u0001+"+
+		"\u0003+\u02c8\b+\u0001,\u0001,\u0001,\u0001,\u0001,\u0001,\u0001,\u0001"+
+		",\u0001,\u0001,\u0003,\u02d4\b,\u0001,\u0001,\u0001,\u0003,\u02d9\b,\u0001"+
 		"-\u0001-\u0001-\u0001-\u0001-\u0001.\u0001.\u0001.\u0001.\u0001.\u0003"+
-		".\u02c0\b.\u0001.\u0001.\u0003.\u02c4\b.\u0001/\u0001/\u0001/\u0001/\u0001"+
-		"0\u00010\u00010\u00010\u00011\u00011\u00051\u02d0\b1\n1\f1\u02d3\t1\u0001"+
-		"1\u00031\u02d6\b1\u00012\u00012\u00012\u00012\u00012\u00012\u00013\u0001"+
+		".\u02e5\b.\u0001.\u0001.\u0003.\u02e9\b.\u0001/\u0001/\u0001/\u0001/\u0001"+
+		"0\u00010\u00010\u00010\u00011\u00011\u00051\u02f5\b1\n1\f1\u02f8\t1\u0001"+
+		"1\u00031\u02fb\b1\u00012\u00012\u00012\u00012\u00012\u00012\u00013\u0001"+
 		"3\u00013\u00013\u00013\u00013\u00013\u00014\u00014\u00014\u00015\u0001"+
-		"5\u00035\u02ea\b5\u00016\u00016\u00036\u02ee\b6\u00016\u00016\u00036\u02f2"+
-		"\b6\u00016\u00016\u00016\u00017\u00017\u00017\u00037\u02fa\b7\u00017\u0001"+
-		"7\u00017\u00017\u00017\u00017\u00017\u00037\u0303\b7\u00017\u00017\u0001"+
-		"8\u00018\u00018\u00038\u030a\b8\u00018\u00018\u00038\u030e\b8\u00018\u0001"+
-		"8\u00038\u0312\b8\u00018\u00018\u00018\u00018\u00018\u00018\u00018\u0001"+
+		"5\u00035\u030f\b5\u00016\u00016\u00016\u00036\u0314\b6\u00016\u00016\u0001"+
+		"6\u00017\u00017\u00017\u00037\u031c\b7\u00017\u00017\u00017\u00017\u0001"+
+		"7\u00017\u00017\u00037\u0325\b7\u00017\u00017\u00018\u00018\u00018\u0003"+
+		"8\u032c\b8\u00018\u00018\u00038\u0330\b8\u00018\u00018\u00038\u0334\b"+
 		"8\u00018\u00018\u00018\u00018\u00018\u00018\u00018\u00018\u00018\u0001"+
 		"8\u00018\u00018\u00018\u00018\u00018\u00018\u00018\u00018\u00018\u0001"+
-		"8\u00018\u00018\u00018\u00018\u00018\u00018\u00038\u0336\b8\u00019\u0001"+
-		"9\u00019\u00059\u033b\b9\n9\f9\u033e\t9\u0001:\u0001:\u0001;\u0005;\u0343"+
-		"\b;\n;\f;\u0346\t;\u0001;\u0003;\u0349\b;\u0001;\u0001;\u0001;\u0003;"+
-		"\u034e\b;\u0001;\u0001;\u0003;\u0352\b;\u0001<\u0001<\u0001<\u0001<\u0005"+
-		"<\u0358\b<\n<\f<\u035b\t<\u0003<\u035d\b<\u0001<\u0003<\u0360\b<\u0001"+
-		"<\u0001<\u0001=\u0001=\u0001=\u0001=\u0001=\u0001=\u0003=\u036a\b=\u0001"+
-		">\u0001>\u0003>\u036e\b>\u0001>\u0001>\u0001?\u0001?\u0001?\u0005?\u0375"+
-		"\b?\n?\f?\u0378\t?\u0001?\u0003?\u037b\b?\u0001@\u0001@\u0001@\u0001@"+
-		"\u0001A\u0001A\u0001A\u0003A\u0384\bA\u0001A\u0001A\u0003A\u0388\bA\u0001"+
-		"A\u0001A\u0001B\u0001B\u0003B\u038e\bB\u0001B\u0001B\u0003B\u0392\bB\u0001"+
-		"C\u0001C\u0001C\u0001C\u0001C\u0001D\u0001D\u0001E\u0001E\u0003E\u039d"+
-		"\bE\u0001F\u0001F\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001"+
-		"G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0003"+
-		"G\u03b2\bG\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001"+
-		"G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001"+
-		"G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0001G\u0005"+
-		"G\u03d0\bG\nG\fG\u03d3\tG\u0001H\u0001H\u0001H\u0001H\u0005H\u03d9\bH"+
-		"\nH\fH\u03dc\tH\u0001H\u0001H\u0001I\u0001I\u0001I\u0001I\u0001I\u0005"+
-		"I\u03e5\bI\nI\fI\u03e8\tI\u0001I\u0001I\u0001I\u0001I\u0003I\u03ee\bI"+
-		"\u0001J\u0001J\u0001K\u0001K\u0005K\u03f4\bK\nK\fK\u03f7\tK\u0001K\u0001"+
-		"K\u0001L\u0001L\u0005L\u03fd\bL\nL\fL\u0400\tL\u0001L\u0001L\u0001L\u0001"+
-		"L\u0003L\u0406\bL\u0001M\u0003M\u0409\bM\u0001M\u0001M\u0005M\u040d\b"+
-		"M\nM\fM\u0410\tM\u0001M\u0001M\u0001N\u0001N\u0001N\u0001N\u0001N\u0001"+
-		"O\u0001O\u0001O\u0005O\u041c\bO\nO\fO\u041f\tO\u0001O\u0001O\u0001O\u0001"+
-		"P\u0001P\u0001P\u0003P\u0427\bP\u0003P\u0429\bP\u0001Q\u0001Q\u0001Q\u0001"+
-		"Q\u0001Q\u0001Q\u0001Q\u0001Q\u0001Q\u0001Q\u0001Q\u0001Q\u0001Q\u0001"+
-		"Q\u0001Q\u0001Q\u0001Q\u0001Q\u0001Q\u0003Q\u043e\bQ\u0001Q\u0003Q\u0441"+
-		"\bQ\u0001R\u0001R\u0003R\u0445\bR\u0001R\u0001R\u0001R\u0001R\u0005R\u044b"+
-		"\bR\nR\fR\u044e\tR\u0003R\u0450\bR\u0001R\u0001R\u0001S\u0001S\u0001S"+
-		"\u0003S\u0457\bS\u0001T\u0001T\u0001U\u0001U\u0001U\u0000\u0001\u008e"+
-		"V\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a"+
-		"\u001c\u001e \"$&(*,.02468:<>@BDFHJLNPRTVXZ\\^`bdfhjlnprtvxz|~\u0080\u0082"+
-		"\u0084\u0086\u0088\u008a\u008c\u008e\u0090\u0092\u0094\u0096\u0098\u009a"+
-		"\u009c\u009e\u00a0\u00a2\u00a4\u00a6\u00a8\u00aa\u0000\r\u0001\u0000\u001a"+
-		"\u001c\u0001\u0000\u001d\u001e\u0002\u0000$$&&\u0002\u0000mpss\u0001\u0000"+
-		"@B\u0001\u0000>?\u0001\u000047\u0002\u000088:=\u0001\u0000pq\u0001\u0000"+
-		"13\u0001\u0000wx\u0002\u0000yy\u0084\u0084\u0001\u0000\u007f\u0081\u04c3"+
-		"\u0000\u00af\u0001\u0000\u0000\u0000\u0002\u00b9\u0001\u0000\u0000\u0000"+
-		"\u0004\u00c2\u0001\u0000\u0000\u0000\u0006\u00c4\u0001\u0000\u0000\u0000"+
-		"\b\u00c6\u0001\u0000\u0000\u0000\n\u00cf\u0001\u0000\u0000\u0000\f\u00e4"+
-		"\u0001\u0000\u0000\u0000\u000e\u00e6\u0001\u0000\u0000\u0000\u0010\u00f2"+
-		"\u0001\u0000\u0000\u0000\u0012\u00f4\u0001\u0000\u0000\u0000\u0014\u0101"+
-		"\u0001\u0000\u0000\u0000\u0016\u0106\u0001\u0000\u0000\u0000\u0018\u0108"+
-		"\u0001\u0000\u0000\u0000\u001a\u0117\u0001\u0000\u0000\u0000\u001c\u012b"+
-		"\u0001\u0000\u0000\u0000\u001e\u0136\u0001\u0000\u0000\u0000 \u0140\u0001"+
-		"\u0000\u0000\u0000\"\u014c\u0001\u0000\u0000\u0000$\u0166\u0001\u0000"+
-		"\u0000\u0000&\u0168\u0001\u0000\u0000\u0000(\u0174\u0001\u0000\u0000\u0000"+
-		"*\u01a3\u0001\u0000\u0000\u0000,\u01a5\u0001\u0000\u0000\u0000.\u01b1"+
-		"\u0001\u0000\u0000\u00000\u01c2\u0001\u0000\u0000\u00002\u01c4\u0001\u0000"+
-		"\u0000\u00004\u01cc\u0001\u0000\u0000\u00006\u01d8\u0001\u0000\u0000\u0000"+
-		"8\u01e3\u0001\u0000\u0000\u0000:\u01e7\u0001\u0000\u0000\u0000<\u01f3"+
-		"\u0001\u0000\u0000\u0000>\u01fe\u0001\u0000\u0000\u0000@\u0203\u0001\u0000"+
-		"\u0000\u0000B\u0224\u0001\u0000\u0000\u0000D\u0236\u0001\u0000\u0000\u0000"+
-		"F\u024d\u0001\u0000\u0000\u0000H\u025c\u0001\u0000\u0000\u0000J\u0269"+
-		"\u0001\u0000\u0000\u0000L\u026d\u0001\u0000\u0000\u0000N\u0283\u0001\u0000"+
-		"\u0000\u0000P\u0286\u0001\u0000\u0000\u0000R\u028f\u0001\u0000\u0000\u0000"+
-		"T\u0297\u0001\u0000\u0000\u0000V\u02a2\u0001\u0000\u0000\u0000X\u02b3"+
-		"\u0001\u0000\u0000\u0000Z\u02b5\u0001\u0000\u0000\u0000\\\u02ba\u0001"+
-		"\u0000\u0000\u0000^\u02c5\u0001\u0000\u0000\u0000`\u02c9\u0001\u0000\u0000"+
-		"\u0000b\u02cd\u0001\u0000\u0000\u0000d\u02d7\u0001\u0000\u0000\u0000f"+
-		"\u02dd\u0001\u0000\u0000\u0000h\u02e4\u0001\u0000\u0000\u0000j\u02e9\u0001"+
-		"\u0000\u0000\u0000l\u02eb\u0001\u0000\u0000\u0000n\u02f6\u0001\u0000\u0000"+
-		"\u0000p\u0335\u0001\u0000\u0000\u0000r\u0337\u0001\u0000\u0000\u0000t"+
-		"\u033f\u0001\u0000\u0000\u0000v\u0344\u0001\u0000\u0000\u0000x\u0353\u0001"+
-		"\u0000\u0000\u0000z\u0369\u0001\u0000\u0000\u0000|\u036b\u0001\u0000\u0000"+
-		"\u0000~\u0371\u0001\u0000\u0000\u0000\u0080\u037c\u0001\u0000\u0000\u0000"+
-		"\u0082\u0380\u0001\u0000\u0000\u0000\u0084\u0391\u0001\u0000\u0000\u0000"+
-		"\u0086\u0393\u0001\u0000\u0000\u0000\u0088\u0398\u0001\u0000\u0000\u0000"+
-		"\u008a\u039c\u0001\u0000\u0000\u0000\u008c\u039e\u0001\u0000\u0000\u0000"+
-		"\u008e\u03b1\u0001\u0000\u0000\u0000\u0090\u03d4\u0001\u0000\u0000\u0000"+
-		"\u0092\u03ed\u0001\u0000\u0000\u0000\u0094\u03ef\u0001\u0000\u0000\u0000"+
-		"\u0096\u03f1\u0001\u0000\u0000\u0000\u0098\u0405\u0001\u0000\u0000\u0000"+
-		"\u009a\u0408\u0001\u0000\u0000\u0000\u009c\u0413\u0001\u0000\u0000\u0000"+
-		"\u009e\u0418\u0001\u0000\u0000\u0000\u00a0\u0428\u0001\u0000\u0000\u0000"+
-		"\u00a2\u0440\u0001\u0000\u0000\u0000\u00a4\u0444\u0001\u0000\u0000\u0000"+
-		"\u00a6\u0453\u0001\u0000\u0000\u0000\u00a8\u0458\u0001\u0000\u0000\u0000"+
-		"\u00aa\u045a\u0001\u0000\u0000\u0000\u00ac\u00ae\u0003\u0002\u0001\u0000"+
-		"\u00ad\u00ac\u0001\u0000\u0000\u0000\u00ae\u00b1\u0001\u0000\u0000\u0000"+
-		"\u00af\u00ad\u0001\u0000\u0000\u0000\u00af\u00b0\u0001\u0000\u0000\u0000"+
-		"\u00b0\u00b6\u0001\u0000\u0000\u0000\u00b1\u00af\u0001\u0000\u0000\u0000"+
-		"\u00b2\u00b5\u0003\u0010\b\u0000\u00b3\u00b5\u0003X,\u0000\u00b4\u00b2"+
-		"\u0001\u0000\u0000\u0000\u00b4\u00b3\u0001\u0000\u0000\u0000\u00b5\u00b8"+
-		"\u0001\u0000\u0000\u0000\u00b6\u00b4\u0001\u0000\u0000\u0000\u00b6\u00b7"+
-		"\u0001\u0000\u0000\u0000\u00b7\u0001\u0001\u0000\u0000\u0000\u00b8\u00b6"+
-		"\u0001\u0000\u0000\u0000\u00b9\u00ba\u0005\u0017\u0000\u0000\u00ba\u00bb"+
-		"\u0003\u0004\u0002\u0000\u00bb\u00bc\u0005\u0018\u0000\u0000\u00bc\u00bd"+
-		"\u0005m\u0000\u0000\u00bd\u00be\u0005X\u0000\u0000\u00be\u0003\u0001\u0000"+
-		"\u0000\u0000\u00bf\u00c3\u0003\u0006\u0003\u0000\u00c0\u00c3\u0003\b\u0004"+
-		"\u0000\u00c1\u00c3\u0003\n\u0005\u0000\u00c2\u00bf\u0001\u0000\u0000\u0000"+
-		"\u00c2\u00c0\u0001\u0000\u0000\u0000\u00c2\u00c1\u0001\u0000\u0000\u0000"+
-		"\u00c3\u0005\u0001\u0000\u0000\u0000\u00c4\u00c5\u0005q\u0000\u0000\u00c5"+
-		"\u0007\u0001\u0000\u0000\u0000\u00c6\u00c7\u0005@\u0000\u0000\u00c7\u00c8"+
-		"\u0005\u0019\u0000\u0000\u00c8\u00c9\u0005q\u0000\u0000\u00c9\t\u0001"+
-		"\u0000\u0000\u0000\u00ca\u00cb\u0003\f\u0006\u0000\u00cb\u00cc\u0005Z"+
-		"\u0000\u0000\u00cc\u00ce\u0001\u0000\u0000\u0000\u00cd\u00ca\u0001\u0000"+
-		"\u0000\u0000\u00ce\u00d1\u0001\u0000\u0000\u0000\u00cf\u00cd\u0001\u0000"+
-		"\u0000\u0000\u00cf\u00d0\u0001\u0000\u0000\u0000\u00d0\u00d2\u0001\u0000"+
-		"\u0000\u0000\u00d1\u00cf\u0001\u0000\u0000\u0000\u00d2\u00de\u0005b\u0000"+
-		"\u0000\u00d3\u00d8\u0003\f\u0006\u0000\u00d4\u00d5\u0005Z\u0000\u0000"+
-		"\u00d5\u00d7\u0003\f\u0006\u0000\u00d6\u00d4\u0001\u0000\u0000\u0000\u00d7"+
-		"\u00da\u0001\u0000\u0000\u0000\u00d8\u00d6\u0001\u0000\u0000\u0000\u00d8"+
-		"\u00d9\u0001\u0000\u0000\u0000\u00d9\u00dc\u0001\u0000\u0000\u0000\u00da"+
-		"\u00d8\u0001\u0000\u0000\u0000\u00db\u00dd\u0005Z\u0000\u0000\u00dc\u00db"+
-		"\u0001\u0000\u0000\u0000\u00dc\u00dd\u0001\u0000\u0000\u0000\u00dd\u00df"+
-		"\u0001\u0000\u0000\u0000\u00de\u00d3\u0001\u0000\u0000\u0000\u00de\u00df"+
-		"\u0001\u0000\u0000\u0000\u00df\u00e0\u0001\u0000\u0000\u0000\u00e0\u00e1"+
-		"\u0005c\u0000\u0000\u00e1\u000b\u0001\u0000\u0000\u0000\u00e2\u00e5\u0005"+
-		"q\u0000\u0000\u00e3\u00e5\u0003\u000e\u0007\u0000\u00e4\u00e2\u0001\u0000"+
-		"\u0000\u0000\u00e4\u00e3\u0001\u0000\u0000\u0000\u00e5\r\u0001\u0000\u0000"+
-		"\u0000\u00e6\u00e7\u0007\u0000\u0000\u0000\u00e7\u000f\u0001\u0000\u0000"+
-		"\u0000\u00e8\u00f3\u0003 \u0010\u0000\u00e9\u00f3\u0003&\u0013\u0000\u00ea"+
-		"\u00f3\u00034\u001a\u0000\u00eb\u00f3\u0003:\u001d\u0000\u00ec\u00f3\u0003"+
-		",\u0016\u0000\u00ed\u00f3\u0003L&\u0000\u00ee\u00f3\u0003@ \u0000\u00ef"+
-		"\u00f3\u0003R)\u0000\u00f0\u00f3\u0003\u0012\t\u0000\u00f1\u00f3\u0003"+
-		"\u0016\u000b\u0000\u00f2\u00e8\u0001\u0000\u0000\u0000\u00f2\u00e9\u0001"+
-		"\u0000\u0000\u0000\u00f2\u00ea\u0001\u0000\u0000\u0000\u00f2\u00eb\u0001"+
-		"\u0000\u0000\u0000\u00f2\u00ec\u0001\u0000\u0000\u0000\u00f2\u00ed\u0001"+
-		"\u0000\u0000\u0000\u00f2\u00ee\u0001\u0000\u0000\u0000\u00f2\u00ef\u0001"+
-		"\u0000\u0000\u0000\u00f2\u00f0\u0001\u0000\u0000\u0000\u00f2\u00f1\u0001"+
-		"\u0000\u0000\u0000\u00f3\u0011\u0001\u0000\u0000\u0000\u00f4\u00f5\u0003"+
-		"\u0014\n\u0000\u00f5\u00f8\u0005q\u0000\u0000\u00f6\u00f7\u0005Y\u0000"+
-		"\u0000\u00f7\u00f9\u0003\u0092I\u0000\u00f8\u00f6\u0001\u0000\u0000\u0000"+
-		"\u00f8\u00f9\u0001\u0000\u0000\u0000\u00f9\u00fc\u0001\u0000\u0000\u0000"+
-		"\u00fa\u00fb\u00058\u0000\u0000\u00fb\u00fd\u0003\u0088D\u0000\u00fc\u00fa"+
-		"\u0001\u0000\u0000\u0000\u00fc\u00fd\u0001\u0000\u0000\u0000\u00fd\u00ff"+
-		"\u0001\u0000\u0000\u0000\u00fe\u0100\u0005X\u0000\u0000\u00ff\u00fe\u0001"+
-		"\u0000\u0000\u0000\u00ff\u0100\u0001\u0000\u0000\u0000\u0100\u0013\u0001"+
-		"\u0000\u0000\u0000\u0101\u0102\u0007\u0001\u0000\u0000\u0102\u0015\u0001"+
-		"\u0000\u0000\u0000\u0103\u0107\u0003\u0018\f\u0000\u0104\u0107\u0003\u001a"+
-		"\r\u0000\u0105\u0107\u0003\u001c\u000e\u0000\u0106\u0103\u0001\u0000\u0000"+
-		"\u0000\u0106\u0104\u0001\u0000\u0000\u0000\u0106\u0105\u0001\u0000\u0000"+
-		"\u0000\u0107\u0017\u0001\u0000\u0000\u0000\u0108\u0109\u00050\u0000\u0000"+
-		"\u0109\u010a\u0005q\u0000\u0000\u010a\u010c\u0005`\u0000\u0000\u010b\u010d"+
-		"\u0003r9\u0000\u010c\u010b\u0001\u0000\u0000\u0000\u010c\u010d\u0001\u0000"+
-		"\u0000\u0000\u010d\u010e\u0001\u0000\u0000\u0000\u010e\u0111\u0005a\u0000"+
-		"\u0000\u010f\u0110\u0005Y\u0000\u0000\u0110\u0112\u0003\u0092I\u0000\u0111"+
-		"\u010f\u0001\u0000\u0000\u0000\u0111\u0112\u0001\u0000\u0000\u0000\u0112"+
-		"\u0113\u0001\u0000\u0000\u0000\u0113\u0114\u0005b\u0000\u0000\u0114\u0115"+
-		"\u0003\u001e\u000f\u0000\u0115\u0116\u0005c\u0000\u0000\u0116\u0019\u0001"+
-		"\u0000\u0000\u0000\u0117\u0118\u00050\u0000\u0000\u0118\u011a\u0005`\u0000"+
-		"\u0000\u0119\u011b\u0003r9\u0000\u011a\u0119\u0001\u0000\u0000\u0000\u011a"+
-		"\u011b\u0001\u0000\u0000\u0000\u011b\u011c\u0001\u0000\u0000\u0000\u011c"+
-		"\u011f\u0005a\u0000\u0000\u011d\u011e\u0005Y\u0000\u0000\u011e\u0120\u0003"+
-		"\u0092I\u0000\u011f\u011d\u0001\u0000\u0000\u0000\u011f\u0120\u0001\u0000"+
-		"\u0000\u0000\u0120\u0121\u0001\u0000\u0000\u0000\u0121\u0122\u0005b\u0000"+
-		"\u0000\u0122\u0123\u0003\u001e\u000f\u0000\u0123\u0124\u0005c\u0000\u0000"+
-		"\u0124\u001b\u0001\u0000\u0000\u0000\u0125\u0127\u0005`\u0000\u0000\u0126"+
-		"\u0128\u0003r9\u0000\u0127\u0126\u0001\u0000\u0000\u0000\u0127\u0128\u0001"+
-		"\u0000\u0000\u0000\u0128\u0129\u0001\u0000\u0000\u0000\u0129\u012c\u0005"+
-		"a\u0000\u0000\u012a\u012c\u0005q\u0000\u0000\u012b\u0125\u0001\u0000\u0000"+
-		"\u0000\u012b\u012a\u0001\u0000\u0000\u0000\u012c\u012f\u0001\u0000\u0000"+
-		"\u0000\u012d\u012e\u0005Y\u0000\u0000\u012e\u0130\u0003\u0092I\u0000\u012f"+
-		"\u012d\u0001\u0000\u0000\u0000\u012f\u0130\u0001\u0000\u0000\u0000\u0130"+
-		"\u0131\u0001\u0000\u0000\u0000\u0131\u0134\u0005T\u0000\u0000\u0132\u0135"+
-		"\u0003X,\u0000\u0133\u0135\u0003\u001e\u000f\u0000\u0134\u0132\u0001\u0000"+
-		"\u0000\u0000\u0134\u0133\u0001\u0000\u0000\u0000\u0135\u001d\u0001\u0000"+
-		"\u0000\u0000\u0136\u013b\u0005b\u0000\u0000\u0137\u013a\u0003X,\u0000"+
-		"\u0138\u013a\u0003\u0012\t\u0000\u0139\u0137\u0001\u0000\u0000\u0000\u0139"+
-		"\u0138\u0001\u0000\u0000\u0000\u013a\u013d\u0001\u0000\u0000\u0000\u013b"+
-		"\u0139\u0001\u0000\u0000\u0000\u013b\u013c\u0001\u0000\u0000\u0000\u013c"+
-		"\u013e\u0001\u0000\u0000\u0000\u013d\u013b\u0001\u0000\u0000\u0000\u013e"+
-		"\u013f\u0005c\u0000\u0000\u013f\u001f\u0001\u0000\u0000\u0000\u0140\u0141"+
-		"\u0005\u0005\u0000\u0000\u0141\u0147\u0005`\u0000\u0000\u0142\u0144\u0005"+
-		"b\u0000\u0000\u0143\u0145\u0003\"\u0011\u0000\u0144\u0143\u0001\u0000"+
-		"\u0000\u0000\u0144\u0145\u0001\u0000\u0000\u0000\u0145\u0146\u0001\u0000"+
-		"\u0000\u0000\u0146\u0148\u0005c\u0000\u0000\u0147\u0142\u0001\u0000\u0000"+
-		"\u0000\u0147\u0148\u0001\u0000\u0000\u0000\u0148\u0149\u0001\u0000\u0000"+
-		"\u0000\u0149\u014a\u0005a\u0000\u0000\u014a\u014b\u0003@ \u0000\u014b"+
-		"!\u0001\u0000\u0000\u0000\u014c\u0151\u0003$\u0012\u0000\u014d\u014e\u0005"+
-		"Z\u0000\u0000\u014e\u0150\u0003$\u0012\u0000\u014f\u014d\u0001\u0000\u0000"+
-		"\u0000\u0150\u0153\u0001\u0000\u0000\u0000\u0151\u014f\u0001\u0000\u0000"+
-		"\u0000\u0151\u0152\u0001\u0000\u0000\u0000\u0152\u0155\u0001\u0000\u0000"+
-		"\u0000\u0153\u0151\u0001\u0000\u0000\u0000\u0154\u0156\u0005Z\u0000\u0000"+
-		"\u0155\u0154\u0001\u0000\u0000\u0000\u0155\u0156\u0001\u0000\u0000\u0000"+
-		"\u0156#\u0001\u0000\u0000\u0000\u0157\u0158\u0005\u0015\u0000\u0000\u0158"+
-		"\u0159\u0005Y\u0000\u0000\u0159\u0167\u0003x<\u0000\u015a\u015b\u0005"+
-		"\u0013\u0000\u0000\u015b\u015c\u0005Y\u0000\u0000\u015c\u0167\u0003x<"+
-		"\u0000\u015d\u015e\u0005\u000f\u0000\u0000\u015e\u015f\u0005Y\u0000\u0000"+
-		"\u015f\u0167\u0003x<\u0000\u0160\u0161\u0005\u0010\u0000\u0000\u0161\u0162"+
-		"\u0005Y\u0000\u0000\u0162\u0167\u0003x<\u0000\u0163\u0164\u0005\u0014"+
-		"\u0000\u0000\u0164\u0165\u0005Y\u0000\u0000\u0165\u0167\u0003x<\u0000"+
-		"\u0166\u0157\u0001\u0000\u0000\u0000\u0166\u015a\u0001\u0000\u0000\u0000"+
-		"\u0166\u015d\u0001\u0000\u0000\u0000\u0166\u0160\u0001\u0000\u0000\u0000"+
-		"\u0166\u0163\u0001\u0000\u0000\u0000\u0167%\u0001\u0000\u0000\u0000\u0168"+
-		"\u0169\u0005\u0006\u0000\u0000\u0169\u016f\u0005`\u0000\u0000\u016a\u016c"+
-		"\u0005b\u0000\u0000\u016b\u016d\u0003(\u0014\u0000\u016c\u016b\u0001\u0000"+
-		"\u0000\u0000\u016c\u016d\u0001\u0000\u0000\u0000\u016d\u016e\u0001\u0000"+
-		"\u0000\u0000\u016e\u0170\u0005c\u0000\u0000\u016f\u016a\u0001\u0000\u0000"+
-		"\u0000\u016f\u0170\u0001\u0000\u0000\u0000\u0170\u0171\u0001\u0000\u0000"+
-		"\u0000\u0171\u0172\u0005a\u0000\u0000\u0172\u0173\u0003@ \u0000\u0173"+
-		"\'\u0001\u0000\u0000\u0000\u0174\u0179\u0003*\u0015\u0000\u0175\u0176"+
-		"\u0005Z\u0000\u0000\u0176\u0178\u0003*\u0015\u0000\u0177\u0175\u0001\u0000"+
-		"\u0000\u0000\u0178\u017b\u0001\u0000\u0000\u0000\u0179\u0177\u0001\u0000"+
-		"\u0000\u0000\u0179\u017a\u0001\u0000\u0000\u0000\u017a\u017d\u0001\u0000"+
-		"\u0000\u0000\u017b\u0179\u0001\u0000\u0000\u0000\u017c\u017e\u0005Z\u0000"+
-		"\u0000\u017d\u017c\u0001\u0000\u0000\u0000\u017d\u017e\u0001\u0000\u0000"+
-		"\u0000\u017e)\u0001\u0000\u0000\u0000\u017f\u0180\u0005\n\u0000\u0000"+
-		"\u0180\u0181\u0005Y\u0000\u0000\u0181\u01a4\u0005m\u0000\u0000\u0182\u0183"+
-		"\u0005\u000b\u0000\u0000\u0183\u0184\u0005Y\u0000\u0000\u0184\u01a4\u0005"+
-		"m\u0000\u0000\u0185\u0186\u0005\f\u0000\u0000\u0186\u0187\u0005Y\u0000"+
-		"\u0000\u0187\u01a4\u0003\u0096K\u0000\u0188\u0189\u0005\r\u0000\u0000"+
-		"\u0189\u018a\u0005Y\u0000\u0000\u018a\u01a4\u0003x<\u0000\u018b\u018c"+
-		"\u0005\u000e\u0000\u0000\u018c\u018d\u0005Y\u0000\u0000\u018d\u01a4\u0003"+
-		"x<\u0000\u018e\u018f\u0005\u0016\u0000\u0000\u018f\u0190\u0005Y\u0000"+
-		"\u0000\u0190\u01a4\u0005o\u0000\u0000\u0191\u0192\u0005\u0011\u0000\u0000"+
-		"\u0192\u0193\u0005Y\u0000\u0000\u0193\u01a4\u0003x<\u0000\u0194\u0195"+
-		"\u0005\u0012\u0000\u0000\u0195\u0196\u0005Y\u0000\u0000\u0196\u01a4\u0003"+
-		"x<\u0000\u0197\u0198\u0005\u000f\u0000\u0000\u0198\u0199\u0005Y\u0000"+
-		"\u0000\u0199\u01a4\u0003x<\u0000\u019a\u019b\u0005\u0010\u0000\u0000\u019b"+
-		"\u019c\u0005Y\u0000\u0000\u019c\u01a4\u0003x<\u0000\u019d\u019e\u0005"+
-		"\u0014\u0000\u0000\u019e\u019f\u0005Y\u0000\u0000\u019f\u01a4\u0003x<"+
-		"\u0000\u01a0\u01a1\u0005\u0013\u0000\u0000\u01a1\u01a2\u0005Y\u0000\u0000"+
-		"\u01a2\u01a4\u0003x<\u0000\u01a3\u017f\u0001\u0000\u0000\u0000\u01a3\u0182"+
-		"\u0001\u0000\u0000\u0000\u01a3\u0185\u0001\u0000\u0000\u0000\u01a3\u0188"+
-		"\u0001\u0000\u0000\u0000\u01a3\u018b\u0001\u0000\u0000\u0000\u01a3\u018e"+
-		"\u0001\u0000\u0000\u0000\u01a3\u0191\u0001\u0000\u0000\u0000\u01a3\u0194"+
-		"\u0001\u0000\u0000\u0000\u01a3\u0197\u0001\u0000\u0000\u0000\u01a3\u019a"+
-		"\u0001\u0000\u0000\u0000\u01a3\u019d\u0001\u0000\u0000\u0000\u01a3\u01a0"+
-		"\u0001\u0000\u0000\u0000\u01a4+\u0001\u0000\u0000\u0000\u01a5\u01a6\u0005"+
-		"\u0007\u0000\u0000\u01a6\u01ac\u0005`\u0000\u0000\u01a7\u01a9\u0005b\u0000"+
-		"\u0000\u01a8\u01aa\u0003.\u0017\u0000\u01a9\u01a8\u0001\u0000\u0000\u0000"+
-		"\u01a9\u01aa\u0001\u0000\u0000\u0000\u01aa\u01ab\u0001\u0000\u0000\u0000"+
-		"\u01ab\u01ad\u0005c\u0000\u0000\u01ac\u01a7\u0001\u0000\u0000\u0000\u01ac"+
-		"\u01ad\u0001\u0000\u0000\u0000\u01ad\u01ae\u0001\u0000\u0000\u0000\u01ae"+
-		"\u01af\u0005a\u0000\u0000\u01af\u01b0\u0003@ \u0000\u01b0-\u0001\u0000"+
-		"\u0000\u0000\u01b1\u01b6\u00030\u0018\u0000\u01b2\u01b3\u0005Z\u0000\u0000"+
-		"\u01b3\u01b5\u00030\u0018\u0000\u01b4\u01b2\u0001\u0000\u0000\u0000\u01b5"+
-		"\u01b8\u0001\u0000\u0000\u0000\u01b6\u01b4\u0001\u0000\u0000\u0000\u01b6"+
-		"\u01b7\u0001\u0000\u0000\u0000\u01b7\u01ba\u0001\u0000\u0000\u0000\u01b8"+
-		"\u01b6\u0001\u0000\u0000\u0000\u01b9\u01bb\u0005Z\u0000\u0000\u01ba\u01b9"+
-		"\u0001\u0000\u0000\u0000\u01ba\u01bb\u0001\u0000\u0000\u0000\u01bb/\u0001"+
-		"\u0000\u0000\u0000\u01bc\u01bd\u0005\n\u0000\u0000\u01bd\u01be\u0005Y"+
-		"\u0000\u0000\u01be\u01c3\u0005m\u0000\u0000\u01bf\u01c0\u0005q\u0000\u0000"+
-		"\u01c0\u01c1\u0005Y\u0000\u0000\u01c1\u01c3\u0003\u008eG\u0000\u01c2\u01bc"+
-		"\u0001\u0000\u0000\u0000\u01c2\u01bf\u0001\u0000\u0000\u0000\u01c31\u0001"+
-		"\u0000\u0000\u0000\u01c4\u01c5\u0005]\u0000\u0000\u01c5\u01c6\u0005q\u0000"+
-		"\u0000\u01c6\u01c8\u0005`\u0000\u0000\u01c7\u01c9\u0003r9\u0000\u01c8"+
-		"\u01c7\u0001\u0000\u0000\u0000\u01c8\u01c9\u0001\u0000\u0000\u0000\u01c9"+
-		"\u01ca\u0001\u0000\u0000\u0000\u01ca\u01cb\u0005a\u0000\u0000\u01cb3\u0001"+
-		"\u0000\u0000\u0000\u01cc\u01cd\u0005\b\u0000\u0000\u01cd\u01d3\u0005`"+
-		"\u0000\u0000\u01ce\u01d0\u0005b\u0000\u0000\u01cf\u01d1\u00036\u001b\u0000"+
-		"\u01d0\u01cf\u0001\u0000\u0000\u0000\u01d0\u01d1\u0001\u0000\u0000\u0000"+
-		"\u01d1\u01d2\u0001\u0000\u0000\u0000\u01d2\u01d4\u0005c\u0000\u0000\u01d3"+
-		"\u01ce\u0001\u0000\u0000\u0000\u01d3\u01d4\u0001\u0000\u0000\u0000\u01d4"+
-		"\u01d5\u0001\u0000\u0000\u0000\u01d5\u01d6\u0005a\u0000\u0000\u01d6\u01d7"+
-		"\u0003@ \u0000\u01d75\u0001\u0000\u0000\u0000\u01d8\u01dd\u00038\u001c"+
-		"\u0000\u01d9\u01da\u0005Z\u0000\u0000\u01da\u01dc\u00038\u001c\u0000\u01db"+
-		"\u01d9\u0001\u0000\u0000\u0000\u01dc\u01df\u0001\u0000\u0000\u0000\u01dd"+
-		"\u01db\u0001\u0000\u0000\u0000\u01dd\u01de\u0001\u0000\u0000\u0000\u01de"+
-		"\u01e1\u0001\u0000\u0000\u0000\u01df\u01dd\u0001\u0000\u0000\u0000\u01e0"+
-		"\u01e2\u0005Z\u0000\u0000\u01e1\u01e0\u0001\u0000\u0000\u0000\u01e1\u01e2"+
-		"\u0001\u0000\u0000\u0000\u01e27\u0001\u0000\u0000\u0000\u01e3\u01e4\u0005"+
-		"q\u0000\u0000\u01e4\u01e5\u0005Y\u0000\u0000\u01e5\u01e6\u0003\u008eG"+
-		"\u0000\u01e69\u0001\u0000\u0000\u0000\u01e7\u01e8\u0005\t\u0000\u0000"+
-		"\u01e8\u01ee\u0005`\u0000\u0000\u01e9\u01eb\u0005b\u0000\u0000\u01ea\u01ec"+
-		"\u0003<\u001e\u0000\u01eb\u01ea\u0001\u0000\u0000\u0000\u01eb\u01ec\u0001"+
-		"\u0000\u0000\u0000\u01ec\u01ed\u0001\u0000\u0000\u0000\u01ed\u01ef\u0005"+
-		"c\u0000\u0000\u01ee\u01e9\u0001\u0000\u0000\u0000\u01ee\u01ef\u0001\u0000"+
-		"\u0000\u0000\u01ef\u01f0\u0001\u0000\u0000\u0000\u01f0\u01f1\u0005a\u0000"+
-		"\u0000\u01f1\u01f2\u0003@ \u0000\u01f2;\u0001\u0000\u0000\u0000\u01f3"+
-		"\u01f8\u0003>\u001f\u0000\u01f4\u01f5\u0005Z\u0000\u0000\u01f5\u01f7\u0003"+
-		">\u001f\u0000\u01f6\u01f4\u0001\u0000\u0000\u0000\u01f7\u01fa\u0001\u0000"+
-		"\u0000\u0000\u01f8\u01f6\u0001\u0000\u0000\u0000\u01f8\u01f9\u0001\u0000"+
-		"\u0000\u0000\u01f9\u01fc\u0001\u0000\u0000\u0000\u01fa\u01f8\u0001\u0000"+
-		"\u0000\u0000\u01fb\u01fd\u0005Z\u0000\u0000\u01fc\u01fb\u0001\u0000\u0000"+
-		"\u0000\u01fc\u01fd\u0001\u0000\u0000\u0000\u01fd=\u0001\u0000\u0000\u0000"+
-		"\u01fe\u01ff\u0005q\u0000\u0000\u01ff\u0200\u0005Y\u0000\u0000\u0200\u0201"+
-		"\u0003\u008eG\u0000\u0201?\u0001\u0000\u0000\u0000\u0202\u0204\u0005\'"+
-		"\u0000\u0000\u0203\u0202\u0001\u0000\u0000\u0000\u0203\u0204\u0001\u0000"+
-		"\u0000\u0000\u0204\u0205\u0001\u0000\u0000\u0000\u0205\u0206\u0005)\u0000"+
-		"\u0000\u0206\u0210\u0005q\u0000\u0000\u0207\u0208\u0005+\u0000\u0000\u0208"+
-		"\u020d\u0005q\u0000\u0000\u0209\u020a\u0005Z\u0000\u0000\u020a\u020c\u0005"+
-		"q\u0000\u0000\u020b\u0209\u0001\u0000\u0000\u0000\u020c\u020f\u0001\u0000"+
-		"\u0000\u0000\u020d\u020b\u0001\u0000\u0000\u0000\u020d\u020e\u0001\u0000"+
-		"\u0000\u0000\u020e\u0211\u0001\u0000\u0000\u0000\u020f\u020d\u0001\u0000"+
-		"\u0000\u0000\u0210\u0207\u0001\u0000\u0000\u0000\u0210\u0211\u0001\u0000"+
-		"\u0000\u0000\u0211\u021b\u0001\u0000\u0000\u0000\u0212\u0213\u0005,\u0000"+
-		"\u0000\u0213\u0218\u0005q\u0000\u0000\u0214\u0215\u0005Z\u0000\u0000\u0215"+
-		"\u0217\u0005q\u0000\u0000\u0216\u0214\u0001\u0000\u0000\u0000\u0217\u021a"+
-		"\u0001\u0000\u0000\u0000\u0218\u0216\u0001\u0000\u0000\u0000\u0218\u0219"+
-		"\u0001\u0000\u0000\u0000\u0219\u021c\u0001\u0000\u0000\u0000\u021a\u0218"+
-		"\u0001\u0000\u0000\u0000\u021b\u0212\u0001\u0000\u0000\u0000\u021b\u021c"+
-		"\u0001\u0000\u0000\u0000\u021c\u021d\u0001\u0000\u0000\u0000\u021d\u021e"+
-		"\u0005b\u0000\u0000\u021e\u021f\u0003B!\u0000\u021f\u0220\u0005c\u0000"+
-		"\u0000\u0220A\u0001\u0000\u0000\u0000\u0221\u0223\u0003D\"\u0000\u0222"+
-		"\u0221\u0001\u0000\u0000\u0000\u0223\u0226\u0001\u0000\u0000\u0000\u0224"+
-		"\u0222\u0001\u0000\u0000\u0000\u0224\u0225\u0001\u0000\u0000\u0000\u0225"+
-		"\u0228\u0001\u0000\u0000\u0000\u0226\u0224\u0001\u0000\u0000\u0000\u0227"+
-		"\u0229\u0003H$\u0000\u0228\u0227\u0001\u0000\u0000\u0000\u0228\u0229\u0001"+
-		"\u0000\u0000\u0000\u0229\u0230\u0001\u0000\u0000\u0000\u022a\u022f\u0003"+
-		"F#\u0000\u022b\u022f\u0003X,\u0000\u022c\u022f\u0003\u0012\t\u0000\u022d"+
-		"\u022f\u0003\u0016\u000b\u0000\u022e\u022a\u0001\u0000\u0000\u0000\u022e"+
-		"\u022b\u0001\u0000\u0000\u0000\u022e\u022c\u0001\u0000\u0000\u0000\u022e"+
-		"\u022d\u0001\u0000\u0000\u0000\u022f\u0232\u0001\u0000\u0000\u0000\u0230"+
-		"\u022e\u0001\u0000\u0000\u0000\u0230\u0231\u0001\u0000\u0000\u0000\u0231"+
-		"C\u0001\u0000\u0000\u0000\u0232\u0230\u0001\u0000\u0000\u0000\u0233\u0235"+
-		"\u00032\u0019\u0000\u0234\u0233\u0001\u0000\u0000\u0000\u0235\u0238\u0001"+
-		"\u0000\u0000\u0000\u0236\u0234\u0001\u0000\u0000\u0000\u0236\u0237\u0001"+
-		"\u0000\u0000\u0000\u0237\u023a\u0001\u0000\u0000\u0000\u0238\u0236\u0001"+
-		"\u0000\u0000\u0000\u0239\u023b\u0003\u0094J\u0000\u023a\u0239\u0001\u0000"+
-		"\u0000\u0000\u023a\u023b\u0001\u0000\u0000\u0000\u023b\u023c\u0001\u0000"+
-		"\u0000\u0000\u023c\u0242\u0005q\u0000\u0000\u023d\u023f\u0005\\\u0000"+
-		"\u0000\u023e\u023d\u0001\u0000\u0000\u0000\u023e\u023f\u0001\u0000\u0000"+
-		"\u0000\u023f\u0240\u0001\u0000\u0000\u0000\u0240\u0241\u0005Y\u0000\u0000"+
-		"\u0241\u0243\u0003\u0092I\u0000\u0242\u023e\u0001\u0000\u0000\u0000\u0242"+
-		"\u0243\u0001\u0000\u0000\u0000\u0243\u0246\u0001\u0000\u0000\u0000\u0244"+
-		"\u0245\u00058\u0000\u0000\u0245\u0247\u0003\u0088D\u0000\u0246\u0244\u0001"+
-		"\u0000\u0000\u0000\u0246\u0247\u0001\u0000\u0000\u0000\u0247\u0248\u0001"+
-		"\u0000\u0000\u0000\u0248\u0249\u0005X\u0000\u0000\u0249E\u0001\u0000\u0000"+
-		"\u0000\u024a\u024c\u00032\u0019\u0000\u024b\u024a\u0001\u0000\u0000\u0000"+
-		"\u024c\u024f\u0001\u0000\u0000\u0000\u024d\u024b\u0001\u0000\u0000\u0000"+
-		"\u024d\u024e\u0001\u0000\u0000\u0000\u024e\u0250\u0001\u0000\u0000\u0000"+
-		"\u024f\u024d\u0001\u0000\u0000\u0000\u0250\u0251\u0005q\u0000\u0000\u0251"+
-		"\u0253\u0005`\u0000\u0000\u0252\u0254\u0003r9\u0000\u0253\u0252\u0001"+
-		"\u0000\u0000\u0000\u0253\u0254\u0001\u0000\u0000\u0000\u0254\u0255\u0001"+
-		"\u0000\u0000\u0000\u0255\u0258\u0005a\u0000\u0000\u0256\u0257\u0005Y\u0000"+
-		"\u0000\u0257\u0259\u0003\u0092I\u0000\u0258\u0256\u0001\u0000\u0000\u0000"+
-		"\u0258\u0259\u0001\u0000\u0000\u0000\u0259\u025a\u0001\u0000\u0000\u0000"+
-		"\u025a\u025b\u0003\u001e\u000f\u0000\u025bG\u0001\u0000\u0000\u0000\u025c"+
-		"\u025d\u0005-\u0000\u0000\u025d\u025f\u0005`\u0000\u0000\u025e\u0260\u0003"+
-		"r9\u0000\u025f\u025e\u0001\u0000\u0000\u0000\u025f\u0260\u0001\u0000\u0000"+
-		"\u0000\u0260\u0261\u0001\u0000\u0000\u0000\u0261\u0262\u0005a\u0000\u0000"+
-		"\u0262\u0263\u0005b\u0000\u0000\u0263\u0264\u0003J%\u0000\u0264\u0265"+
-		"\u0005c\u0000\u0000\u0265I\u0001\u0000\u0000\u0000\u0266\u0268\u0003X"+
-		",\u0000\u0267\u0266\u0001\u0000\u0000\u0000\u0268\u026b\u0001\u0000\u0000"+
-		"\u0000\u0269\u0267\u0001\u0000\u0000\u0000\u0269\u026a\u0001\u0000\u0000"+
-		"\u0000\u026aK\u0001\u0000\u0000\u0000\u026b\u0269\u0001\u0000\u0000\u0000"+
-		"\u026c\u026e\u0005\'\u0000\u0000\u026d\u026c\u0001\u0000\u0000\u0000\u026d"+
-		"\u026e\u0001\u0000\u0000\u0000\u026e\u026f\u0001\u0000\u0000\u0000\u026f"+
-		"\u0270\u0005(\u0000\u0000\u0270\u027a\u0005q\u0000\u0000\u0271\u0272\u0005"+
-		"+\u0000\u0000\u0272\u0277\u0005q\u0000\u0000\u0273\u0274\u0005Z\u0000"+
-		"\u0000\u0274\u0276\u0005q\u0000\u0000\u0275\u0273\u0001\u0000\u0000\u0000"+
-		"\u0276\u0279\u0001\u0000\u0000\u0000\u0277\u0275\u0001\u0000\u0000\u0000"+
-		"\u0277\u0278\u0001\u0000\u0000\u0000\u0278\u027b\u0001\u0000\u0000\u0000"+
-		"\u0279\u0277\u0001\u0000\u0000\u0000\u027a\u0271\u0001\u0000\u0000\u0000"+
-		"\u027a\u027b\u0001\u0000\u0000\u0000\u027b\u027c\u0001\u0000\u0000\u0000"+
-		"\u027c\u027d\u0005b\u0000\u0000\u027d\u027e\u0003N\'\u0000\u027e\u027f"+
-		"\u0005c\u0000\u0000\u027fM\u0001\u0000\u0000\u0000\u0280\u0282\u0003P"+
-		"(\u0000\u0281\u0280\u0001\u0000\u0000\u0000\u0282\u0285\u0001\u0000\u0000"+
-		"\u0000\u0283\u0281\u0001\u0000\u0000\u0000\u0283\u0284\u0001\u0000\u0000"+
-		"\u0000\u0284O\u0001\u0000\u0000\u0000\u0285\u0283\u0001\u0000\u0000\u0000"+
-		"\u0286\u0288\u0005q\u0000\u0000\u0287\u0289\u0005\\\u0000\u0000\u0288"+
-		"\u0287\u0001\u0000\u0000\u0000\u0288\u0289\u0001\u0000\u0000\u0000\u0289"+
-		"\u028a\u0001\u0000\u0000\u0000\u028a\u028b\u0005Y\u0000\u0000\u028b\u028c"+
-		"\u0003\u0092I\u0000\u028c\u028d\u0005X\u0000\u0000\u028dQ\u0001\u0000"+
-		"\u0000\u0000\u028e\u0290\u0005\'\u0000\u0000\u028f\u028e\u0001\u0000\u0000"+
-		"\u0000\u028f\u0290\u0001\u0000\u0000\u0000\u0290\u0291\u0001\u0000\u0000"+
-		"\u0000\u0291\u0292\u0005*\u0000\u0000\u0292\u0293\u0005q\u0000\u0000\u0293"+
-		"\u0294\u0005b\u0000\u0000\u0294\u0295\u0003T*\u0000\u0295\u0296\u0005"+
-		"c\u0000\u0000\u0296S\u0001\u0000\u0000\u0000\u0297\u029c\u0003V+\u0000"+
-		"\u0298\u0299\u0005Z\u0000\u0000\u0299\u029b\u0003V+\u0000\u029a\u0298"+
-		"\u0001\u0000\u0000\u0000\u029b\u029e\u0001\u0000\u0000\u0000\u029c\u029a"+
-		"\u0001\u0000\u0000\u0000\u029c\u029d\u0001\u0000\u0000\u0000\u029d\u02a0"+
-		"\u0001\u0000\u0000\u0000\u029e\u029c\u0001\u0000\u0000\u0000\u029f\u02a1"+
-		"\u0005Z\u0000\u0000\u02a0\u029f\u0001\u0000\u0000\u0000\u02a0\u02a1\u0001"+
-		"\u0000\u0000\u0000\u02a1U\u0001\u0000\u0000\u0000\u02a2\u02a5\u0005q\u0000"+
-		"\u0000\u02a3\u02a4\u00058\u0000\u0000\u02a4\u02a6\u0003\u008eG\u0000\u02a5"+
-		"\u02a3\u0001\u0000\u0000\u0000\u02a5\u02a6\u0001\u0000\u0000\u0000\u02a6"+
-		"W\u0001\u0000\u0000\u0000\u02a7\u02b4\u0003Z-\u0000\u02a8\u02b4\u0003"+
-		"\\.\u0000\u02a9\u02b4\u0003^/\u0000\u02aa\u02b4\u0003`0\u0000\u02ab\u02b4"+
-		"\u0003b1\u0000\u02ac\u02b4\u0003p8\u0000\u02ad\u02b4\u0003n7\u0000\u02ae"+
-		"\u02b4\u0003l6\u0000\u02af\u02b1\u0003\u008eG\u0000\u02b0\u02b2\u0005"+
-		"X\u0000\u0000\u02b1\u02b0\u0001\u0000\u0000\u0000\u02b1\u02b2\u0001\u0000"+
-		"\u0000\u0000\u02b2\u02b4\u0001\u0000\u0000\u0000\u02b3\u02a7\u0001\u0000"+
-		"\u0000\u0000\u02b3\u02a8\u0001\u0000\u0000\u0000\u02b3\u02a9\u0001\u0000"+
-		"\u0000\u0000\u02b3\u02aa\u0001\u0000\u0000\u0000\u02b3\u02ab\u0001\u0000"+
-		"\u0000\u0000\u02b3\u02ac\u0001\u0000\u0000\u0000\u02b3\u02ad\u0001\u0000"+
-		"\u0000\u0000\u02b3\u02ae\u0001\u0000\u0000\u0000\u02b3\u02af\u0001\u0000"+
-		"\u0000\u0000\u02b4Y\u0001\u0000\u0000\u0000\u02b5\u02b6\u0003\u0084B\u0000"+
-		"\u02b6\u02b7\u00058\u0000\u0000\u02b7\u02b8\u0003\u0088D\u0000\u02b8\u02b9"+
-		"\u0005X\u0000\u0000\u02b9[\u0001\u0000\u0000\u0000\u02ba\u02bb\u0005#"+
-		"\u0000\u0000\u02bb\u02bc\u0005[\u0000\u0000\u02bc\u02bd\u0007\u0002\u0000"+
-		"\u0000\u02bd\u02bf\u0005`\u0000\u0000\u02be\u02c0\u0003r9\u0000\u02bf"+
-		"\u02be\u0001\u0000\u0000\u0000\u02bf\u02c0\u0001\u0000\u0000\u0000\u02c0"+
-		"\u02c1\u0001\u0000\u0000\u0000\u02c1\u02c3\u0005a\u0000\u0000\u02c2\u02c4"+
-		"\u0005X\u0000\u0000\u02c3\u02c2\u0001\u0000\u0000\u0000\u02c3\u02c4\u0001"+
-		"\u0000\u0000\u0000\u02c4]\u0001\u0000\u0000\u0000\u02c5\u02c6\u0005!\u0000"+
-		"\u0000\u02c6\u02c7\u0003\u008eG\u0000\u02c7\u02c8\u0005X\u0000\u0000\u02c8"+
-		"_\u0001\u0000\u0000\u0000\u02c9\u02ca\u0005\"\u0000\u0000\u02ca\u02cb"+
-		"\u0003\u008eG\u0000\u02cb\u02cc\u0005X\u0000\u0000\u02cca\u0001\u0000"+
-		"\u0000\u0000\u02cd\u02d1\u0003d2\u0000\u02ce\u02d0\u0003f3\u0000\u02cf"+
-		"\u02ce\u0001\u0000\u0000\u0000\u02d0\u02d3\u0001\u0000\u0000\u0000\u02d1"+
-		"\u02cf\u0001\u0000\u0000\u0000\u02d1\u02d2\u0001\u0000\u0000\u0000\u02d2"+
-		"\u02d5\u0001\u0000\u0000\u0000\u02d3\u02d1\u0001\u0000\u0000\u0000\u02d4"+
-		"\u02d6\u0003h4\u0000\u02d5\u02d4\u0001\u0000\u0000\u0000\u02d5\u02d6\u0001"+
-		"\u0000\u0000\u0000\u02d6c\u0001\u0000\u0000\u0000\u02d7\u02d8\u0005\u001f"+
-		"\u0000\u0000\u02d8\u02d9\u0005`\u0000\u0000\u02d9\u02da\u0003\u008eG\u0000"+
-		"\u02da\u02db\u0005a\u0000\u0000\u02db\u02dc\u0003j5\u0000\u02dce\u0001"+
-		"\u0000\u0000\u0000\u02dd\u02de\u0005 \u0000\u0000\u02de\u02df\u0005\u001f"+
-		"\u0000\u0000\u02df\u02e0\u0005`\u0000\u0000\u02e0\u02e1\u0003\u008eG\u0000"+
-		"\u02e1\u02e2\u0005a\u0000\u0000\u02e2\u02e3\u0003j5\u0000\u02e3g\u0001"+
-		"\u0000\u0000\u0000\u02e4\u02e5\u0005 \u0000\u0000\u02e5\u02e6\u0003j5"+
-		"\u0000\u02e6i\u0001\u0000\u0000\u0000\u02e7\u02ea\u0003X,\u0000\u02e8"+
-		"\u02ea\u0003\u001e\u000f\u0000\u02e9\u02e7\u0001\u0000\u0000\u0000\u02e9"+
-		"\u02e8\u0001\u0000\u0000\u0000\u02eak\u0001\u0000\u0000\u0000\u02eb\u02ed"+
-		"\u0005q\u0000\u0000\u02ec\u02ee\u0003\u0090H\u0000\u02ed\u02ec\u0001\u0000"+
-		"\u0000\u0000\u02ed\u02ee\u0001\u0000\u0000\u0000\u02ee\u02ef\u0001\u0000"+
-		"\u0000\u0000\u02ef\u02f1\u0005`\u0000\u0000\u02f0\u02f2\u0003r9\u0000"+
-		"\u02f1\u02f0\u0001\u0000\u0000\u0000\u02f1\u02f2\u0001\u0000\u0000\u0000"+
-		"\u02f2\u02f3\u0001\u0000\u0000\u0000\u02f3\u02f4\u0005a\u0000\u0000\u02f4"+
-		"\u02f5\u0005X\u0000\u0000\u02f5m\u0001\u0000\u0000\u0000\u02f6\u02f7\u0003"+
-		"\u000e\u0007\u0000\u02f7\u02f9\u0005`\u0000\u0000\u02f8\u02fa\u0003r9"+
-		"\u0000\u02f9\u02f8\u0001\u0000\u0000\u0000\u02f9\u02fa\u0001\u0000\u0000"+
-		"\u0000\u02fa\u02fb\u0001\u0000\u0000\u0000\u02fb\u0302\u0005a\u0000\u0000"+
-		"\u02fc\u02fd\u0005[\u0000\u0000\u02fd\u02fe\u0005%\u0000\u0000\u02fe\u02ff"+
-		"\u0005`\u0000\u0000\u02ff\u0300\u0003\u001c\u000e\u0000\u0300\u0301\u0005"+
-		"a\u0000\u0000\u0301\u0303\u0001\u0000\u0000\u0000\u0302\u02fc\u0001\u0000"+
-		"\u0000\u0000\u0302\u0303\u0001\u0000\u0000\u0000\u0303\u0304\u0001\u0000"+
-		"\u0000\u0000\u0304\u0305\u0005X\u0000\u0000\u0305o\u0001\u0000\u0000\u0000"+
-		"\u0306\u0307\u0005f\u0000\u0000\u0307\u0309\u0005`\u0000\u0000\u0308\u030a"+
-		"\u0003\u0012\t\u0000\u0309\u0308\u0001\u0000\u0000\u0000\u0309\u030a\u0001"+
-		"\u0000\u0000\u0000\u030a\u030b\u0001\u0000\u0000\u0000\u030b\u030d\u0005"+
-		"X\u0000\u0000\u030c\u030e\u0003\u008eG\u0000\u030d\u030c\u0001\u0000\u0000"+
-		"\u0000\u030d\u030e\u0001\u0000\u0000\u0000\u030e\u030f\u0001\u0000\u0000"+
-		"\u0000\u030f\u0311\u0005X\u0000\u0000\u0310\u0312\u0003\u008eG\u0000\u0311"+
-		"\u0310\u0001\u0000\u0000\u0000\u0311\u0312\u0001\u0000\u0000\u0000\u0312"+
-		"\u0313\u0001\u0000\u0000\u0000\u0313\u0314\u0005a\u0000\u0000\u0314\u0336"+
-		"\u0003j5\u0000\u0315\u0316\u0005f\u0000\u0000\u0316\u0317\u0005`\u0000"+
-		"\u0000\u0317\u0318\u0003\u0014\n\u0000\u0318\u0319\u0005q\u0000\u0000"+
-		"\u0319\u031a\u0005k\u0000\u0000\u031a\u031b\u0005q\u0000\u0000\u031b\u031c"+
-		"\u0005a\u0000\u0000\u031c\u031d\u0003j5\u0000\u031d\u0336\u0001\u0000"+
-		"\u0000\u0000\u031e\u031f\u0005f\u0000\u0000\u031f\u0320\u0005`\u0000\u0000"+
-		"\u0320\u0321\u0003\u0014\n\u0000\u0321\u0322\u0005q\u0000\u0000\u0322"+
-		"\u0323\u0005l\u0000\u0000\u0323\u0324\u0005q\u0000\u0000\u0324\u0325\u0005"+
-		"a\u0000\u0000\u0325\u0326\u0003j5\u0000\u0326\u0336\u0001\u0000\u0000"+
-		"\u0000\u0327\u0328\u0005h\u0000\u0000\u0328\u0329\u0005`\u0000\u0000\u0329"+
-		"\u032a\u0003\u008eG\u0000\u032a\u032b\u0005a\u0000\u0000\u032b\u032c\u0003"+
-		"j5\u0000\u032c\u0336\u0001\u0000\u0000\u0000\u032d\u032e\u0005g\u0000"+
-		"\u0000\u032e\u032f\u0003j5\u0000\u032f\u0330\u0005h\u0000\u0000\u0330"+
-		"\u0331\u0005`\u0000\u0000\u0331\u0332\u0003\u008eG\u0000\u0332\u0333\u0005"+
-		"a\u0000\u0000\u0333\u0334\u0005X\u0000\u0000\u0334\u0336\u0001\u0000\u0000"+
-		"\u0000\u0335\u0306\u0001\u0000\u0000\u0000\u0335\u0315\u0001\u0000\u0000"+
-		"\u0000\u0335\u031e\u0001\u0000\u0000\u0000\u0335\u0327\u0001\u0000\u0000"+
-		"\u0000\u0335\u032d\u0001\u0000\u0000\u0000\u0336q\u0001\u0000\u0000\u0000"+
-		"\u0337\u033c\u0003t:\u0000\u0338\u0339\u0005Z\u0000\u0000\u0339\u033b"+
-		"\u0003t:\u0000\u033a\u0338\u0001\u0000\u0000\u0000\u033b\u033e\u0001\u0000"+
-		"\u0000\u0000\u033c\u033a\u0001\u0000\u0000\u0000\u033c\u033d\u0001\u0000"+
-		"\u0000\u0000\u033ds\u0001\u0000\u0000\u0000\u033e\u033c\u0001\u0000\u0000"+
-		"\u0000\u033f\u0340\u0003\u008eG\u0000\u0340u\u0001\u0000\u0000\u0000\u0341"+
-		"\u0343\u00032\u0019\u0000\u0342\u0341\u0001\u0000\u0000\u0000\u0343\u0346"+
-		"\u0001\u0000\u0000\u0000\u0344\u0342\u0001\u0000\u0000\u0000\u0344\u0345"+
-		"\u0001\u0000\u0000\u0000\u0345\u0348\u0001\u0000\u0000\u0000\u0346\u0344"+
-		"\u0001\u0000\u0000\u0000\u0347\u0349\u0003\u0094J\u0000\u0348\u0347\u0001"+
-		"\u0000\u0000\u0000\u0348\u0349\u0001\u0000\u0000\u0000\u0349\u034a\u0001"+
-		"\u0000\u0000\u0000\u034a\u034d\u0005q\u0000\u0000\u034b\u034c\u0005Y\u0000"+
-		"\u0000\u034c\u034e\u0003\u0092I\u0000\u034d\u034b\u0001\u0000\u0000\u0000"+
-		"\u034d\u034e\u0001\u0000\u0000\u0000\u034e\u0351\u0001\u0000\u0000\u0000"+
-		"\u034f\u0350\u00058\u0000\u0000\u0350\u0352\u0003\u0088D\u0000\u0351\u034f"+
-		"\u0001\u0000\u0000\u0000\u0351\u0352\u0001\u0000\u0000\u0000\u0352w\u0001"+
-		"\u0000\u0000\u0000\u0353\u035c\u0005d\u0000\u0000\u0354\u0359\u0003\u008e"+
-		"G\u0000\u0355\u0356\u0005Z\u0000\u0000\u0356\u0358\u0003\u008eG\u0000"+
-		"\u0357\u0355\u0001\u0000\u0000\u0000\u0358\u035b\u0001\u0000\u0000\u0000"+
-		"\u0359\u0357\u0001\u0000\u0000\u0000\u0359\u035a\u0001\u0000\u0000\u0000"+
-		"\u035a\u035d\u0001\u0000\u0000\u0000\u035b\u0359\u0001\u0000\u0000\u0000"+
-		"\u035c\u0354\u0001\u0000\u0000\u0000\u035c\u035d\u0001\u0000\u0000\u0000"+
-		"\u035d\u035f\u0001\u0000\u0000\u0000\u035e\u0360\u0005Z\u0000\u0000\u035f"+
-		"\u035e\u0001\u0000\u0000\u0000\u035f\u0360\u0001\u0000\u0000\u0000\u0360"+
-		"\u0361\u0001\u0000\u0000\u0000\u0361\u0362\u0005e\u0000\u0000\u0362y\u0001"+
-		"\u0000\u0000\u0000\u0363\u036a\u0003\u008aE\u0000\u0364\u036a\u0003x<"+
-		"\u0000\u0365\u036a\u0003\u0086C\u0000\u0366\u036a\u0003\u0084B\u0000\u0367"+
-		"\u036a\u0003|>\u0000\u0368\u036a\u0003\u0082A\u0000\u0369\u0363\u0001"+
-		"\u0000\u0000\u0000\u0369\u0364\u0001\u0000\u0000\u0000\u0369\u0365\u0001"+
-		"\u0000\u0000\u0000\u0369\u0366\u0001\u0000\u0000\u0000\u0369\u0367\u0001"+
-		"\u0000\u0000\u0000\u0369\u0368\u0001\u0000\u0000\u0000\u036a{\u0001\u0000"+
-		"\u0000\u0000\u036b\u036d\u0005b\u0000\u0000\u036c\u036e\u0003~?\u0000"+
-		"\u036d\u036c\u0001\u0000\u0000\u0000\u036d\u036e\u0001\u0000\u0000\u0000"+
-		"\u036e\u036f\u0001\u0000\u0000\u0000\u036f\u0370\u0005c\u0000\u0000\u0370"+
-		"}\u0001\u0000\u0000\u0000\u0371\u0376\u0003\u0080@\u0000\u0372\u0373\u0005"+
-		"Z\u0000\u0000\u0373\u0375\u0003\u0080@\u0000\u0374\u0372\u0001\u0000\u0000"+
-		"\u0000\u0375\u0378\u0001\u0000\u0000\u0000\u0376\u0374\u0001\u0000\u0000"+
-		"\u0000\u0376\u0377\u0001\u0000\u0000\u0000\u0377\u037a\u0001\u0000\u0000"+
-		"\u0000\u0378\u0376\u0001\u0000\u0000\u0000\u0379\u037b\u0005Z\u0000\u0000"+
-		"\u037a\u0379\u0001\u0000\u0000\u0000\u037a\u037b\u0001\u0000\u0000\u0000"+
-		"\u037b\u007f\u0001\u0000\u0000\u0000\u037c\u037d\u0005q\u0000\u0000\u037d"+
-		"\u037e\u0005Y\u0000\u0000\u037e\u037f\u0003\u008eG\u0000\u037f\u0081\u0001"+
-		"\u0000\u0000\u0000\u0380\u0381\u0005/\u0000\u0000\u0381\u0383\u0005q\u0000"+
-		"\u0000\u0382\u0384\u0003\u0090H\u0000\u0383\u0382\u0001\u0000\u0000\u0000"+
-		"\u0383\u0384\u0001\u0000\u0000\u0000\u0384\u0385\u0001\u0000\u0000\u0000"+
-		"\u0385\u0387\u0005`\u0000\u0000\u0386\u0388\u0003r9\u0000\u0387\u0386"+
-		"\u0001\u0000\u0000\u0000\u0387\u0388\u0001\u0000\u0000\u0000\u0388\u0389"+
-		"\u0001\u0000\u0000\u0000\u0389\u038a\u0005a\u0000\u0000\u038a\u0083\u0001"+
-		"\u0000\u0000\u0000\u038b\u038d\u0005q\u0000\u0000\u038c\u038e\u0003\u008e"+
-		"G\u0000\u038d\u038c\u0001\u0000\u0000\u0000\u038d\u038e\u0001\u0000\u0000"+
-		"\u0000\u038e\u0392\u0001\u0000\u0000\u0000\u038f\u0390\u0005.\u0000\u0000"+
-		"\u0390\u0392\u0003\u008eG\u0000\u0391\u038b\u0001\u0000\u0000\u0000\u0391"+
-		"\u038f\u0001\u0000\u0000\u0000\u0392\u0085\u0001\u0000\u0000\u0000\u0393"+
-		"\u0394\u0005q\u0000\u0000\u0394\u0395\u0005d\u0000\u0000\u0395\u0396\u0003"+
-		"\u008eG\u0000\u0396\u0397\u0005e\u0000\u0000\u0397\u0087\u0001\u0000\u0000"+
-		"\u0000\u0398\u0399\u0003\u008eG\u0000\u0399\u0089\u0001\u0000\u0000\u0000"+
-		"\u039a\u039d\u0003\u008cF\u0000\u039b\u039d\u0005q\u0000\u0000\u039c\u039a"+
-		"\u0001\u0000\u0000\u0000\u039c\u039b\u0001\u0000\u0000\u0000\u039d\u008b"+
-		"\u0001\u0000\u0000\u0000\u039e\u039f\u0007\u0003\u0000\u0000\u039f\u008d"+
-		"\u0001\u0000\u0000\u0000\u03a0\u03a1\u0006G\uffff\uffff\u0000\u03a1\u03b2"+
-		"\u0003l6\u0000\u03a2\u03b2\u0003\u0016\u000b\u0000\u03a3\u03a4\u0005V"+
-		"\u0000\u0000\u03a4\u03b2\u0003\u008eG\u000e\u03a5\u03a6\u0005W\u0000\u0000"+
-		"\u03a6\u03b2\u0003\u008eG\r\u03a7\u03a8\u00059\u0000\u0000\u03a8\u03b2"+
-		"\u0003\u008eG\f\u03a9\u03aa\u0005[\u0000\u0000\u03aa\u03b2\u0003\u008e"+
-		"G\u000b\u03ab\u03ac\u0005`\u0000\u0000\u03ac\u03ad\u0003\u008eG\u0000"+
-		"\u03ad\u03ae\u0005a\u0000\u0000\u03ae\u03b2\u0001\u0000\u0000\u0000\u03af"+
-		"\u03b2\u0003z=\u0000\u03b0\u03b2\u0003v;\u0000\u03b1\u03a0\u0001\u0000"+
-		"\u0000\u0000\u03b1\u03a2\u0001\u0000\u0000\u0000\u03b1\u03a3\u0001\u0000"+
-		"\u0000\u0000\u03b1\u03a5\u0001\u0000\u0000\u0000\u03b1\u03a7\u0001\u0000"+
-		"\u0000\u0000\u03b1\u03a9\u0001\u0000\u0000\u0000\u03b1\u03ab\u0001\u0000"+
-		"\u0000\u0000\u03b1\u03af\u0001\u0000\u0000\u0000\u03b1\u03b0\u0001\u0000"+
-		"\u0000\u0000\u03b2\u03d1\u0001\u0000\u0000\u0000\u03b3\u03b4\n\n\u0000"+
-		"\u0000\u03b4\u03b5\u0007\u0004\u0000\u0000\u03b5\u03d0\u0003\u008eG\u000b"+
-		"\u03b6\u03b7\n\t\u0000\u0000\u03b7\u03b8\u0007\u0005\u0000\u0000\u03b8"+
-		"\u03d0\u0003\u008eG\n\u03b9\u03ba\n\b\u0000\u0000\u03ba\u03bb\u0007\u0006"+
-		"\u0000\u0000\u03bb\u03d0\u0003\u008eG\t\u03bc\u03bd\n\u0007\u0000\u0000"+
-		"\u03bd\u03be\u0007\u0007\u0000\u0000\u03be\u03d0\u0003\u008eG\b\u03bf"+
-		"\u03c0\n\u0006\u0000\u0000\u03c0\u03c1\u0005C\u0000\u0000\u03c1\u03d0"+
-		"\u0003\u008eG\u0007\u03c2\u03c3\n\u0005\u0000\u0000\u03c3\u03c4\u0005"+
-		"D\u0000\u0000\u03c4\u03d0\u0003\u008eG\u0006\u03c5\u03c6\n\u0004\u0000"+
-		"\u0000\u03c6\u03c7\u0005\\\u0000\u0000\u03c7\u03c8\u0003\u008eG\u0000"+
-		"\u03c8\u03c9\u0005Y\u0000\u0000\u03c9\u03ca\u0003\u008eG\u0005\u03ca\u03d0"+
-		"\u0001\u0000\u0000\u0000\u03cb\u03cc\n\u0010\u0000\u0000\u03cc\u03d0\u0005"+
-		"V\u0000\u0000\u03cd\u03ce\n\u000f\u0000\u0000\u03ce\u03d0\u0005W\u0000"+
-		"\u0000\u03cf\u03b3\u0001\u0000\u0000\u0000\u03cf\u03b6\u0001\u0000\u0000"+
-		"\u0000\u03cf\u03b9\u0001\u0000\u0000\u0000\u03cf\u03bc\u0001\u0000\u0000"+
-		"\u0000\u03cf\u03bf\u0001\u0000\u0000\u0000\u03cf\u03c2\u0001\u0000\u0000"+
-		"\u0000\u03cf\u03c5\u0001\u0000\u0000\u0000\u03cf\u03cb\u0001\u0000\u0000"+
-		"\u0000\u03cf\u03cd\u0001\u0000\u0000\u0000\u03d0\u03d3\u0001\u0000\u0000"+
-		"\u0000\u03d1\u03cf\u0001\u0000\u0000\u0000\u03d1\u03d2\u0001\u0000\u0000"+
-		"\u0000\u03d2\u008f\u0001\u0000\u0000\u0000\u03d3\u03d1\u0001\u0000\u0000"+
-		"\u0000\u03d4\u03d5\u00056\u0000\u0000\u03d5\u03da\u0003\u0092I\u0000\u03d6"+
-		"\u03d7\u0005Z\u0000\u0000\u03d7\u03d9\u0003\u0092I\u0000\u03d8\u03d6\u0001"+
-		"\u0000\u0000\u0000\u03d9\u03dc\u0001\u0000\u0000\u0000\u03da\u03d8\u0001"+
-		"\u0000\u0000\u0000\u03da\u03db\u0001\u0000\u0000\u0000\u03db\u03dd\u0001"+
-		"\u0000\u0000\u0000\u03dc\u03da\u0001\u0000\u0000\u0000\u03dd\u03de\u0005"+
-		"4\u0000\u0000\u03de\u0091\u0001\u0000\u0000\u0000\u03df\u03e0\u0005q\u0000"+
-		"\u0000\u03e0\u03ee\u0003\u0090H\u0000\u03e1\u03e6\u0007\b\u0000\u0000"+
-		"\u03e2\u03e3\u0005G\u0000\u0000\u03e3\u03e5\u0007\b\u0000\u0000\u03e4"+
-		"\u03e2\u0001\u0000\u0000\u0000\u03e5\u03e8\u0001\u0000\u0000\u0000\u03e6"+
-		"\u03e4\u0001\u0000\u0000\u0000\u03e6\u03e7\u0001\u0000\u0000\u0000\u03e7"+
-		"\u03ee\u0001\u0000\u0000\u0000\u03e8\u03e6\u0001\u0000\u0000\u0000\u03e9"+
-		"\u03ea\u0007\b\u0000\u0000\u03ea\u03eb\u0005d\u0000\u0000\u03eb\u03ee"+
-		"\u0005e\u0000\u0000\u03ec\u03ee\u0003x<\u0000\u03ed\u03df\u0001\u0000"+
-		"\u0000\u0000\u03ed\u03e1\u0001\u0000\u0000\u0000\u03ed\u03e9\u0001\u0000"+
-		"\u0000\u0000\u03ed\u03ec\u0001\u0000\u0000\u0000\u03ee\u0093\u0001\u0000"+
-		"\u0000\u0000\u03ef\u03f0\u0007\t\u0000\u0000\u03f0\u0095\u0001\u0000\u0000"+
-		"\u0000\u03f1\u03f5\u0005r\u0000\u0000\u03f2\u03f4\u0003\u0098L\u0000\u03f3"+
-		"\u03f2\u0001\u0000\u0000\u0000\u03f4\u03f7\u0001\u0000\u0000\u0000\u03f5"+
-		"\u03f3\u0001\u0000\u0000\u0000\u03f5\u03f6\u0001\u0000\u0000\u0000\u03f6"+
-		"\u03f8\u0001\u0000\u0000\u0000\u03f7\u03f5\u0001\u0000\u0000\u0000\u03f8"+
-		"\u03f9\u0005\u0088\u0000\u0000\u03f9\u0097\u0001\u0000\u0000\u0000\u03fa"+
-		"\u03fe\u0003\u009aM\u0000\u03fb\u03fd\u0003\u00a0P\u0000\u03fc\u03fb\u0001"+
-		"\u0000\u0000\u0000\u03fd\u0400\u0001\u0000\u0000\u0000\u03fe\u03fc\u0001"+
-		"\u0000\u0000\u0000\u03fe\u03ff\u0001\u0000\u0000\u0000\u03ff\u0401\u0001"+
-		"\u0000\u0000\u0000\u0400\u03fe\u0001\u0000\u0000\u0000\u0401\u0402\u0003"+
-		"\u009cN\u0000\u0402\u0406\u0001\u0000\u0000\u0000\u0403\u0406\u0003\u009e"+
-		"O\u0000\u0404\u0406\u0003\u00a4R\u0000\u0405\u03fa\u0001\u0000\u0000\u0000"+
-		"\u0405\u0403\u0001\u0000\u0000\u0000\u0405\u0404\u0001\u0000\u0000\u0000"+
-		"\u0406\u0099\u0001\u0000\u0000\u0000\u0407\u0409\u0005t\u0000\u0000\u0408"+
-		"\u0407\u0001\u0000\u0000\u0000\u0408\u0409\u0001\u0000\u0000\u0000\u0409"+
-		"\u040a\u0001\u0000\u0000\u0000\u040a\u040e\u0003\u00a8T\u0000\u040b\u040d"+
-		"\u0003\u00a2Q\u0000\u040c\u040b\u0001\u0000\u0000\u0000\u040d\u0410\u0001"+
-		"\u0000\u0000\u0000\u040e\u040c\u0001\u0000\u0000\u0000\u040e\u040f\u0001"+
-		"\u0000\u0000\u0000\u040f\u0411\u0001\u0000\u0000\u0000\u0410\u040e\u0001"+
-		"\u0000\u0000\u0000\u0411\u0412\u0005u\u0000\u0000\u0412\u009b\u0001\u0000"+
-		"\u0000\u0000\u0413\u0414\u0005t\u0000\u0000\u0414\u0415\u0005v\u0000\u0000"+
-		"\u0415\u0416\u0003\u00a8T\u0000\u0416\u0417\u0005u\u0000\u0000\u0417\u009d"+
-		"\u0001\u0000\u0000\u0000\u0418\u0419\u0005t\u0000\u0000\u0419\u041d\u0003"+
-		"\u00a8T\u0000\u041a\u041c\u0003\u00a2Q\u0000\u041b\u041a\u0001\u0000\u0000"+
-		"\u0000\u041c\u041f\u0001\u0000\u0000\u0000\u041d\u041b\u0001\u0000\u0000"+
-		"\u0000\u041d\u041e\u0001\u0000\u0000\u0000\u041e\u0420\u0001\u0000\u0000"+
-		"\u0000\u041f\u041d\u0001\u0000\u0000\u0000\u0420\u0421\u0005v\u0000\u0000"+
-		"\u0421\u0422\u0005u\u0000\u0000\u0422\u009f\u0001\u0000\u0000\u0000\u0423"+
-		"\u0429\u0003\u0098L\u0000\u0424\u0426\u0005\u0084\u0000\u0000\u0425\u0427"+
-		"\u0005x\u0000\u0000\u0426\u0425\u0001\u0000\u0000\u0000\u0426\u0427\u0001"+
-		"\u0000\u0000\u0000\u0427\u0429\u0001\u0000\u0000\u0000\u0428\u0423\u0001"+
-		"\u0000\u0000\u0000\u0428\u0424\u0001\u0000\u0000\u0000\u0429\u00a1\u0001"+
-		"\u0000\u0000\u0000\u042a\u042b\u0005\u0084\u0000\u0000\u042b\u042c\u0005"+
-		"w\u0000\u0000\u042c\u0441\u0005y\u0000\u0000\u042d\u042e\u0005|\u0000"+
-		"\u0000\u042e\u042f\u0005w\u0000\u0000\u042f\u0441\u0005y\u0000\u0000\u0430"+
-		"\u0431\u0005}\u0000\u0000\u0431\u0432\u0005w\u0000\u0000\u0432\u0441\u0005"+
-		"y\u0000\u0000\u0433\u0434\u0005~\u0000\u0000\u0434\u0435\u0005w\u0000"+
-		"\u0000\u0435\u0441\u0005y\u0000\u0000\u0436\u0437\u0003\u00aaU\u0000\u0437"+
-		"\u0438\u0005w\u0000\u0000\u0438\u0439\u0005y\u0000\u0000\u0439\u0441\u0001"+
-		"\u0000\u0000\u0000\u043a\u043d\u0005\u0083\u0000\u0000\u043b\u043c\u0005"+
-		"w\u0000\u0000\u043c\u043e\u0005y\u0000\u0000\u043d\u043b\u0001\u0000\u0000"+
-		"\u0000\u043d\u043e\u0001\u0000\u0000\u0000\u043e\u0441\u0001\u0000\u0000"+
-		"\u0000\u043f\u0441\u0005\u0084\u0000\u0000\u0440\u042a\u0001\u0000\u0000"+
-		"\u0000\u0440\u042d\u0001\u0000\u0000\u0000\u0440\u0430\u0001\u0000\u0000"+
-		"\u0000\u0440\u0433\u0001\u0000\u0000\u0000\u0440\u0436\u0001\u0000\u0000"+
-		"\u0000\u0440\u043a\u0001\u0000\u0000\u0000\u0440\u043f\u0001\u0000\u0000"+
-		"\u0000\u0441\u00a3\u0001\u0000\u0000\u0000\u0442\u0443\u0005\u0084\u0000"+
-		"\u0000\u0443\u0445\u0007\n\u0000\u0000\u0444\u0442\u0001\u0000\u0000\u0000"+
-		"\u0444\u0445\u0001\u0000\u0000\u0000\u0445\u0446\u0001\u0000\u0000\u0000"+
-		"\u0446\u044f\u0005z\u0000\u0000\u0447\u044c\u0003\u00a6S\u0000\u0448\u0449"+
-		"\u0005\u0082\u0000\u0000\u0449\u044b\u0003\u00a6S\u0000\u044a\u0448\u0001"+
-		"\u0000\u0000\u0000\u044b\u044e\u0001\u0000\u0000\u0000\u044c\u044a\u0001"+
-		"\u0000\u0000\u0000\u044c\u044d\u0001\u0000\u0000\u0000\u044d\u0450\u0001"+
-		"\u0000\u0000\u0000\u044e\u044c\u0001\u0000\u0000\u0000\u044f\u0447\u0001"+
-		"\u0000\u0000\u0000\u044f\u0450\u0001\u0000\u0000\u0000\u0450\u0451\u0001"+
-		"\u0000\u0000\u0000\u0451\u0452\u0005{\u0000\u0000\u0452\u00a5\u0001\u0000"+
-		"\u0000\u0000\u0453\u0456\u0005\u0084\u0000\u0000\u0454\u0455\u0005x\u0000"+
-		"\u0000\u0455\u0457\u0007\u000b\u0000\u0000\u0456\u0454\u0001\u0000\u0000"+
-		"\u0000\u0456\u0457\u0001\u0000\u0000\u0000\u0457\u00a7\u0001\u0000\u0000"+
-		"\u0000\u0458\u0459\u0005\u0084\u0000\u0000\u0459\u00a9\u0001\u0000\u0000"+
-		"\u0000\u045a\u045b\u0007\f\u0000\u0000\u045b\u00ab\u0001\u0000\u0000\u0000"+
-		"\u0080\u00af\u00b4\u00b6\u00c2\u00cf\u00d8\u00dc\u00de\u00e4\u00f2\u00f8"+
-		"\u00fc\u00ff\u0106\u010c\u0111\u011a\u011f\u0127\u012b\u012f\u0134\u0139"+
-		"\u013b\u0144\u0147\u0151\u0155\u0166\u016c\u016f\u0179\u017d\u01a3\u01a9"+
-		"\u01ac\u01b6\u01ba\u01c2\u01c8\u01d0\u01d3\u01dd\u01e1\u01eb\u01ee\u01f8"+
-		"\u01fc\u0203\u020d\u0210\u0218\u021b\u0224\u0228\u022e\u0230\u0236\u023a"+
-		"\u023e\u0242\u0246\u024d\u0253\u0258\u025f\u0269\u026d\u0277\u027a\u0283"+
-		"\u0288\u028f\u029c\u02a0\u02a5\u02b1\u02b3\u02bf\u02c3\u02d1\u02d5\u02e9"+
-		"\u02ed\u02f1\u02f9\u0302\u0309\u030d\u0311\u0335\u033c\u0344\u0348\u034d"+
-		"\u0351\u0359\u035c\u035f\u0369\u036d\u0376\u037a\u0383\u0387\u038d\u0391"+
-		"\u039c\u03b1\u03cf\u03d1\u03da\u03e6\u03ed\u03f5\u03fe\u0405\u0408\u040e"+
-		"\u041d\u0426\u0428\u043d\u0440\u0444\u044c\u044f\u0456";
+		"8\u00018\u00018\u00018\u00018\u00018\u00018\u00018\u00018\u00018\u0001"+
+		"8\u00018\u00018\u00018\u00018\u00038\u0358\b8\u00019\u00019\u00019\u0005"+
+		"9\u035d\b9\n9\f9\u0360\t9\u0001:\u0001:\u0001;\u0005;\u0365\b;\n;\f;\u0368"+
+		"\t;\u0001;\u0003;\u036b\b;\u0001;\u0001;\u0001;\u0003;\u0370\b;\u0001"+
+		";\u0001;\u0003;\u0374\b;\u0001<\u0001<\u0001<\u0001<\u0005<\u037a\b<\n"+
+		"<\f<\u037d\t<\u0003<\u037f\b<\u0001<\u0003<\u0382\b<\u0001<\u0001<\u0001"+
+		"=\u0001=\u0001=\u0001=\u0001=\u0001=\u0003=\u038c\b=\u0001>\u0001>\u0003"+
+		">\u0390\b>\u0001>\u0001>\u0001?\u0001?\u0001?\u0005?\u0397\b?\n?\f?\u039a"+
+		"\t?\u0001?\u0003?\u039d\b?\u0001@\u0001@\u0001@\u0001@\u0001A\u0001A\u0001"+
+		"A\u0003A\u03a6\bA\u0001A\u0001A\u0003A\u03aa\bA\u0001A\u0001A\u0001B\u0001"+
+		"B\u0003B\u03b0\bB\u0001B\u0001B\u0003B\u03b4\bB\u0001C\u0001C\u0001C\u0001"+
+		"C\u0001C\u0001D\u0001D\u0001D\u0005D\u03be\bD\nD\fD\u03c1\tD\u0001E\u0001"+
+		"E\u0001E\u0003E\u03c6\bE\u0001E\u0001E\u0001F\u0001F\u0001G\u0001G\u0003"+
+		"G\u03ce\bG\u0001H\u0001H\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001"+
+		"I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001"+
+		"I\u0001I\u0001I\u0001I\u0003I\u03e6\bI\u0001I\u0001I\u0001I\u0001I\u0001"+
+		"I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001"+
+		"I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001I\u0001"+
+		"I\u0001I\u0001I\u0001I\u0005I\u0404\bI\nI\fI\u0407\tI\u0001J\u0001J\u0001"+
+		"J\u0001J\u0005J\u040d\bJ\nJ\fJ\u0410\tJ\u0001J\u0001J\u0001K\u0001K\u0001"+
+		"K\u0001K\u0001K\u0005K\u0419\bK\nK\fK\u041c\tK\u0001K\u0001K\u0001K\u0001"+
+		"K\u0003K\u0422\bK\u0001L\u0001L\u0001M\u0001M\u0005M\u0428\bM\nM\fM\u042b"+
+		"\tM\u0001M\u0001M\u0001N\u0001N\u0005N\u0431\bN\nN\fN\u0434\tN\u0001N"+
+		"\u0001N\u0001N\u0001N\u0003N\u043a\bN\u0001O\u0003O\u043d\bO\u0001O\u0001"+
+		"O\u0005O\u0441\bO\nO\fO\u0444\tO\u0001O\u0001O\u0001P\u0001P\u0001P\u0001"+
+		"P\u0001P\u0001Q\u0001Q\u0001Q\u0005Q\u0450\bQ\nQ\fQ\u0453\tQ\u0001Q\u0001"+
+		"Q\u0001Q\u0001R\u0001R\u0001R\u0003R\u045b\bR\u0003R\u045d\bR\u0001S\u0001"+
+		"S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001"+
+		"S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0001S\u0003S\u0472\bS\u0001"+
+		"S\u0003S\u0475\bS\u0001T\u0001T\u0003T\u0479\bT\u0001T\u0001T\u0001T\u0001"+
+		"T\u0005T\u047f\bT\nT\fT\u0482\tT\u0003T\u0484\bT\u0001T\u0001T\u0001U"+
+		"\u0001U\u0001U\u0003U\u048b\bU\u0001V\u0001V\u0001W\u0001W\u0001X\u0001"+
+		"X\u0001X\u0001X\u0003X\u0495\bX\u0001X\u0001X\u0001X\u0003X\u049a\bX\u0001"+
+		"Y\u0001Y\u0001Y\u0001Y\u0005Y\u04a0\bY\nY\fY\u04a3\tY\u0003Y\u04a5\bY"+
+		"\u0001Y\u0003Y\u04a8\bY\u0001Y\u0001Y\u0001Z\u0001Z\u0001Z\u0001Z\u0005"+
+		"Z\u04b0\bZ\nZ\fZ\u04b3\tZ\u0001Z\u0003Z\u04b6\bZ\u0001Z\u0001Z\u0001["+
+		"\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001"+
+		"[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001"+
+		"[\u0003[\u04cf\b[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001"+
+		"[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001[\u0001"+
+		"[\u0003[\u04e3\b[\u0001\\\u0001\\\u0001\\\u0001\\\u0001\\\u0003\\\u04ea"+
+		"\b\\\u0001\\\u0001\\\u0001]\u0001]\u0003]\u04f0\b]\u0001]\u0001]\u0001"+
+		"]\u0001]\u0001]\u0003]\u04f7\b]\u0001]\u0001]\u0003]\u04fb\b]\u0001^\u0001"+
+		"^\u0001^\u0001^\u0003^\u0501\b^\u0001^\u0001^\u0001^\u0001^\u0003^\u0507"+
+		"\b^\u0001^\u0001^\u0003^\u050b\b^\u0001_\u0001_\u0001_\u0001_\u0003_\u0511"+
+		"\b_\u0001_\u0001_\u0001_\u0001_\u0003_\u0517\b_\u0001_\u0001_\u0003_\u051b"+
+		"\b_\u0001`\u0003`\u051e\b`\u0001`\u0001`\u0003`\u0522\b`\u0001`\u0001"+
+		"`\u0003`\u0526\b`\u0001`\u0001`\u0001`\u0001`\u0001`\u0003`\u052d\b`\u0001"+
+		"`\u0001`\u0003`\u0531\b`\u0001a\u0001a\u0001a\u0001a\u0001a\u0003a\u0538"+
+		"\ba\u0001a\u0001a\u0001b\u0001b\u0001b\u0001b\u0001b\u0003b\u0541\bb\u0001"+
+		"b\u0001b\u0001c\u0001c\u0003c\u0547\bc\u0001c\u0001c\u0001c\u0001c\u0001"+
+		"c\u0003c\u054e\bc\u0001c\u0001c\u0003c\u0552\bc\u0001d\u0001d\u0003d\u0556"+
+		"\bd\u0001d\u0001d\u0001d\u0001d\u0001d\u0003d\u055d\bd\u0001d\u0001d\u0001"+
+		"d\u0000\u0001\u0092e\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012\u0014"+
+		"\u0016\u0018\u001a\u001c\u001e \"$&(*,.02468:<>@BDFHJLNPRTVXZ\\^`bdfh"+
+		"jlnprtvxz|~\u0080\u0082\u0084\u0086\u0088\u008a\u008c\u008e\u0090\u0092"+
+		"\u0094\u0096\u0098\u009a\u009c\u009e\u00a0\u00a2\u00a4\u00a6\u00a8\u00aa"+
+		"\u00ac\u00ae\u00b0\u00b2\u00b4\u00b6\u00b8\u00ba\u00bc\u00be\u00c0\u00c2"+
+		"\u00c4\u00c6\u00c8\u0000\u0010\u0001\u0000\u001a\u001c\u0001\u0000\u001d"+
+		"\u001e\u0002\u0000$$&&\u0001\u0000\u008f\u0092\u0001\u0000bd\u0001\u0000"+
+		"`a\u0001\u0000VY\u0002\u0000ZZ\\_\u0001\u0000\u0092\u0093\u0001\u0000"+
+		"13\u0001\u0000\u0098\u0099\u0002\u0000\u009a\u009a\u00a5\u00a5\u0001\u0000"+
+		"\u00a0\u00a2\u0001\u000067\u0001\u00009:\u0002\u000066II\u05ef\u0000\u00cd"+
+		"\u0001\u0000\u0000\u0000\u0002\u00d7\u0001\u0000\u0000\u0000\u0004\u00e0"+
+		"\u0001\u0000\u0000\u0000\u0006\u00e2\u0001\u0000\u0000\u0000\b\u00e4\u0001"+
+		"\u0000\u0000\u0000\n\u00ed\u0001\u0000\u0000\u0000\f\u0102\u0001\u0000"+
+		"\u0000\u0000\u000e\u0104\u0001\u0000\u0000\u0000\u0010\u0114\u0001\u0000"+
+		"\u0000\u0000\u0012\u0116\u0001\u0000\u0000\u0000\u0014\u0123\u0001\u0000"+
+		"\u0000\u0000\u0016\u0128\u0001\u0000\u0000\u0000\u0018\u012a\u0001\u0000"+
+		"\u0000\u0000\u001a\u0139\u0001\u0000\u0000\u0000\u001c\u014d\u0001\u0000"+
+		"\u0000\u0000\u001e\u0158\u0001\u0000\u0000\u0000 \u0162\u0001\u0000\u0000"+
+		"\u0000\"\u016e\u0001\u0000\u0000\u0000$\u0188\u0001\u0000\u0000\u0000"+
+		"&\u018a\u0001\u0000\u0000\u0000(\u0196\u0001\u0000\u0000\u0000*\u01c5"+
+		"\u0001\u0000\u0000\u0000,\u01c7\u0001\u0000\u0000\u0000.\u01d3\u0001\u0000"+
+		"\u0000\u00000\u01e4\u0001\u0000\u0000\u00002\u01e6\u0001\u0000\u0000\u0000"+
+		"4\u01ee\u0001\u0000\u0000\u00006\u01fa\u0001\u0000\u0000\u00008\u0205"+
+		"\u0001\u0000\u0000\u0000:\u0209\u0001\u0000\u0000\u0000<\u0215\u0001\u0000"+
+		"\u0000\u0000>\u0220\u0001\u0000\u0000\u0000@\u0225\u0001\u0000\u0000\u0000"+
+		"B\u0246\u0001\u0000\u0000\u0000D\u0258\u0001\u0000\u0000\u0000F\u026f"+
+		"\u0001\u0000\u0000\u0000H\u027e\u0001\u0000\u0000\u0000J\u028b\u0001\u0000"+
+		"\u0000\u0000L\u028f\u0001\u0000\u0000\u0000N\u02a5\u0001\u0000\u0000\u0000"+
+		"P\u02a8\u0001\u0000\u0000\u0000R\u02b1\u0001\u0000\u0000\u0000T\u02b9"+
+		"\u0001\u0000\u0000\u0000V\u02c4\u0001\u0000\u0000\u0000X\u02d8\u0001\u0000"+
+		"\u0000\u0000Z\u02da\u0001\u0000\u0000\u0000\\\u02df\u0001\u0000\u0000"+
+		"\u0000^\u02ea\u0001\u0000\u0000\u0000`\u02ee\u0001\u0000\u0000\u0000b"+
+		"\u02f2\u0001\u0000\u0000\u0000d\u02fc\u0001\u0000\u0000\u0000f\u0302\u0001"+
+		"\u0000\u0000\u0000h\u0309\u0001\u0000\u0000\u0000j\u030e\u0001\u0000\u0000"+
+		"\u0000l\u0310\u0001\u0000\u0000\u0000n\u0318\u0001\u0000\u0000\u0000p"+
+		"\u0357\u0001\u0000\u0000\u0000r\u0359\u0001\u0000\u0000\u0000t\u0361\u0001"+
+		"\u0000\u0000\u0000v\u0366\u0001\u0000\u0000\u0000x\u0375\u0001\u0000\u0000"+
+		"\u0000z\u038b\u0001\u0000\u0000\u0000|\u038d\u0001\u0000\u0000\u0000~"+
+		"\u0393\u0001\u0000\u0000\u0000\u0080\u039e\u0001\u0000\u0000\u0000\u0082"+
+		"\u03a2\u0001\u0000\u0000\u0000\u0084\u03b3\u0001\u0000\u0000\u0000\u0086"+
+		"\u03b5\u0001\u0000\u0000\u0000\u0088\u03ba\u0001\u0000\u0000\u0000\u008a"+
+		"\u03c2\u0001\u0000\u0000\u0000\u008c\u03c9\u0001\u0000\u0000\u0000\u008e"+
+		"\u03cd\u0001\u0000\u0000\u0000\u0090\u03cf\u0001\u0000\u0000\u0000\u0092"+
+		"\u03e5\u0001\u0000\u0000\u0000\u0094\u0408\u0001\u0000\u0000\u0000\u0096"+
+		"\u0421\u0001\u0000\u0000\u0000\u0098\u0423\u0001\u0000\u0000\u0000\u009a"+
+		"\u0425\u0001\u0000\u0000\u0000\u009c\u0439\u0001\u0000\u0000\u0000\u009e"+
+		"\u043c\u0001\u0000\u0000\u0000\u00a0\u0447\u0001\u0000\u0000\u0000\u00a2"+
+		"\u044c\u0001\u0000\u0000\u0000\u00a4\u045c\u0001\u0000\u0000\u0000\u00a6"+
+		"\u0474\u0001\u0000\u0000\u0000\u00a8\u0478\u0001\u0000\u0000\u0000\u00aa"+
+		"\u0487\u0001\u0000\u0000\u0000\u00ac\u048c\u0001\u0000\u0000\u0000\u00ae"+
+		"\u048e\u0001\u0000\u0000\u0000\u00b0\u0490\u0001\u0000\u0000\u0000\u00b2"+
+		"\u049b\u0001\u0000\u0000\u0000\u00b4\u04ab\u0001\u0000\u0000\u0000\u00b6"+
+		"\u04e2\u0001\u0000\u0000\u0000\u00b8\u04e4\u0001\u0000\u0000\u0000\u00ba"+
+		"\u04ef\u0001\u0000\u0000\u0000\u00bc\u04fc\u0001\u0000\u0000\u0000\u00be"+
+		"\u050c\u0001\u0000\u0000\u0000\u00c0\u051d\u0001\u0000\u0000\u0000\u00c2"+
+		"\u0532\u0001\u0000\u0000\u0000\u00c4\u053b\u0001\u0000\u0000\u0000\u00c6"+
+		"\u0546\u0001\u0000\u0000\u0000\u00c8\u0555\u0001\u0000\u0000\u0000\u00ca"+
+		"\u00cc\u0003\u0002\u0001\u0000\u00cb\u00ca\u0001\u0000\u0000\u0000\u00cc"+
+		"\u00cf\u0001\u0000\u0000\u0000\u00cd\u00cb\u0001\u0000\u0000\u0000\u00cd"+
+		"\u00ce\u0001\u0000\u0000\u0000\u00ce\u00d4\u0001\u0000\u0000\u0000\u00cf"+
+		"\u00cd\u0001\u0000\u0000\u0000\u00d0\u00d3\u0003\u0010\b\u0000\u00d1\u00d3"+
+		"\u0003X,\u0000\u00d2\u00d0\u0001\u0000\u0000\u0000\u00d2\u00d1\u0001\u0000"+
+		"\u0000\u0000\u00d3\u00d6\u0001\u0000\u0000\u0000\u00d4\u00d2\u0001\u0000"+
+		"\u0000\u0000\u00d4\u00d5\u0001\u0000\u0000\u0000\u00d5\u0001\u0001\u0000"+
+		"\u0000\u0000\u00d6\u00d4\u0001\u0000\u0000\u0000\u00d7\u00d8\u0005\u0017"+
+		"\u0000\u0000\u00d8\u00d9\u0003\u0004\u0002\u0000\u00d9\u00da\u0005\u0018"+
+		"\u0000\u0000\u00da\u00db\u0005\u008f\u0000\u0000\u00db\u00dc\u0005z\u0000"+
+		"\u0000\u00dc\u0003\u0001\u0000\u0000\u0000\u00dd\u00e1\u0003\u0006\u0003"+
+		"\u0000\u00de\u00e1\u0003\b\u0004\u0000\u00df\u00e1\u0003\n\u0005\u0000"+
+		"\u00e0\u00dd\u0001\u0000\u0000\u0000\u00e0\u00de\u0001\u0000\u0000\u0000"+
+		"\u00e0\u00df\u0001\u0000\u0000\u0000\u00e1\u0005\u0001\u0000\u0000\u0000"+
+		"\u00e2\u00e3\u0005\u0093\u0000\u0000\u00e3\u0007\u0001\u0000\u0000\u0000"+
+		"\u00e4\u00e5\u0005b\u0000\u0000\u00e5\u00e6\u0005\u0019\u0000\u0000\u00e6"+
+		"\u00e7\u0005\u0093\u0000\u0000\u00e7\t\u0001\u0000\u0000\u0000\u00e8\u00e9"+
+		"\u0003\f\u0006\u0000\u00e9\u00ea\u0005|\u0000\u0000\u00ea\u00ec\u0001"+
+		"\u0000\u0000\u0000\u00eb\u00e8\u0001\u0000\u0000\u0000\u00ec\u00ef\u0001"+
+		"\u0000\u0000\u0000\u00ed\u00eb\u0001\u0000\u0000\u0000\u00ed\u00ee\u0001"+
+		"\u0000\u0000\u0000\u00ee\u00f0\u0001\u0000\u0000\u0000\u00ef\u00ed\u0001"+
+		"\u0000\u0000\u0000\u00f0\u00fc\u0005\u0084\u0000\u0000\u00f1\u00f6\u0003"+
+		"\f\u0006\u0000\u00f2\u00f3\u0005|\u0000\u0000\u00f3\u00f5\u0003\f\u0006"+
+		"\u0000\u00f4\u00f2\u0001\u0000\u0000\u0000\u00f5\u00f8\u0001\u0000\u0000"+
+		"\u0000\u00f6\u00f4\u0001\u0000\u0000\u0000\u00f6\u00f7\u0001\u0000\u0000"+
+		"\u0000\u00f7\u00fa\u0001\u0000\u0000\u0000\u00f8\u00f6\u0001\u0000\u0000"+
+		"\u0000\u00f9\u00fb\u0005|\u0000\u0000\u00fa\u00f9\u0001\u0000\u0000\u0000"+
+		"\u00fa\u00fb\u0001\u0000\u0000\u0000\u00fb\u00fd\u0001\u0000\u0000\u0000"+
+		"\u00fc\u00f1\u0001\u0000\u0000\u0000\u00fc\u00fd\u0001\u0000\u0000\u0000"+
+		"\u00fd\u00fe\u0001\u0000\u0000\u0000\u00fe\u00ff\u0005\u0085\u0000\u0000"+
+		"\u00ff\u000b\u0001\u0000\u0000\u0000\u0100\u0103\u0005\u0093\u0000\u0000"+
+		"\u0101\u0103\u0003\u000e\u0007\u0000\u0102\u0100\u0001\u0000\u0000\u0000"+
+		"\u0102\u0101\u0001\u0000\u0000\u0000\u0103\r\u0001\u0000\u0000\u0000\u0104"+
+		"\u0105\u0007\u0000\u0000\u0000\u0105\u000f\u0001\u0000\u0000\u0000\u0106"+
+		"\u0115\u0003 \u0010\u0000\u0107\u0115\u0003&\u0013\u0000\u0108\u0115\u0003"+
+		"4\u001a\u0000\u0109\u0115\u0003:\u001d\u0000\u010a\u0115\u0003,\u0016"+
+		"\u0000\u010b\u0115\u0003L&\u0000\u010c\u0115\u0003@ \u0000\u010d\u0115"+
+		"\u0003R)\u0000\u010e\u0115\u0003\u0012\t\u0000\u010f\u0115\u0003\u0016"+
+		"\u000b\u0000\u0110\u0115\u0003\u00bc^\u0000\u0111\u0115\u0003\u00be_\u0000"+
+		"\u0112\u0115\u0003\u00c0`\u0000\u0113\u0115\u0003\u00b0X\u0000\u0114\u0106"+
+		"\u0001\u0000\u0000\u0000\u0114\u0107\u0001\u0000\u0000\u0000\u0114\u0108"+
+		"\u0001\u0000\u0000\u0000\u0114\u0109\u0001\u0000\u0000\u0000\u0114\u010a"+
+		"\u0001\u0000\u0000\u0000\u0114\u010b\u0001\u0000\u0000\u0000\u0114\u010c"+
+		"\u0001\u0000\u0000\u0000\u0114\u010d\u0001\u0000\u0000\u0000\u0114\u010e"+
+		"\u0001\u0000\u0000\u0000\u0114\u010f\u0001\u0000\u0000\u0000\u0114\u0110"+
+		"\u0001\u0000\u0000\u0000\u0114\u0111\u0001\u0000\u0000\u0000\u0114\u0112"+
+		"\u0001\u0000\u0000\u0000\u0114\u0113\u0001\u0000\u0000\u0000\u0115\u0011"+
+		"\u0001\u0000\u0000\u0000\u0116\u0117\u0003\u0014\n\u0000\u0117\u011a\u0005"+
+		"\u0093\u0000\u0000\u0118\u0119\u0005{\u0000\u0000\u0119\u011b\u0003\u0096"+
+		"K\u0000\u011a\u0118\u0001\u0000\u0000\u0000\u011a\u011b\u0001\u0000\u0000"+
+		"\u0000\u011b\u011e\u0001\u0000\u0000\u0000\u011c\u011d\u0005Z\u0000\u0000"+
+		"\u011d\u011f\u0003\u008cF\u0000\u011e\u011c\u0001\u0000\u0000\u0000\u011e"+
+		"\u011f\u0001\u0000\u0000\u0000\u011f\u0121\u0001\u0000\u0000\u0000\u0120"+
+		"\u0122\u0005z\u0000\u0000\u0121\u0120\u0001\u0000\u0000\u0000\u0121\u0122"+
+		"\u0001\u0000\u0000\u0000\u0122\u0013\u0001\u0000\u0000\u0000\u0123\u0124"+
+		"\u0007\u0001\u0000\u0000\u0124\u0015\u0001\u0000\u0000\u0000\u0125\u0129"+
+		"\u0003\u0018\f\u0000\u0126\u0129\u0003\u001a\r\u0000\u0127\u0129\u0003"+
+		"\u001c\u000e\u0000\u0128\u0125\u0001\u0000\u0000\u0000\u0128\u0126\u0001"+
+		"\u0000\u0000\u0000\u0128\u0127\u0001\u0000\u0000\u0000\u0129\u0017\u0001"+
+		"\u0000\u0000\u0000\u012a\u012b\u00050\u0000\u0000\u012b\u012c\u0005\u0093"+
+		"\u0000\u0000\u012c\u012e\u0005\u0082\u0000\u0000\u012d\u012f\u0003r9\u0000"+
+		"\u012e\u012d\u0001\u0000\u0000\u0000\u012e\u012f\u0001\u0000\u0000\u0000"+
+		"\u012f\u0130\u0001\u0000\u0000\u0000\u0130\u0133\u0005\u0083\u0000\u0000"+
+		"\u0131\u0132\u0005{\u0000\u0000\u0132\u0134\u0003\u0096K\u0000\u0133\u0131"+
+		"\u0001\u0000\u0000\u0000\u0133\u0134\u0001\u0000\u0000\u0000\u0134\u0135"+
+		"\u0001\u0000\u0000\u0000\u0135\u0136\u0005\u0084\u0000\u0000\u0136\u0137"+
+		"\u0003\u001e\u000f\u0000\u0137\u0138\u0005\u0085\u0000\u0000\u0138\u0019"+
+		"\u0001\u0000\u0000\u0000\u0139\u013a\u00050\u0000\u0000\u013a\u013c\u0005"+
+		"\u0082\u0000\u0000\u013b\u013d\u0003r9\u0000\u013c\u013b\u0001\u0000\u0000"+
+		"\u0000\u013c\u013d\u0001\u0000\u0000\u0000\u013d\u013e\u0001\u0000\u0000"+
+		"\u0000\u013e\u0141\u0005\u0083\u0000\u0000\u013f\u0140\u0005{\u0000\u0000"+
+		"\u0140\u0142\u0003\u0096K\u0000\u0141\u013f\u0001\u0000\u0000\u0000\u0141"+
+		"\u0142\u0001\u0000\u0000\u0000\u0142\u0143\u0001\u0000\u0000\u0000\u0143"+
+		"\u0144\u0005\u0084\u0000\u0000\u0144\u0145\u0003\u001e\u000f\u0000\u0145"+
+		"\u0146\u0005\u0085\u0000\u0000\u0146\u001b\u0001\u0000\u0000\u0000\u0147"+
+		"\u0149\u0005\u0082\u0000\u0000\u0148\u014a\u0003r9\u0000\u0149\u0148\u0001"+
+		"\u0000\u0000\u0000\u0149\u014a\u0001\u0000\u0000\u0000\u014a\u014b\u0001"+
+		"\u0000\u0000\u0000\u014b\u014e\u0005\u0083\u0000\u0000\u014c\u014e\u0005"+
+		"\u0093\u0000\u0000\u014d\u0147\u0001\u0000\u0000\u0000\u014d\u014c\u0001"+
+		"\u0000\u0000\u0000\u014e\u0151\u0001\u0000\u0000\u0000\u014f\u0150\u0005"+
+		"{\u0000\u0000\u0150\u0152\u0003\u0096K\u0000\u0151\u014f\u0001\u0000\u0000"+
+		"\u0000\u0151\u0152\u0001\u0000\u0000\u0000\u0152\u0153\u0001\u0000\u0000"+
+		"\u0000\u0153\u0156\u0005v\u0000\u0000\u0154\u0157\u0003X,\u0000\u0155"+
+		"\u0157\u0003\u001e\u000f\u0000\u0156\u0154\u0001\u0000\u0000\u0000\u0156"+
+		"\u0155\u0001\u0000\u0000\u0000\u0157\u001d\u0001\u0000\u0000\u0000\u0158"+
+		"\u015d\u0005\u0084\u0000\u0000\u0159\u015c\u0003X,\u0000\u015a\u015c\u0003"+
+		"\u0012\t\u0000\u015b\u0159\u0001\u0000\u0000\u0000\u015b\u015a\u0001\u0000"+
+		"\u0000\u0000\u015c\u015f\u0001\u0000\u0000\u0000\u015d\u015b\u0001\u0000"+
+		"\u0000\u0000\u015d\u015e\u0001\u0000\u0000\u0000\u015e\u0160\u0001\u0000"+
+		"\u0000\u0000\u015f\u015d\u0001\u0000\u0000\u0000\u0160\u0161\u0005\u0085"+
+		"\u0000\u0000\u0161\u001f\u0001\u0000\u0000\u0000\u0162\u0163\u0005\u0005"+
+		"\u0000\u0000\u0163\u0169\u0005\u0082\u0000\u0000\u0164\u0166\u0005\u0084"+
+		"\u0000\u0000\u0165\u0167\u0003\"\u0011\u0000\u0166\u0165\u0001\u0000\u0000"+
+		"\u0000\u0166\u0167\u0001\u0000\u0000\u0000\u0167\u0168\u0001\u0000\u0000"+
+		"\u0000\u0168\u016a\u0005\u0085\u0000\u0000\u0169\u0164\u0001\u0000\u0000"+
+		"\u0000\u0169\u016a\u0001\u0000\u0000\u0000\u016a\u016b\u0001\u0000\u0000"+
+		"\u0000\u016b\u016c\u0005\u0083\u0000\u0000\u016c\u016d\u0003@ \u0000\u016d"+
+		"!\u0001\u0000\u0000\u0000\u016e\u0173\u0003$\u0012\u0000\u016f\u0170\u0005"+
+		"|\u0000\u0000\u0170\u0172\u0003$\u0012\u0000\u0171\u016f\u0001\u0000\u0000"+
+		"\u0000\u0172\u0175\u0001\u0000\u0000\u0000\u0173\u0171\u0001\u0000\u0000"+
+		"\u0000\u0173\u0174\u0001\u0000\u0000\u0000\u0174\u0177\u0001\u0000\u0000"+
+		"\u0000\u0175\u0173\u0001\u0000\u0000\u0000\u0176\u0178\u0005|\u0000\u0000"+
+		"\u0177\u0176\u0001\u0000\u0000\u0000\u0177\u0178\u0001\u0000\u0000\u0000"+
+		"\u0178#\u0001\u0000\u0000\u0000\u0179\u017a\u0005\u0015\u0000\u0000\u017a"+
+		"\u017b\u0005{\u0000\u0000\u017b\u0189\u0003x<\u0000\u017c\u017d\u0005"+
+		"\u0013\u0000\u0000\u017d\u017e\u0005{\u0000\u0000\u017e\u0189\u0003x<"+
+		"\u0000\u017f\u0180\u0005\u000f\u0000\u0000\u0180\u0181\u0005{\u0000\u0000"+
+		"\u0181\u0189\u0003x<\u0000\u0182\u0183\u0005\u0010\u0000\u0000\u0183\u0184"+
+		"\u0005{\u0000\u0000\u0184\u0189\u0003x<\u0000\u0185\u0186\u0005\u0014"+
+		"\u0000\u0000\u0186\u0187\u0005{\u0000\u0000\u0187\u0189\u0003x<\u0000"+
+		"\u0188\u0179\u0001\u0000\u0000\u0000\u0188\u017c\u0001\u0000\u0000\u0000"+
+		"\u0188\u017f\u0001\u0000\u0000\u0000\u0188\u0182\u0001\u0000\u0000\u0000"+
+		"\u0188\u0185\u0001\u0000\u0000\u0000\u0189%\u0001\u0000\u0000\u0000\u018a"+
+		"\u018b\u0005\u0006\u0000\u0000\u018b\u0191\u0005\u0082\u0000\u0000\u018c"+
+		"\u018e\u0005\u0084\u0000\u0000\u018d\u018f\u0003(\u0014\u0000\u018e\u018d"+
+		"\u0001\u0000\u0000\u0000\u018e\u018f\u0001\u0000\u0000\u0000\u018f\u0190"+
+		"\u0001\u0000\u0000\u0000\u0190\u0192\u0005\u0085\u0000\u0000\u0191\u018c"+
+		"\u0001\u0000\u0000\u0000\u0191\u0192\u0001\u0000\u0000\u0000\u0192\u0193"+
+		"\u0001\u0000\u0000\u0000\u0193\u0194\u0005\u0083\u0000\u0000\u0194\u0195"+
+		"\u0003@ \u0000\u0195\'\u0001\u0000\u0000\u0000\u0196\u019b\u0003*\u0015"+
+		"\u0000\u0197\u0198\u0005|\u0000\u0000\u0198\u019a\u0003*\u0015\u0000\u0199"+
+		"\u0197\u0001\u0000\u0000\u0000\u019a\u019d\u0001\u0000\u0000\u0000\u019b"+
+		"\u0199\u0001\u0000\u0000\u0000\u019b\u019c\u0001\u0000\u0000\u0000\u019c"+
+		"\u019f\u0001\u0000\u0000\u0000\u019d\u019b\u0001\u0000\u0000\u0000\u019e"+
+		"\u01a0\u0005|\u0000\u0000\u019f\u019e\u0001\u0000\u0000\u0000\u019f\u01a0"+
+		"\u0001\u0000\u0000\u0000\u01a0)\u0001\u0000\u0000\u0000\u01a1\u01a2\u0005"+
+		"\n\u0000\u0000\u01a2\u01a3\u0005{\u0000\u0000\u01a3\u01c6\u0005\u008f"+
+		"\u0000\u0000\u01a4\u01a5\u0005\u000b\u0000\u0000\u01a5\u01a6\u0005{\u0000"+
+		"\u0000\u01a6\u01c6\u0005\u008f\u0000\u0000\u01a7\u01a8\u0005\f\u0000\u0000"+
+		"\u01a8\u01a9\u0005{\u0000\u0000\u01a9\u01c6\u0003\u009aM\u0000\u01aa\u01ab"+
+		"\u0005\r\u0000\u0000\u01ab\u01ac\u0005{\u0000\u0000\u01ac\u01c6\u0003"+
+		"x<\u0000\u01ad\u01ae\u0005\u000e\u0000\u0000\u01ae\u01af\u0005{\u0000"+
+		"\u0000\u01af\u01c6\u0003x<\u0000\u01b0\u01b1\u0005\u0016\u0000\u0000\u01b1"+
+		"\u01b2\u0005{\u0000\u0000\u01b2\u01c6\u0005\u0091\u0000\u0000\u01b3\u01b4"+
+		"\u0005\u0011\u0000\u0000\u01b4\u01b5\u0005{\u0000\u0000\u01b5\u01c6\u0003"+
+		"x<\u0000\u01b6\u01b7\u0005\u0012\u0000\u0000\u01b7\u01b8\u0005{\u0000"+
+		"\u0000\u01b8\u01c6\u0003x<\u0000\u01b9\u01ba\u0005\u000f\u0000\u0000\u01ba"+
+		"\u01bb\u0005{\u0000\u0000\u01bb\u01c6\u0003x<\u0000\u01bc\u01bd\u0005"+
+		"\u0010\u0000\u0000\u01bd\u01be\u0005{\u0000\u0000\u01be\u01c6\u0003x<"+
+		"\u0000\u01bf\u01c0\u0005\u0014\u0000\u0000\u01c0\u01c1\u0005{\u0000\u0000"+
+		"\u01c1\u01c6\u0003x<\u0000\u01c2\u01c3\u0005\u0013\u0000\u0000\u01c3\u01c4"+
+		"\u0005{\u0000\u0000\u01c4\u01c6\u0003x<\u0000\u01c5\u01a1\u0001\u0000"+
+		"\u0000\u0000\u01c5\u01a4\u0001\u0000\u0000\u0000\u01c5\u01a7\u0001\u0000"+
+		"\u0000\u0000\u01c5\u01aa\u0001\u0000\u0000\u0000\u01c5\u01ad\u0001\u0000"+
+		"\u0000\u0000\u01c5\u01b0\u0001\u0000\u0000\u0000\u01c5\u01b3\u0001\u0000"+
+		"\u0000\u0000\u01c5\u01b6\u0001\u0000\u0000\u0000\u01c5\u01b9\u0001\u0000"+
+		"\u0000\u0000\u01c5\u01bc\u0001\u0000\u0000\u0000\u01c5\u01bf\u0001\u0000"+
+		"\u0000\u0000\u01c5\u01c2\u0001\u0000\u0000\u0000\u01c6+\u0001\u0000\u0000"+
+		"\u0000\u01c7\u01c8\u0005\u0007\u0000\u0000\u01c8\u01ce\u0005\u0082\u0000"+
+		"\u0000\u01c9\u01cb\u0005\u0084\u0000\u0000\u01ca\u01cc\u0003.\u0017\u0000"+
+		"\u01cb\u01ca\u0001\u0000\u0000\u0000\u01cb\u01cc\u0001\u0000\u0000\u0000"+
+		"\u01cc\u01cd\u0001\u0000\u0000\u0000\u01cd\u01cf\u0005\u0085\u0000\u0000"+
+		"\u01ce\u01c9\u0001\u0000\u0000\u0000\u01ce\u01cf\u0001\u0000\u0000\u0000"+
+		"\u01cf\u01d0\u0001\u0000\u0000\u0000\u01d0\u01d1\u0005\u0083\u0000\u0000"+
+		"\u01d1\u01d2\u0003@ \u0000\u01d2-\u0001\u0000\u0000\u0000\u01d3\u01d8"+
+		"\u00030\u0018\u0000\u01d4\u01d5\u0005|\u0000\u0000\u01d5\u01d7\u00030"+
+		"\u0018\u0000\u01d6\u01d4\u0001\u0000\u0000\u0000\u01d7\u01da\u0001\u0000"+
+		"\u0000\u0000\u01d8\u01d6\u0001\u0000\u0000\u0000\u01d8\u01d9\u0001\u0000"+
+		"\u0000\u0000\u01d9\u01dc\u0001\u0000\u0000\u0000\u01da\u01d8\u0001\u0000"+
+		"\u0000\u0000\u01db\u01dd\u0005|\u0000\u0000\u01dc\u01db\u0001\u0000\u0000"+
+		"\u0000\u01dc\u01dd\u0001\u0000\u0000\u0000\u01dd/\u0001\u0000\u0000\u0000"+
+		"\u01de\u01df\u0005\n\u0000\u0000\u01df\u01e0\u0005{\u0000\u0000\u01e0"+
+		"\u01e5\u0005\u008f\u0000\u0000\u01e1\u01e2\u0005\u0093\u0000\u0000\u01e2"+
+		"\u01e3\u0005{\u0000\u0000\u01e3\u01e5\u0003\u0092I\u0000\u01e4\u01de\u0001"+
+		"\u0000\u0000\u0000\u01e4\u01e1\u0001\u0000\u0000\u0000\u01e51\u0001\u0000"+
+		"\u0000\u0000\u01e6\u01e7\u0005\u007f\u0000\u0000\u01e7\u01e8\u0005\u0093"+
+		"\u0000\u0000\u01e8\u01ea\u0005\u0082\u0000\u0000\u01e9\u01eb\u0003r9\u0000"+
+		"\u01ea\u01e9\u0001\u0000\u0000\u0000\u01ea\u01eb\u0001\u0000\u0000\u0000"+
+		"\u01eb\u01ec\u0001\u0000\u0000\u0000\u01ec\u01ed\u0005\u0083\u0000\u0000"+
+		"\u01ed3\u0001\u0000\u0000\u0000\u01ee\u01ef\u0005\b\u0000\u0000\u01ef"+
+		"\u01f5\u0005\u0082\u0000\u0000\u01f0\u01f2\u0005\u0084\u0000\u0000\u01f1"+
+		"\u01f3\u00036\u001b\u0000\u01f2\u01f1\u0001\u0000\u0000\u0000\u01f2\u01f3"+
+		"\u0001\u0000\u0000\u0000\u01f3\u01f4\u0001\u0000\u0000\u0000\u01f4\u01f6"+
+		"\u0005\u0085\u0000\u0000\u01f5\u01f0\u0001\u0000\u0000\u0000\u01f5\u01f6"+
+		"\u0001\u0000\u0000\u0000\u01f6\u01f7\u0001\u0000\u0000\u0000\u01f7\u01f8"+
+		"\u0005\u0083\u0000\u0000\u01f8\u01f9\u0003@ \u0000\u01f95\u0001\u0000"+
+		"\u0000\u0000\u01fa\u01ff\u00038\u001c\u0000\u01fb\u01fc\u0005|\u0000\u0000"+
+		"\u01fc\u01fe\u00038\u001c\u0000\u01fd\u01fb\u0001\u0000\u0000\u0000\u01fe"+
+		"\u0201\u0001\u0000\u0000\u0000\u01ff\u01fd\u0001\u0000\u0000\u0000\u01ff"+
+		"\u0200\u0001\u0000\u0000\u0000\u0200\u0203\u0001\u0000\u0000\u0000\u0201"+
+		"\u01ff\u0001\u0000\u0000\u0000\u0202\u0204\u0005|\u0000\u0000\u0203\u0202"+
+		"\u0001\u0000\u0000\u0000\u0203\u0204\u0001\u0000\u0000\u0000\u02047\u0001"+
+		"\u0000\u0000\u0000\u0205\u0206\u0005\u0093\u0000\u0000\u0206\u0207\u0005"+
+		"{\u0000\u0000\u0207\u0208\u0003\u0092I\u0000\u02089\u0001\u0000\u0000"+
+		"\u0000\u0209\u020a\u0005\t\u0000\u0000\u020a\u0210\u0005\u0082\u0000\u0000"+
+		"\u020b\u020d\u0005\u0084\u0000\u0000\u020c\u020e\u0003<\u001e\u0000\u020d"+
+		"\u020c\u0001\u0000\u0000\u0000\u020d\u020e\u0001\u0000\u0000\u0000\u020e"+
+		"\u020f\u0001\u0000\u0000\u0000\u020f\u0211\u0005\u0085\u0000\u0000\u0210"+
+		"\u020b\u0001\u0000\u0000\u0000\u0210\u0211\u0001\u0000\u0000\u0000\u0211"+
+		"\u0212\u0001\u0000\u0000\u0000\u0212\u0213\u0005\u0083\u0000\u0000\u0213"+
+		"\u0214\u0003@ \u0000\u0214;\u0001\u0000\u0000\u0000\u0215\u021a\u0003"+
+		">\u001f\u0000\u0216\u0217\u0005|\u0000\u0000\u0217\u0219\u0003>\u001f"+
+		"\u0000\u0218\u0216\u0001\u0000\u0000\u0000\u0219\u021c\u0001\u0000\u0000"+
+		"\u0000\u021a\u0218\u0001\u0000\u0000\u0000\u021a\u021b\u0001\u0000\u0000"+
+		"\u0000\u021b\u021e\u0001\u0000\u0000\u0000\u021c\u021a\u0001\u0000\u0000"+
+		"\u0000\u021d\u021f\u0005|\u0000\u0000\u021e\u021d\u0001\u0000\u0000\u0000"+
+		"\u021e\u021f\u0001\u0000\u0000\u0000\u021f=\u0001\u0000\u0000\u0000\u0220"+
+		"\u0221\u0005\u0093\u0000\u0000\u0221\u0222\u0005{\u0000\u0000\u0222\u0223"+
+		"\u0003\u0092I\u0000\u0223?\u0001\u0000\u0000\u0000\u0224\u0226\u0005\'"+
+		"\u0000\u0000\u0225\u0224\u0001\u0000\u0000\u0000\u0225\u0226\u0001\u0000"+
+		"\u0000\u0000\u0226\u0227\u0001\u0000\u0000\u0000\u0227\u0228\u0005)\u0000"+
+		"\u0000\u0228\u0232\u0005\u0093\u0000\u0000\u0229\u022a\u0005+\u0000\u0000"+
+		"\u022a\u022f\u0005\u0093\u0000\u0000\u022b\u022c\u0005|\u0000\u0000\u022c"+
+		"\u022e\u0005\u0093\u0000\u0000\u022d\u022b\u0001\u0000\u0000\u0000\u022e"+
+		"\u0231\u0001\u0000\u0000\u0000\u022f\u022d\u0001\u0000\u0000\u0000\u022f"+
+		"\u0230\u0001\u0000\u0000\u0000\u0230\u0233\u0001\u0000\u0000\u0000\u0231"+
+		"\u022f\u0001\u0000\u0000\u0000\u0232\u0229\u0001\u0000\u0000\u0000\u0232"+
+		"\u0233\u0001\u0000\u0000\u0000\u0233\u023d\u0001\u0000\u0000\u0000\u0234"+
+		"\u0235\u0005,\u0000\u0000\u0235\u023a\u0005\u0093\u0000\u0000\u0236\u0237"+
+		"\u0005|\u0000\u0000\u0237\u0239\u0005\u0093\u0000\u0000\u0238\u0236\u0001"+
+		"\u0000\u0000\u0000\u0239\u023c\u0001\u0000\u0000\u0000\u023a\u0238\u0001"+
+		"\u0000\u0000\u0000\u023a\u023b\u0001\u0000\u0000\u0000\u023b\u023e\u0001"+
+		"\u0000\u0000\u0000\u023c\u023a\u0001\u0000\u0000\u0000\u023d\u0234\u0001"+
+		"\u0000\u0000\u0000\u023d\u023e\u0001\u0000\u0000\u0000\u023e\u023f\u0001"+
+		"\u0000\u0000\u0000\u023f\u0240\u0005\u0084\u0000\u0000\u0240\u0241\u0003"+
+		"B!\u0000\u0241\u0242\u0005\u0085\u0000\u0000\u0242A\u0001\u0000\u0000"+
+		"\u0000\u0243\u0245\u0003D\"\u0000\u0244\u0243\u0001\u0000\u0000\u0000"+
+		"\u0245\u0248\u0001\u0000\u0000\u0000\u0246\u0244\u0001\u0000\u0000\u0000"+
+		"\u0246\u0247\u0001\u0000\u0000\u0000\u0247\u024a\u0001\u0000\u0000\u0000"+
+		"\u0248\u0246\u0001\u0000\u0000\u0000\u0249\u024b\u0003H$\u0000\u024a\u0249"+
+		"\u0001\u0000\u0000\u0000\u024a\u024b\u0001\u0000\u0000\u0000\u024b\u0252"+
+		"\u0001\u0000\u0000\u0000\u024c\u0251\u0003F#\u0000\u024d\u0251\u0003X"+
+		",\u0000\u024e\u0251\u0003\u0012\t\u0000\u024f\u0251\u0003\u0016\u000b"+
+		"\u0000\u0250\u024c\u0001\u0000\u0000\u0000\u0250\u024d\u0001\u0000\u0000"+
+		"\u0000\u0250\u024e\u0001\u0000\u0000\u0000\u0250\u024f\u0001\u0000\u0000"+
+		"\u0000\u0251\u0254\u0001\u0000\u0000\u0000\u0252\u0250\u0001\u0000\u0000"+
+		"\u0000\u0252\u0253\u0001\u0000\u0000\u0000\u0253C\u0001\u0000\u0000\u0000"+
+		"\u0254\u0252\u0001\u0000\u0000\u0000\u0255\u0257\u00032\u0019\u0000\u0256"+
+		"\u0255\u0001\u0000\u0000\u0000\u0257\u025a\u0001\u0000\u0000\u0000\u0258"+
+		"\u0256\u0001\u0000\u0000\u0000\u0258\u0259\u0001\u0000\u0000\u0000\u0259"+
+		"\u025c\u0001\u0000\u0000\u0000\u025a\u0258\u0001\u0000\u0000\u0000\u025b"+
+		"\u025d\u0003\u0098L\u0000\u025c\u025b\u0001\u0000\u0000\u0000\u025c\u025d"+
+		"\u0001\u0000\u0000\u0000\u025d\u025e\u0001\u0000\u0000\u0000\u025e\u0264"+
+		"\u0005\u0093\u0000\u0000\u025f\u0261\u0005~\u0000\u0000\u0260\u025f\u0001"+
+		"\u0000\u0000\u0000\u0260\u0261\u0001\u0000\u0000\u0000\u0261\u0262\u0001"+
+		"\u0000\u0000\u0000\u0262\u0263\u0005{\u0000\u0000\u0263\u0265\u0003\u0096"+
+		"K\u0000\u0264\u0260\u0001\u0000\u0000\u0000\u0264\u0265\u0001\u0000\u0000"+
+		"\u0000\u0265\u0268\u0001\u0000\u0000\u0000\u0266\u0267\u0005Z\u0000\u0000"+
+		"\u0267\u0269\u0003\u008cF\u0000\u0268\u0266\u0001\u0000\u0000\u0000\u0268"+
+		"\u0269\u0001\u0000\u0000\u0000\u0269\u026a\u0001\u0000\u0000\u0000\u026a"+
+		"\u026b\u0005z\u0000\u0000\u026bE\u0001\u0000\u0000\u0000\u026c\u026e\u0003"+
+		"2\u0019\u0000\u026d\u026c\u0001\u0000\u0000\u0000\u026e\u0271\u0001\u0000"+
+		"\u0000\u0000\u026f\u026d\u0001\u0000\u0000\u0000\u026f\u0270\u0001\u0000"+
+		"\u0000\u0000\u0270\u0272\u0001\u0000\u0000\u0000\u0271\u026f\u0001\u0000"+
+		"\u0000\u0000\u0272\u0273\u0005\u0093\u0000\u0000\u0273\u0275\u0005\u0082"+
+		"\u0000\u0000\u0274\u0276\u0003r9\u0000\u0275\u0274\u0001\u0000\u0000\u0000"+
+		"\u0275\u0276\u0001\u0000\u0000\u0000\u0276\u0277\u0001\u0000\u0000\u0000"+
+		"\u0277\u027a\u0005\u0083\u0000\u0000\u0278\u0279\u0005{\u0000\u0000\u0279"+
+		"\u027b\u0003\u0096K\u0000\u027a\u0278\u0001\u0000\u0000\u0000\u027a\u027b"+
+		"\u0001\u0000\u0000\u0000\u027b\u027c\u0001\u0000\u0000\u0000\u027c\u027d"+
+		"\u0003\u001e\u000f\u0000\u027dG\u0001\u0000\u0000\u0000\u027e\u027f\u0005"+
+		"-\u0000\u0000\u027f\u0281\u0005\u0082\u0000\u0000\u0280\u0282\u0003r9"+
+		"\u0000\u0281\u0280\u0001\u0000\u0000\u0000\u0281\u0282\u0001\u0000\u0000"+
+		"\u0000\u0282\u0283\u0001\u0000\u0000\u0000\u0283\u0284\u0005\u0083\u0000"+
+		"\u0000\u0284\u0285\u0005\u0084\u0000\u0000\u0285\u0286\u0003J%\u0000\u0286"+
+		"\u0287\u0005\u0085\u0000\u0000\u0287I\u0001\u0000\u0000\u0000\u0288\u028a"+
+		"\u0003X,\u0000\u0289\u0288\u0001\u0000\u0000\u0000\u028a\u028d\u0001\u0000"+
+		"\u0000\u0000\u028b\u0289\u0001\u0000\u0000\u0000\u028b\u028c\u0001\u0000"+
+		"\u0000\u0000\u028cK\u0001\u0000\u0000\u0000\u028d\u028b\u0001\u0000\u0000"+
+		"\u0000\u028e\u0290\u0005\'\u0000\u0000\u028f\u028e\u0001\u0000\u0000\u0000"+
+		"\u028f\u0290\u0001\u0000\u0000\u0000\u0290\u0291\u0001\u0000\u0000\u0000"+
+		"\u0291\u0292\u0005(\u0000\u0000\u0292\u029c\u0005\u0093\u0000\u0000\u0293"+
+		"\u0294\u0005+\u0000\u0000\u0294\u0299\u0005\u0093\u0000\u0000\u0295\u0296"+
+		"\u0005|\u0000\u0000\u0296\u0298\u0005\u0093\u0000\u0000\u0297\u0295\u0001"+
+		"\u0000\u0000\u0000\u0298\u029b\u0001\u0000\u0000\u0000\u0299\u0297\u0001"+
+		"\u0000\u0000\u0000\u0299\u029a\u0001\u0000\u0000\u0000\u029a\u029d\u0001"+
+		"\u0000\u0000\u0000\u029b\u0299\u0001\u0000\u0000\u0000\u029c\u0293\u0001"+
+		"\u0000\u0000\u0000\u029c\u029d\u0001\u0000\u0000\u0000\u029d\u029e\u0001"+
+		"\u0000\u0000\u0000\u029e\u029f\u0005\u0084\u0000\u0000\u029f\u02a0\u0003"+
+		"N\'\u0000\u02a0\u02a1\u0005\u0085\u0000\u0000\u02a1M\u0001\u0000\u0000"+
+		"\u0000\u02a2\u02a4\u0003P(\u0000\u02a3\u02a2\u0001\u0000\u0000\u0000\u02a4"+
+		"\u02a7\u0001\u0000\u0000\u0000\u02a5\u02a3\u0001\u0000\u0000\u0000\u02a5"+
+		"\u02a6\u0001\u0000\u0000\u0000\u02a6O\u0001\u0000\u0000\u0000\u02a7\u02a5"+
+		"\u0001\u0000\u0000\u0000\u02a8\u02aa\u0005\u0093\u0000\u0000\u02a9\u02ab"+
+		"\u0005~\u0000\u0000\u02aa\u02a9\u0001\u0000\u0000\u0000\u02aa\u02ab\u0001"+
+		"\u0000\u0000\u0000\u02ab\u02ac\u0001\u0000\u0000\u0000\u02ac\u02ad\u0005"+
+		"{\u0000\u0000\u02ad\u02ae\u0003\u0096K\u0000\u02ae\u02af\u0005z\u0000"+
+		"\u0000\u02afQ\u0001\u0000\u0000\u0000\u02b0\u02b2\u0005\'\u0000\u0000"+
+		"\u02b1\u02b0\u0001\u0000\u0000\u0000\u02b1\u02b2\u0001\u0000\u0000\u0000"+
+		"\u02b2\u02b3\u0001\u0000\u0000\u0000\u02b3\u02b4\u0005*\u0000\u0000\u02b4"+
+		"\u02b5\u0005\u0093\u0000\u0000\u02b5\u02b6\u0005\u0084\u0000\u0000\u02b6"+
+		"\u02b7\u0003T*\u0000\u02b7\u02b8\u0005\u0085\u0000\u0000\u02b8S\u0001"+
+		"\u0000\u0000\u0000\u02b9\u02be\u0003V+\u0000\u02ba\u02bb\u0005|\u0000"+
+		"\u0000\u02bb\u02bd\u0003V+\u0000\u02bc\u02ba\u0001\u0000\u0000\u0000\u02bd"+
+		"\u02c0\u0001\u0000\u0000\u0000\u02be\u02bc\u0001\u0000\u0000\u0000\u02be"+
+		"\u02bf\u0001\u0000\u0000\u0000\u02bf\u02c2\u0001\u0000\u0000\u0000\u02c0"+
+		"\u02be\u0001\u0000\u0000\u0000\u02c1\u02c3\u0005|\u0000\u0000\u02c2\u02c1"+
+		"\u0001\u0000\u0000\u0000\u02c2\u02c3\u0001\u0000\u0000\u0000\u02c3U\u0001"+
+		"\u0000\u0000\u0000\u02c4\u02c7\u0005\u0093\u0000\u0000\u02c5\u02c6\u0005"+
+		"Z\u0000\u0000\u02c6\u02c8\u0003\u0092I\u0000\u02c7\u02c5\u0001\u0000\u0000"+
+		"\u0000\u02c7\u02c8\u0001\u0000\u0000\u0000\u02c8W\u0001\u0000\u0000\u0000"+
+		"\u02c9\u02d9\u0003Z-\u0000\u02ca\u02d9\u0003\\.\u0000\u02cb\u02d9\u0003"+
+		"^/\u0000\u02cc\u02d9\u0003`0\u0000\u02cd\u02d9\u0003b1\u0000\u02ce\u02d9"+
+		"\u0003p8\u0000\u02cf\u02d9\u0003n7\u0000\u02d0\u02d9\u0003l6\u0000\u02d1"+
+		"\u02d3\u0003\u0092I\u0000\u02d2\u02d4\u0005z\u0000\u0000\u02d3\u02d2\u0001"+
+		"\u0000\u0000\u0000\u02d3\u02d4\u0001\u0000\u0000\u0000\u02d4\u02d9\u0001"+
+		"\u0000\u0000\u0000\u02d5\u02d9\u0003\u00c6c\u0000\u02d6\u02d9\u0003\u00ba"+
+		"]\u0000\u02d7\u02d9\u0003\u00b8\\\u0000\u02d8\u02c9\u0001\u0000\u0000"+
+		"\u0000\u02d8\u02ca\u0001\u0000\u0000\u0000\u02d8\u02cb\u0001\u0000\u0000"+
+		"\u0000\u02d8\u02cc\u0001\u0000\u0000\u0000\u02d8\u02cd\u0001\u0000\u0000"+
+		"\u0000\u02d8\u02ce\u0001\u0000\u0000\u0000\u02d8\u02cf\u0001\u0000\u0000"+
+		"\u0000\u02d8\u02d0\u0001\u0000\u0000\u0000\u02d8\u02d1\u0001\u0000\u0000"+
+		"\u0000\u02d8\u02d5\u0001\u0000\u0000\u0000\u02d8\u02d6\u0001\u0000\u0000"+
+		"\u0000\u02d8\u02d7\u0001\u0000\u0000\u0000\u02d9Y\u0001\u0000\u0000\u0000"+
+		"\u02da\u02db\u0003\u0084B\u0000\u02db\u02dc\u0005Z\u0000\u0000\u02dc\u02dd"+
+		"\u0003\u008cF\u0000\u02dd\u02de\u0005z\u0000\u0000\u02de[\u0001\u0000"+
+		"\u0000\u0000\u02df\u02e0\u0005#\u0000\u0000\u02e0\u02e1\u0005}\u0000\u0000"+
+		"\u02e1\u02e2\u0007\u0002\u0000\u0000\u02e2\u02e4\u0005\u0082\u0000\u0000"+
+		"\u02e3\u02e5\u0003r9\u0000\u02e4\u02e3\u0001\u0000\u0000\u0000\u02e4\u02e5"+
+		"\u0001\u0000\u0000\u0000\u02e5\u02e6\u0001\u0000\u0000\u0000\u02e6\u02e8"+
+		"\u0005\u0083\u0000\u0000\u02e7\u02e9\u0005z\u0000\u0000\u02e8\u02e7\u0001"+
+		"\u0000\u0000\u0000\u02e8\u02e9\u0001\u0000\u0000\u0000\u02e9]\u0001\u0000"+
+		"\u0000\u0000\u02ea\u02eb\u0005!\u0000\u0000\u02eb\u02ec\u0003\u0092I\u0000"+
+		"\u02ec\u02ed\u0005z\u0000\u0000\u02ed_\u0001\u0000\u0000\u0000\u02ee\u02ef"+
+		"\u0005\"\u0000\u0000\u02ef\u02f0\u0003\u0092I\u0000\u02f0\u02f1\u0005"+
+		"z\u0000\u0000\u02f1a\u0001\u0000\u0000\u0000\u02f2\u02f6\u0003d2\u0000"+
+		"\u02f3\u02f5\u0003f3\u0000\u02f4\u02f3\u0001\u0000\u0000\u0000\u02f5\u02f8"+
+		"\u0001\u0000\u0000\u0000\u02f6\u02f4\u0001\u0000\u0000\u0000\u02f6\u02f7"+
+		"\u0001\u0000\u0000\u0000\u02f7\u02fa\u0001\u0000\u0000\u0000\u02f8\u02f6"+
+		"\u0001\u0000\u0000\u0000\u02f9\u02fb\u0003h4\u0000\u02fa\u02f9\u0001\u0000"+
+		"\u0000\u0000\u02fa\u02fb\u0001\u0000\u0000\u0000\u02fbc\u0001\u0000\u0000"+
+		"\u0000\u02fc\u02fd\u0005\u001f\u0000\u0000\u02fd\u02fe\u0005\u0082\u0000"+
+		"\u0000\u02fe\u02ff\u0003\u0092I\u0000\u02ff\u0300\u0005\u0083\u0000\u0000"+
+		"\u0300\u0301\u0003j5\u0000\u0301e\u0001\u0000\u0000\u0000\u0302\u0303"+
+		"\u0005 \u0000\u0000\u0303\u0304\u0005\u001f\u0000\u0000\u0304\u0305\u0005"+
+		"\u0082\u0000\u0000\u0305\u0306\u0003\u0092I\u0000\u0306\u0307\u0005\u0083"+
+		"\u0000\u0000\u0307\u0308\u0003j5\u0000\u0308g\u0001\u0000\u0000\u0000"+
+		"\u0309\u030a\u0005 \u0000\u0000\u030a\u030b\u0003j5\u0000\u030bi\u0001"+
+		"\u0000\u0000\u0000\u030c\u030f\u0003X,\u0000\u030d\u030f\u0003\u001e\u000f"+
+		"\u0000\u030e\u030c\u0001\u0000\u0000\u0000\u030e\u030d\u0001\u0000\u0000"+
+		"\u0000\u030fk\u0001\u0000\u0000\u0000\u0310\u0311\u0003\u0088D\u0000\u0311"+
+		"\u0313\u0005\u0082\u0000\u0000\u0312\u0314\u0003r9\u0000\u0313\u0312\u0001"+
+		"\u0000\u0000\u0000\u0313\u0314\u0001\u0000\u0000\u0000\u0314\u0315\u0001"+
+		"\u0000\u0000\u0000\u0315\u0316\u0005\u0083\u0000\u0000\u0316\u0317\u0005"+
+		"z\u0000\u0000\u0317m\u0001\u0000\u0000\u0000\u0318\u0319\u0003\u000e\u0007"+
+		"\u0000\u0319\u031b\u0005\u0082\u0000\u0000\u031a\u031c\u0003r9\u0000\u031b"+
+		"\u031a\u0001\u0000\u0000\u0000\u031b\u031c\u0001\u0000\u0000\u0000\u031c"+
+		"\u031d\u0001\u0000\u0000\u0000\u031d\u0324\u0005\u0083\u0000\u0000\u031e"+
+		"\u031f\u0005}\u0000\u0000\u031f\u0320\u0005%\u0000\u0000\u0320\u0321\u0005"+
+		"\u0082\u0000\u0000\u0321\u0322\u0003\u001c\u000e\u0000\u0322\u0323\u0005"+
+		"\u0083\u0000\u0000\u0323\u0325\u0001\u0000\u0000\u0000\u0324\u031e\u0001"+
+		"\u0000\u0000\u0000\u0324\u0325\u0001\u0000\u0000\u0000\u0325\u0326\u0001"+
+		"\u0000\u0000\u0000\u0326\u0327\u0005z\u0000\u0000\u0327o\u0001\u0000\u0000"+
+		"\u0000\u0328\u0329\u0005\u0088\u0000\u0000\u0329\u032b\u0005\u0082\u0000"+
+		"\u0000\u032a\u032c\u0003\u0012\t\u0000\u032b\u032a\u0001\u0000\u0000\u0000"+
+		"\u032b\u032c\u0001\u0000\u0000\u0000\u032c\u032d\u0001\u0000\u0000\u0000"+
+		"\u032d\u032f\u0005z\u0000\u0000\u032e\u0330\u0003\u0092I\u0000\u032f\u032e"+
+		"\u0001\u0000\u0000\u0000\u032f\u0330\u0001\u0000\u0000\u0000\u0330\u0331"+
+		"\u0001\u0000\u0000\u0000\u0331\u0333\u0005z\u0000\u0000\u0332\u0334\u0003"+
+		"\u0092I\u0000\u0333\u0332\u0001\u0000\u0000\u0000\u0333\u0334\u0001\u0000"+
+		"\u0000\u0000\u0334\u0335\u0001\u0000\u0000\u0000\u0335\u0336\u0005\u0083"+
+		"\u0000\u0000\u0336\u0358\u0003j5\u0000\u0337\u0338\u0005\u0088\u0000\u0000"+
+		"\u0338\u0339\u0005\u0082\u0000\u0000\u0339\u033a\u0003\u0014\n\u0000\u033a"+
+		"\u033b\u0005\u0093\u0000\u0000\u033b\u033c\u0005\u008d\u0000\u0000\u033c"+
+		"\u033d\u0005\u0093\u0000\u0000\u033d\u033e\u0005\u0083\u0000\u0000\u033e"+
+		"\u033f\u0003j5\u0000\u033f\u0358\u0001\u0000\u0000\u0000\u0340\u0341\u0005"+
+		"\u0088\u0000\u0000\u0341\u0342\u0005\u0082\u0000\u0000\u0342\u0343\u0003"+
+		"\u0014\n\u0000\u0343\u0344\u0005\u0093\u0000\u0000\u0344\u0345\u0005\u008e"+
+		"\u0000\u0000\u0345\u0346\u0005\u0093\u0000\u0000\u0346\u0347\u0005\u0083"+
+		"\u0000\u0000\u0347\u0348\u0003j5\u0000\u0348\u0358\u0001\u0000\u0000\u0000"+
+		"\u0349\u034a\u0005\u008a\u0000\u0000\u034a\u034b\u0005\u0082\u0000\u0000"+
+		"\u034b\u034c\u0003\u0092I\u0000\u034c\u034d\u0005\u0083\u0000\u0000\u034d"+
+		"\u034e\u0003j5\u0000\u034e\u0358\u0001\u0000\u0000\u0000\u034f\u0350\u0005"+
+		"\u0089\u0000\u0000\u0350\u0351\u0003j5\u0000\u0351\u0352\u0005\u008a\u0000"+
+		"\u0000\u0352\u0353\u0005\u0082\u0000\u0000\u0353\u0354\u0003\u0092I\u0000"+
+		"\u0354\u0355\u0005\u0083\u0000\u0000\u0355\u0356\u0005z\u0000\u0000\u0356"+
+		"\u0358\u0001\u0000\u0000\u0000\u0357\u0328\u0001\u0000\u0000\u0000\u0357"+
+		"\u0337\u0001\u0000\u0000\u0000\u0357\u0340\u0001\u0000\u0000\u0000\u0357"+
+		"\u0349\u0001\u0000\u0000\u0000\u0357\u034f\u0001\u0000\u0000\u0000\u0358"+
+		"q\u0001\u0000\u0000\u0000\u0359\u035e\u0003t:\u0000\u035a\u035b\u0005"+
+		"|\u0000\u0000\u035b\u035d\u0003t:\u0000\u035c\u035a\u0001\u0000\u0000"+
+		"\u0000\u035d\u0360\u0001\u0000\u0000\u0000\u035e\u035c\u0001\u0000\u0000"+
+		"\u0000\u035e\u035f\u0001\u0000\u0000\u0000\u035fs\u0001\u0000\u0000\u0000"+
+		"\u0360\u035e\u0001\u0000\u0000\u0000\u0361\u0362\u0003\u0092I\u0000\u0362"+
+		"u\u0001\u0000\u0000\u0000\u0363\u0365\u00032\u0019\u0000\u0364\u0363\u0001"+
+		"\u0000\u0000\u0000\u0365\u0368\u0001\u0000\u0000\u0000\u0366\u0364\u0001"+
+		"\u0000\u0000\u0000\u0366\u0367\u0001\u0000\u0000\u0000\u0367\u036a\u0001"+
+		"\u0000\u0000\u0000\u0368\u0366\u0001\u0000\u0000\u0000\u0369\u036b\u0003"+
+		"\u0098L\u0000\u036a\u0369\u0001\u0000\u0000\u0000\u036a\u036b\u0001\u0000"+
+		"\u0000\u0000\u036b\u036c\u0001\u0000\u0000\u0000\u036c\u036f\u0005\u0093"+
+		"\u0000\u0000\u036d\u036e\u0005{\u0000\u0000\u036e\u0370\u0003\u0096K\u0000"+
+		"\u036f\u036d\u0001\u0000\u0000\u0000\u036f\u0370\u0001\u0000\u0000\u0000"+
+		"\u0370\u0373\u0001\u0000\u0000\u0000\u0371\u0372\u0005Z\u0000\u0000\u0372"+
+		"\u0374\u0003\u008cF\u0000\u0373\u0371\u0001\u0000\u0000\u0000\u0373\u0374"+
+		"\u0001\u0000\u0000\u0000\u0374w\u0001\u0000\u0000\u0000\u0375\u037e\u0005"+
+		"\u0086\u0000\u0000\u0376\u037b\u0003\u0092I\u0000\u0377\u0378\u0005|\u0000"+
+		"\u0000\u0378\u037a\u0003\u0092I\u0000\u0379\u0377\u0001\u0000\u0000\u0000"+
+		"\u037a\u037d\u0001\u0000\u0000\u0000\u037b\u0379\u0001\u0000\u0000\u0000"+
+		"\u037b\u037c\u0001\u0000\u0000\u0000\u037c\u037f\u0001\u0000\u0000\u0000"+
+		"\u037d\u037b\u0001\u0000\u0000\u0000\u037e\u0376\u0001\u0000\u0000\u0000"+
+		"\u037e\u037f\u0001\u0000\u0000\u0000\u037f\u0381\u0001\u0000\u0000\u0000"+
+		"\u0380\u0382\u0005|\u0000\u0000\u0381\u0380\u0001\u0000\u0000\u0000\u0381"+
+		"\u0382\u0001\u0000\u0000\u0000\u0382\u0383\u0001\u0000\u0000\u0000\u0383"+
+		"\u0384\u0005\u0087\u0000\u0000\u0384y\u0001\u0000\u0000\u0000\u0385\u038c"+
+		"\u0003\u008eG\u0000\u0386\u038c\u0003x<\u0000\u0387\u038c\u0003\u0086"+
+		"C\u0000\u0388\u038c\u0003\u0084B\u0000\u0389\u038c\u0003|>\u0000\u038a"+
+		"\u038c\u0003\u0082A\u0000\u038b\u0385\u0001\u0000\u0000\u0000\u038b\u0386"+
+		"\u0001\u0000\u0000\u0000\u038b\u0387\u0001\u0000\u0000\u0000\u038b\u0388"+
+		"\u0001\u0000\u0000\u0000\u038b\u0389\u0001\u0000\u0000\u0000\u038b\u038a"+
+		"\u0001\u0000\u0000\u0000\u038c{\u0001\u0000\u0000\u0000\u038d\u038f\u0005"+
+		"\u0084\u0000\u0000\u038e\u0390\u0003~?\u0000\u038f\u038e\u0001\u0000\u0000"+
+		"\u0000\u038f\u0390\u0001\u0000\u0000\u0000\u0390\u0391\u0001\u0000\u0000"+
+		"\u0000\u0391\u0392\u0005\u0085\u0000\u0000\u0392}\u0001\u0000\u0000\u0000"+
+		"\u0393\u0398\u0003\u0080@\u0000\u0394\u0395\u0005|\u0000\u0000\u0395\u0397"+
+		"\u0003\u0080@\u0000\u0396\u0394\u0001\u0000\u0000\u0000\u0397\u039a\u0001"+
+		"\u0000\u0000\u0000\u0398\u0396\u0001\u0000\u0000\u0000\u0398\u0399\u0001"+
+		"\u0000\u0000\u0000\u0399\u039c\u0001\u0000\u0000\u0000\u039a\u0398\u0001"+
+		"\u0000\u0000\u0000\u039b\u039d\u0005|\u0000\u0000\u039c\u039b\u0001\u0000"+
+		"\u0000\u0000\u039c\u039d\u0001\u0000\u0000\u0000\u039d\u007f\u0001\u0000"+
+		"\u0000\u0000\u039e\u039f\u0005\u0093\u0000\u0000\u039f\u03a0\u0005{\u0000"+
+		"\u0000\u03a0\u03a1\u0003\u0092I\u0000\u03a1\u0081\u0001\u0000\u0000\u0000"+
+		"\u03a2\u03a3\u0005/\u0000\u0000\u03a3\u03a5\u0005\u0093\u0000\u0000\u03a4"+
+		"\u03a6\u0003\u0094J\u0000\u03a5\u03a4\u0001\u0000\u0000\u0000\u03a5\u03a6"+
+		"\u0001\u0000\u0000\u0000\u03a6\u03a7\u0001\u0000\u0000\u0000\u03a7\u03a9"+
+		"\u0005\u0082\u0000\u0000\u03a8\u03aa\u0003r9\u0000\u03a9\u03a8\u0001\u0000"+
+		"\u0000\u0000\u03a9\u03aa\u0001\u0000\u0000\u0000\u03aa\u03ab\u0001\u0000"+
+		"\u0000\u0000\u03ab\u03ac\u0005\u0083\u0000\u0000\u03ac\u0083\u0001\u0000"+
+		"\u0000\u0000\u03ad\u03af\u0005\u0093\u0000\u0000\u03ae\u03b0\u0003\u0092"+
+		"I\u0000\u03af\u03ae\u0001\u0000\u0000\u0000\u03af\u03b0\u0001\u0000\u0000"+
+		"\u0000\u03b0\u03b4\u0001\u0000\u0000\u0000\u03b1\u03b2\u0005.\u0000\u0000"+
+		"\u03b2\u03b4\u0003\u0092I\u0000\u03b3\u03ad\u0001\u0000\u0000\u0000\u03b3"+
+		"\u03b1\u0001\u0000\u0000\u0000\u03b4\u0085\u0001\u0000\u0000\u0000\u03b5"+
+		"\u03b6\u0005\u0093\u0000\u0000\u03b6\u03b7\u0005\u0086\u0000\u0000\u03b7"+
+		"\u03b8\u0003\u0092I\u0000\u03b8\u03b9\u0005\u0087\u0000\u0000\u03b9\u0087"+
+		"\u0001\u0000\u0000\u0000\u03ba\u03bf\u0003\u008eG\u0000\u03bb\u03bc\u0005"+
+		"}\u0000\u0000\u03bc\u03be\u0005\u0093\u0000\u0000\u03bd\u03bb\u0001\u0000"+
+		"\u0000\u0000\u03be\u03c1\u0001\u0000\u0000\u0000\u03bf\u03bd\u0001\u0000"+
+		"\u0000\u0000\u03bf\u03c0\u0001\u0000\u0000\u0000\u03c0\u0089\u0001\u0000"+
+		"\u0000\u0000\u03c1\u03bf\u0001\u0000\u0000\u0000\u03c2\u03c3\u0003\u0088"+
+		"D\u0000\u03c3\u03c5\u0005\u0082\u0000\u0000\u03c4\u03c6\u0003r9\u0000"+
+		"\u03c5\u03c4\u0001\u0000\u0000\u0000\u03c5\u03c6\u0001\u0000\u0000\u0000"+
+		"\u03c6\u03c7\u0001\u0000\u0000\u0000\u03c7\u03c8\u0005\u0083\u0000\u0000"+
+		"\u03c8\u008b\u0001\u0000\u0000\u0000\u03c9\u03ca\u0003\u0092I\u0000\u03ca"+
+		"\u008d\u0001\u0000\u0000\u0000\u03cb\u03ce\u0003\u0090H\u0000\u03cc\u03ce"+
+		"\u0005\u0093\u0000\u0000\u03cd\u03cb\u0001\u0000\u0000\u0000\u03cd\u03cc"+
+		"\u0001\u0000\u0000\u0000\u03ce\u008f\u0001\u0000\u0000\u0000\u03cf\u03d0"+
+		"\u0007\u0003\u0000\u0000\u03d0\u0091\u0001\u0000\u0000\u0000\u03d1\u03d2"+
+		"\u0006I\uffff\uffff\u0000\u03d2\u03e6\u0003l6\u0000\u03d3\u03e6\u0003"+
+		"\u0016\u000b\u0000\u03d4\u03d5\u0005x\u0000\u0000\u03d5\u03e6\u0003\u0092"+
+		"I\u0012\u03d6\u03d7\u0005y\u0000\u0000\u03d7\u03e6\u0003\u0092I\u0011"+
+		"\u03d8\u03d9\u0005[\u0000\u0000\u03d9\u03e6\u0003\u0092I\u0010\u03da\u03db"+
+		"\u0005\u0082\u0000\u0000\u03db\u03dc\u0003\u0092I\u0000\u03dc\u03dd\u0005"+
+		"\u0083\u0000\u0000\u03dd\u03e6\u0001\u0000\u0000\u0000\u03de\u03e6\u0003"+
+		"z=\u0000\u03df\u03e6\u0003v;\u0000\u03e0\u03e6\u0003\u00c8d\u0000\u03e1"+
+		"\u03e6\u0003\u008aE\u0000\u03e2\u03e6\u0003\u0088D\u0000\u03e3\u03e6\u0003"+
+		"\u00c2a\u0000\u03e4\u03e6\u0003\u00c4b\u0000\u03e5\u03d1\u0001\u0000\u0000"+
+		"\u0000\u03e5\u03d3\u0001\u0000\u0000\u0000\u03e5\u03d4\u0001\u0000\u0000"+
+		"\u0000\u03e5\u03d6\u0001\u0000\u0000\u0000\u03e5\u03d8\u0001\u0000\u0000"+
+		"\u0000\u03e5\u03da\u0001\u0000\u0000\u0000\u03e5\u03de\u0001\u0000\u0000"+
+		"\u0000\u03e5\u03df\u0001\u0000\u0000\u0000\u03e5\u03e0\u0001\u0000\u0000"+
+		"\u0000\u03e5\u03e1\u0001\u0000\u0000\u0000\u03e5\u03e2\u0001\u0000\u0000"+
+		"\u0000\u03e5\u03e3\u0001\u0000\u0000\u0000\u03e5\u03e4\u0001\u0000\u0000"+
+		"\u0000\u03e6\u0405\u0001\u0000\u0000\u0000\u03e7\u03e8\n\u000f\u0000\u0000"+
+		"\u03e8\u03e9\u0007\u0004\u0000\u0000\u03e9\u0404\u0003\u0092I\u0010\u03ea"+
+		"\u03eb\n\u000e\u0000\u0000\u03eb\u03ec\u0007\u0005\u0000\u0000\u03ec\u0404"+
+		"\u0003\u0092I\u000f\u03ed\u03ee\n\r\u0000\u0000\u03ee\u03ef\u0007\u0006"+
+		"\u0000\u0000\u03ef\u0404\u0003\u0092I\u000e\u03f0\u03f1\n\f\u0000\u0000"+
+		"\u03f1\u03f2\u0007\u0007\u0000\u0000\u03f2\u0404\u0003\u0092I\r\u03f3"+
+		"\u03f4\n\u000b\u0000\u0000\u03f4\u03f5\u0005e\u0000\u0000\u03f5\u0404"+
+		"\u0003\u0092I\f\u03f6\u03f7\n\n\u0000\u0000\u03f7\u03f8\u0005f\u0000\u0000"+
+		"\u03f8\u0404\u0003\u0092I\u000b\u03f9\u03fa\n\t\u0000\u0000\u03fa\u03fb"+
+		"\u0005~\u0000\u0000\u03fb\u03fc\u0003\u0092I\u0000\u03fc\u03fd\u0005{"+
+		"\u0000\u0000\u03fd\u03fe\u0003\u0092I\n\u03fe\u0404\u0001\u0000\u0000"+
+		"\u0000\u03ff\u0400\n\u0014\u0000\u0000\u0400\u0404\u0005x\u0000\u0000"+
+		"\u0401\u0402\n\u0013\u0000\u0000\u0402\u0404\u0005y\u0000\u0000\u0403"+
+		"\u03e7\u0001\u0000\u0000\u0000\u0403\u03ea\u0001\u0000\u0000\u0000\u0403"+
+		"\u03ed\u0001\u0000\u0000\u0000\u0403\u03f0\u0001\u0000\u0000\u0000\u0403"+
+		"\u03f3\u0001\u0000\u0000\u0000\u0403\u03f6\u0001\u0000\u0000\u0000\u0403"+
+		"\u03f9\u0001\u0000\u0000\u0000\u0403\u03ff\u0001\u0000\u0000\u0000\u0403"+
+		"\u0401\u0001\u0000\u0000\u0000\u0404\u0407\u0001\u0000\u0000\u0000\u0405"+
+		"\u0403\u0001\u0000\u0000\u0000\u0405\u0406\u0001\u0000\u0000\u0000\u0406"+
+		"\u0093\u0001\u0000\u0000\u0000\u0407\u0405\u0001\u0000\u0000\u0000\u0408"+
+		"\u0409\u0005X\u0000\u0000\u0409\u040e\u0003\u0096K\u0000\u040a\u040b\u0005"+
+		"|\u0000\u0000\u040b\u040d\u0003\u0096K\u0000\u040c\u040a\u0001\u0000\u0000"+
+		"\u0000\u040d\u0410\u0001\u0000\u0000\u0000\u040e\u040c\u0001\u0000\u0000"+
+		"\u0000\u040e\u040f\u0001\u0000\u0000\u0000\u040f\u0411\u0001\u0000\u0000"+
+		"\u0000\u0410\u040e\u0001\u0000\u0000\u0000\u0411\u0412\u0005V\u0000\u0000"+
+		"\u0412\u0095\u0001\u0000\u0000\u0000\u0413\u0414\u0005\u0093\u0000\u0000"+
+		"\u0414\u0422\u0003\u0094J\u0000\u0415\u041a\u0007\b\u0000\u0000\u0416"+
+		"\u0417\u0005i\u0000\u0000\u0417\u0419\u0007\b\u0000\u0000\u0418\u0416"+
+		"\u0001\u0000\u0000\u0000\u0419\u041c\u0001\u0000\u0000\u0000\u041a\u0418"+
+		"\u0001\u0000\u0000\u0000\u041a\u041b\u0001\u0000\u0000\u0000\u041b\u0422"+
+		"\u0001\u0000\u0000\u0000\u041c\u041a\u0001\u0000\u0000\u0000\u041d\u041e"+
+		"\u0007\b\u0000\u0000\u041e\u041f\u0005\u0086\u0000\u0000\u041f\u0422\u0005"+
+		"\u0087\u0000\u0000\u0420\u0422\u0003x<\u0000\u0421\u0413\u0001\u0000\u0000"+
+		"\u0000\u0421\u0415\u0001\u0000\u0000\u0000\u0421\u041d\u0001\u0000\u0000"+
+		"\u0000\u0421\u0420\u0001\u0000\u0000\u0000\u0422\u0097\u0001\u0000\u0000"+
+		"\u0000\u0423\u0424\u0007\t\u0000\u0000\u0424\u0099\u0001\u0000\u0000\u0000"+
+		"\u0425\u0429\u0005\u0094\u0000\u0000\u0426\u0428\u0003\u009cN\u0000\u0427"+
+		"\u0426\u0001\u0000\u0000\u0000\u0428\u042b\u0001\u0000\u0000\u0000\u0429"+
+		"\u0427\u0001\u0000\u0000\u0000\u0429\u042a\u0001\u0000\u0000\u0000\u042a"+
+		"\u042c\u0001\u0000\u0000\u0000\u042b\u0429\u0001\u0000\u0000\u0000\u042c"+
+		"\u042d\u0005\u00a9\u0000\u0000\u042d\u009b\u0001\u0000\u0000\u0000\u042e"+
+		"\u0432\u0003\u009eO\u0000\u042f\u0431\u0003\u00a4R\u0000\u0430\u042f\u0001"+
+		"\u0000\u0000\u0000\u0431\u0434\u0001\u0000\u0000\u0000\u0432\u0430\u0001"+
+		"\u0000\u0000\u0000\u0432\u0433\u0001\u0000\u0000\u0000\u0433\u0435\u0001"+
+		"\u0000\u0000\u0000\u0434\u0432\u0001\u0000\u0000\u0000\u0435\u0436\u0003"+
+		"\u00a0P\u0000\u0436\u043a\u0001\u0000\u0000\u0000\u0437\u043a\u0003\u00a2"+
+		"Q\u0000\u0438\u043a\u0003\u00a8T\u0000\u0439\u042e\u0001\u0000\u0000\u0000"+
+		"\u0439\u0437\u0001\u0000\u0000\u0000\u0439\u0438\u0001\u0000\u0000\u0000"+
+		"\u043a\u009d\u0001\u0000\u0000\u0000\u043b\u043d\u0005\u0095\u0000\u0000"+
+		"\u043c\u043b\u0001\u0000\u0000\u0000\u043c\u043d\u0001\u0000\u0000\u0000"+
+		"\u043d\u043e\u0001\u0000\u0000\u0000\u043e\u0442\u0003\u00acV\u0000\u043f"+
+		"\u0441\u0003\u00a6S\u0000\u0440\u043f\u0001\u0000\u0000\u0000\u0441\u0444"+
+		"\u0001\u0000\u0000\u0000\u0442\u0440\u0001\u0000\u0000\u0000\u0442\u0443"+
+		"\u0001\u0000\u0000\u0000\u0443\u0445\u0001\u0000\u0000\u0000\u0444\u0442"+
+		"\u0001\u0000\u0000\u0000\u0445\u0446\u0005\u0096\u0000\u0000\u0446\u009f"+
+		"\u0001\u0000\u0000\u0000\u0447\u0448\u0005\u0095\u0000\u0000\u0448\u0449"+
+		"\u0005\u0097\u0000\u0000\u0449\u044a\u0003\u00acV\u0000\u044a\u044b\u0005"+
+		"\u0096\u0000\u0000\u044b\u00a1\u0001\u0000\u0000\u0000\u044c\u044d\u0005"+
+		"\u0095\u0000\u0000\u044d\u0451\u0003\u00acV\u0000\u044e\u0450\u0003\u00a6"+
+		"S\u0000\u044f\u044e\u0001\u0000\u0000\u0000\u0450\u0453\u0001\u0000\u0000"+
+		"\u0000\u0451\u044f\u0001\u0000\u0000\u0000\u0451\u0452\u0001\u0000\u0000"+
+		"\u0000\u0452\u0454\u0001\u0000\u0000\u0000\u0453\u0451\u0001\u0000\u0000"+
+		"\u0000\u0454\u0455\u0005\u0097\u0000\u0000\u0455\u0456\u0005\u0096\u0000"+
+		"\u0000\u0456\u00a3\u0001\u0000\u0000\u0000\u0457\u045d\u0003\u009cN\u0000"+
+		"\u0458\u045a\u0005\u00a5\u0000\u0000\u0459\u045b\u0005\u0099\u0000\u0000"+
+		"\u045a\u0459\u0001\u0000\u0000\u0000\u045a\u045b\u0001\u0000\u0000\u0000"+
+		"\u045b\u045d\u0001\u0000\u0000\u0000\u045c\u0457\u0001\u0000\u0000\u0000"+
+		"\u045c\u0458\u0001\u0000\u0000\u0000\u045d\u00a5\u0001\u0000\u0000\u0000"+
+		"\u045e\u045f\u0005\u00a5\u0000\u0000\u045f\u0460\u0005\u0098\u0000\u0000"+
+		"\u0460\u0475\u0005\u009a\u0000\u0000\u0461\u0462\u0005\u009d\u0000\u0000"+
+		"\u0462\u0463\u0005\u0098\u0000\u0000\u0463\u0475\u0005\u009a\u0000\u0000"+
+		"\u0464\u0465\u0005\u009e\u0000\u0000\u0465\u0466\u0005\u0098\u0000\u0000"+
+		"\u0466\u0475\u0005\u009a\u0000\u0000\u0467\u0468\u0005\u009f\u0000\u0000"+
+		"\u0468\u0469\u0005\u0098\u0000\u0000\u0469\u0475\u0005\u009a\u0000\u0000"+
+		"\u046a\u046b\u0003\u00aeW\u0000\u046b\u046c\u0005\u0098\u0000\u0000\u046c"+
+		"\u046d\u0005\u009a\u0000\u0000\u046d\u0475\u0001\u0000\u0000\u0000\u046e"+
+		"\u0471\u0005\u00a4\u0000\u0000\u046f\u0470\u0005\u0098\u0000\u0000\u0470"+
+		"\u0472\u0005\u009a\u0000\u0000\u0471\u046f\u0001\u0000\u0000\u0000\u0471"+
+		"\u0472\u0001\u0000\u0000\u0000\u0472\u0475\u0001\u0000\u0000\u0000\u0473"+
+		"\u0475\u0005\u00a5\u0000\u0000\u0474\u045e\u0001\u0000\u0000\u0000\u0474"+
+		"\u0461\u0001\u0000\u0000\u0000\u0474\u0464\u0001\u0000\u0000\u0000\u0474"+
+		"\u0467\u0001\u0000\u0000\u0000\u0474\u046a\u0001\u0000\u0000\u0000\u0474"+
+		"\u046e\u0001\u0000\u0000\u0000\u0474\u0473\u0001\u0000\u0000\u0000\u0475"+
+		"\u00a7\u0001\u0000\u0000\u0000\u0476\u0477\u0005\u00a5\u0000\u0000\u0477"+
+		"\u0479\u0007\n\u0000\u0000\u0478\u0476\u0001\u0000\u0000\u0000\u0478\u0479"+
+		"\u0001\u0000\u0000\u0000\u0479\u047a\u0001\u0000\u0000\u0000\u047a\u0483"+
+		"\u0005\u009b\u0000\u0000\u047b\u0480\u0003\u00aaU\u0000\u047c\u047d\u0005"+
+		"\u00a3\u0000\u0000\u047d\u047f\u0003\u00aaU\u0000\u047e\u047c\u0001\u0000"+
+		"\u0000\u0000\u047f\u0482\u0001\u0000\u0000\u0000\u0480\u047e\u0001\u0000"+
+		"\u0000\u0000\u0480\u0481\u0001\u0000\u0000\u0000\u0481\u0484\u0001\u0000"+
+		"\u0000\u0000\u0482\u0480\u0001\u0000\u0000\u0000\u0483\u047b\u0001\u0000"+
+		"\u0000\u0000\u0483\u0484\u0001\u0000\u0000\u0000\u0484\u0485\u0001\u0000"+
+		"\u0000\u0000\u0485\u0486\u0005\u009c\u0000\u0000\u0486\u00a9\u0001\u0000"+
+		"\u0000\u0000\u0487\u048a\u0005\u00a5\u0000\u0000\u0488\u0489\u0005\u0099"+
+		"\u0000\u0000\u0489\u048b\u0007\u000b\u0000\u0000\u048a\u0488\u0001\u0000"+
+		"\u0000\u0000\u048a\u048b\u0001\u0000\u0000\u0000\u048b\u00ab\u0001\u0000"+
+		"\u0000\u0000\u048c\u048d\u0005\u00a5\u0000\u0000\u048d\u00ad\u0001\u0000"+
+		"\u0000\u0000\u048e\u048f\u0007\f\u0000\u0000\u048f\u00af\u0001\u0000\u0000"+
+		"\u0000\u0490\u0491\u0003\u0014\n\u0000\u0491\u0494\u0005\u0093\u0000\u0000"+
+		"\u0492\u0493\u0005{\u0000\u0000\u0493\u0495\u00055\u0000\u0000\u0494\u0492"+
+		"\u0001\u0000\u0000\u0000\u0494\u0495\u0001\u0000\u0000\u0000\u0495\u0496"+
+		"\u0001\u0000\u0000\u0000\u0496\u0497\u0005Z\u0000\u0000\u0497\u0499\u0003"+
+		"\u00b2Y\u0000\u0498\u049a\u0005z\u0000\u0000\u0499\u0498\u0001\u0000\u0000"+
+		"\u0000\u0499\u049a\u0001\u0000\u0000\u0000\u049a\u00b1\u0001\u0000\u0000"+
+		"\u0000\u049b\u04a4\u0005\u0086\u0000\u0000\u049c\u04a1\u0003\u00b4Z\u0000"+
+		"\u049d\u049e\u0005|\u0000\u0000\u049e\u04a0\u0003\u00b4Z\u0000\u049f\u049d"+
+		"\u0001\u0000\u0000\u0000\u04a0\u04a3\u0001\u0000\u0000\u0000\u04a1\u049f"+
+		"\u0001\u0000\u0000\u0000\u04a1\u04a2\u0001\u0000\u0000\u0000\u04a2\u04a5"+
+		"\u0001\u0000\u0000\u0000\u04a3\u04a1\u0001\u0000\u0000\u0000\u04a4\u049c"+
+		"\u0001\u0000\u0000\u0000\u04a4\u04a5\u0001\u0000\u0000\u0000\u04a5\u04a7"+
+		"\u0001\u0000\u0000\u0000\u04a6\u04a8\u0005|\u0000\u0000\u04a7\u04a6\u0001"+
+		"\u0000\u0000\u0000\u04a7\u04a8\u0001\u0000\u0000\u0000\u04a8\u04a9\u0001"+
+		"\u0000\u0000\u0000\u04a9\u04aa\u0005\u0087\u0000\u0000\u04aa\u00b3\u0001"+
+		"\u0000\u0000\u0000\u04ab\u04ac\u0005\u0084\u0000\u0000\u04ac\u04b1\u0003"+
+		"\u00b6[\u0000\u04ad\u04ae\u0005|\u0000\u0000\u04ae\u04b0\u0003\u00b6["+
+		"\u0000\u04af\u04ad\u0001\u0000\u0000\u0000\u04b0\u04b3\u0001\u0000\u0000"+
+		"\u0000\u04b1\u04af\u0001\u0000\u0000\u0000\u04b1\u04b2\u0001\u0000\u0000"+
+		"\u0000\u04b2\u04b5\u0001\u0000\u0000\u0000\u04b3\u04b1\u0001\u0000\u0000"+
+		"\u0000\u04b4\u04b6\u0005|\u0000\u0000\u04b5\u04b4\u0001\u0000\u0000\u0000"+
+		"\u04b5\u04b6\u0001\u0000\u0000\u0000\u04b6\u04b7\u0001\u0000\u0000\u0000"+
+		"\u04b7\u04b8\u0005\u0085\u0000\u0000\u04b8\u00b5\u0001\u0000\u0000\u0000"+
+		"\u04b9\u04ba\u0005;\u0000\u0000\u04ba\u04bb\u0005{\u0000\u0000\u04bb\u04e3"+
+		"\u0005\u008f\u0000\u0000\u04bc\u04bd\u0005<\u0000\u0000\u04bd\u04be\u0005"+
+		"{\u0000\u0000\u04be\u04e3\u0005\u0093\u0000\u0000\u04bf\u04c0\u0005=\u0000"+
+		"\u0000\u04c0\u04c1\u0005{\u0000\u0000\u04c1\u04e3\u0005\u008f\u0000\u0000"+
+		"\u04c2\u04c3\u0005>\u0000\u0000\u04c3\u04c4\u0005{\u0000\u0000\u04c4\u04e3"+
+		"\u0005\u008f\u0000\u0000\u04c5\u04c6\u0005?\u0000\u0000\u04c6\u04c7\u0005"+
+		"{\u0000\u0000\u04c7\u04e3\u0003\u00b2Y\u0000\u04c8\u04c9\u0005@\u0000"+
+		"\u0000\u04c9\u04ce\u0005{\u0000\u0000\u04ca\u04cf\u0005\u008f\u0000\u0000"+
+		"\u04cb\u04cf\u0003\u001c\u000e\u0000\u04cc\u04cf\u0003\u008aE\u0000\u04cd"+
+		"\u04cf\u0003\u0088D\u0000\u04ce\u04ca\u0001\u0000\u0000\u0000\u04ce\u04cb"+
+		"\u0001\u0000\u0000\u0000\u04ce\u04cc\u0001\u0000\u0000\u0000\u04ce\u04cd"+
+		"\u0001\u0000\u0000\u0000\u04cf\u04e3\u0001\u0000\u0000\u0000\u04d0\u04d1"+
+		"\u0005A\u0000\u0000\u04d1\u04d2\u0005{\u0000\u0000\u04d2\u04e3\u0003x"+
+		"<\u0000\u04d3\u04d4\u0005B\u0000\u0000\u04d4\u04d5\u0005{\u0000\u0000"+
+		"\u04d5\u04e3\u0003x<\u0000\u04d6\u04d7\u0005C\u0000\u0000\u04d7\u04d8"+
+		"\u0005{\u0000\u0000\u04d8\u04e3\u0003x<\u0000\u04d9\u04da\u0005D\u0000"+
+		"\u0000\u04da\u04db\u0005{\u0000\u0000\u04db\u04e3\u0003x<\u0000\u04dc"+
+		"\u04dd\u0005E\u0000\u0000\u04dd\u04de\u0005{\u0000\u0000\u04de\u04e3\u0003"+
+		"|>\u0000\u04df\u04e0\u0005F\u0000\u0000\u04e0\u04e1\u0005{\u0000\u0000"+
+		"\u04e1\u04e3\u0003|>\u0000\u04e2\u04b9\u0001\u0000\u0000\u0000\u04e2\u04bc"+
+		"\u0001\u0000\u0000\u0000\u04e2\u04bf\u0001\u0000\u0000\u0000\u04e2\u04c2"+
+		"\u0001\u0000\u0000\u0000\u04e2\u04c5\u0001\u0000\u0000\u0000\u04e2\u04c8"+
+		"\u0001\u0000\u0000\u0000\u04e2\u04d0\u0001\u0000\u0000\u0000\u04e2\u04d3"+
+		"\u0001\u0000\u0000\u0000\u04e2\u04d6\u0001\u0000\u0000\u0000\u04e2\u04d9"+
+		"\u0001\u0000\u0000\u0000\u04e2\u04dc\u0001\u0000\u0000\u0000\u04e2\u04df"+
+		"\u0001\u0000\u0000\u0000\u04e3\u00b7\u0001\u0000\u0000\u0000\u04e4\u04e5"+
+		"\u00054\u0000\u0000\u04e5\u04e6\u0005}\u0000\u0000\u04e6\u04e7\u0007\r"+
+		"\u0000\u0000\u04e7\u04e9\u0005\u0082\u0000\u0000\u04e8\u04ea\u0003r9\u0000"+
+		"\u04e9\u04e8\u0001\u0000\u0000\u0000\u04e9\u04ea\u0001\u0000\u0000\u0000"+
+		"\u04ea\u04eb\u0001\u0000\u0000\u0000\u04eb\u04ec\u0005\u0083\u0000\u0000"+
+		"\u04ec\u00b9\u0001\u0000\u0000\u0000\u04ed\u04ee\u0005.\u0000\u0000\u04ee"+
+		"\u04f0\u0005}\u0000\u0000\u04ef\u04ed\u0001\u0000\u0000\u0000\u04ef\u04f0"+
+		"\u0001\u0000\u0000\u0000\u04f0\u04f1\u0001\u0000\u0000\u0000\u04f1\u04f2"+
+		"\u0005\u0093\u0000\u0000\u04f2\u04f3\u0005}\u0000\u0000\u04f3\u04f4\u0007"+
+		"\u000e\u0000\u0000\u04f4\u04f6\u0005\u0082\u0000\u0000\u04f5\u04f7\u0003"+
+		"r9\u0000\u04f6\u04f5\u0001\u0000\u0000\u0000\u04f6\u04f7\u0001\u0000\u0000"+
+		"\u0000\u04f7\u04f8\u0001\u0000\u0000\u0000\u04f8\u04fa\u0005\u0083\u0000"+
+		"\u0000\u04f9\u04fb\u0005z\u0000\u0000\u04fa\u04f9\u0001\u0000\u0000\u0000"+
+		"\u04fa\u04fb\u0001\u0000\u0000\u0000\u04fb\u00bb\u0001\u0000\u0000\u0000"+
+		"\u04fc\u04fd\u0003\u0014\n\u0000\u04fd\u0500\u0005\u0093\u0000\u0000\u04fe"+
+		"\u04ff\u0005{\u0000\u0000\u04ff\u0501\u0003\u0096K\u0000\u0500\u04fe\u0001"+
+		"\u0000\u0000\u0000\u0500\u0501\u0001\u0000\u0000\u0000\u0501\u0502\u0001"+
+		"\u0000\u0000\u0000\u0502\u0503\u0005Z\u0000\u0000\u0503\u0504\u0005J\u0000"+
+		"\u0000\u0504\u0506\u0005\u0082\u0000\u0000\u0505\u0507\u0003r9\u0000\u0506"+
+		"\u0505\u0001\u0000\u0000\u0000\u0506\u0507\u0001\u0000\u0000\u0000\u0507"+
+		"\u0508\u0001\u0000\u0000\u0000\u0508\u050a\u0005\u0083\u0000\u0000\u0509"+
+		"\u050b\u0005z\u0000\u0000\u050a\u0509\u0001\u0000\u0000\u0000\u050a\u050b"+
+		"\u0001\u0000\u0000\u0000\u050b\u00bd\u0001\u0000\u0000\u0000\u050c\u050d"+
+		"\u0003\u0014\n\u0000\u050d\u0510\u0005\u0093\u0000\u0000\u050e\u050f\u0005"+
+		"{\u0000\u0000\u050f\u0511\u0003\u0096K\u0000\u0510\u050e\u0001\u0000\u0000"+
+		"\u0000\u0510\u0511\u0001\u0000\u0000\u0000\u0511\u0512\u0001\u0000\u0000"+
+		"\u0000\u0512\u0513\u0005Z\u0000\u0000\u0513\u0514\u0005L\u0000\u0000\u0514"+
+		"\u0516\u0005\u0082\u0000\u0000\u0515\u0517\u0003r9\u0000\u0516\u0515\u0001"+
+		"\u0000\u0000\u0000\u0516\u0517\u0001\u0000\u0000\u0000\u0517\u0518\u0001"+
+		"\u0000\u0000\u0000\u0518\u051a\u0005\u0083\u0000\u0000\u0519\u051b\u0005"+
+		"z\u0000\u0000\u051a\u0519\u0001\u0000\u0000\u0000\u051a\u051b\u0001\u0000"+
+		"\u0000\u0000\u051b\u00bf\u0001\u0000\u0000\u0000\u051c\u051e\u0003\u0098"+
+		"L\u0000\u051d\u051c\u0001\u0000\u0000\u0000\u051d\u051e\u0001\u0000\u0000"+
+		"\u0000\u051e\u051f\u0001\u0000\u0000\u0000\u051f\u0521\u0005\u0093\u0000"+
+		"\u0000\u0520\u0522\u0005~\u0000\u0000\u0521\u0520\u0001\u0000\u0000\u0000"+
+		"\u0521\u0522\u0001\u0000\u0000\u0000\u0522\u0525\u0001\u0000\u0000\u0000"+
+		"\u0523\u0524\u0005{\u0000\u0000\u0524\u0526\u0003\u0096K\u0000\u0525\u0523"+
+		"\u0001\u0000\u0000\u0000\u0525\u0526\u0001\u0000\u0000\u0000\u0526\u0527"+
+		"\u0001\u0000\u0000\u0000\u0527\u0528\u0005Z\u0000\u0000\u0528\u0529\u0005"+
+		"P\u0000\u0000\u0529\u052c\u0005\u0082\u0000\u0000\u052a\u052d\u0003\u001c"+
+		"\u000e\u0000\u052b\u052d\u0003\u008aE\u0000\u052c\u052a\u0001\u0000\u0000"+
+		"\u0000\u052c\u052b\u0001\u0000\u0000\u0000\u052d\u052e\u0001\u0000\u0000"+
+		"\u0000\u052e\u0530\u0005\u0083\u0000\u0000\u052f\u0531\u0005z\u0000\u0000"+
+		"\u0530\u052f\u0001\u0000\u0000\u0000\u0530\u0531\u0001\u0000\u0000\u0000"+
+		"\u0531\u00c1\u0001\u0000\u0000\u0000\u0532\u0533\u0005G\u0000\u0000\u0533"+
+		"\u0534\u0005}\u0000\u0000\u0534\u0535\u0007\u000f\u0000\u0000\u0535\u0537"+
+		"\u0005\u0082\u0000\u0000\u0536\u0538\u0003r9\u0000\u0537\u0536\u0001\u0000"+
+		"\u0000\u0000\u0537\u0538\u0001\u0000\u0000\u0000\u0538\u0539\u0001\u0000"+
+		"\u0000\u0000\u0539\u053a\u0005\u0083\u0000\u0000\u053a\u00c3\u0001\u0000"+
+		"\u0000\u0000\u053b\u053c\u0005H\u0000\u0000\u053c\u053d\u0005}\u0000\u0000"+
+		"\u053d\u053e\u0007\u000f\u0000\u0000\u053e\u0540\u0005\u0082\u0000\u0000"+
+		"\u053f\u0541\u0003r9\u0000\u0540\u053f\u0001\u0000\u0000\u0000\u0540\u0541"+
+		"\u0001\u0000\u0000\u0000\u0541\u0542\u0001\u0000\u0000\u0000\u0542\u0543"+
+		"\u0005\u0083\u0000\u0000\u0543\u00c5\u0001\u0000\u0000\u0000\u0544\u0545"+
+		"\u0005.\u0000\u0000\u0545\u0547\u0005}\u0000\u0000\u0546\u0544\u0001\u0000"+
+		"\u0000\u0000\u0546\u0547\u0001\u0000\u0000\u0000\u0547\u0548\u0001\u0000"+
+		"\u0000\u0000\u0548\u0549\u0005\u0093\u0000\u0000\u0549\u054a\u0005}\u0000"+
+		"\u0000\u054a\u054b\u0005S\u0000\u0000\u054b\u054d\u0005\u0082\u0000\u0000"+
+		"\u054c\u054e\u0003r9\u0000\u054d\u054c\u0001\u0000\u0000\u0000\u054d\u054e"+
+		"\u0001\u0000\u0000\u0000\u054e\u054f\u0001\u0000\u0000\u0000\u054f\u0551"+
+		"\u0005\u0083\u0000\u0000\u0550\u0552\u0005z\u0000\u0000\u0551\u0550\u0001"+
+		"\u0000\u0000\u0000\u0551\u0552\u0001\u0000\u0000\u0000\u0552\u00c7\u0001"+
+		"\u0000\u0000\u0000\u0553\u0554\u0005.\u0000\u0000\u0554\u0556\u0005}\u0000"+
+		"\u0000\u0555\u0553\u0001\u0000\u0000\u0000\u0555\u0556\u0001\u0000\u0000"+
+		"\u0000\u0556\u0557\u0001\u0000\u0000\u0000\u0557\u0558\u0005\u0093\u0000"+
+		"\u0000\u0558\u0559\u0005}\u0000\u0000\u0559\u055a\u0005R\u0000\u0000\u055a"+
+		"\u055c\u0005\u0082\u0000\u0000\u055b\u055d\u0003r9\u0000\u055c\u055b\u0001"+
+		"\u0000\u0000\u0000\u055c\u055d\u0001\u0000\u0000\u0000\u055d\u055e\u0001"+
+		"\u0000\u0000\u0000\u055e\u055f\u0005\u0083\u0000\u0000\u055f\u00c9\u0001"+
+		"\u0000\u0000\u0000\u00a0\u00cd\u00d2\u00d4\u00e0\u00ed\u00f6\u00fa\u00fc"+
+		"\u0102\u0114\u011a\u011e\u0121\u0128\u012e\u0133\u013c\u0141\u0149\u014d"+
+		"\u0151\u0156\u015b\u015d\u0166\u0169\u0173\u0177\u0188\u018e\u0191\u019b"+
+		"\u019f\u01c5\u01cb\u01ce\u01d8\u01dc\u01e4\u01ea\u01f2\u01f5\u01ff\u0203"+
+		"\u020d\u0210\u021a\u021e\u0225\u022f\u0232\u023a\u023d\u0246\u024a\u0250"+
+		"\u0252\u0258\u025c\u0260\u0264\u0268\u026f\u0275\u027a\u0281\u028b\u028f"+
+		"\u0299\u029c\u02a5\u02aa\u02b1\u02be\u02c2\u02c7\u02d3\u02d8\u02e4\u02e8"+
+		"\u02f6\u02fa\u030e\u0313\u031b\u0324\u032b\u032f\u0333\u0357\u035e\u0366"+
+		"\u036a\u036f\u0373\u037b\u037e\u0381\u038b\u038f\u0398\u039c\u03a5\u03a9"+
+		"\u03af\u03b3\u03bf\u03c5\u03cd\u03e5\u0403\u0405\u040e\u041a\u0421\u0429"+
+		"\u0432\u0439\u043c\u0442\u0451\u045a\u045c\u0471\u0474\u0478\u0480\u0483"+
+		"\u048a\u0494\u0499\u04a1\u04a4\u04a7\u04b1\u04b5\u04ce\u04e2\u04e9\u04ef"+
+		"\u04f6\u04fa\u0500\u0506\u050a\u0510\u0516\u051a\u051d\u0521\u0525\u052c"+
+		"\u0530\u0537\u0540\u0546\u054d\u0551\u0555\u055c";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

@@ -65,6 +65,10 @@ declaration
     | enumDeclaration           # EnumDecl                     // Represents an Enum declaration.
     | variableDeclaration       # VariableDecl                 // Represents a Variable declaration.
     | functionDeclaration       # FunctionDecl                 // Represents a Function declaration.
+    | actionDeclaration         # ActionDecl
+    | reducerDeclaration        # ReducerDecl
+    | effectDeclaration         # EffectDecl
+    | routesDeclaration         # RouteDecl
     ;
 
 /* ================= Variable Declarations ================= */
@@ -329,6 +333,9 @@ statement
     | bootstrapCall             # BootstrapCallSt             // A bootstrap function call with optional error handling (e.g., `fetch().catch(error => { ... })`).
     | functionCall              # FunctionCallSt              // A function call (e.g., `myFunction(arg1, arg2)`).
     | expression SEMI?          # ExpressionSt                // A generic expression statement.
+    | storeDispatchStatement    # StoreDispatchSt
+    | navigationStatement       # NavigationSt
+    | routerModuleCall          # RouterModuleSt
     ;
 
 /* Assignment */
@@ -378,7 +385,7 @@ statementBody
 
 /* Function Call */
 functionCall
-    : IDENTIFIER genericType? LPAREN parameterList? RPAREN SEMI    // A function call with optional generics and parameters (e.g., `myFunction<T>(arg1, arg2)`).
+    : memberChain LPAREN parameterList? RPAREN SEMI    // A function call with optional generics and parameters (e.g., `myFunction<T>(arg1, arg2)`).
     ;
 
 /* Bootstrap Call */
@@ -454,6 +461,16 @@ arrayAccess
     : IDENTIFIER LBRACK expression RBRACK                  // Access an element of an array using an identifier (array name) and an index within square brackets (e.g., `array[index]`).
     ;
 
+/* ---- Member chain & calls (new) ---- */
+memberChain
+    : primary (DOT IDENTIFIER)*
+    ;
+
+callExpression
+    : memberChain LPAREN parameterList? RPAREN
+    ;
+
+
 
 /* ================= Initialization Rules ================= */
 initialization
@@ -472,7 +489,7 @@ literal
     | BOOL                                                      // A boolean value (`true` or `false`).
     | NULL                                                      // A null value.
     //| TEMPLATE_LITERAL
-    | CSS_TEMPLATE
+   // | CSS_TEMPLATE
     ;
 
 /* ================= Expression Rules ================= */
@@ -484,7 +501,6 @@ expression
     | PLUS_PLUS expression                                                      # PreIncrementExpression        // A pre-increment operation (e.g., `++i`).
     | MINUS_MINUS expression                                                    # PreDecreaseExpression         // A pre-decrement operation (e.g., `--i`).
     | NOT expression                                                            # NotExpression                 // A logical NOT operation (e.g., `!isValid`).
-    | DOT expression                                                            # MemberAccessExpression        // A member access operation (e.g., `object.property`).
     | expression (MULT | DIV | MOD) expression                                  # MultiplicativeExpression      // Multiplicative operations (e.g., `a * b`, `a / b`, `a % b`).
     | expression (PLUS | MINUS) expression                                      # AdditiveExpression            // Additive operations (e.g., `a + b`, `a - b`).
     | expression (LT | GT | LTE | GTE) expression                               # RelationalExpression          // Relational comparisons (e.g., `a < b`, `a >= b`).
@@ -495,6 +511,13 @@ expression
     | LPAREN expression RPAREN                                                  # ParenthesizedExpression       // An expression enclosed in parentheses (e.g., `(a + b)`).
     | value                                                                     # ValueExpression               // Value expression (e.g. primary, arrayAccess).
     | parameterDeclaration                                                      # ParameterExpression           // Parameter declaration expression (e.g. name: string, id: int = 1).
+    | storeSelectExpression                                                     # SelectExpression
+    | callExpression                                                            # CallExpressionn
+    | memberChain                                                               # MemberChainExpression
+    | storeModuleCall                                                           # StoreModuleCallExpr
+    | effectsModuleCall                                                         # EffectsModuleCallExpr
+   // | /* ... the rest as before ... */
+
     ;
 
 /* ================= Type Annotation Rules ================= */
@@ -588,4 +611,82 @@ structuralDirective
     : NGFOR           // *ngFor directive
     | NGIF            // *ngIf directive
     | DDIRECTIVE      // Any other directive
+    ;
+
+
+/* ====================== Navigation (Router) ====================== */
+
+/* const routes: Routes = [ { path: 'home', component: HomeComponent, ... } ]; */
+routesDeclaration
+    : varHelper IDENTIFIER (COLON ROUTES)? ASSIGN routesArray SEMI?
+    ;
+
+routesArray
+    : LBRACK (route (COMMA route)*)? COMMA? RBRACK
+    ;
+
+route
+    : LBRACE routeProperty (COMMA routeProperty)* COMMA? RBRACE
+    ;
+
+routeProperty
+    : ROUTE_PATH COLON STRING
+    | ROUTE_COMPONENT COLON IDENTIFIER
+    | ROUTE_REDIRECT_TO COLON STRING
+    | ROUTE_PATH_MATCH COLON STRING
+    | ROUTE_CHILDREN COLON routesArray
+    | ROUTE_LOAD_CHILDREN COLON (STRING | arrowFunction | callExpression | memberChain)
+    | ROUTE_CAN_ACTIVATE COLON array
+    | ROUTE_CAN_ACTIVATE_CHILD COLON array
+    | ROUTE_CAN_DEACTIVATE COLON array
+    | ROUTE_CAN_MATCH COLON array
+    | ROUTE_RESOLVE COLON object
+    | ROUTE_DATA COLON object
+    ;
+
+/* RouterModule.forRoot(routes) or RouterModule.forChild(routes) */
+routerModuleCall
+    : ROUTER_MODULE DOT (FOR_ROOT | FOR_CHILD) LPAREN parameterList? RPAREN
+    ;
+
+/* Programmatic navigation: this.router.navigate(...); / navigateByUrl(...) */
+navigationStatement
+    : (THIS DOT)? IDENTIFIER DOT (NAVIGATE | NAVIGATE_BY_URL) LPAREN parameterList? RPAREN SEMI?
+    ;
+
+
+/* ====================== State Management (NgRx) ====================== */
+
+/* Actions: const load = createAction('[Users] Load', props<{ id: number }>()); */
+actionDeclaration
+    : varHelper IDENTIFIER (COLON typeAnnotation)? ASSIGN CREATE_ACTION LPAREN parameterList? RPAREN SEMI?
+    ;
+
+/* Reducers: const reducer = createReducer(initialState, on(load, (state) => state)); */
+reducerDeclaration
+    : varHelper IDENTIFIER (COLON typeAnnotation)? ASSIGN CREATE_REDUCER LPAREN parameterList? RPAREN SEMI?
+    ;
+
+/* Effects: load$ = createEffect(() => this.actions$.pipe(ofType(load), ...)); */
+effectDeclaration
+    : accessModifier? IDENTIFIER QUES? (COLON typeAnnotation)? ASSIGN CREATE_EFFECT LPAREN (arrowFunction | callExpression) RPAREN SEMI?
+    ;
+
+/* Store module calls inside imports: StoreModule.forRoot({...}) / forFeature(...) */
+storeModuleCall
+    : STORE_MODULE DOT (FOR_ROOT | FOR_FEATURE) LPAREN parameterList? RPAREN
+    ;
+
+/* Effects module calls inside imports: EffectsModule.forRoot([...]) / forFeature([...]) */
+effectsModuleCall
+    : EFFECTS_MODULE DOT (FOR_ROOT | FOR_FEATURE) LPAREN parameterList? RPAREN
+    ;
+
+/* Programmatic store usage */
+storeDispatchStatement
+    : (THIS DOT)? IDENTIFIER DOT DISPATCH LPAREN parameterList? RPAREN SEMI?
+    ;
+
+storeSelectExpression
+    : (THIS DOT)? IDENTIFIER DOT SELECT LPAREN parameterList? RPAREN
     ;
