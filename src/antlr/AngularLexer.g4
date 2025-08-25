@@ -70,7 +70,6 @@ EXTENDS: 'extends';
 IMPLEMENTS: 'implements';
 
 CONSTRUCTOR: 'constructor';
-THIS: 'this';
 NEW: 'new';
 
 FUNCTION: 'function';
@@ -81,48 +80,8 @@ PRIVATE: 'private';
 PUBLIC: 'public';
 PROTECTED: 'protected';
 
-
-// Router / Navigation Keywords
-ROUTER_MODULE: 'RouterModule';
-ROUTES: 'Routes';
-FOR_ROOT: 'forRoot';
-FOR_CHILD: 'forChild';
-ROUTER: 'Router';
-NAVIGATE: 'navigate';
-NAVIGATE_BY_URL: 'navigateByUrl';
-
-// Route object keys
-ROUTE_PATH: 'path';
-ROUTE_COMPONENT: 'component';
-ROUTE_REDIRECT_TO: 'redirectTo';
-ROUTE_PATH_MATCH: 'pathMatch';
-ROUTE_CHILDREN: 'children';
-ROUTE_LOAD_CHILDREN: 'loadChildren';
-ROUTE_CAN_ACTIVATE: 'canActivate';
-ROUTE_CAN_ACTIVATE_CHILD: 'canActivateChild';
-ROUTE_CAN_DEACTIVATE: 'canDeactivate';
-ROUTE_CAN_MATCH: 'canMatch';
-ROUTE_RESOLVE: 'resolve';
-ROUTE_DATA: 'data';
-
-// NgRx / State Management
-STORE_MODULE: 'StoreModule';
-EFFECTS_MODULE: 'EffectsModule';
-FOR_FEATURE: 'forFeature';
-
-CREATE_ACTION: 'createAction';
-PROPS: 'props';
-CREATE_REDUCER: 'createReducer';
-ON_KW: 'on';                 // 'on' is a common identifier; making it a token is fine.
-CREATE_SELECTOR: 'createSelector';
-CREATE_FEATURE_SELECTOR: 'createFeatureSelector';
-CREATE_EFFECT: 'createEffect';
-OF_TYPE: 'ofType';
-SELECT: 'select';
-DISPATCH: 'dispatch';
-ACTIONS: 'Actions';
-PIPEFN: 'pipe';              // not @Pipe (that’s already PIPE). This is RxJS pipe()
-
+// Navigation
+ROUTE_CONFIG: 'Routes';
 
 // Comparison Operators
 GT: '>';
@@ -204,7 +163,7 @@ OF: 'of';
 IN: 'in';
 
 // Literals
-STRING: '"' (~["\\] | '\\' .)* '"' | '\'' (~['\\] | '\\' .)* '\'';             // Integer or decimal numbers
+STRING: '"' (~["\\\r\n] | '\\' .)* '"' | '\'' (~['\\\r\n] | '\\' .)* '\'';             // Integer or decimal numbers
 NUMBER: [0-9]+ ('.' [0-9]+)?;                       // Integer or decimal numbers
 BOOL: 'true' | 'false';                             // Boolean literals
 NULL: 'null';                                       // Null value
@@ -216,10 +175,19 @@ IDENTIFIER: [a-zA-Z][-_a-zA-Z0-9]*; // General identifiers
 
 
 // Beginning of the HTML template
-HTML_TEMPLATE: '`' -> pushMode(HTML);
+HTML_TEMPLATE: '`' WS* '<' -> pushMode(HTML);
 
 // CSS Style
-//CSS_TEMPLATE: '`' (~["\\] | '\\' .)* '`';
+CSS_TEMPLATE: '`' (~["\\] | '\\' .)* '`';
+
+//IGNORE_TEMPLATE
+//    : '`' ( ~[`\\] | '\\' . )* '`' -> skip
+//    ;
+//
+//TEMPLATE_LITERAL
+//    : '`' ( ~[`\\] | '\\' . )* '`'
+//    ;
+
 
 fragment WS
     : SPACES
@@ -235,7 +203,9 @@ CLOSE_TAG       : '>' ;
 SLASH           : '/' ;
 EQUALS          : '=' ;
 COL             : ':' ;
-STRING_HTML     : '"' .*? '"' | '\'' .*? '\'' ;
+STRING_HTML: '"' (~["] | '\\' .)* '"'
+           | '\'' (~['] | '\\' .)* '\'';
+QUES_HTML: '?';
 
 // Tokens for Angular-specific syntax
 INTERPOLATION_START : '{{' ;

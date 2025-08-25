@@ -65,10 +65,7 @@ declaration
     | enumDeclaration           # EnumDecl                     // Represents an Enum declaration.
     | variableDeclaration       # VariableDecl                 // Represents a Variable declaration.
     | functionDeclaration       # FunctionDecl                 // Represents a Function declaration.
-    | actionDeclaration         # ActionDecl
-    | reducerDeclaration        # ReducerDecl
-    | effectDeclaration         # EffectDecl
-    | routesDeclaration         # RouteDecl
+    | routingDeclaration        # RoutingDecl
     ;
 
 /* ================= Variable Declarations ================= */
@@ -270,6 +267,7 @@ propertyDeclaration
 /* Method Declaration */
 methodDeclaration
     : decorator*                                             // Optional decorators for the method.
+      accessModifier?
       IDENTIFIER LPAREN parameterList? RPAREN                // Method name and optional parameter list.
       (COLON typeAnnotation)?                                // Optional return type annotation.
       block                                    // Method body enclosed in braces.
@@ -333,9 +331,6 @@ statement
     | bootstrapCall             # BootstrapCallSt             // A bootstrap function call with optional error handling (e.g., `fetch().catch(error => { ... })`).
     | functionCall              # FunctionCallSt              // A function call (e.g., `myFunction(arg1, arg2)`).
     | expression SEMI?          # ExpressionSt                // A generic expression statement.
-    | storeDispatchStatement    # StoreDispatchSt
-    | navigationStatement       # NavigationSt
-    | routerModuleCall          # RouterModuleSt
     ;
 
 /* Assignment */
@@ -350,7 +345,7 @@ printStatement
 
 /* Return Statement */
 returnStatement
-    : RETURN expression SEMI                       // Return a value or expression from a function (e.g., `return x + y;`).
+    : RETURN expression? SEMI                       // Return a value or expression from a function (e.g., `return x + y;`).
     ;
 
 /* Throw Statement */
@@ -385,7 +380,7 @@ statementBody
 
 /* Function Call */
 functionCall
-    : memberChain LPAREN parameterList? RPAREN SEMI    // A function call with optional generics and parameters (e.g., `myFunction<T>(arg1, arg2)`).
+    : IDENTIFIER genericType? LPAREN parameterList? RPAREN SEMI?    // A function call with optional generics and parameters (e.g., `myFunction<T>(arg1, arg2)`).
     ;
 
 /* Bootstrap Call */
@@ -442,7 +437,7 @@ attributes
     ;
 
 attribute
-    : IDENTIFIER COLON expression                             // A key-value pair in an object (e.g., `key: value`).
+    : IDENTIFIER (COLON expression)?                             // A key-value pair in an object (e.g., `key: value`).
     ;
 
 objectInstantiation
@@ -461,16 +456,6 @@ arrayAccess
     : IDENTIFIER LBRACK expression RBRACK                  // Access an element of an array using an identifier (array name) and an index within square brackets (e.g., `array[index]`).
     ;
 
-/* ---- Member chain & calls (new) ---- */
-memberChain
-    : primary (DOT IDENTIFIER)*
-    ;
-
-callExpression
-    : memberChain LPAREN parameterList? RPAREN
-    ;
-
-
 
 /* ================= Initialization Rules ================= */
 initialization
@@ -484,23 +469,23 @@ primary
     ;
 
 literal
-    : NUMBER                                                    // A numeric value (e.g., `42`, `3.14`).
+    : (PLUS | MINUS)? NUMBER                                                    // A numeric value (e.g., `42`, `3.14`).
     | STRING                                                    // A string literal (e.g., `"hello"`, `'world'`).
     | BOOL                                                      // A boolean value (`true` or `false`).
     | NULL                                                      // A null value.
-    //| TEMPLATE_LITERAL
-   // | CSS_TEMPLATE
+    | CSS_TEMPLATE
     ;
 
 /* ================= Expression Rules ================= */
 expression
-    : functionCall                                                              # FunctionCallExpression        // A function call expression (e.g., `myFunction(arg1, arg2)`).
+    : functionCall expression?                                                  # FunctionCallExpression        // A function call expression (e.g., `myFunction(arg1, arg2)`).
     | functionDeclaration                                                       # FunctionExpression            // A function expression (e.g. (name) => {...}).
     | expression PLUS_PLUS                                                      # PostIncrementExpression       // A post-increment operation (e.g., `i++`).
     | expression MINUS_MINUS                                                    # PostDecreaseExpression        // A post-decrement operation (e.g., `i--`).
     | PLUS_PLUS expression                                                      # PreIncrementExpression        // A pre-increment operation (e.g., `++i`).
     | MINUS_MINUS expression                                                    # PreDecreaseExpression         // A pre-decrement operation (e.g., `--i`).
     | NOT expression                                                            # NotExpression                 // A logical NOT operation (e.g., `!isValid`).
+    | DOT expression                                                            # MemberAccessExpression        // A member access operation (e.g., `object.property`).
     | expression (MULT | DIV | MOD) expression                                  # MultiplicativeExpression      // Multiplicative operations (e.g., `a * b`, `a / b`, `a % b`).
     | expression (PLUS | MINUS) expression                                      # AdditiveExpression            // Additive operations (e.g., `a + b`, `a - b`).
     | expression (LT | GT | LTE | GTE) expression                               # RelationalExpression          // Relational comparisons (e.g., `a < b`, `a >= b`).
@@ -510,26 +495,19 @@ expression
     | expression QUES expression COLON expression                               # TernaryExpression             // Ternary conditional operation (e.g., `a ? b : c`).
     | LPAREN expression RPAREN                                                  # ParenthesizedExpression       // An expression enclosed in parentheses (e.g., `(a + b)`).
     | value                                                                     # ValueExpression               // Value expression (e.g. primary, arrayAccess).
-    | parameterDeclaration                                                      # ParameterExpression           // Parameter declaration expression (e.g. name: string, id: int = 1).
-    | storeSelectExpression                                                     # SelectExpression
-    | callExpression                                                            # CallExpressionn
-    | memberChain                                                               # MemberChainExpression
-    | storeModuleCall                                                           # StoreModuleCallExpr
-    | effectsModuleCall                                                         # EffectsModuleCallExpr
-   // | /* ... the rest as before ... */
-
+    | parameterDeclaration                                                      # ParameterExpression          // Parameter declaration expression (e.g. name: string, id: int = 1).
     ;
 
 /* ================= Type Annotation Rules ================= */
 genericType
-    : LT typeAnnotation (COMMA typeAnnotation)* GT                // Generic type specification (e.g., `Array<string>`, `Map<number, string>`).
+    : LT (typeAnnotation (COMMA typeAnnotation)*) GT                // Generic type specification (e.g., `Array<string>`, `Map<number, string>`).
     ;
 
 typeAnnotation
     : IDENTIFIER genericType                                  # GenericTypeAnnotation
     // A type identifier with optional generic types, e.g., `Promise<string>` or `Array<number>`.
 
-    | (IDENTIFIER | NULL) (BIT_OR (IDENTIFIER | NULL))*       # PipeTypeAnnotation
+    | (IDENTIFIER | NULL | literal) (BIT_OR (IDENTIFIER | NULL))*       # PipeTypeAnnotation
     // A union type, e.g., `string | null` or `number | undefined`.
 
     | (IDENTIFIER | NULL) LBRACK RBRACK                      # ArrayTypeAnnotation
@@ -572,7 +550,7 @@ closeTag
     ;
 
 selfClosingTag
-    : OPEN_TAG tagName attributeHTML* SLASH CLOSE_TAG
+    : OPEN_TAG tagName attributeHTML* SLASH? CLOSE_TAG
     ;
 
 /* Content inside tags */
@@ -594,11 +572,13 @@ attributeHTML
 
 /* Interpolation rule for Angular syntax */
 interpolation
-    : (ATTRIBUTE (COL | EQUALS))? INTERPOLATION_START ((interpolationElement) (P interpolationElement)*)? INTERPOLATION_END
+    : (ATTRIBUTE (COL | EQUALS))? INTERPOLATION_START ((interpolationElement) (P (P)? interpolationElement)*)? INTERPOLATION_END
     ;
 
 interpolationElement
     : ATTRIBUTE (COL (ATTRIBUTE | STRING_HTML))?
+    | ATTRIBUTE QUES_HTML STRING_HTML COL STRING_HTML
+    | STRING_HTML
     ;
 
 /* Tag names */
@@ -614,79 +594,33 @@ structuralDirective
     ;
 
 
-/* ====================== Navigation (Router) ====================== */
+/* ================= State Management Declarations ================= */
 
-/* const routes: Routes = [ { path: 'home', component: HomeComponent, ... } ]; */
-routesDeclaration
-    : varHelper IDENTIFIER (COLON ROUTES)? ASSIGN routesArray SEMI?
+/* ================= Navigation/Routing Declarations ================= */
+
+routingDeclaration
+    : routeConfigDeclaration    # RouteConfigDecl
     ;
 
-routesArray
-    : LBRACK (route (COMMA route)*)? COMMA? RBRACK
+/* Route Configuration */
+routeConfigDeclaration
+    : EXPORT? CONST IDENTIFIER COLON ROUTE_CONFIG ASSIGN
+        LBRACK (routeDefinition (COMMA routeDefinition)*)? RBRACK SEMI
     ;
 
-route
-    : LBRACE routeProperty (COMMA routeProperty)* COMMA? RBRACE
+routeDefinition
+    : LBRACE (routeProperty (COMMA routeProperty)*)? RBRACE
     ;
 
 routeProperty
-    : ROUTE_PATH COLON STRING
-    | ROUTE_COMPONENT COLON IDENTIFIER
-    | ROUTE_REDIRECT_TO COLON STRING
-    | ROUTE_PATH_MATCH COLON STRING
-    | ROUTE_CHILDREN COLON routesArray
-    | ROUTE_LOAD_CHILDREN COLON (STRING | arrowFunction | callExpression | memberChain)
-    | ROUTE_CAN_ACTIVATE COLON array
-    | ROUTE_CAN_ACTIVATE_CHILD COLON array
-    | ROUTE_CAN_DEACTIVATE COLON array
-    | ROUTE_CAN_MATCH COLON array
-    | ROUTE_RESOLVE COLON object
-    | ROUTE_DATA COLON object
-    ;
-
-/* RouterModule.forRoot(routes) or RouterModule.forChild(routes) */
-routerModuleCall
-    : ROUTER_MODULE DOT (FOR_ROOT | FOR_CHILD) LPAREN parameterList? RPAREN
-    ;
-
-/* Programmatic navigation: this.router.navigate(...); / navigateByUrl(...) */
-navigationStatement
-    : (THIS DOT)? IDENTIFIER DOT (NAVIGATE | NAVIGATE_BY_URL) LPAREN parameterList? RPAREN SEMI?
-    ;
-
-
-/* ====================== State Management (NgRx) ====================== */
-
-/* Actions: const load = createAction('[Users] Load', props<{ id: number }>()); */
-actionDeclaration
-    : varHelper IDENTIFIER (COLON typeAnnotation)? ASSIGN CREATE_ACTION LPAREN parameterList? RPAREN SEMI?
-    ;
-
-/* Reducers: const reducer = createReducer(initialState, on(load, (state) => state)); */
-reducerDeclaration
-    : varHelper IDENTIFIER (COLON typeAnnotation)? ASSIGN CREATE_REDUCER LPAREN parameterList? RPAREN SEMI?
-    ;
-
-/* Effects: load$ = createEffect(() => this.actions$.pipe(ofType(load), ...)); */
-effectDeclaration
-    : accessModifier? IDENTIFIER QUES? (COLON typeAnnotation)? ASSIGN CREATE_EFFECT LPAREN (arrowFunction | callExpression) RPAREN SEMI?
-    ;
-
-/* Store module calls inside imports: StoreModule.forRoot({...}) / forFeature(...) */
-storeModuleCall
-    : STORE_MODULE DOT (FOR_ROOT | FOR_FEATURE) LPAREN parameterList? RPAREN
-    ;
-
-/* Effects module calls inside imports: EffectsModule.forRoot([...]) / forFeature([...]) */
-effectsModuleCall
-    : EFFECTS_MODULE DOT (FOR_ROOT | FOR_FEATURE) LPAREN parameterList? RPAREN
-    ;
-
-/* Programmatic store usage */
-storeDispatchStatement
-    : (THIS DOT)? IDENTIFIER DOT DISPATCH LPAREN parameterList? RPAREN SEMI?
-    ;
-
-storeSelectExpression
-    : (THIS DOT)? IDENTIFIER DOT SELECT LPAREN parameterList? RPAREN
+    : PATH COLON STRING                                 # PathProperty
+    | COMPONENT_ROUTE COLON IDENTIFIER                  # ComponentProperty
+    | REDIRECT_TO COLON STRING                          # RedirectToProperty
+    | PATH_MATCH COLON STRING                           # PathMatchProperty
+    | CHILDREN COLON LBRACK routeDefinition* RBRACK     # ChildrenProperty
+    | LAZY_LOAD COLON arrowFunction                     # LazyLoadProperty
+    | CAN_ACTIVATE COLON array                          # CanActivateProperty
+    | CAN_DEACTIVATE COLON array                        # CanDeactivateProperty
+    | OUTLET COLON STRING                               # OutletProperty
+    | IDENTIFIER COLON expression                       # GenericRouteProperty
     ;
