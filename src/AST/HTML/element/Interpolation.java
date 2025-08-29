@@ -1,6 +1,6 @@
-package AST.HTML;
+package AST.HTML.element;
 
-import AST.HTML.element.Element;
+import AST.HTML.element.InterpolationElement.InterpolationElement;
 import AST.helpers.Space;
 
 import java.util.ArrayList;
@@ -52,5 +52,35 @@ public class Interpolation extends Element {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return "{{ ... }}"; // Placeholder for static HTML
+    }
+
+    @Override
+    public String convertToCSS() {
+        return "";
+    }
+
+    @Override
+    public String convertToJS() {
+        StringBuilder js = new StringBuilder();
+        String textVar = "text_" + System.identityHashCode(this);
+
+        js.append("const ").append(textVar).append(" = document.createTextNode(");
+
+        if (interpolationElementList.size() == 1) {
+            js.append(interpolationElementList.get(0).convertToJS());
+        } else {
+            js.append("String(").append(interpolationElementList.get(0).convertToJS()).append(")");
+            for (int i = 1; i < interpolationElementList.size(); i++) {
+                js.append(" + ' | ' + String(").append(interpolationElementList.get(i).convertToJS()).append(")");
+            }
+        }
+
+        js.append(");\n");
+        return js.toString();
     }
 }

@@ -55,32 +55,48 @@ public class ArrowFunction extends FunctionDeclaration {
 
     @Override
     public String toString() {
-        StringBuilder stringBuilder = new StringBuilder("ArrowFunction { ");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("\t".repeat(Space.currentValue)).append("ArrowFunction {\n");
 
         Space.currentValue++;
 
         // Append parameterList
         if (parameterList != null) {
-            stringBuilder.append("\t".repeat(Space.currentValue)).append(parameterList).append(",\n");
+            stringBuilder.append(parameterList).append(",\n");
         }
         else {
-            stringBuilder.append("\t".repeat(Space.currentValue)).append(identifier).append(",\n");
+            stringBuilder.append("\t".repeat(Space.currentValue)).append("rejectionReason  = ").append(identifier).append(",\n");
         }
 
         if (typeAnnotation != null) {
-            stringBuilder.append("\t".repeat(Space.currentValue)).append(typeAnnotation).append(",\n");
+            stringBuilder.append(typeAnnotation).append(",\n");
         }
 
         if (statement != null) {
-            stringBuilder.append("\t".repeat(Space.currentValue)).append(statement).append(",\n");
+            stringBuilder.append(statement).append(",\n");
         }
         else {
-            stringBuilder.append("\t".repeat(Space.currentValue)).append(block).append(",\n");
+            stringBuilder.append(block).append(",\n");
         }
 
         Space.currentValue--;
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

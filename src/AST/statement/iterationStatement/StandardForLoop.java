@@ -5,7 +5,7 @@ import AST.expression.Expression;
 import AST.helpers.Space;
 import AST.statement.StatementBody;
 
-public class StandardForLoop {
+public class StandardForLoop extends IterationStatement{
     private VariableDeclaration variableDeclaration;
     private Expression condition;
     private Expression update;
@@ -69,9 +69,28 @@ public class StandardForLoop {
             stringBuilder.append("\t".repeat(Space.currentValue)).append("},\n");
         }
 
+        if (statementBody != null) {
+            stringBuilder.append(statementBody).append(",\n");
+        }
+
         Space.currentValue--;
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

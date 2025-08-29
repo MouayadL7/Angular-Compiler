@@ -1,13 +1,13 @@
 package AST.object;
 
+import AST.Node;
 import AST.helpers.Space;
 import AST.expression.Expression;
 import AST.helpers.Value;
 
-public class Attribute {
+public class Attribute extends Node {
     String name;
     Expression expression;
-    Value value;
 
     public String getName() {
         return name;
@@ -25,14 +25,6 @@ public class Attribute {
         this.expression = expression;
     }
 
-    public Value getValue() {
-        return value;
-    }
-
-    public void setValue(Value value) {
-        this.value = value;
-    }
-
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -47,17 +39,27 @@ public class Attribute {
 
         // Append expression
         if (expression != null) {
-            stringBuilder.append("\t".repeat(Space.currentValue)).append(expression).append(",\n");
-        }
-
-        // Append value
-        if (value != null) {
-            stringBuilder.append("\t".repeat(Space.currentValue)).append(value).append(",\n");
+            stringBuilder.append(expression).append(",\n");
         }
 
         Space.currentValue--;
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

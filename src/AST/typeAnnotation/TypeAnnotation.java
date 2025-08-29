@@ -1,7 +1,7 @@
 package AST.typeAnnotation;
 
-import AST.array.Array;
+import AST.Node;
 
-public abstract class TypeAnnotation {
+public abstract class TypeAnnotation extends Node {
     //
 }

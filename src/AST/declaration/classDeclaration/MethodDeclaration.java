@@ -1,5 +1,6 @@
 package AST.declaration.classDeclaration;
 
+import AST.Node;
 import AST.helpers.Space;
 import AST.helpers.*;
 import AST.parameterList.ParameterList;
@@ -8,7 +9,7 @@ import AST.typeAnnotation.TypeAnnotation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MethodDeclaration {
+public class MethodDeclaration extends Node {
     private List<Decorator> decoratorList;
     private String name;
     private ParameterList parameterList;
@@ -99,4 +100,18 @@ public class MethodDeclaration {
         return stringBuilder.toString();
     }
 
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
+    }
 }

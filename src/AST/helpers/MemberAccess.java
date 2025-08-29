@@ -30,7 +30,7 @@ public class MemberAccess extends Value{
         Space.currentValue++;
 
         // Append prefix
-        stringBuilder.append("prefix = ").append(prefix != null ? prefix : "").append(",\n");
+        stringBuilder.append("\t".repeat(Space.currentValue)).append("prefix = ").append(prefix != null ? prefix : "").append(",\n");
 
         // Append expression
         if (expression != null) {
@@ -41,5 +41,20 @@ public class MemberAccess extends Value{
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

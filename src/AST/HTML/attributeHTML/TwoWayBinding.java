@@ -32,4 +32,26 @@ public class TwoWayBinding extends AttributeHTML{
 
         return stringBuilder.toString();
     }
+
+    @Override
+    public String convertToHTML() {
+        return "";
+    }
+
+    @Override
+    public String convertToCSS() {
+        return "";
+    }
+
+    @Override
+    public String convertToJS() {
+        StringBuilder js = new StringBuilder();
+        // Set initial value
+        js.append("${element}.").append(twoBind).append(" = ").append(value).append(";\n");
+        // Add event listener for updates
+        js.append("${element}.addEventListener('input', (e) => {\n");
+        js.append("  ").append(value).append(" = e.target.").append(twoBind).append(";\n");
+        js.append("});\n");
+        return js.toString();
+    }
 }

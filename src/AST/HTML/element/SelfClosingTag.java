@@ -1,5 +1,6 @@
-package AST.HTML;
+package AST.HTML.element;
 
+import AST.HTML.TagName;
 import AST.HTML.attributeHTML.AttributeHTML;
 import AST.HTML.element.Element;
 import AST.helpers.Space;
@@ -58,5 +59,20 @@ public class SelfClosingTag extends Element {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

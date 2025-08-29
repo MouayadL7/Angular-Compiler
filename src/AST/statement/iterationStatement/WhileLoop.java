@@ -4,7 +4,7 @@ import AST.expression.Expression;
 import AST.helpers.Space;
 import AST.statement.StatementBody;
 
-public class WhileLoop {
+public class WhileLoop extends IterationStatement{
     private StatementBody statementBody;
     private Expression condition;
 
@@ -45,5 +45,20 @@ public class WhileLoop {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

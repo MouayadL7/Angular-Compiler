@@ -1,11 +1,12 @@
 package AST.parameterList;
 
+import AST.Node;
 import AST.helpers.Space;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParameterList {
+public class ParameterList extends Node {
     List<Parameter> parameters;
 
     public ParameterList() {
@@ -41,4 +42,18 @@ public class ParameterList {
         return stringBuilder.toString();
     }
 
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
+    }
 }

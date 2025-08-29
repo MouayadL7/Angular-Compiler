@@ -1,5 +1,7 @@
 package AST.statement.importStatement.importSpecifier;
 
-public abstract class ImportSpecifier {
+import AST.Node;
+
+public abstract class ImportSpecifier extends Node {
     //
 }

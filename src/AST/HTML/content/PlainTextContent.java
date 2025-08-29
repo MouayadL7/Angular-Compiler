@@ -21,4 +21,21 @@ public class PlainTextContent extends Content{
 
         return stringBuilder.toString();
     }
+
+    @Override
+    public String convertToHTML() {
+        return text.replace("<", "&lt;").replace(">", "&gt;");
+    }
+
+    @Override
+    public String convertToCSS() {
+        return "";
+    }
+
+    @Override
+    public String convertToJS() {
+        String textVar = "text_" + System.identityHashCode(this);
+        return "const " + textVar + " = document.createTextNode('" +
+                text.replace("'", "\\'") + "');\n";
+    }
 }

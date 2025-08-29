@@ -401,11 +401,11 @@ iterationStatement
 
 /* ====================== Parameter Rules ====================== */
 parameterList
-    : parameter (COMMA parameter)*                            // A list of parameters separated by commas.
+    : parameter (COMMA parameter)*                             // A list of parameters separated by commas.
     ;
 
 parameter
-    : expression                // A parameter that is an expression.
+    : expression                                              // A parameter that is an expression.
     ;
 
 parameterDeclaration
@@ -470,9 +470,9 @@ primary
 
 literal
     : (PLUS | MINUS)? NUMBER                                                    // A numeric value (e.g., `42`, `3.14`).
-    | STRING                                                    // A string literal (e.g., `"hello"`, `'world'`).
-    | BOOL                                                      // A boolean value (`true` or `false`).
-    | NULL                                                      // A null value.
+    | STRING                                                                    // A string literal (e.g., `"hello"`, `'world'`).
+    | BOOL                                                                      // A boolean value (`true` or `false`).
+    | NULL                                                                      // A null value.
     | CSS_TEMPLATE
     ;
 
@@ -507,7 +507,7 @@ typeAnnotation
     : IDENTIFIER genericType                                  # GenericTypeAnnotation
     // A type identifier with optional generic types, e.g., `Promise<string>` or `Array<number>`.
 
-    | (IDENTIFIER | NULL | literal) (BIT_OR (IDENTIFIER | NULL))*       # PipeTypeAnnotation
+    | (IDENTIFIER | NULL | literal) (BIT_OR (IDENTIFIER | NULL  | literal))*       # PipeTypeAnnotation
     // A union type, e.g., `string | null` or `number | undefined`.
 
     | (IDENTIFIER | NULL) LBRACK RBRACK                      # ArrayTypeAnnotation
@@ -576,9 +576,9 @@ interpolation
     ;
 
 interpolationElement
-    : ATTRIBUTE (COL (ATTRIBUTE | STRING_HTML))?
-    | ATTRIBUTE QUES_HTML STRING_HTML COL STRING_HTML
-    | STRING_HTML
+    : ATTRIBUTE (COL     (ATTRIBUTE | STRING_HTML))?                # StandardInterpolationElement
+    | ATTRIBUTE QUES_HTML STRING_HTML COL STRING_HTML           # TernaryInterpolationElement
+    | ATTRIBUTE                                                 # StringInterpolationElement
     ;
 
 /* Tag names */
@@ -599,11 +599,6 @@ structuralDirective
 /* ================= Navigation/Routing Declarations ================= */
 
 routingDeclaration
-    : routeConfigDeclaration    # RouteConfigDecl
-    ;
-
-/* Route Configuration */
-routeConfigDeclaration
     : EXPORT? CONST IDENTIFIER COLON ROUTE_CONFIG ASSIGN
         LBRACK (routeDefinition (COMMA routeDefinition)*)? RBRACK SEMI
     ;
@@ -613,14 +608,14 @@ routeDefinition
     ;
 
 routeProperty
-    : PATH COLON STRING                                 # PathProperty
-    | COMPONENT_ROUTE COLON IDENTIFIER                  # ComponentProperty
-    | REDIRECT_TO COLON STRING                          # RedirectToProperty
-    | PATH_MATCH COLON STRING                           # PathMatchProperty
-    | CHILDREN COLON LBRACK routeDefinition* RBRACK     # ChildrenProperty
-    | LAZY_LOAD COLON arrowFunction                     # LazyLoadProperty
-    | CAN_ACTIVATE COLON array                          # CanActivateProperty
-    | CAN_DEACTIVATE COLON array                        # CanDeactivateProperty
-    | OUTLET COLON STRING                               # OutletProperty
-    | IDENTIFIER COLON expression                       # GenericRouteProperty
+    : PATH COLON STRING                                                            # PathProperty
+    | COMPONENT_ROUTE COLON IDENTIFIER                                             # ComponentProperty
+    | REDIRECT_TO COLON STRING                                                     # RedirectToProperty
+    | PATH_MATCH COLON STRING                                                      # PathMatchProperty
+    | CHILDREN COLON LBRACK (routeDefinition (COMMA routeDefinition)*)? RBRACK     # ChildrenProperty
+    | LAZY_LOAD COLON arrowFunction                                                # LazyLoadProperty
+    | CAN_ACTIVATE COLON array                                                     # CanActivateProperty
+    | CAN_DEACTIVATE COLON array                                                   # CanDeactivateProperty
+    | OUTLET COLON STRING                                                          # OutletProperty
+    | IDENTIFIER COLON expression                                                  # GenericRouteProperty
     ;

@@ -32,4 +32,24 @@ public class PropertyBinding extends AttributeHTML{
 
         return stringBuilder.toString();
     }
+
+    @Override
+    public String convertToHTML() {
+        return ""; // Property bindings don't appear in static HTML
+    }
+
+    @Override
+    public String convertToCSS() {
+        return "";
+    }
+
+    @Override
+    public String convertToJS() {
+        return "${element}." + binding + " = " + convertExpression(value) + ";\n";
+    }
+
+    private String convertExpression(String expr) {
+        // Convert Angular expression to JavaScript
+        return expr.replace("\"", "'");
+    }
 }

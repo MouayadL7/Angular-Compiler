@@ -1,9 +1,10 @@
 package AST.declaration.classDeclaration.constructorDeclaration;
 
+import AST.Node;
 import AST.helpers.Space;
 import AST.parameterList.ParameterList;
 
-public class ConstructorDeclaration {
+public class ConstructorDeclaration extends Node {
     ParameterList parameterList;
     ConstructorBody constructorBody;
 
@@ -43,5 +44,20 @@ public class ConstructorDeclaration {
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

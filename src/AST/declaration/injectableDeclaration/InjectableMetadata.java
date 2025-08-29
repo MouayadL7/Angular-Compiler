@@ -1,11 +1,12 @@
 package AST.declaration.injectableDeclaration;
 
+import AST.Node;
 import AST.helpers.Space;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InjectableMetadata {
+public class InjectableMetadata extends Node {
     List<InjectableMetadataProperty> injectableMetadataPropertyList;
 
     public InjectableMetadata() {
@@ -37,5 +38,20 @@ public class InjectableMetadata {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

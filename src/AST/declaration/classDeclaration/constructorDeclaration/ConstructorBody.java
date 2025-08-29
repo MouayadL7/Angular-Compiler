@@ -1,12 +1,13 @@
 package AST.declaration.classDeclaration.constructorDeclaration;
 
+import AST.Node;
 import AST.helpers.Space;
 import AST.statement.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConstructorBody {
+public class ConstructorBody extends Node {
     List<Statement> statementList;
 
     public ConstructorBody() {
@@ -38,5 +39,20 @@ public class ConstructorBody {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

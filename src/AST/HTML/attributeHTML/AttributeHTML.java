@@ -1,5 +1,7 @@
 package AST.HTML.attributeHTML;
 
-public abstract class AttributeHTML {
+import AST.Node;
+
+public abstract class AttributeHTML extends Node {
     //
 }

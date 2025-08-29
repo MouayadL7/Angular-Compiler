@@ -1,8 +1,9 @@
 package AST.HTML;
 
+import AST.Node;
 import AST.helpers.Space;
 
-public class TagName {
+public class TagName extends Node {
     private String attribute;
 
     public String getAttribute() {
@@ -24,5 +25,20 @@ public class TagName {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

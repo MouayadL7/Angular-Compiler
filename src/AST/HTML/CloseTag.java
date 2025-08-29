@@ -1,8 +1,9 @@
 package AST.HTML;
 
+import AST.Node;
 import AST.helpers.Space;
 
-public class CloseTag {
+public class CloseTag extends Node {
     private TagName tagName;
 
     public TagName getTagName() {
@@ -24,5 +25,20 @@ public class CloseTag {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return "</" + tagName.convertToHTML() + ">";
+    }
+
+    @Override
+    public String convertToCSS() {
+        return ""; // Close tags don't generate CSS
+    }
+
+    @Override
+    public String convertToJS() {
+        return ""; // Close tags are handled by the parent element
     }
 }

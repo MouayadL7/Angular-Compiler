@@ -1,9 +1,10 @@
 package AST.parameterList;
 
+import AST.Node;
 import AST.expression.Expression;
 import AST.helpers.Space;
 
-public class Parameter {
+public class Parameter extends Node {
     private Expression expression;
 
     public Expression getExpression() {
@@ -25,5 +26,20 @@ public class Parameter {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

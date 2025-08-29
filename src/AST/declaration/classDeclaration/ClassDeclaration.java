@@ -89,10 +89,10 @@ public class ClassDeclaration extends Declaration {
             stringBuilder.append("\t".repeat(Space.currentValue)).append("implementsList: [ ");
             Space.currentValue++;
             for (String string : implementsList) {
-                stringBuilder.append(string).append(", ");
+                stringBuilder.append(string);
             }
             Space.currentValue--;
-            stringBuilder.append("\t".repeat(Space.currentValue)).append(" ],\n");
+            stringBuilder.append(" ],\n");
         }
 
         // Append classBody
@@ -104,5 +104,20 @@ public class ClassDeclaration extends Declaration {
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

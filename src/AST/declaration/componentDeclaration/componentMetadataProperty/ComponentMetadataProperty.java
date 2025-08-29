@@ -1,5 +1,7 @@
 package AST.declaration.componentDeclaration.componentMetadataProperty;
 
-public abstract class ComponentMetadataProperty {
+import AST.Node;
+
+public abstract class ComponentMetadataProperty extends Node {
     //
 }

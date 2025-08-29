@@ -1,5 +1,7 @@
 package AST.declaration.directiveDeclaration.directiveMetadataProperty;
 
-public abstract class DirectiveMetadataProperty {
+import AST.Node;
+
+public abstract class DirectiveMetadataProperty extends Node {
     //
 }

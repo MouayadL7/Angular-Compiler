@@ -1,8 +1,9 @@
 package AST.helpers;
 
+import AST.Node;
 import AST.parameterList.ParameterList;
 
-public class Decorator {
+public class Decorator extends Node {
     ParameterList parameterList;
 
     public ParameterList getParameterList() {
@@ -28,4 +29,18 @@ public class Decorator {
         return stringBuilder.toString();
     }
 
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
+    }
 }

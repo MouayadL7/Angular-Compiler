@@ -35,4 +35,26 @@ public class EventBinding extends AttributeHTML{
 
         return stringBuilder.toString();
     }
+
+    @Override
+    public String convertToHTML() {
+        return ""; // Event bindings are not in static HTML
+    }
+
+    @Override
+    public String convertToCSS() {
+        return "";
+    }
+
+    @Override
+    public String convertToJS() {
+        return "${element}.addEventListener('" + event + "', " + convertHandler(value) + ");\n";
+    }
+
+    private String convertHandler(String handler) {
+        if (handler.endsWith("()")) {
+            return "() => " + handler;
+        }
+        return handler;
+    }
 }

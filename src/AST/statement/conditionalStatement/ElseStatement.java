@@ -1,9 +1,10 @@
 package AST.statement.conditionalStatement;
 
 import AST.helpers.Space;
+import AST.statement.Statement;
 import AST.statement.StatementBody;
 
-public class ElseStatement extends ConditionalStatement{
+public class ElseStatement extends Statement {
     StatementBody statementBody;
 
     public StatementBody getStatementBody() {
@@ -30,5 +31,20 @@ public class ElseStatement extends ConditionalStatement{
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

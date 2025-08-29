@@ -1,11 +1,12 @@
 package AST.declaration.enumDeclaration;
 
+import AST.Node;
 import AST.helpers.Space;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class EnumBody {
+public class EnumBody extends Node {
     List<EnumProperty> enumPropertyList;
 
     public EnumBody() {
@@ -37,5 +38,20 @@ public class EnumBody {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

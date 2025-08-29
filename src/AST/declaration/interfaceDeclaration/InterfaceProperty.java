@@ -1,9 +1,10 @@
 package AST.declaration.interfaceDeclaration;
 
+import AST.Node;
 import AST.helpers.Space;
 import AST.typeAnnotation.TypeAnnotation;
 
-public class InterfaceProperty {
+public class InterfaceProperty extends Node {
     String name;
     TypeAnnotation typeAnnotation;
 
@@ -33,12 +34,27 @@ public class InterfaceProperty {
         stringBuilder.append("\t".repeat(Space.currentValue)).append("name = ").append(name != null ? name : "").append(",\n");
 
         if (typeAnnotation != null) {
-            stringBuilder.append(typeAnnotation);
+            stringBuilder.append(typeAnnotation).append("\n");
         }
 
         Space.currentValue--;
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

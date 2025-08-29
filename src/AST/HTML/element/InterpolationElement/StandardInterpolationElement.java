@@ -1,6 +1,6 @@
-package AST.HTML;
+package AST.HTML.element.InterpolationElement;
 
-public class InterpolationElement {
+public class StandardInterpolationElement extends InterpolationElement{
     private String attribute;
     private String value;
 
@@ -23,5 +23,23 @@ public class InterpolationElement {
     @Override
     public String toString() {
         return attribute + (value != null ? " : " + value : "");
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        if (value != null) {
+            return attribute + "." + value;
+        }
+        return attribute;
     }
 }

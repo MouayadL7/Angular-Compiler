@@ -1,11 +1,12 @@
 package AST.declaration.pipeDeclaration;
 
+import AST.Node;
 import AST.helpers.Space;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PipeMetadata {
+public class PipeMetadata extends Node {
     List<PipeMetadataProperty> pipeMetadataPropertyList;
 
     public PipeMetadata() {
@@ -37,5 +38,20 @@ public class PipeMetadata {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

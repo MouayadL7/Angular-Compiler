@@ -1,11 +1,12 @@
 package AST.helpers;
 
+import AST.Node;
 import AST.typeAnnotation.TypeAnnotation;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GenericType {
+public class GenericType extends Node {
     List<TypeAnnotation> typeAnnotationList;
 
     public GenericType() {
@@ -41,4 +42,18 @@ public class GenericType {
         return stringBuilder.toString();
     }
 
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
+    }
 }

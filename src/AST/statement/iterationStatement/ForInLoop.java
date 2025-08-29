@@ -4,9 +4,8 @@ import AST.expression.Expression;
 import AST.helpers.Space;
 import AST.statement.StatementBody;
 
-public class ForInLoop {
+public class ForInLoop extends IterationStatement{
     private StatementBody statementBody;
-
 
     public StatementBody getStatementBody() {
         return statementBody;
@@ -30,5 +29,20 @@ public class ForInLoop {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

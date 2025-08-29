@@ -27,7 +27,7 @@ public class ArrayTypeAnnotation extends TypeAnnotation{
 
         if (!typeAnnotations.isEmpty()) {
             Space.currentValue++;
-            stringBuilder.append("\t".repeat(Space.currentValue)).append("[\n");
+            stringBuilder.append("\t".repeat(Space.currentValue)).append("[ ");
             Space.currentValue++;
             for (int i = 0; i < typeAnnotations.size(); i++) {
                 stringBuilder.append(typeAnnotations.get(i));
@@ -39,11 +39,26 @@ public class ArrayTypeAnnotation extends TypeAnnotation{
                 }
             }
             Space.currentValue--;
-            stringBuilder.append("\t".repeat(Space.currentValue)).append("]\n");
+            stringBuilder.append(" ]\n");
             Space.currentValue--;
         }
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

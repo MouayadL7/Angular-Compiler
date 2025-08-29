@@ -1,10 +1,11 @@
 package AST.helpers;
 
+import AST.Node;
 import AST.expression.Expression;
 import AST.declaration.functionDeclaration.FunctionDeclaration;
 import AST.statement.Assignment;
 
-public  class Initialization {
+public  class Initialization extends Node {
     private Expression expression;
 
     public Expression getExpression() {
@@ -26,5 +27,20 @@ public  class Initialization {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

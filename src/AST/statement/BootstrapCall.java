@@ -54,7 +54,9 @@ public class BootstrapCall extends Statement{
         // Append arrowFunction
         if (arrowFunction != null) {
             stringBuilder.append("\t".repeat(Space.currentValue)).append("ErrorHandling: {\n");
+            Space.currentValue++;
             stringBuilder.append(arrowFunction).append("\n");
+            Space.currentValue--;
             stringBuilder.append("\t".repeat(Space.currentValue)).append("},\n");
         }
 
@@ -64,4 +66,18 @@ public class BootstrapCall extends Statement{
         return stringBuilder.toString();
     }
 
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
+    }
 }

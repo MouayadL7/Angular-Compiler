@@ -180,15 +180,6 @@ HTML_TEMPLATE: '`' WS* '<' -> pushMode(HTML);
 // CSS Style
 CSS_TEMPLATE: '`' (~["\\] | '\\' .)* '`';
 
-//IGNORE_TEMPLATE
-//    : '`' ( ~[`\\] | '\\' . )* '`' -> skip
-//    ;
-//
-//TEMPLATE_LITERAL
-//    : '`' ( ~[`\\] | '\\' . )* '`'
-//    ;
-
-
 fragment WS
     : SPACES
     | LINE_COMMENT

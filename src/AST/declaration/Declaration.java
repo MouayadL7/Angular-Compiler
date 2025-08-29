@@ -1,5 +1,7 @@
 package AST.declaration;
 
-public abstract class Declaration {
+import AST.Node;
+
+public abstract class Declaration extends Node {
     //
 }

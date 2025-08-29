@@ -1,10 +1,11 @@
 package AST.statement;
 
+import AST.Node;
 import AST.helpers.Space;
 import AST.helpers.GenericType;
 import AST.parameterList.ParameterList;
 
-public class FunctionCall {
+public class FunctionCall extends Node {
     private String name;
     private GenericType genericType;
     private ParameterList parameterList;
@@ -59,5 +60,20 @@ public class FunctionCall {
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
 
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

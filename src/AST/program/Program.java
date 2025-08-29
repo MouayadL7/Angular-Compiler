@@ -1,5 +1,6 @@
 package AST.program;
 
+import AST.Node;
 import AST.helpers.Space;
 import AST.declaration.Declaration;
 import AST.statement.importStatement.ImportStatement;
@@ -8,7 +9,7 @@ import AST.statement.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Program {
+public class Program extends Node {
     private List<ImportStatement> importStatementList;
     private List<Declaration> declarationList;
     private List<Statement> statementList;
@@ -91,4 +92,57 @@ public class Program {
         return stringBuilder.toString();
     }
 
+    @Override
+    public String convertToHTML() {
+        StringBuilder html = new StringBuilder();
+
+        // Process declarations for components that might contain templates
+        for (Declaration declaration : declarationList) {
+            String declarationHtml = declaration.convertToHTML();
+            if (!declarationHtml.isEmpty()) {
+                html.append(declarationHtml).append("\n");
+            }
+        }
+
+        return html.toString();
+    }
+
+    @Override
+    public String convertToCSS() {
+        StringBuilder css = new StringBuilder();
+
+        // Process declarations for components that might contain styles
+        for (Declaration declaration : declarationList) {
+            css.append(declaration.convertToCSS());
+        }
+
+        return css.toString();
+    }
+
+    @Override
+    public String convertToJS() {
+        StringBuilder js = new StringBuilder();
+
+        // Generate imports
+        for (ImportStatement importStatement : importStatementList) {
+            js.append(importStatement.convertToJS());
+        }
+
+        js.append("\n// Component initialization\n");
+        js.append("document.addEventListener('DOMContentLoaded', function() {\n");
+        js.append("  const app = document.getElementById('app');\n\n");
+
+        // Process declarations
+        for (Declaration declaration : declarationList) {
+            js.append(declaration.convertToJS());
+        }
+
+        // Process statements
+        for (Statement statement : statementList) {
+            js.append("  ").append(statement.convertToJS());
+        }
+
+        js.append("});\n");
+        return js.toString();
+    }
 }

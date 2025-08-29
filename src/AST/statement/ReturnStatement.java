@@ -21,11 +21,27 @@ public class ReturnStatement extends Statement{
         stringBuilder.append("\t".repeat(Space.currentValue)).append("ReturnStatement: {\n");
 
         Space.currentValue++;
-        stringBuilder.append(expression).append("\n");
+        if (expression != null) {
+            stringBuilder.append(expression).append("\n");
+        }
         Space.currentValue--;
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
     }
 
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
+    }
 }

@@ -1,11 +1,12 @@
 package AST.declaration.interfaceDeclaration;
 
+import AST.Node;
 import AST.helpers.Space;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InterfaceBody {
+public class InterfaceBody extends Node {
     List<InterfaceProperty> interfacePropertyList;
 
     public InterfaceBody() {
@@ -37,5 +38,20 @@ public class InterfaceBody {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

@@ -1,12 +1,13 @@
 package AST.declaration.directiveDeclaration;
 
+import AST.Node;
 import AST.helpers.Space;
 import AST.declaration.directiveDeclaration.directiveMetadataProperty.DirectiveMetadataProperty;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DirectiveMetadata {
+public class DirectiveMetadata extends Node {
     List<DirectiveMetadataProperty> directiveMetadataPropertyList;
 
     public DirectiveMetadata() {
@@ -38,5 +39,20 @@ public class DirectiveMetadata {
 
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

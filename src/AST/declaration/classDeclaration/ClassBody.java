@@ -1,5 +1,6 @@
 package AST.declaration.classDeclaration;
 
+import AST.Node;
 import AST.helpers.Space;
 import AST.declaration.classDeclaration.constructorDeclaration.ConstructorDeclaration;
 import AST.declaration.functionDeclaration.FunctionDeclaration;
@@ -9,7 +10,7 @@ import AST.statement.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassBody {
+public class ClassBody extends Node {
     List<PropertyDeclaration> propertyDeclarationList;
     ConstructorDeclaration constructorDeclaration;
     List<MethodDeclaration> methodDeclarationList;
@@ -78,6 +79,8 @@ public class ClassBody {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("\t".repeat(Space.currentValue)).append("ClassBody: {\n");
 
+        Space.currentValue++;
+
         // Append propertyDeclarationList
         if (!propertyDeclarationList.isEmpty()) {
             stringBuilder.append("\t".repeat(Space.currentValue)).append("propertyDeclarationList: [\n");
@@ -91,9 +94,7 @@ public class ClassBody {
 
         // Append constructor
         if (constructorDeclaration != null) {
-            Space.currentValue++;
             stringBuilder.append(constructorDeclaration).append(",\n");
-            Space.currentValue--;
         }
 
         // Append methodDeclarationList
@@ -140,8 +141,24 @@ public class ClassBody {
             stringBuilder.append("\t".repeat(Space.currentValue)).append("]\n");
         }
 
+        Space.currentValue--;
+
         stringBuilder.append("\t".repeat(Space.currentValue)).append("}");
         return stringBuilder.toString();
     }
 
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
+    }
 }

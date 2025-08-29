@@ -4,10 +4,16 @@ import AST.HTML.*;
 import AST.HTML.attributeHTML.*;
 import AST.HTML.content.Content;
 import AST.HTML.content.PlainTextContent;
-import AST.HTML.element.Element;
-import AST.HTML.element.StandardTagElement;
+import AST.HTML.element.*;
+import AST.HTML.element.InterpolationElement.InterpolationElement;
+import AST.HTML.element.InterpolationElement.StandardInterpolationElement;
+import AST.HTML.element.InterpolationElement.StringInterpolationElement;
+import AST.HTML.element.InterpolationElement.TernaryInterpolationElement;
 import AST.array.Array;
 import AST.array.ArrayAccess;
+import AST.declaration.RoutingDeclaration.RouteDefinition;
+import AST.declaration.RoutingDeclaration.RouteProperty.*;
+import AST.declaration.RoutingDeclaration.RoutingDeclaration;
 import AST.expression.*;
 import AST.helpers.*;
 import AST.object.Attribute;
@@ -78,6 +84,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ASTVisitor extends AngularParserBaseVisitor {
 
@@ -135,6 +142,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         ImportStatement importStatement = new ImportStatement();
 
         importStatement.setImportDeclaration((ImportDeclaration) visit(ctx.importDeclaration()));
+        importStatement.setModulePath(ctx.STRING().getText());
 
         return importStatement;
     }
@@ -275,6 +283,11 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     @Override
     public Object visitFunctionDecl(AngularParser.FunctionDeclContext ctx) {
         return (FunctionDeclaration) visit(ctx.functionDeclaration());
+    }
+
+    @Override
+    public Object visitRoutingDecl(AngularParser.RoutingDeclContext ctx) {
+        return visitRoutingDeclaration(ctx.routingDeclaration());
     }
 
     @Override
@@ -784,7 +797,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
                     .subList(1, ctx.IDENTIFIER().size()) // Get the relevant sublist
                     .stream()
                     .map(TerminalNode::getText)          // Convert TerminalNode to String
-                    .toList();                           // Collect as a list
+                    .collect(Collectors.toList());       // Collect as a list
 
             classDeclaration.setExtendsList(parentClasses);
         }
@@ -795,7 +808,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
                     .subList(startIdx, ctx.IDENTIFIER().size())
                     .stream()
                     .map(TerminalNode::getText)
-                    .toList();
+                    .collect(Collectors.toList());
 
             classDeclaration.setImplementsList(interfaces);
         }
@@ -950,7 +963,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
                     .subList(1, ctx.IDENTIFIER().size()) // Get the relevant sublist
                     .stream()
                     .map(TerminalNode::getText)          // Convert TerminalNode to String
-                    .toList();                           // Collect as a list
+                    .collect(Collectors.toList());       // Collect as a list
 
             interfaceDeclaration.setExtendsList(parentClasses);
         }
@@ -1103,7 +1116,9 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     public Object visitReturnStatement(AngularParser.ReturnStatementContext ctx) {
         ReturnStatement returnStatement = new ReturnStatement();
 
-        returnStatement.setExpression((Expression) visit(ctx.expression()));
+        if (ctx.expression() != null) {
+            returnStatement.setExpression((Expression) visit(ctx.expression()));
+        }
 
         return returnStatement;
     }
@@ -1317,6 +1332,10 @@ public class ASTVisitor extends AngularParserBaseVisitor {
             parameterDeclaration.setAccessModifier(visitAccessModifier(ctx.accessModifier()));
         }
 
+        if (ctx.IDENTIFIER() != null) {
+            parameterDeclaration.setName(ctx.IDENTIFIER().getText());
+        }
+
         if (ctx.typeAnnotation() != null) {
             parameterDeclaration.setTypeAnnotation((TypeAnnotation) visit(ctx.typeAnnotation()));
         }
@@ -1405,7 +1424,9 @@ public class ASTVisitor extends AngularParserBaseVisitor {
 
         attribute.setName(ctx.IDENTIFIER().getText());
 
-        attribute.setExpression((Expression) visit(ctx.expression()));
+        if (ctx.expression() != null) {
+            attribute.setExpression((Expression) visit(ctx.expression()));
+        }
 
         return attribute;
     }
@@ -1492,7 +1513,9 @@ public class ASTVisitor extends AngularParserBaseVisitor {
 
         if (ctx.NUMBER() != null) {
             literal.setType("Number");
-            literal.setValue(ctx.NUMBER().getText());
+
+            String val = ctx.MINUS() != null ? ctx.MINUS().getText() + ctx.NUMBER().getText() : ctx.NUMBER().getText();
+            literal.setValue(val);
         }
         else if (ctx.STRING() != null) {
             literal.setType("String");
@@ -1506,9 +1529,9 @@ public class ASTVisitor extends AngularParserBaseVisitor {
             literal.setType("Null");
             literal.setValue(ctx.NULL().getText());
         }
-        else if (ctx.TEMPLATE_LITERAL() != null) {
-            literal.setType("Template_Literal");
-            literal.setValue(ctx.TEMPLATE_LITERAL().getText());
+        else if (ctx.CSS_TEMPLATE() != null) {
+            literal.setType("CSS_Template");
+            literal.setValue(ctx.CSS_TEMPLATE().getText());
         }
 
         return literal;
@@ -1760,10 +1783,9 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         PipeTypeAnnotation pipeTypeAnnotation = new PipeTypeAnnotation();
 
         List<String> unionTypes = ctx.children.stream()
-                .filter(child -> child instanceof TerminalNode &&
-                        (child.getText().matches("[a-zA-Z][a-zA-Z0-9_-]+") || child.getText().equals("null")))
+                .filter(child -> !(child.getText().equals("|"))) // exclude the BIT_OR operator
                 .map(ParseTree::getText)
-                .toList();
+                .collect(Collectors.toList());
 
         pipeTypeAnnotation.setTypeAnnotations(unionTypes);
 
@@ -1778,7 +1800,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
                 .filter(child -> child instanceof TerminalNode &&
                         (child.getText().matches("[a-zA-Z][a-zA-Z0-9_-]+") || child.getText().equals("null")))
                 .map(ParseTree::getText)
-                .toList();
+                .collect(Collectors.toList());
 
         arrayTypeAnnotation.setTypeAnnotations(unionTypes);
 
@@ -2010,7 +2032,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
 
         List<InterpolationElement> interpolationElementList = new ArrayList<>();
         for (AngularParser.InterpolationElementContext interpolationElementContext : ctx.interpolationElement()) {
-            interpolationElementList.add(visitInterpolationElement(interpolationElementContext));
+            interpolationElementList.add((InterpolationElement) visit(interpolationElementContext));
         }
         interpolation.setInterplationElementList(interpolationElementList);
 
@@ -2018,19 +2040,39 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public InterpolationElement visitInterpolationElement(AngularParser.InterpolationElementContext ctx) {
-        InterpolationElement interpolationElement = new InterpolationElement();
+    public Object visitStandardInterpolationElement(AngularParser.StandardInterpolationElementContext ctx) {
+        StandardInterpolationElement standardInterpolationElement = new StandardInterpolationElement();
 
-        interpolationElement.setAttribute(ctx.ATTRIBUTE(0).getText());
+        standardInterpolationElement.setAttribute(ctx.ATTRIBUTE(0).getText());
 
         if (ctx.ATTRIBUTE(1) != null) {
-            interpolationElement.setValue(ctx.ATTRIBUTE(1).getText());
+            standardInterpolationElement.setValue(ctx.ATTRIBUTE(1).getText());
         }
         else if (ctx.STRING_HTML() != null) {
-            interpolationElement.setValue(ctx.STRING_HTML().getText());
+            standardInterpolationElement.setValue(ctx.STRING_HTML().getText());
         }
 
-        return interpolationElement;
+        return standardInterpolationElement;
+    }
+
+    @Override
+    public Object visitTernaryInterpolationElement(AngularParser.TernaryInterpolationElementContext ctx) {
+        TernaryInterpolationElement ternaryInterpolationElement = new TernaryInterpolationElement();
+
+        ternaryInterpolationElement.setCondition(ctx.ATTRIBUTE().getText());
+        ternaryInterpolationElement.setTrueVal(ctx.STRING_HTML(0).getText());
+        ternaryInterpolationElement.setFalseVal(ctx.STRING_HTML(1).getText());
+
+        return ternaryInterpolationElement;
+    }
+
+    @Override
+    public Object visitStringInterpolationElement(AngularParser.StringInterpolationElementContext ctx) {
+        StringInterpolationElement stringInterpolationElement = new StringInterpolationElement();
+
+        stringInterpolationElement.setAttribute(ctx.STRING_HTML().getText());
+
+        return stringInterpolationElement;
     }
 
     @Override
@@ -2057,5 +2099,116 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         }
 
         return structuralDirective;
+    }
+
+    /* ================= Navigation/Routing Declarations ================= */
+
+    @Override
+    public Object visitRoutingDeclaration(AngularParser.RoutingDeclarationContext ctx) {
+        RoutingDeclaration routingDeclaration = new RoutingDeclaration();
+
+        if (ctx.EXPORT() != null) {
+            routingDeclaration.setExported(true);
+        }
+
+        routingDeclaration.setName(ctx.IDENTIFIER().getText());
+
+        List<RouteDefinition> routeDefinitionList = new ArrayList<>();
+        for (AngularParser.RouteDefinitionContext routeDefinitionContext : ctx.routeDefinition()) {
+            routeDefinitionList.add(visitRouteDefinition(routeDefinitionContext));
+        }
+        routingDeclaration.setRouteDefinitionList(routeDefinitionList);
+
+        return routingDeclaration;
+    }
+
+    @Override
+    public RouteDefinition visitRouteDefinition(AngularParser.RouteDefinitionContext ctx) {
+        RouteDefinition routeDefinition = new RouteDefinition();
+
+        List<RouteProperty> routePropertyList = new ArrayList<>();
+        for (AngularParser.RoutePropertyContext routePropertyContext : ctx.routeProperty()) {
+            routePropertyList.add((RouteProperty) visit(routePropertyContext));
+        }
+        routeDefinition.setRoutePropertyList(routePropertyList);
+
+        return routeDefinition;
+    }
+
+    @Override
+    public Object visitPathProperty(AngularParser.PathPropertyContext ctx) {
+        PathProperty pathProperty = new PathProperty();
+        pathProperty.setPath(ctx.STRING().getText());
+        return pathProperty;
+    }
+
+    @Override
+    public Object visitComponentProperty(AngularParser.ComponentPropertyContext ctx) {
+        ComponentProperty componentProperty = new ComponentProperty();
+        componentProperty.setComponent(ctx.IDENTIFIER().getText());
+        return componentProperty;
+    }
+
+    @Override
+    public Object visitRedirectToProperty(AngularParser.RedirectToPropertyContext ctx) {
+        RedirectToProperty redirectToProperty = new RedirectToProperty();
+        redirectToProperty.setRedirectTo(ctx.STRING().getText());
+        return redirectToProperty;
+    }
+
+    @Override
+    public Object visitPathMatchProperty(AngularParser.PathMatchPropertyContext ctx) {
+        PathMatchProperty pathMatchProperty = new PathMatchProperty();
+        pathMatchProperty.setPathMatch(ctx.STRING().getText());
+        return pathMatchProperty;
+    }
+
+    @Override
+    public Object visitChildrenProperty(AngularParser.ChildrenPropertyContext ctx) {
+        ChildrenProperty childrenProperty = new ChildrenProperty();
+
+        List<RouteDefinition> routeDefinitionList = new ArrayList<>();
+        for (AngularParser.RouteDefinitionContext routeDefinitionContext : ctx.routeDefinition()) {
+            routeDefinitionList.add(visitRouteDefinition(routeDefinitionContext));
+        }
+        childrenProperty.setRouteDefinitionList(routeDefinitionList);
+
+        return  childrenProperty;
+    }
+
+    @Override
+    public Object visitLazyLoadProperty(AngularParser.LazyLoadPropertyContext ctx) {
+        LazyLoadProperty lazyLoadProperty = new LazyLoadProperty();
+        lazyLoadProperty.setArrowFunction(visitArrowFunction(ctx.arrowFunction()));
+        return lazyLoadProperty;
+    }
+
+    @Override
+    public Object visitCanActivateProperty(AngularParser.CanActivatePropertyContext ctx) {
+        CanActivateProperty canActivateProperty = new CanActivateProperty();
+        canActivateProperty.setArray(visitArray(ctx.array()));
+        return canActivateProperty;
+    }
+
+    @Override
+    public Object visitCanDeactivateProperty(AngularParser.CanDeactivatePropertyContext ctx) {
+        CanDeactivateProperty canDeactivateProperty = new CanDeactivateProperty();
+        canDeactivateProperty.setArray(visitArray(ctx.array()));
+        return canDeactivateProperty;
+    }
+
+    @Override
+    public Object visitOutletProperty(AngularParser.OutletPropertyContext ctx) {
+        OutletProperty outletProperty = new OutletProperty();
+        outletProperty.setOutlet(ctx.STRING().getText());
+        return outletProperty;
+    }
+
+    @Override
+    public Object visitGenericRouteProperty(AngularParser.GenericRoutePropertyContext ctx) {
+        GenericRouteProperty genericRouteProperty = new GenericRouteProperty();
+        genericRouteProperty.setKey(ctx.IDENTIFIER().getText());
+        genericRouteProperty.setValue((Expression) visit(ctx.expression()));
+        return genericRouteProperty;
     }
 }

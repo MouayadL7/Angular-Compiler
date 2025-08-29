@@ -152,6 +152,13 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionDecl(AngularParser.FunctionDeclContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code RoutingDecl}
+	 * labeled alternative in {@link AngularParser#declaration}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRoutingDecl(AngularParser.RoutingDeclContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AngularParser#variableDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -1072,11 +1079,26 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitInterpolation(AngularParser.InterpolationContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AngularParser#interpolationElement}.
+	 * Visit a parse tree produced by the {@code StandardInterpolationElement}
+	 * labeled alternative in {@link AngularParser#interpolationElement}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitInterpolationElement(AngularParser.InterpolationElementContext ctx);
+	T visitStandardInterpolationElement(AngularParser.StandardInterpolationElementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code TernaryInterpolationElement}
+	 * labeled alternative in {@link AngularParser#interpolationElement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTernaryInterpolationElement(AngularParser.TernaryInterpolationElementContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code StringInterpolationElement}
+	 * labeled alternative in {@link AngularParser#interpolationElement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitStringInterpolationElement(AngularParser.StringInterpolationElementContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#tagName}.
 	 * @param ctx the parse tree
@@ -1090,113 +1112,11 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitStructuralDirective(AngularParser.StructuralDirectiveContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code StoreDecl}
-	 * labeled alternative in {@link AngularParser#stateManagementDeclaration}.
+	 * Visit a parse tree produced by {@link AngularParser#routingDeclaration}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitStoreDecl(AngularParser.StoreDeclContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ActionDecl}
-	 * labeled alternative in {@link AngularParser#stateManagementDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitActionDecl(AngularParser.ActionDeclContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code EffectDecl}
-	 * labeled alternative in {@link AngularParser#stateManagementDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEffectDecl(AngularParser.EffectDeclContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SelectorDecl}
-	 * labeled alternative in {@link AngularParser#stateManagementDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSelectorDecl(AngularParser.SelectorDeclContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#storeDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStoreDeclaration(AngularParser.StoreDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#storeProperty}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStoreProperty(AngularParser.StorePropertyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#actionDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitActionDeclaration(AngularParser.ActionDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#propsDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPropsDeclaration(AngularParser.PropsDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#initialState}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitInitialState(AngularParser.InitialStateContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#actionReference}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitActionReference(AngularParser.ActionReferenceContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#effectDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEffectDeclaration(AngularParser.EffectDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#selectorDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSelectorDeclaration(AngularParser.SelectorDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#selectorFeature}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSelectorFeature(AngularParser.SelectorFeatureContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#selectorProjection}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSelectorProjection(AngularParser.SelectorProjectionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code RouteConfigDecl}
-	 * labeled alternative in {@link AngularParser#routingDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRouteConfigDecl(AngularParser.RouteConfigDeclContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ResolverDecl}
-	 * labeled alternative in {@link AngularParser#routingDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitResolverDecl(AngularParser.ResolverDeclContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#routeConfigDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRouteConfigDeclaration(AngularParser.RouteConfigDeclarationContext ctx);
+	T visitRoutingDeclaration(AngularParser.RoutingDeclarationContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AngularParser#routeDefinition}.
 	 * @param ctx the parse tree
@@ -1273,215 +1193,4 @@ public interface AngularParserVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitGenericRouteProperty(AngularParser.GenericRoutePropertyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#guardInterface}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGuardInterface(AngularParser.GuardInterfaceContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#guardBody}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitGuardBody(AngularParser.GuardBodyContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#resolverDeclaration}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitResolverDeclaration(AngularParser.ResolverDeclarationContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#resolverBody}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitResolverBody(AngularParser.ResolverBodyContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code PipeExpression}
-	 * labeled alternative in {@link AngularParser#observableExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitPipeExpression(AngularParser.PipeExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SubscribeExpression}
-	 * labeled alternative in {@link AngularParser#observableExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSubscribeExpression(AngularParser.SubscribeExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code FromExpression}
-	 * labeled alternative in {@link AngularParser#observableExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFromExpression(AngularParser.FromExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code MapOperator}
-	 * labeled alternative in {@link AngularParser#pipeOperator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMapOperator(AngularParser.MapOperatorContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code FilterOperator}
-	 * labeled alternative in {@link AngularParser#pipeOperator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFilterOperator(AngularParser.FilterOperatorContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SwitchMapOperator}
-	 * labeled alternative in {@link AngularParser#pipeOperator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSwitchMapOperator(AngularParser.SwitchMapOperatorContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code MergeMapOperator}
-	 * labeled alternative in {@link AngularParser#pipeOperator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitMergeMapOperator(AngularParser.MergeMapOperatorContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ConcatMapOperator}
-	 * labeled alternative in {@link AngularParser#pipeOperator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitConcatMapOperator(AngularParser.ConcatMapOperatorContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code TapOperator}
-	 * labeled alternative in {@link AngularParser#pipeOperator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTapOperator(AngularParser.TapOperatorContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code CatchErrorOperator}
-	 * labeled alternative in {@link AngularParser#pipeOperator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitCatchErrorOperator(AngularParser.CatchErrorOperatorContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code TakeOperator}
-	 * labeled alternative in {@link AngularParser#pipeOperator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitTakeOperator(AngularParser.TakeOperatorContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SimpleSubscribe}
-	 * labeled alternative in {@link AngularParser#subscribeCallback}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSimpleSubscribe(AngularParser.SimpleSubscribeContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code DetailedSubscribe}
-	 * labeled alternative in {@link AngularParser#subscribeCallback}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDetailedSubscribe(AngularParser.DetailedSubscribeContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#subscribeOptions}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSubscribeOptions(AngularParser.SubscribeOptionsContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AngularParser#subscribeOption}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSubscribeOption(AngularParser.SubscribeOptionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code BaseExpression}
-	 * labeled alternative in {@link AngularParser#enhancedExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitBaseExpression(AngularParser.BaseExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code ObservableExpr}
-	 * labeled alternative in {@link AngularParser#enhancedExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitObservableExpr(AngularParser.ObservableExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code StateExpr}
-	 * labeled alternative in {@link AngularParser#enhancedExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitStateExpr(AngularParser.StateExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code NavigationExpr}
-	 * labeled alternative in {@link AngularParser#enhancedExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNavigationExpr(AngularParser.NavigationExprContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code DispatchExpression}
-	 * labeled alternative in {@link AngularParser#stateExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitDispatchExpression(AngularParser.DispatchExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code SelectExpression}
-	 * labeled alternative in {@link AngularParser#stateExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSelectExpression(AngularParser.SelectExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code NavigateExpression}
-	 * labeled alternative in {@link AngularParser#navigationExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNavigateExpression(AngularParser.NavigateExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code NavigateByUrlExpression}
-	 * labeled alternative in {@link AngularParser#navigationExpression}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNavigateByUrlExpression(AngularParser.NavigateByUrlExpressionContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code RouterLinkAttribute}
-	 * labeled alternative in {@link AngularParser#stateNavigationAttribute}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRouterLinkAttribute(AngularParser.RouterLinkAttributeContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code RouterLinkActiveAttribute}
-	 * labeled alternative in {@link AngularParser#stateNavigationAttribute}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRouterLinkActiveAttribute(AngularParser.RouterLinkActiveAttributeContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code RouterLinkBinding}
-	 * labeled alternative in {@link AngularParser#stateNavigationAttribute}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRouterLinkBinding(AngularParser.RouterLinkBindingContext ctx);
-	/**
-	 * Visit a parse tree produced by the {@code EventBindingAttr}
-	 * labeled alternative in {@link AngularParser#stateNavigationAttribute}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitEventBindingAttr(AngularParser.EventBindingAttrContext ctx);
 }

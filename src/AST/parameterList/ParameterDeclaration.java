@@ -1,5 +1,6 @@
 package AST.parameterList;
 
+import AST.Node;
 import AST.helpers.Space;
 import AST.helpers.AccessModifier;
 import AST.helpers.Decorator;
@@ -9,7 +10,7 @@ import AST.typeAnnotation.TypeAnnotation;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ParameterDeclaration extends Parameter{
+public class ParameterDeclaration extends Node {
     private List<Decorator> decoratorList;
     private AccessModifier accessModifier;
     private String name;
@@ -100,4 +101,18 @@ public class ParameterDeclaration extends Parameter{
         return stringBuilder.toString();
     }
 
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
+    }
 }

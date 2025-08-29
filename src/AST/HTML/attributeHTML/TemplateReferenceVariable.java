@@ -32,4 +32,19 @@ public class TemplateReferenceVariable extends AttributeHTML{
 
         return stringBuilder.toString();
     }
+
+    @Override
+    public String convertToHTML() {
+        return "";
+    }
+
+    @Override
+    public String convertToCSS() {
+        return "";
+    }
+
+    @Override
+    public String convertToJS() {
+        return "";
+    }
 }

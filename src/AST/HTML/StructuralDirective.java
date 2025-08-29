@@ -1,6 +1,9 @@
 package AST.HTML;
 
-public class StructuralDirective {
+import AST.Node;
+import AST.helpers.Space;
+
+public class StructuralDirective extends Node {
     private String name;
 
     public String getName() {
@@ -12,7 +15,20 @@ public class StructuralDirective {
     }
 
     @Override
-    public String toString() {
-        return name;
+    public String toString() { return name; }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }

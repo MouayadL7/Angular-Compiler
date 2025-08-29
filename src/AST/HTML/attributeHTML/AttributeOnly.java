@@ -17,4 +17,19 @@ public class AttributeOnly extends AttributeHTML{
     public String toString() {
         return "\t".repeat(Space.currentValue) + "{ word = " + word + " }";
     }
+
+    @Override
+    public String convertToHTML() {
+        return "";
+    }
+
+    @Override
+    public String convertToCSS() {
+        return "";
+    }
+
+    @Override
+    public String convertToJS() {
+        return "";
+    }
 }

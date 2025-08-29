@@ -1,11 +1,12 @@
 package AST.object;
 
+import AST.Node;
 import AST.helpers.Space;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Attributes {
+public class Attributes extends Node {
     List<Attribute> attributeList;
 
     public Attributes() {
@@ -23,7 +24,7 @@ public class Attributes {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("Attributes: [\n");
+        stringBuilder.append("[\n");
 
         if (!attributeList.isEmpty()) {
             Space.currentValue++;
@@ -37,7 +38,22 @@ public class Attributes {
             Space.currentValue--;
         }
 
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("]");
+        stringBuilder.append("\t".repeat(Space.currentValue)).append("]\n");
         return stringBuilder.toString();
+    }
+
+    @Override
+    public String convertToHTML() {
+        return null;
+    }
+
+    @Override
+    public String convertToCSS() {
+        return null;
+    }
+
+    @Override
+    public String convertToJS() {
+        return null;
     }
 }
