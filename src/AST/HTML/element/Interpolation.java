@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Interpolation extends Element {
     private String attribute;
+    private String signal;
     private List<InterpolationElement> interpolationElementList;
 
     public Interpolation() {
@@ -20,6 +21,14 @@ public class Interpolation extends Element {
 
     public void setAttribute(String attribute) {
         this.attribute = attribute;
+    }
+
+    public String getSignal() {
+        return signal;
+    }
+
+    public void setSignal(String signal) {
+        this.signal = signal;
     }
 
     public List<InterpolationElement> getInterplationElementList() {
@@ -56,7 +65,15 @@ public class Interpolation extends Element {
 
     @Override
     public String convertToHTML() {
-        return "{{ ... }}"; // Placeholder for static HTML
+        StringBuilder html = new StringBuilder();
+        if (getAttribute() != null) {
+            html.append(getAttribute()).append(getSignal());
+        }
+
+        html.append("<span data-binding=").append(interpolationElementList.getFirst().convertToHTML()).append(">");
+        html.append("</span>\n");
+
+        return html.toString();
     }
 
     @Override

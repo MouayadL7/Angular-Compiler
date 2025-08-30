@@ -44,16 +44,25 @@ public class Attributes extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (Attribute attribute : attributeList) {
+            String attributeJs = attribute.convertToJS();
+            if (!attributeJs.isEmpty()) {
+                stringBuilder.append(attributeJs).append(",\n");
+            }
+        }
+
+        return stringBuilder.toString();
     }
 }

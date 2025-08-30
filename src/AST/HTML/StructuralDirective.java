@@ -19,16 +19,16 @@ public class StructuralDirective extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return name;
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        return "";
     }
 }

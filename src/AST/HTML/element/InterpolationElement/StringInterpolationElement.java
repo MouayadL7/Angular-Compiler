@@ -18,16 +18,16 @@ public class StringInterpolationElement extends InterpolationElement{
 
     @Override
     public String convertToHTML() {
-        return null;
+        return attribute;
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        return "";
     }
 }

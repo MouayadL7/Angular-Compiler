@@ -42,16 +42,25 @@ public class InterfaceBody extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < interfacePropertyList.size(); i++) {
+            stringBuilder.append(interfacePropertyList.get(i).convertToJS());
+            if (i + 1 < interfacePropertyList.size()) {
+                stringBuilder.append(",\n");
+            }
+        }
+
+        return stringBuilder.toString();
     }
 }

@@ -1,4 +1,4 @@
-// Generated from java-escape by ANTLR 4.11.1
+// Generated from C:/Users/Lenovo/Desktop/Angular-Compiler/src/antlr/AngularParser.g4 by ANTLR 4.13.2
 package antlr;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -1264,18 +1264,6 @@ public interface AngularParserListener extends ParseTreeListener {
 	 */
 	void exitObjectInstantiation(AngularParser.ObjectInstantiationContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code MemberAccessIdentifier}
-	 * labeled alternative in {@link AngularParser#memberAccess}.
-	 * @param ctx the parse tree
-	 */
-	void enterMemberAccessIdentifier(AngularParser.MemberAccessIdentifierContext ctx);
-	/**
-	 * Exit a parse tree produced by the {@code MemberAccessIdentifier}
-	 * labeled alternative in {@link AngularParser#memberAccess}.
-	 * @param ctx the parse tree
-	 */
-	void exitMemberAccessIdentifier(AngularParser.MemberAccessIdentifierContext ctx);
-	/**
 	 * Enter a parse tree produced by the {@code MemberAccessThis}
 	 * labeled alternative in {@link AngularParser#memberAccess}.
 	 * @param ctx the parse tree
@@ -1287,6 +1275,18 @@ public interface AngularParserListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMemberAccessThis(AngularParser.MemberAccessThisContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code MemberAccessIdentifier}
+	 * labeled alternative in {@link AngularParser#memberAccess}.
+	 * @param ctx the parse tree
+	 */
+	void enterMemberAccessIdentifier(AngularParser.MemberAccessIdentifierContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code MemberAccessIdentifier}
+	 * labeled alternative in {@link AngularParser#memberAccess}.
+	 * @param ctx the parse tree
+	 */
+	void exitMemberAccessIdentifier(AngularParser.MemberAccessIdentifierContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AngularParser#arrayAccess}.
 	 * @param ctx the parse tree

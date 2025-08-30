@@ -27,16 +27,16 @@ public class AccessModifier extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        return name;
     }
 }

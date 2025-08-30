@@ -72,7 +72,7 @@ public class OpenTag extends Node {
             }
         }
 
-        html.append(">");
+        html.append(">\n");
         return html.toString();
     }
 

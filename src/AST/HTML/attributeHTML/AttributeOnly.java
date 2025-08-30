@@ -20,7 +20,7 @@ public class AttributeOnly extends AttributeHTML{
 
     @Override
     public String convertToHTML() {
-        return "";
+        return word;
     }
 
     @Override

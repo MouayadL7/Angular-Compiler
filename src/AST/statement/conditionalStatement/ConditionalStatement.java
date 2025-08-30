@@ -68,16 +68,16 @@ public class ConditionalStatement extends Statement {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        return "";
     }
 }

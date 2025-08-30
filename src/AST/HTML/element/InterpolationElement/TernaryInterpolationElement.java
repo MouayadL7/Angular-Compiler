@@ -47,7 +47,7 @@ public class TernaryInterpolationElement extends InterpolationElement{
 
     @Override
     public String convertToHTML() {
-        return "";
+        return condition;
     }
 
     @Override

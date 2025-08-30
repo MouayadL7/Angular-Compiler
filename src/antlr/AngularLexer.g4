@@ -73,6 +73,7 @@ CONSTRUCTOR: 'constructor';
 NEW: 'new';
 
 FUNCTION: 'function';
+THIS: 'this';
 
 
 // Access Modifiers
@@ -82,6 +83,16 @@ PROTECTED: 'protected';
 
 // Navigation
 ROUTE_CONFIG: 'Routes';
+PATH: 'path';
+COMPONENT_ROUTE: 'component';
+REDIRECT_TO: 'redirectTo';
+PATH_MATCH: 'pathMatch';
+CHILDREN: 'children';
+LAZY_LOAD: 'loadChildren';
+CAN_ACTIVATE: 'canActivate';
+CAN_DEACTIVATE: 'canDeactivate';
+OUTLET: 'outlet';
+
 
 // Comparison Operators
 GT: '>';
@@ -175,10 +186,10 @@ IDENTIFIER: [a-zA-Z][-_a-zA-Z0-9]*; // General identifiers
 
 
 // Beginning of the HTML template
-HTML_TEMPLATE: '`' WS* '<' -> pushMode(HTML);
+HTML_TEMPLATE: '`' -> pushMode(HTML);
 
 // CSS Style
-CSS_TEMPLATE: '`' (~["\\] | '\\' .)* '`';
+//CSS_TEMPLATE: '`' (~["\\] | '\\' .)* '`';
 
 fragment WS
     : SPACES
@@ -207,7 +218,7 @@ TWOBIND         : '[(' ATTRIBUTE ')]' ;
 NGFOR           : '*ngFor' ;
 NGIF            : '*ngIf' ;
 DDIRECTIVE      : '*' ATTRIBUTE ;
-P               : '|' ;
+P               : '|' | '||' ;
 REFERENCE_VAR   : '#' ATTRIBUTE ;
 
 // Token for interpolationElementList and tag names

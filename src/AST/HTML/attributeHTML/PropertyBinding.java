@@ -35,7 +35,8 @@ public class PropertyBinding extends AttributeHTML{
 
     @Override
     public String convertToHTML() {
-        return ""; // Property bindings don't appear in static HTML
+        String propName = binding.substring(1, binding.length() - 1);
+        return String.format("%s=%s", propName, this.value);
     }
 
     @Override

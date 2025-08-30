@@ -48,16 +48,23 @@ public class ConstructorDeclaration extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("constructor(").append(parameterList.convertToJS()).append(")");
+        stringBuilder.append("{\n");
+        stringBuilder.append(constructorBody.convertToJS());
+        stringBuilder.append("}\n\n");
+
+        return stringBuilder.toString();
     }
 }

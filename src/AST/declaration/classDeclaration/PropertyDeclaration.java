@@ -103,16 +103,23 @@ public class PropertyDeclaration extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (this.initialization != null) {
+            stringBuilder.append("this.").append(name).append(" = ").append(this.initialization.convertToJS());
+        }
+
+        stringBuilder.append(";");
+        return stringBuilder.toString();
     }
 }

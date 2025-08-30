@@ -956,7 +956,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         }
 
         // set Name
-        interfaceDeclaration.setName(ctx.IDENTIFIER().toString());
+        interfaceDeclaration.setName(ctx.IDENTIFIER(0).getText());
 
         if (ctx.EXTENDS() != null) {
             List<String> parentClasses = ctx.IDENTIFIER()
@@ -1200,7 +1200,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     }
 
     @Override
-    public FunctionCall visitFunctionCall(AngularParser.FunctionCallContext ctx) {
+    public Object visitFunctionCall(AngularParser.FunctionCallContext ctx) {
         FunctionCall functionCall = new FunctionCall();
 
         // set Name
@@ -1529,10 +1529,6 @@ public class ASTVisitor extends AngularParserBaseVisitor {
             literal.setType("Null");
             literal.setValue(ctx.NULL().getText());
         }
-        else if (ctx.CSS_TEMPLATE() != null) {
-            literal.setType("CSS_Template");
-            literal.setValue(ctx.CSS_TEMPLATE().getText());
-        }
 
         return literal;
     }
@@ -1657,7 +1653,7 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     public Object visitFunctionCallExpression(AngularParser.FunctionCallExpressionContext ctx) {
         FunctionCallExpression functionCallExpression = new FunctionCallExpression();
 
-        functionCallExpression.setFunctionCall(visitFunctionCall(ctx.functionCall()));
+        functionCallExpression.setFunctionCall((FunctionCall) visitFunctionCall(ctx.functionCall()));
 
         return functionCallExpression;
     }
@@ -1740,6 +1736,9 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         ValueExpression valueExpression = new ValueExpression();
 
         valueExpression.setValue((Value) visit(ctx.value()));
+        if (ctx.expression() != null) {
+            valueExpression.setExpression((Expression) visit(ctx.expression()));
+        }
 
         return valueExpression;
     }
@@ -1924,6 +1923,9 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         SelfClosingTag selfClosingTag = new SelfClosingTag();
 
         selfClosingTag.setTagName(visitTagName(ctx.tagName()));
+        if (ctx.SLASH() != null) {
+            selfClosingTag.setSlash(true);
+        }
 
         List<AttributeHTML> attributeHTMLList = new ArrayList<>();
         for (AngularParser.AttributeHTMLContext attributeHTMLContext : ctx.attributeHTML()) {
@@ -1953,6 +1955,9 @@ public class ASTVisitor extends AngularParserBaseVisitor {
         PlainTextContent plainTextContent = new PlainTextContent();
 
         plainTextContent.setText(ctx.ATTRIBUTE().getText());
+        if (ctx.COL() != null) {
+            plainTextContent.setColon(true);
+        }
 
         return plainTextContent;
     }
@@ -2070,7 +2075,12 @@ public class ASTVisitor extends AngularParserBaseVisitor {
     public Object visitStringInterpolationElement(AngularParser.StringInterpolationElementContext ctx) {
         StringInterpolationElement stringInterpolationElement = new StringInterpolationElement();
 
-        stringInterpolationElement.setAttribute(ctx.STRING_HTML().getText());
+        if (ctx.ATTRIBUTE() != null) {
+            stringInterpolationElement.setAttribute(ctx.ATTRIBUTE().getText());
+        }
+        else {
+            stringInterpolationElement.setAttribute(ctx.STRING_HTML().getText());
+        }
 
         return stringInterpolationElement;
     }

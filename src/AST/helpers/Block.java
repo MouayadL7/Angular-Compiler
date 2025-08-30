@@ -67,16 +67,33 @@ public class Block extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (VariableDeclaration variable : variableDeclarationList) {
+            String variableJs = variable.convertToJS();
+            System.out.println(variableJs);
+            if (!variableJs.isEmpty()) {
+                stringBuilder.append(variableJs).append(";\n");
+            }
+        }
+
+        for (Statement statement : statementList) {
+            String statementJs = statement.convertToJS();
+            if (!statementJs.isEmpty()) {
+                stringBuilder.append(statementJs).append(";\n");
+            }
+        }
+
+        return stringBuilder.toString();
     }
 }

@@ -27,19 +27,16 @@ public class StandardInterpolationElement extends InterpolationElement{
 
     @Override
     public String convertToHTML() {
-        return null;
+        return attribute;
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        if (value != null) {
-            return attribute + "." + value;
-        }
-        return attribute;
+        return "";
     }
 }

@@ -1,6 +1,7 @@
 package AST.declaration.classDeclaration;
 
 import AST.Node;
+import AST.declaration.Declaration;
 import AST.helpers.Space;
 import AST.declaration.classDeclaration.constructorDeclaration.ConstructorDeclaration;
 import AST.declaration.functionDeclaration.FunctionDeclaration;
@@ -149,16 +150,34 @@ public class ClassBody extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("\t".repeat(1)).append("constructor() {\n");
+        for (int i = 0; i < propertyDeclarationList.size(); i++) {
+            stringBuilder.append(propertyDeclarationList.get(i).convertToJS()).append("\n");
+            if (i + 1 == propertyDeclarationList.size()) {
+                stringBuilder.append("\n");
+            }
+        }
+        stringBuilder.append("\t".repeat(1)).append("}\n");
+
+        for (MethodDeclaration declaration : methodDeclarationList) {
+            String declarationJs = declaration.convertToJS();
+            if (!declarationJs.isEmpty()) {
+                stringBuilder.append(declarationJs).append("\n\n");
+            }
+        }
+
+        return stringBuilder.toString();
     }
 }

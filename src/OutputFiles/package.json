@@ -1,0 +1,14 @@
+{
+	"name": "angular-compiler-output",
+	"version": "1.0.0",
+	"description": "Generated from Angular Compiler",
+	"main": "app.js",
+	"scripts": {
+		"start": "python -m http.server 8000",
+		"serve": "live-server .",
+		"build": "echo 'Build completed'"
+	},
+	"devDependencies": {
+		"live-server": "^1.2.2"
+	}
+}

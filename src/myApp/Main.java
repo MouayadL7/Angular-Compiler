@@ -2,6 +2,7 @@ package myApp;
 
 import AST.program.Program;
 import ErrorHandling.SemanticCheckManager;
+import Generation.CodeGeneration;
 import Visitor.ASTVisitor;
 import antlr.AngularLexer;
 import antlr.AngularParser;
@@ -15,7 +16,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        String source = "src/test/Products.txt";
+        String source = "src/test/Final.txt";
         CharStream input = fromFileName(source);
 
         AngularLexer lexer = new AngularLexer(input);
@@ -35,8 +36,11 @@ public class Main {
                 astVisitor.getImportSymbolTable()
         );
 
+        CodeGeneration codeGeneration = new CodeGeneration();
+        codeGeneration.generateOutputFiles(program);
+
         System.out.println(program);
 
-        semanticCheckManager.runChecks();
+       // semanticCheckManager.runChecks();
     }
 }

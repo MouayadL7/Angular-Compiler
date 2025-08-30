@@ -43,16 +43,29 @@ public class Array extends Value {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("[");
+
+        for (int i = 0; i < expressionList.size(); i++) {
+            stringBuilder.append(expressionList.get(i).convertToJS());
+            if (i + 1 < expressionList.size()) {
+                stringBuilder.append(", ");
+            }
+        }
+
+        stringBuilder.append("\n]");
+
+        return stringBuilder.toString();
     }
 }

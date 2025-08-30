@@ -87,16 +87,34 @@ public class ArrowFunction extends FunctionDeclaration {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (identifier != null) {
+            stringBuilder.append(identifier).append(" ");
+        }
+        else {
+            stringBuilder.append("(").append(parameterList.convertToJS()).append(") ");
+        }
+
+        stringBuilder.append(" => ");
+
+        if (statement != null) {
+            stringBuilder.append(statement.convertToJS());
+        }
+        else {
+            stringBuilder.append(block.convertToJS());
+        }
+
+        return stringBuilder.toString();
     }
 }

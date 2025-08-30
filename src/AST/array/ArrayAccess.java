@@ -39,16 +39,18 @@ public class ArrayAccess extends Value {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(name).append("[").append(expression.convertToJS()).append("]");
+        return stringBuilder.toString();
     }
 }

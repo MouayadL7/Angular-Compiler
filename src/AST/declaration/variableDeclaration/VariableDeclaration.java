@@ -77,16 +77,28 @@ public class VariableDeclaration extends Declaration {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (this.varHelper != null) {
+            stringBuilder.append(varHelper.convertToJS()).append(" ");
+        }
+
+        stringBuilder.append(name);
+
+        if (this.initialization != null) {
+            stringBuilder.append(" = ").append(initialization.convertToJS());
+        }
+
+        return stringBuilder.toString();
     }
 }

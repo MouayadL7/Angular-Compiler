@@ -108,16 +108,22 @@ public class ClassDeclaration extends Declaration {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("class ").append(getName()).append(" {\n");
+        stringBuilder.append(getClassBody().convertToJS());
+        stringBuilder.append("}\n");
+
+        return stringBuilder.toString();
     }
 }

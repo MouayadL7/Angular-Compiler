@@ -47,16 +47,18 @@ public class MultiplicativeExpression extends  Expression{
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(left.convertToJS()).append(" ").append(operator).append(" ").append(right.convertToJS());
+        return stringBuilder.toString();
     }
 }

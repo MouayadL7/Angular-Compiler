@@ -4,6 +4,7 @@ import AST.helpers.Space;
 
 public class PlainTextContent extends Content{
     private String text;
+    private boolean colon;
 
     public String getText() {
         return text;
@@ -11,6 +12,14 @@ public class PlainTextContent extends Content{
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean isColon() {
+        return colon;
+    }
+
+    public void setColon(boolean colon) {
+        this.colon = colon;
     }
 
     @Override
@@ -24,7 +33,7 @@ public class PlainTextContent extends Content{
 
     @Override
     public String convertToHTML() {
-        return text.replace("<", "&lt;").replace(">", "&gt;");
+        return text + (isColon() ? ":" : "") + "\n";
     }
 
     @Override
@@ -33,9 +42,5 @@ public class PlainTextContent extends Content{
     }
 
     @Override
-    public String convertToJS() {
-        String textVar = "text_" + System.identityHashCode(this);
-        return "const " + textVar + " = document.createTextNode('" +
-                text.replace("'", "\\'") + "');\n";
-    }
+    public String convertToJS() { return ""; }
 }

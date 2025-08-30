@@ -35,7 +35,7 @@ public class StandardAttribute extends AttributeHTML{
 
     @Override
     public String convertToHTML() {
-        return attribute + "=\"" + escapeHtml(value) + "\"";
+        return attribute + "=" + value;
     }
 
     @Override

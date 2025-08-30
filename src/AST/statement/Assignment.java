@@ -49,16 +49,18 @@ public class Assignment extends Statement {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(memberAccess.convertToJS()).append(" = ").append(initialization.convertToJS());
+        return stringBuilder.toString();
     }
 }

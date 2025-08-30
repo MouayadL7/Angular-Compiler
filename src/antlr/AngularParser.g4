@@ -40,8 +40,8 @@ importNamedSpecifier
 
 /* Import Specifiers */
 importSpecifier
-    : IDENTIFIER                    # IdentifierImportSpecifier        // Imports by an identifier.
-    | bootstrapSpecifier            # BootstrapImportSpecifier         // Special bootstrap-related imports.
+    : (IDENTIFIER | ROUTE_CONFIG)       # IdentifierImportSpecifier        // Imports by an identifier.
+    | bootstrapSpecifier                # BootstrapImportSpecifier         // Special bootstrap-related imports.
     ;
 
 /* Bootstrap Specifiers */
@@ -448,8 +448,8 @@ objectInstantiation
 
 /* ===================== Access Rules ===================== */
 memberAccess
-    : IDENTIFIER expression?     # MemberAccessIdentifier           // Access a member using an identifier, optionally followed by an expression (e.g., `object.property` or `object.method()`).
-    | THIS expression            # MemberAccessThis                 // Access a member relative to the current instance using `this` (e.g., `this.property` or `this.method()`).
+    : THIS expression                  # MemberAccessThis                      // Access a member using an identifier, optionally followed by an expression (e.g., `object.property` or `object.method()`).
+    | IDENTIFIER expression?           # MemberAccessIdentifier                // Access a member relative to the current instance using `this` (e.g., `this.property` or `this.method()`).
     ;
 
 arrayAccess
@@ -473,7 +473,7 @@ literal
     | STRING                                                                    // A string literal (e.g., `"hello"`, `'world'`).
     | BOOL                                                                      // A boolean value (`true` or `false`).
     | NULL                                                                      // A null value.
-    | CSS_TEMPLATE
+   // | CSS_TEMPLATE
     ;
 
 /* ================= Expression Rules ================= */
@@ -494,7 +494,7 @@ expression
     | expression OR expression                                                  # LogicalOrExpression           // Logical OR operation (e.g., `a || b`).
     | expression QUES expression COLON expression                               # TernaryExpression             // Ternary conditional operation (e.g., `a ? b : c`).
     | LPAREN expression RPAREN                                                  # ParenthesizedExpression       // An expression enclosed in parentheses (e.g., `(a + b)`).
-    | value                                                                     # ValueExpression               // Value expression (e.g. primary, arrayAccess).
+    | value expression?                                                         # ValueExpression               // Value expression (e.g. primary, arrayAccess).
     | parameterDeclaration                                                      # ParameterExpression          // Parameter declaration expression (e.g. name: string, id: int = 1).
     ;
 
@@ -572,13 +572,13 @@ attributeHTML
 
 /* Interpolation rule for Angular syntax */
 interpolation
-    : (ATTRIBUTE (COL | EQUALS))? INTERPOLATION_START ((interpolationElement) (P (P)? interpolationElement)*)? INTERPOLATION_END
+    : (ATTRIBUTE (COL | EQUALS))? INTERPOLATION_START interpolationElement (P interpolationElement)* INTERPOLATION_END
     ;
 
 interpolationElement
-    : ATTRIBUTE (COL     (ATTRIBUTE | STRING_HTML))?                # StandardInterpolationElement
+    : ATTRIBUTE (COL (ATTRIBUTE | STRING_HTML))?                # StandardInterpolationElement
     | ATTRIBUTE QUES_HTML STRING_HTML COL STRING_HTML           # TernaryInterpolationElement
-    | ATTRIBUTE                                                 # StringInterpolationElement
+    | (ATTRIBUTE || STRING_HTML)                                # StringInterpolationElement
     ;
 
 /* Tag names */

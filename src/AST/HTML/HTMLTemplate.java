@@ -1,5 +1,6 @@
 package AST.HTML;
 
+import AST.HTML.attributeHTML.AttributeHTML;
 import AST.HTML.element.Element;
 import AST.Node;
 import AST.helpers.Space;
@@ -45,16 +46,25 @@ public class HTMLTemplate extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        StringBuilder html = new StringBuilder();
+
+        for (Element element : elementList) {
+            String elementHtml = element.convertToHTML();
+            if (!elementHtml.isEmpty()) {
+                html.append(" ").append(elementHtml).append("\n");
+            }
+        }
+
+        return html.toString();
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        return "";
     }
 }

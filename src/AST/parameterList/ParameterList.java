@@ -44,16 +44,25 @@ public class ParameterList extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < parameters.size(); i++) {
+            stringBuilder.append(parameters.get(i).convertToJS());
+            if (i + 1 < parameters.size()) {
+                stringBuilder.append(", ");
+            }
+        }
+
+        return stringBuilder.toString();
     }
 }

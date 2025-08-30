@@ -32,16 +32,23 @@ public class ReturnStatement extends Statement{
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append("return");
+        if (expression != null) {
+            stringBuilder.append(" ").append(expression.convertToJS());
+        }
+
+        return stringBuilder.toString();
     }
 }

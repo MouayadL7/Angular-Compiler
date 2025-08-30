@@ -10,6 +10,7 @@ import java.util.List;
 
 public class SelfClosingTag extends Element {
     private TagName tagName;
+    private boolean slash;
     private List<AttributeHTML> attributeHtmlList;
 
     public SelfClosingTag() {
@@ -22,6 +23,14 @@ public class SelfClosingTag extends Element {
 
     public void setTagName(TagName tagName) {
         this.tagName = tagName;
+    }
+
+    public boolean isSlash() {
+        return slash;
+    }
+
+    public void setSlash(boolean slash) {
+        this.slash = slash;
     }
 
     public List<AttributeHTML> getAttributeHtmlList() {
@@ -63,7 +72,22 @@ public class SelfClosingTag extends Element {
 
     @Override
     public String convertToHTML() {
-        return null;
+        StringBuilder html = new StringBuilder();
+        html.append("<").append(tagName.convertToHTML());
+
+        for (AttributeHTML attr : attributeHtmlList) {
+            String attrHtml = attr.convertToHTML();
+            if (!attrHtml.isEmpty()) {
+                html.append(" ").append(attrHtml);
+            }
+        }
+
+        if (isSlash()) {
+            html.append("/");
+        }
+
+        html.append(">\n");
+        return html.toString();
     }
 
     @Override

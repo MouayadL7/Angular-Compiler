@@ -1,6 +1,7 @@
 package AST.declaration.classDeclaration.constructorDeclaration;
 
 import AST.Node;
+import AST.declaration.Declaration;
 import AST.helpers.Space;
 import AST.statement.Statement;
 
@@ -43,16 +44,26 @@ public class ConstructorBody extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (Statement statement : statementList) {
+            String statementJs = statement.convertToJS();
+            if (!statementJs.isEmpty()) {
+                stringBuilder.append(statementJs).append("\n");
+            }
+        }
+
+        stringBuilder.append("\n");
+        return stringBuilder.toString();
     }
 }

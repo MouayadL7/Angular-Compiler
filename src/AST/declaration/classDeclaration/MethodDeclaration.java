@@ -63,7 +63,7 @@ public class MethodDeclaration extends Node {
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("\t".repeat(Space.currentValue)).append("PropertyDeclaration: {\n");
+        stringBuilder.append("\t".repeat(Space.currentValue)).append("MethodDeclaration: {\n");
 
         Space.currentValue++;
 
@@ -102,16 +102,30 @@ public class MethodDeclaration extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        stringBuilder.append(name);
+        stringBuilder.append("(");
+        if (this.parameterList != null) {
+            stringBuilder.append(parameterList.convertToJS());
+        }
+        stringBuilder.append(") ");
+        stringBuilder.append("{\n");
+        if (block != null) {
+            stringBuilder.append(block.convertToJS());
+        }
+        stringBuilder.append("}");
+
+        return stringBuilder.toString();
     }
 }

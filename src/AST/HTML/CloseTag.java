@@ -29,16 +29,16 @@ public class CloseTag extends Node {
 
     @Override
     public String convertToHTML() {
-        return "</" + tagName.convertToHTML() + ">";
+        return "</" + tagName.convertToHTML() + ">\n";
     }
 
     @Override
     public String convertToCSS() {
-        return ""; // Close tags don't generate CSS
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return ""; // Close tags are handled by the parent element
+        return "";
     }
 }

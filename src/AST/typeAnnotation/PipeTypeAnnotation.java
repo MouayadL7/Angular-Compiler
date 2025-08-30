@@ -1,5 +1,6 @@
 package AST.typeAnnotation;
 
+import AST.declaration.Declaration;
 import AST.helpers.Literal;
 import AST.helpers.Space;
 
@@ -70,16 +71,32 @@ public class PipeTypeAnnotation extends TypeAnnotation {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (int i = 0; i < typeAnnotations.size(); i++) {
+            stringBuilder.append(typeAnnotations.get(i));
+            if (i + 1 < typeAnnotations.size()) {
+                stringBuilder.append(" | ");
+            }
+        }
+
+        for (int i = 0; i < literalList.size(); i++) {
+            stringBuilder.append(literalList.get(i));
+            if (i + 1 < literalList.size()) {
+                stringBuilder.append(" | ");
+            }
+        }
+
+        return stringBuilder.toString();
     }
 }

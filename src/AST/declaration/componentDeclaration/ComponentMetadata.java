@@ -47,16 +47,25 @@ public class ComponentMetadata extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for (ComponentMetadataProperty componentMetadataProperty : componentMetadataPropertyList) {
+            String componentMetadataPropertyJs = componentMetadataProperty.convertToHTML();
+            if (!componentMetadataPropertyJs.isEmpty()) {
+                stringBuilder.append(componentMetadataPropertyJs).append("\n");
+            }
+        }
+
+        return stringBuilder.toString();
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        return "";
     }
 }

@@ -38,7 +38,7 @@ public class EventBinding extends AttributeHTML{
 
     @Override
     public String convertToHTML() {
-        return ""; // Event bindings are not in static HTML
+        return String.format("", this.event, this.value);
     }
 
     @Override

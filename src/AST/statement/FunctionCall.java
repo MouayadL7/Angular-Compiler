@@ -1,11 +1,12 @@
 package AST.statement;
 
 import AST.Node;
+import AST.expression.Expression;
 import AST.helpers.Space;
 import AST.helpers.GenericType;
 import AST.parameterList.ParameterList;
 
-public class FunctionCall extends Node {
+public class FunctionCall extends Expression {
     private String name;
     private GenericType genericType;
     private ParameterList parameterList;
@@ -64,16 +65,22 @@ public class FunctionCall extends Node {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(name).append("(");
+        if (this.parameterList != null) {
+            stringBuilder.append(parameterList.convertToJS());
+        }
+        stringBuilder.append(")");
+        return stringBuilder.toString();
     }
 }

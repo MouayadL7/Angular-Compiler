@@ -48,16 +48,16 @@ public class ComponentDeclaration extends Declaration {
 
     @Override
     public String convertToHTML() {
-        return null;
+        return componentMetadata.convertToHTML();
     }
 
     @Override
     public String convertToCSS() {
-        return null;
+        return "";
     }
 
     @Override
     public String convertToJS() {
-        return null;
+        return classDeclaration.convertToJS();
     }
 }
